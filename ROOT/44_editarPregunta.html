@@ -85,7 +85,7 @@
 		<div class="container">
 			<a class="mt-10" href="index.html"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10" href="archive-page.html">Gestionar contenido<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10 color-ash" href="archive-page.html">Crear pregunta</a>
+			<a class="mt-10 color-ash" href="archive-page.html">Editar pregunta</a>
 		</div><!-- container -->
 	</section>
 	
@@ -95,27 +95,27 @@
 			
 			<div class="row">
 				<div class="col-md-12 col-lg-8">
-					<h3 class="mb-30"><b>Crear pregunta</b></h3>
-					<form name="crearPregunta" action="TODO.do" method="post">
+					<h3 class="mb-30"><b>Editar pregunta</b></h3>
+					<form name="editarPregunta" action="TODO.do" method="post">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50">
 
 							<div class="col-12">
 								<label for="titulo">Título de la pregunta</label>
-								<input type="text" name="titulo" placeholder="Título de la pregunta"/>
+								<input type="text" name="titulo" placeholder="Título de la pregunta" value="*titulo*">
 							</div>
 
 							<div class="pl-50 pl-sm-25 col-10">
 								<label for="res1">Respuesta 1</label>
-								<input type="text" name="res1" placeholder="Respuesta"/>
+								<input type="text" name="res1" placeholder="Respuesta" value="*respuesta 1*"/>
 							</div>
 							<div class="col-2">
-								<input class="mt-30" type="radio" name="correcta"/>
+								<input class="mt-30" type="radio" name="correcta" checked/>
 							</div>
 
 							<div class="pl-50 pl-sm-25 col-10">
 								<label for="res2">Respuesta 2</label>
-								<input type="text" name="res2" placeholder="Respuesta"/>
+								<input type="text" name="res2" placeholder="Respuesta" value="*respuesta 2*"/>
 							</div>
 							<div class="col-2">
 								<input class="mt-30" type="radio" name="correcta"/>
@@ -130,7 +130,7 @@
 						
 						<div class="row">
 							<div class="col-12 mt-30">
-								<button class="w-100 btn-fill-primary" type="submit"><b>Crear pregunta</b></button>
+								<button class="w-100 btn-fill-primary" type="submit"><b>Finalizar edición</b></button>
 							</div>
 						</div>
 					
