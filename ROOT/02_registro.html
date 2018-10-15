@@ -95,43 +95,48 @@
 		<div class="container">
 			<div class="row">
 			
-				<div class="col-md-12 col-lg-8">
-					<h3 class="mb-30"><b>Registro</b></h3>
+				<div class="col-md-12 col-lg-8 pb-50">
+					<h3 class="p-title mb-30"><b>Registro</b></h3>
 					<form name="registro" action="TODO.do" method="post">
 
-						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50">
+						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 
-							<div class="col-sm-6">
+							<div class="col-12">
+								<label for="alias">Alias</label>
+								<input type="text" name="alias" placeholder="Alias"/>
+							</div>
+
+							<div class="col-sm-12 col-md-6">
 								<label for="nombre">Nombre</label>
 								<input type="text" name="nombre" placeholder="Nombre"/>
 							</div>
 
-							<div class="col-sm-6">
+							<div class="col-sm-12 col-md-6">
 								<label for="apellidos">Apellidos</label>
 								<input type="text" name="apellidos" placeholder="Apellidos"/>
 							</div>
 							
-							<div class="col-sm-12">
+							<div class="col-12">
 								<label for="email">Email</label>
 								<!-- TODO: Sacar mensajes de error si hay algun campo no valido en el registro-->
 								<p class="font-10 color-red lh-30"><i class="ion-close"></i><span class="pl-5">Correo no válido</span></p>
 								<input type="email" name="email" placeholder="Email"/>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-12 col-md-6">
 								<label for="clave">Contraseña</label>
 								<input type="password" name="clave" placeholder="Contraseña"/>
 							</div>
 							
-							<div class="col-sm-6">
+							<div class="col-sm-12 col-md-6">
 								<label for="reclave">Repite la contraseña</label>
 								<input type="password" name="reclave" placeholder="Repite la contraseña"/>
 							</div>
 
 						</div>
 						
-						<div class="row">
-							<div class="col-sm-12 mt-20">
+						<div class="row mt-20">
+							<div class="col-12">
 								<button class="w-100 btn-fill-primary" type="submit"><b>Registrarse</b></button>
 							</div>
 						</div>

@@ -98,23 +98,28 @@
 			<div class="row">
 			
 				<div class="col-md-12 col-lg-8">
-					<h3 class="mb-15"><b>Editar perfil</b></h3>
+					<h3 class="p-title mb-30"><b>Editar perfil</b></h3>
 
 					<form name="modificarPerfil" action="TODO.do" method="post">
 
-						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50">
+						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 
-							<div class="col-sm-6">
+							<div class="col-12">
+								<label for="alias">Alias</label>
+								<input type="text" name="alias" placeholder="Alias" value="*alias de la persona*"/>
+							</div>
+
+							<div class="col-12 col-sm-6">
 								<label for="nombre">Nombre</label>
 								<input type="text" name="nombre" placeholder="Nombre" value="*nombre de la persona*"/>
 							</div>
 
-							<div class="col-sm-6">
+							<div class="col-12 col-sm-6">
 								<label for="apellidos">Apellidos</label>
 								<input type="text" name="apellidos" placeholder="Apellidos" value="*apellidos de la persona*"/>
 							</div>
 							
-							<div class="col-sm-12">
+							<div class="col-12">
 								<label for="email">Email</label>
 								<!-- TODO: Sacar mensajes de error si hay algun campo no valido en el registro-->
 								<p class="font-10 color-red lh-30"><i class="ion-close"></i><span class="pl-5">Correo no válido</span></p>
