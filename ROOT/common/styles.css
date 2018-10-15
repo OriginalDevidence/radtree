@@ -125,7 +125,7 @@ header .logo img{ height: 100%; width: auto; }
 
 header .main-menu{ float: right; }
 
-header ul.main-menu > li > a{ height: 100%; line-height: 80px; padding: 0px 15px; }
+header ul.main-menu > li > a{ height: 100%; line-height: 40px; padding: 0px 15px; margin: 20px 0px; }
 
 
 /* SEARCH AREA */
@@ -192,7 +192,7 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 	
 	header .logo{ height: 16px; margin: 32px 0; }
 	
-	header ul.main-menu > li > a{ padding: 0 5px; }
+	header ul.main-menu > li > a{ line-height: 80px; padding: 0 5px; margin: 0px; }
 }
 
 
