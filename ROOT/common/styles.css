@@ -275,6 +275,7 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 .oflow-hidden{ overflow: hidden; }
 .oflow-visible{ overflow: visible; }
+.oflow-auto{ overflow: auto; }
 
 .dplay-none{ display: none; }
 .dplay-block{ display: block; }
@@ -540,7 +541,19 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 
 /* CLASIFICACION */
-.clasificacion > div > p{ text-align:center; padding:10px; }
+
+.clasificacion tr:nth-child(even) {background: #EEE}
+.clasificacion tr:nth-child(odd) {background: #DDD}
+.clasificacion tr th{ text-align:center; padding: 20px; color:white; }
+.clasificacion tr td{text-align:center; padding: 10px 100px; }
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 767px) {
+	
+	.clasificacion tr td{ padding: 10px; }
+
+}
 
 
 /* INDIVIDUAL STYLING */
