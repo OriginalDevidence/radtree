@@ -363,6 +363,9 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 .bg-191{ background: #191919; }
 .bg-primary{ background: #F9B500!important; }
 
+.bg-eee{ background: #eee!important; }
+.bg-ddd{ background: #ddd!important; }
+
 
 /* BACKGROUND IMAGE */
 
@@ -535,6 +538,9 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 .a-body-inner{ padding: 25px 40px 25px 25px; border: 1px solid #ccc; border-top: 0;}
 
+
+/* CLASIFICACION */
+.clasificacion > div > p{ text-align:center; padding:10px; }
 
 
 /* INDIVIDUAL STYLING */
