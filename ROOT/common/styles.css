@@ -192,7 +192,7 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 	
 	header .logo{ height: 16px; margin: 32px 0; }
 	
-	header ul.main-menu > li > a{ line-height: 80px; padding: 0 5px; margin: 0px; }
+	header ul.main-menu > li > a{ line-height: 30px; padding: 0 5px; margin: 25px 0px; }
 }
 
 
@@ -219,13 +219,13 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 	
 	header .main-menu > li{ display: block; }
 	
-	header ul.main-menu > li > a{ display: block; height: auto; line-height: 1; padding: 15px; border-top: 1px solid #eee; }
+	header ul.main-menu > li > a{ display: block; height: auto; line-height: 1; padding: 15px; border-top: 1px solid #eee; margin: 0px; }
 		
 	
 	/* HAMBURGER ICON */
 
 	
-	header  .menu-nav-icon{ display: block; }
+	header  .menu-nav-icon{ display: block; float:right; }
 	
 	
 	/* DROPDOWN  */
@@ -246,11 +246,6 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 @media only screen and (max-width: 575px) {
 
 	header ul.main-menu > li > a{ padding: 15px; }
-	
-	
-	/* HAMBURGER ICON */
-
-	.menu-nav-icon{ float: right; }
 	
 }
 
