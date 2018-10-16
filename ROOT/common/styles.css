@@ -544,8 +544,8 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 .clasificacion tr:nth-child(even) {background: #EEE}
 .clasificacion tr:nth-child(odd) {background: #DDD}
-.clasificacion tr th{ text-align:center; padding: 20px; color:white; }
-.clasificacion tr td{ text-align:center; padding: 10px; }
+.clasificacion tr th{ text-align:center; padding: 20px; color:white; border-top: solid #777 1px; border-bottom: solid #888 1px; }
+.clasificacion tr td{ text-align:center; padding: 10px; border-top: solid #aaa 1px; }
 
 /* PREGUNTA */
 
