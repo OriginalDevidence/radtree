@@ -548,6 +548,11 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 .clasificacion tr th{ text-align:center; padding: 20px; color:white; }
 .clasificacion tr td{ text-align:center; padding: 10px; }
 
+/* PREGUNTA */
+
+.pregunta input,
+.pregunta textarea{ display: block; width: 100%; padding: 0px 15px; height: 30px; margin-bottom: 20px;  }
+.pregunta p { text-align: justify; }
 
 /* INDIVIDUAL STYLING */
 

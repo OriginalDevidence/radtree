@@ -84,8 +84,8 @@
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
 			<a class="mt-10" href="index.html"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10" href="archive-page.html">Noticias<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10 color-ash" href="archive-page.html">Los bosques secundarios tienen vidas cortas</a>
+			<a class="mt-10" href="archive-page.html">Pregunta<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10 color-ash" href="archive-page.html">¿Cuántos árboles se deforestan por minuto en el amazonas?</a>
 		</div><!-- container -->
 	</section>
 
@@ -94,20 +94,60 @@
 		<div class="container">
 
 			<div class="row">
-				<div class="col-md-12 col-lg-8">
-					<h3 class="mb-30"><b>Los bosques secundarios tienen vidas cortas</b></h3>
+				<div class="col-md-12">
+					<h3 class="mb-30"><b>¿Cuántos árboles se deforestan por minuto en el amazonas?</b></h3>
 
-					<p class="text-justify pr-30 mb-30">
-						Los bosques secundarios solo duran un promedio de 20 años. El hallazgo presenta un problema importante para la política de restauración a gran escala, que a menudo se enfoca en compromisos para restaurar un cierto número de hectáreas para un año determinado. Pero los beneficios de la restauración dependen de los bosques que persisten. Según muestra una investigación, se tarda mucho más de 20 años para que un bosque secundario absorba grandes cantidades de carbono o proporcione un hábitat para muchas especies forestales.
-                    </p>
+					<form class="pregunta" name="enviarPregunta" action="TODO.do" method="post">
+						<div class="row mt-10">
+							<div class="col-2 col-sm-1">
+								<input type="radio" name="correcta"/>
+							</div>
 
-                     <p>URL de la fuente: <b><a href="https://www.sciencedaily.com/releases/2018/10/181002102900.htm">https://www.sciencedaily.com/releases/2018/10/181002102900.htm</b></a></p>
-                </div>
+							<div class="col-10 col-sm-11">
+								<p>Cada minuto se deforesta media hectarea, y se repuebla el doble de lo deforestado.</p>
+							</div>
+						</div>
 
-                <div class="col-md-12 col-lg-4">
-                    <div class="img-bg bg-1 bg-grad-layer-6"></div>
-                </div>
+						<div class="row mt-10">
+							<div class="col-2 col-sm-1">
+								<input type="radio" name="correcta"/>
+							</div>
 
+							<div class="col-10 col-sm-11">
+								<p class=text-justify">Cada minuto se deforesta la superficie de un campo de futbol.</p>
+							</div>
+						</div>
+
+						<div class="row mt-10">
+							<div class="col-2 col-sm-1">
+								<input type="radio" name="correcta"/>
+							</div>
+
+							<div class="col-10 col-sm-11">
+								<p class=text-justify">Cada minuto se deforestan diez hectareas.</p>
+							</div>
+						</div>
+						
+						<div class="row mt-10">
+							<div class="col-2 col-sm-1">
+								<input type="radio" name="correcta"/>
+							</div>
+
+							<div class="col-10 col-sm-11">
+								<p class=text-justify">Cada minuto se talan cincuenta arboles con hacha y ocho con serrucho.</p>
+							</div>
+						</div>
+					</form>
+				</div>
+            </div>
+            
+			<div class="row mt-20 mt-sm-40">
+				<div class="col-12 col-md-4">
+					<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-primary" type="submit"><b>Validar pregunta</b></button>
+				</div>
+				<div class="col-12 col-md-4">
+					<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-grey" type="submit"><b>No responder y pasar</b></button>
+				</div>
 			</div>
 
 		</div><!-- container -->
@@ -180,6 +220,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</section>
 
 
