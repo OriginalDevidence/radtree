@@ -3,6 +3,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <description>Hola Mundo</description>
-    <display-name> Prueba </display-name>
+    <description>Proyecto medioambiental de la Universidad de Zaragoza</description>
+    <display-name>RadTree</display-name>
 </web-app>
