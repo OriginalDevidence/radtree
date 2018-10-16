@@ -549,6 +549,18 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 .pregunta textarea{ display: block; width: 100%; padding: 0px 15px; height: 30px; margin-bottom: 20px;  }
 .pregunta p { text-align: justify; }
 
+/* LISTA DE TITULOS */
+
+.lista-titulos li{ width: 100%; border: solid #0cc300 1px; padding: 15px; margin-bottom: 10px; }
+.lista-titulos p{ font-size:1.5em; }
+.lista-titulos .titulo-desc,
+.lista-titulos .titulo-extra{ font-size: 1.2em; }
+.lista-titulos .titulo-extra{ display:none; }
+.lista-titulos li:hover{ border: solid #000 1px; border-left: 6px solid green; background-color: #0cc300; }
+.lista-titulos li:hover p{ color:white; }
+.lista-titulos li:hover i{ color:white; }
+.lista-titulos li:hover .titulo-extra{ display:inline; }
+
 /* INDIVIDUAL STYLING */
 
 section{ padding: 50px 0; }
