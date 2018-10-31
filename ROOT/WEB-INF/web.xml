@@ -5,4 +5,18 @@
     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <description>Proyecto medioambiental de la Universidad de Zaragoza</description>
     <display-name>RadTree</display-name>
+    <!-- ================ Servlets ================ -->
+    <servlet>
+        <servlet-name>Registro</servlet-name>
+        <servlet-class>sistinfo.servlets.RegistroServlet</servletclass>
+    </servlet>
+    <!-- ============ Servlets Mapping======= -->
+    <servlet-mapping>
+        <servlet-name>Registro</servlet-name>
+        <url-pattern>/RegistrarUsuario</url-pattern>
+    </servlet-mapping>
+    <!-- ============ Welcome page ========= -->
+    <welcome-file-list>
+        <welcome-file>Index.html</welcome-file>
+    </welcome-file-list>
 </web-app>
