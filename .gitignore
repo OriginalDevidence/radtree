@@ -1,6 +1,13 @@
+.metadata
+.recommenders
+.classpath
+.project
+.settings
+RadTree/WEB_INF/classes/sistinfo/*
 docs
 examples
 host-manager
 manager
 newsbit
 root_viejo
+Servers
