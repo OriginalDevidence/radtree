@@ -3,7 +3,7 @@
 .classpath
 .project
 .settings
-RadTree/WEB_INF/classes/sistinfo/*
+RadTree/WEB_INF/classes
 docs
 examples
 host-manager
