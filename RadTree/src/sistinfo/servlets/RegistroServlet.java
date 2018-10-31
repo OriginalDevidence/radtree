@@ -29,7 +29,7 @@ public class RegistroServlet extends HttpServlet {
         String clave = request.getParameter("clave");
         String reclave = request.getParameter("reclave");
         
-        if (clave == reclave) {
+        if (clave.equals(reclave)) {
             // TODO hash de la contraseña
 
             UsuarioVO usuario = new UsuarioVO(alias, nombre, apellidos, nacimiento, email, clave, UsuarioVO.TipoUsuario.PARTICIPANTE);
