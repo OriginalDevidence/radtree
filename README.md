@@ -1,8 +1,15 @@
 # RadTree
 
-Sistemas de información 2018-19
+Prácticas de Sistemas de Información 2018-19
 
-# Pasos para crear un proyecto Eclipse Java EE
+- Diego Royo Meneses (<740388@unizar.es>)
+- Alonso Muñoz García (<745016@unizar.es>)
+- Gregorio Largo Mayor (<746621@unizar.es>)
+
+## Pasos para crear un proyecto Eclipse Java EE
+
+Descarga de Eclise Java EE:
+https://www.eclipse.org/downloads/packages/release/2018-09/r/eclipse-ide-java-ee-developers
 
 1. Pestaña servers de abajo, elegir Tomcat v9.0 server y para "Server name" RadTree
 1. Elegir la carpeta donde esta instalado ApacheTomcat y elegir el JRE (yo elegi 1.8)
