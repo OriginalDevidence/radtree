@@ -1,4 +1,9 @@
 .metadata
+.recommenders
+.classpath
+.project
+.settings
+WEB_INF/classes/sistinfo
 docs
 examples
 host-manager
