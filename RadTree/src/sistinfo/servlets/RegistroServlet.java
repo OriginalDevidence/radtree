@@ -1,6 +1,7 @@
 package sistinfo.servlets;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,10 @@ public class RegistroServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String alias = request.getParameter("alias");
+        
+    	response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+    	
+    	String alias = request.getParameter("alias");
         Date nacimiento = new Date(37288713); // TODO
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
@@ -36,13 +40,17 @@ public class RegistroServlet extends HttpServlet {
             try {
                 UsuarioDAO facade = new UsuarioDAO();
                 facade.insertUsuario(usuario);
+                /* TODO pasar datos del perfil */
+                response.sendRedirect("10_perfil.html");
             } catch (AliasYaExistenteException | EmailYaExistenteException e) {
-                response.sendRedirect("51_noticia.html");
+            	/* TODO avisar de alias o email ya existente */
+                response.sendRedirect("02_registro.html");
             } catch (Exception e) {
                 response.sendRedirect("paginaError.html");
             }
         } else {
-            response.sendRedirect("53_noticia.html");
+        	/* TODO avisar de que las contraseñas no son iguales */
+            response.sendRedirect("02_registro.html");
         }
     }
     
