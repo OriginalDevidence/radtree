@@ -8,15 +8,15 @@
     <!-- ================ Servlets ================ -->
     <servlet>
         <servlet-name>Registro</servlet-name>
-        <servlet-class>sistinfo.servlets.RegistroServlet</servletclass>
+        <servlet-class>sistinfo.servlets.RegistroServlet</servlet-class>
     </servlet>
     <!-- ============ Servlets Mapping======= -->
     <servlet-mapping>
         <servlet-name>Registro</servlet-name>
-        <url-pattern>/RegistrarUsuario</url-pattern>
+        <url-pattern>/RegistrarUsuario.do</url-pattern>
     </servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
-        <welcome-file>Index.html</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 </web-app>
