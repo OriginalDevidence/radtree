@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.capadatos.dao.UsuarioDAO;
@@ -41,7 +42,10 @@ public class RegistroServlet extends HttpServlet {
                 UsuarioDAO facade = new UsuarioDAO();
                 facade.insertUsuario(usuario);
                 /* TODO pasar datos del perfil */
-                response.sendRedirect("10_perfil.html");
+                
+                HttpSession session = request.getSession();
+                session.setAttribute("profile", alias);
+                response.sendRedirect("perfil.jsp");
             } catch (AliasYaExistenteException | EmailYaExistenteException e) {
             	/* TODO avisar de alias o email ya existente */
                 response.sendRedirect("02_registro.html");
