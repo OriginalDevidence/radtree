@@ -1,9 +1,6 @@
 package sistinfo.capamodelo.servlets;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -16,8 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.capadatos.vo.UsuarioVO;
-import sistinfo.excepciones.AliasYaExistenteException;
-import sistinfo.excepciones.EmailYaExistenteException;
+import sistinfo.excepciones.UsuarioYaExistenteException;
 import sistinfo.utils.MD5Hash;
 import sistinfo.capadatos.dao.UsuarioDAO;
 
@@ -29,31 +25,40 @@ public class RegistroServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-        Map<String, String> errores = new HashMap<String, String>();
+    	
+    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
         request.setCharacterEncoding("UTF-8");
-        
+        response.setCharacterEncoding("UTF-8");
+    	
+    	Map<String, String> errores = new HashMap<String, String>();
     	UsuarioVO usuario = extractUsuarioFromHttpRequest(request, errores);
-        try {
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            usuarioDAO.insertUsuario(usuario);
-            
-            RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
-            request.setAttribute("usuario", usuario);
+        if (usuario != null) {
+        	try {
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                usuarioDAO.insertUsuario(usuario);
+                
+                RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
+                request.setAttribute("usuario", usuario);
+                req.include(request, response);
+            } catch (UsuarioYaExistenteException e) {
+                RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
+            	if (e.isAliasExistente()) {
+            		errores.put("alias", "El alias ya está registrado");
+            	}
+            	if (e.isEmailExistente()) {
+            		errores.put("email", "Ya existe una cuenta con ese email");
+            	}
+                request.setAttribute("errores", errores);
+                req.include(request, response);
+            } catch (Exception e) {
+                response.sendRedirect("70_errorInterno.html");
+            }
+        } else {
+            RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
+            request.setAttribute("errores", errores);
             req.include(request, response);
-        } catch (AliasYaExistenteException e) {
-        	errores.put("Alias", "El alias ya está registrado");
-        } catch (EmailYaExistenteException e) {
-        	errores.put("Email", "Ya existe una cuenta con ese email");
-        } catch (Exception e) {
-            response.sendRedirect("70_errorInterno.html");
         }
 
-        /* TODO tratamiento de errores, presentarlos en la pagina en lugar de por consola */
-    	for (String k : errores.keySet()) {
-        	System.out.println("Error " + k + ": " + errores.get(k));
-    	}
-    	
     }
 	
     /**
