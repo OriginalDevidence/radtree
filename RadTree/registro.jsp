@@ -145,7 +145,7 @@
 
 				<div class="col-md-6 col-lg-4">
 					<h3 class="mb-30"><b>¿Ya tienes una cuenta?</b></h3>
-					<a class="w-100 btn-fill-primary" href="03_inicioSesion.html"><b>Iniciar sesión</b></a>
+					<a class="w-100 btn-fill-primary" href="inicioSesion.jsp"><b>Iniciar sesión</b></a>
 				</div>
 
 			</div>
