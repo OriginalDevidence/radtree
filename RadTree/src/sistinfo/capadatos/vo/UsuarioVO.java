@@ -18,6 +18,8 @@ public class UsuarioVO implements java.io.Serializable {
 	private TipoUsuario tipoUsuario;
 	private double puntuacion;
 	
+	public UsuarioVO() {}
+	
 	public UsuarioVO(String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
 			String passwordHash, TipoUsuario tipoUsuario) {
 		this.alias = alias;
@@ -27,6 +29,7 @@ public class UsuarioVO implements java.io.Serializable {
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.tipoUsuario = tipoUsuario;
+		this.puntuacion = 0;
 	}
 	
 	public UsuarioVO(String alias, String nombre, String apellidos, Date fechaNacimiento, String email,

@@ -3,12 +3,14 @@ package sistinfo.servlets;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.capadatos.dao.UsuarioDAO;
@@ -23,7 +25,10 @@ public class RegistroServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        Map<String, String> errores = new HashMap<String, String>(); /* TODO */
         
+    	/* TODO quitar? */
     	response.setCharacterEncoding(StandardCharsets.UTF_8.name());
     	
     	String alias = request.getParameter("alias");
@@ -34,21 +39,26 @@ public class RegistroServlet extends HttpServlet {
         String clave = request.getParameter("clave");
         String reclave = request.getParameter("reclave");
         
+        /* TODO comprobar campos no vacios */
+        
         if (clave.equals(reclave)) {
             // TODO hash de la contraseña
 
             UsuarioVO usuario = new UsuarioVO(alias, nombre, apellidos, nacimiento, email, clave, UsuarioVO.TipoUsuario.PARTICIPANTE);
             try {
                 UsuarioDAO facade = new UsuarioDAO();
-                facade.insertUsuario(usuario);
+                //facade.insertUsuario(usuario);
                 /* TODO pasar datos del perfil */
                 
-                HttpSession session = request.getSession();
-                session.setAttribute("profile", alias);
+                RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
+                System.out.println(usuario.getAlias());
+                request.setAttribute("usuario", usuario);
+                req.include(request, response);
                 response.sendRedirect("perfil.jsp");
-            } catch (AliasYaExistenteException | EmailYaExistenteException e) {
-            	/* TODO avisar de alias o email ya existente */
-                response.sendRedirect("02_registro.html");
+            /*} catch (AliasYaExistenteException e) {
+            errores.add("Alias", "Alias ya existente");
+            	} catch (EmailYaExistenteException e) {
+            errores.add("Email", "Email ya existente");*/
             } catch (Exception e) {
                 response.sendRedirect("paginaError.html");
             }
