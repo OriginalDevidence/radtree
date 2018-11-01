@@ -1,4 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Map" %>
+<%@ page import="sistinfo.capamodelo.resultados.ResultadoRegistro" %>
+<%--
+	Comprueba los errores que han podido ocurrir en el registro y les añade formato
+--%>
+<%
+	Map<String, String> errores = (Map<String, String>)request.getAttribute("errores");
+	if (errores != null) {
+		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
+		String estiloFinal = "</span>";
+		// Añadir formato
+		for (String k : errores.keySet()) {
+			errores.replace(k, estiloCabecera + errores.get(k) + estiloFinal);
+		}
+		ResultadoRegistro resultadoRegistro = new ResultadoRegistro(
+			errores.getOrDefault("alias", ""),
+			errores.getOrDefault("nacimiento", ""),
+			errores.getOrDefault("nombre", ""),
+			errores.getOrDefault("apellidos", ""),
+			errores.getOrDefault("email", ""),
+			errores.getOrDefault("clave", ""),
+			errores.getOrDefault("reclave", "")
+		);
+		request.setAttribute("resultadoRegistro", resultadoRegistro);
+	}
+%>
+<%-- Bean que almacena el resultado del registro --%>
+<jsp:useBean id="resultadoRegistro" class="sistinfo.capamodelo.resultados.ResultadoRegistro" scope="request"/>
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -42,39 +70,44 @@
 
 							<div class="col-sm-12 col-md-6">
 								<label for="alias">Alias</label>
-								<input type="text" name="alias" placeholder="Alias"/>
+								<jsp:getProperty name="resultadoRegistro" property="errorAlias"/>
+								<input class="mt-5" type="text" name="alias" placeholder="Alias"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nacimiento">Fecha de nacimiento</label>
-								<input type="date" name="nacimiento"/>
+								<jsp:getProperty name="resultadoRegistro" property="errorNacimiento"/>
+								<input class="mt-5" type="date" name="nacimiento"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nombre">Nombre</label>
-								<input type="text" name="nombre" placeholder="Nombre"/>
+								<jsp:getProperty name="resultadoRegistro" property="errorNombre"/>
+								<input class="mt-5" type="text" name="nombre" placeholder="Nombre"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="apellidos">Apellidos</label>
-								<input type="text" name="apellidos" placeholder="Apellidos"/>
+								<jsp:getProperty name="resultadoRegistro" property="errorApellidos"/>
+								<input class="mt-5" type="text" name="apellidos" placeholder="Apellidos"/>
 							</div>
 							
 							<div class="col-12">
 								<label for="email">Email</label>
-								<!-- TODO: Sacar mensajes de error si hay algun campo no valido en el registro-->
-								<p class="font-10 color-red lh-30"><i class="ion-close"></i><span class="pl-5">Correo no válido</span></p>
-								<input type="email" name="email" placeholder="Email"/>
+								<jsp:getProperty name="resultadoRegistro" property="errorEmail"/>
+								<input class="mt-5" type="email" name="email" placeholder="Email"/>
 							</div>
 							
 							<div class="col-sm-12 col-md-6">
 								<label for="clave">Contraseña</label>
-								<input type="password" name="clave" placeholder="Contraseña"/>
+								<jsp:getProperty name="resultadoRegistro" property="errorClave"/>
+								<input class="mt-5" type="password" name="clave" placeholder="Contraseña"/>
 							</div>
 							
 							<div class="col-sm-12 col-md-6">
 								<label for="reclave">Repite la contraseña</label>
-								<input type="password" name="reclave" placeholder="Repite la contraseña"/>
+								<jsp:getProperty name="resultadoRegistro" property="errorReclave"/>
+								<input class="mt-5" type="password" name="reclave" placeholder="Repite la contraseña"/>
 							</div>
 
 						</div>

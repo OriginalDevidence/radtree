@@ -4,8 +4,7 @@ import java.sql.*;
 
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.UsuarioVO;
-import sistinfo.excepciones.AliasYaExistenteException;
-import sistinfo.excepciones.EmailYaExistenteException;
+import sistinfo.excepciones.UsuarioYaExistenteException;
 import sistinfo.excepciones.ErrorInternoException;
 
 public class UsuarioDAO {
@@ -104,35 +103,37 @@ public class UsuarioDAO {
 	 * Inserta un usuario en la base de datos.
 	 * @param usuario
 	 * @return El ID del usuario insertado o 0 si la inserción ha sido incorrecta
-	 * @throws AliasYaExistenteException
-	 * @throws EmailYaExistenteException
+	 * @throws UsuarioYaExistenteException
 	 * @throws ErrorInternoException 
 	 */
-	public Long insertUsuario(UsuarioVO usuario) throws AliasYaExistenteException, EmailYaExistenteException, ErrorInternoException {
+	public Long insertUsuario(UsuarioVO usuario) throws UsuarioYaExistenteException, ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Usuario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)",
-        															Statement.RETURN_GENERATED_KEYS);
-        	stmt.setString(1, usuario.getAlias());
-        	stmt.setString(2, usuario.getNombre());
-        	stmt.setString(3, usuario.getApellidos());
-        	stmt.setDate(4, usuario.getFechaNacimiento());
-        	stmt.setString(5, usuario.getEmail());
-        	stmt.setString(6, usuario.getPasswordHash());
-        	stmt.setString(7, usuario.getTipoUsuario().toString());
-        	stmt.setDouble(8, 0.0);
-        	int result = stmt.executeUpdate();
-            
-        	if (result == 1) {
-        		// Devolver el ID del usuario insertado
-        		ResultSet rs = stmt.getGeneratedKeys();
-        		if (rs != null && rs.last()) {
-        			return rs.getLong(1);
-        		}
-        	} else {
-        		checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail());
-        	}
+        	// Comprobar que no exista alguien con ese alias o email ya
+    		if (checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail())) {
+            	
+            	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Usuario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)",
+            															Statement.RETURN_GENERATED_KEYS);
+            	stmt.setString(1, usuario.getAlias());
+            	stmt.setString(2, usuario.getNombre());
+            	stmt.setString(3, usuario.getApellidos());
+            	stmt.setDate(4, usuario.getFechaNacimiento());
+            	stmt.setString(5, usuario.getEmail());
+            	stmt.setString(6, usuario.getPasswordHash());
+            	stmt.setString(7, usuario.getTipoUsuario().toString());
+            	stmt.setDouble(8, 0.0);
+            	int result = stmt.executeUpdate();
+                
+            	if (result == 1) {
+            		// Devolver el ID del usuario insertado
+            		ResultSet rs = stmt.getGeneratedKeys();
+            		if (rs != null && rs.last()) {
+            			return rs.getLong(1);
+            		}
+            	}
+            	
+    		}
         	
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -145,32 +146,30 @@ public class UsuarioDAO {
 	 * Actualiza los datos de un usuario (asumiendo que ya existe un usuario con ese ID).
 	 * @param usuario
 	 * @return true si la actualización ha sido correcta, false en caso contrario
-	 * @throws AliasYaExistenteException
-	 * @throws EmailYaExistenteException
+	 * @throws UsuarioYaExistenteException
 	 * @throws ErrorInternoException 
 	 */
-	public boolean updateUsuario(UsuarioVO usuario) throws AliasYaExistenteException, EmailYaExistenteException, ErrorInternoException {
+	public boolean updateUsuario(UsuarioVO usuario) throws UsuarioYaExistenteException, ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("UPDATE Usuario SET alias=?, nombre=?, apellidos=?, fechaNacimiento=?, email=?, passwordHash=?, tipoUsuario=?, puntuacion=? WHERE idUsuario=?");
-        	stmt.setString(1, usuario.getAlias());
-        	stmt.setString(2, usuario.getNombre());
-        	stmt.setString(3, usuario.getApellidos());
-        	stmt.setDate(4, usuario.getFechaNacimiento());
-        	stmt.setString(5, usuario.getEmail());
-        	stmt.setString(6, usuario.getPasswordHash());
-        	stmt.setString(7, usuario.getTipoUsuario().toString());
-        	stmt.setDouble(8, usuario.getPuntuacion());
-        	stmt.setLong(9, usuario.getIdUsuario());
-
-        	int result = stmt.executeUpdate();
-            
-        	if (result == 1) {
-        		return true;
-        	} else {
-        		checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail());
-        	}
+        	// Comprobar que no exista alguien con ese alias o email ya
+    		if (checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail())) {
+        	
+		    	PreparedStatement stmt = connection.prepareStatement("UPDATE Usuario SET alias=?, nombre=?, apellidos=?, fechaNacimiento=?, email=?, passwordHash=?, tipoUsuario=?, puntuacion=? WHERE idUsuario=?");
+		    	stmt.setString(1, usuario.getAlias());
+		    	stmt.setString(2, usuario.getNombre());
+		    	stmt.setString(3, usuario.getApellidos());
+		    	stmt.setDate(4, usuario.getFechaNacimiento());
+		    	stmt.setString(5, usuario.getEmail());
+		    	stmt.setString(6, usuario.getPasswordHash());
+		    	stmt.setString(7, usuario.getTipoUsuario().toString());
+		    	stmt.setDouble(8, usuario.getPuntuacion());
+		    	stmt.setLong(9, usuario.getIdUsuario());
+		
+		    	return stmt.executeUpdate() == 1;
+		    	
+    		}
         	
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -239,11 +238,11 @@ public class UsuarioDAO {
 	 * Comprueba si ya existe un usuario en la base de datos con el alias o email pasados, y lanza un error en caso afirmativo.
 	 * @param alias
 	 * @param email
-	 * @throws AliasYaExistenteException
-	 * @throws EmailYaExistenteException
+	 * @return true si no existe ningún usuario con ese alias o email
+	 * @throws UsuarioYaExistenteException
 	 * @throws ErrorInternoException
 	 */
-	private void checkAliasYEmailExistente(String alias, String email) throws AliasYaExistenteException, EmailYaExistenteException, ErrorInternoException {
+	private boolean checkAliasYEmailExistente(String alias, String email) throws UsuarioYaExistenteException, ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
@@ -251,22 +250,23 @@ public class UsuarioDAO {
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE alias=?");
         	stmt.setString(1, alias);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                throw new AliasYaExistenteException();
-            }
+        	boolean aliasExistente = rs.next();
             
             // Comprobación de email
             stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE email=?");
         	stmt.setString(1, email);
             rs = stmt.executeQuery();
-            if (rs.next()) {
-                throw new EmailYaExistenteException();
-            }
+        	boolean emailExistente = rs.next();
+        	
+        	if (aliasExistente || emailExistente) {
+        		throw new UsuarioYaExistenteException(aliasExistente, emailExistente);
+        	}
             
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
         }
+        return true;
 	}
 	
 }

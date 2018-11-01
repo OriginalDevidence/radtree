@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Date" %>
 <%@ page import="sistinfo.capadatos.dao.UsuarioDAO" %>
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
 <%@ page import="sistinfo.excepciones.ErrorInternoException" %>
