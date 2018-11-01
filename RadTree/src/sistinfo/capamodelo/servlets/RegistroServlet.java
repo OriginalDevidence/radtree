@@ -86,10 +86,17 @@ public class RegistroServlet extends HttpServlet {
         	datosCorrectos = false;
         	errors.put("nacimiento", "Fecha inválida");
         } else {
-        	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			try {
-				java.util.Date date = sdf1.parse(nacimientoString);
-	        	nacimiento = new java.sql.Date(date.getTime());
+				java.util.Date date = sdf.parse(nacimientoString);
+				java.util.Date dateBefore = sdf.parse("1900-01-01");
+				java.util.Date dateAfter = new java.util.Date();
+				if (date.before(dateBefore) || date.after(dateAfter)) {
+		        	datosCorrectos = false;
+		        	errors.put("nacimiento", "Fecha inválida");
+				} else {
+		        	nacimiento = new java.sql.Date(date.getTime());
+				}
 			} catch (ParseException e) {
 				datosCorrectos = false;
 	        	errors.put("nacimiento", "Formato incorrecto");

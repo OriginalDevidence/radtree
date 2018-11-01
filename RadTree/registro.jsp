@@ -15,12 +15,19 @@
 		}
 		ResultadoRegistro resultadoRegistro = new ResultadoRegistro(
 			errores.getOrDefault("alias", ""),
+			(String)request.getParameter("alias"),
 			errores.getOrDefault("nacimiento", ""),
+			(String)request.getParameter("nacimiento"),
 			errores.getOrDefault("nombre", ""),
+			(String)request.getParameter("nombre"),
 			errores.getOrDefault("apellidos", ""),
+			(String)request.getParameter("apellidos"),
 			errores.getOrDefault("email", ""),
+			(String)request.getParameter("email"),
 			errores.getOrDefault("clave", ""),
-			errores.getOrDefault("reclave", "")
+			(String)request.getParameter("clave"),
+			errores.getOrDefault("reclave", ""),
+			(String)request.getParameter("reclave")
 		);
 		request.setAttribute("resultadoRegistro", resultadoRegistro);
 	}
@@ -71,31 +78,37 @@
 							<div class="col-sm-12 col-md-6">
 								<label for="alias">Alias</label>
 								<jsp:getProperty name="resultadoRegistro" property="errorAlias"/>
-								<input class="mt-5" type="text" name="alias" placeholder="Alias"/>
+								<input class="mt-5" type="text" name="alias" placeholder="Alias"
+									value="<jsp:getProperty name="resultadoRegistro" property="valorAlias"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nacimiento">Fecha de nacimiento</label>
-								<jsp:getProperty name="resultadoRegistro" property="errorNacimiento"/>
-								<input class="mt-5" type="date" name="nacimiento"/>
+								<jsp:getProperty name="resultadoRegistro" property="errorNacimiento"
+								/>
+								<input class="mt-5" type="date" name="nacimiento"
+									value="<jsp:getProperty name="resultadoRegistro" property="valorNacimiento"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nombre">Nombre</label>
 								<jsp:getProperty name="resultadoRegistro" property="errorNombre"/>
-								<input class="mt-5" type="text" name="nombre" placeholder="Nombre"/>
+								<input class="mt-5" type="text" name="nombre" placeholder="Nombre"
+									value="<jsp:getProperty name="resultadoRegistro" property="valorNombre"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="apellidos">Apellidos</label>
 								<jsp:getProperty name="resultadoRegistro" property="errorApellidos"/>
-								<input class="mt-5" type="text" name="apellidos" placeholder="Apellidos"/>
+								<input class="mt-5" type="text" name="apellidos" placeholder="Apellidos"
+									value="<jsp:getProperty name="resultadoRegistro" property="valorApellidos"/>"/>
 							</div>
 							
 							<div class="col-12">
 								<label for="email">Email</label>
 								<jsp:getProperty name="resultadoRegistro" property="errorEmail"/>
-								<input class="mt-5" type="email" name="email" placeholder="Email"/>
+								<input class="mt-5" type="email" name="email" placeholder="Email"
+									value="<jsp:getProperty name="resultadoRegistro" property="valorEmail"/>"/>
 							</div>
 							
 							<div class="col-sm-12 col-md-6">
