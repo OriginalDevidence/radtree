@@ -27,7 +27,7 @@
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
 			<a class="mt-10" href="index.html"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10 color-ash" href="">Iniciar sesión</a>
+			<a class="mt-10 color-ash" href="#">Iniciar sesión</a>
 		</div><!-- container -->
 	</section>
 	

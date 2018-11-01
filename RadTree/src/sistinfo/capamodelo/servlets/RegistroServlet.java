@@ -92,7 +92,7 @@ public class RegistroServlet extends HttpServlet {
 	        	nacimiento = new java.sql.Date(date.getTime());
 			} catch (ParseException e) {
 				datosCorrectos = false;
-	        	errors.put("nacimiento", "Formato incorrecto de fecha");
+	        	errors.put("nacimiento", "Formato incorrecto");
 			}
         }
         if (nombre == null || nombre.trim().isEmpty()) {
@@ -123,7 +123,7 @@ public class RegistroServlet extends HttpServlet {
         			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, UsuarioVO.TipoUsuario.PARTICIPANTE);
         		}
         	} else {
-        		errors.put("reclave", "Las contraseñas no coinciden");
+        		errors.put("reclave", "La clave no coincide");
         	}
         }
         return null;
