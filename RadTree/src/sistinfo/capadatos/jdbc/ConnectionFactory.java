@@ -6,8 +6,7 @@ import java.util.Properties;
 public class ConnectionFactory {
 	
 	/* Nombre del driver JDBC driver y URL de la base de datos */
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost/sist_info_web?allowPublicKeyRetrieval=true&useSSL=false";
+	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
 	static Connection conn = null;
 
@@ -19,7 +18,7 @@ public class ConnectionFactory {
 			properties.load(ConnectionFactory.class.getResourceAsStream("login.properties"));
 		    Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(
-					DB_URL,
+					properties.getProperty("db_url"),
 					properties.getProperty("user"),
 					properties.getProperty("password")
 				);

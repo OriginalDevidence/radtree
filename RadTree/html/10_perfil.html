@@ -5,8 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Registro</title>
-	<meta name="description" content="Registro de usuario">
+	<!-- TODO: Cambiar *usuario* por el nombre de usuario -->
+	<title>Perfil de *usuario*</title>
+	<meta name="description" content="Página de perfil de usuario">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 	
 	<!-- Font -->
@@ -84,83 +85,61 @@
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
 			<a class="mt-10" href="index.html"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10 color-ash" href="">Registro</a>
+			<a class="mt-10 color-ash" href="">Perfil de *nombre*</a>
 		</div><!-- container -->
 	</section>
 	
 	
 	<section>
 		<div class="container">
+			
 			<div class="row">
 			
-				<div class="col-md-12 col-lg-8 pb-50">
-					<h3 class="p-title mb-30"><b>Registro</b></h3>
-					<form name="registro" action="RegistrarUsuario" method="post">
+				<div class="col-md-12 col-lg-8">
+					<h3 class="p-title mb-30"><b>Perfil de *nombre*</b></h3>
+					
+					<!-- Medallas de perfil (administrador, creador de contenido, etc) -->
+					<ul class="float-left list-a-plr-10 list-a-plr-sm-5 list-a-ptb-10 list-a-ptb-sm-5"></ul>
+						<li class="bg-primary ptb-5 plr-10"><i class="mr-5 ion-settings"></i>Administrador</li>
+						<li class="bg-primary ptb-5 plr-10"><i class="mr-5 ion-paintbrush"></i>Creador de contenido</li>
+					</ul>
 
-						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
-
-							<div class="col-sm-12 col-md-6">
-								<label for="alias">Alias</label>
-								<input type="text" name="alias" placeholder="Alias"/>
-							</div>
-
-							<div class="col-sm-12 col-md-6">
-								<label for="nacimiento">Fecha de nacimiento</label>
-								<input type="date" name="nacimiento"/>
-							</div>
-
-							<div class="col-sm-12 col-md-6">
-								<label for="nombre">Nombre</label>
-								<input type="text" name="nombre" placeholder="Nombre"/>
-							</div>
-
-							<div class="col-sm-12 col-md-6">
-								<label for="apellidos">Apellidos</label>
-								<input type="text" name="apellidos" placeholder="Apellidos"/>
-							</div>
-							
-							<div class="col-12">
-								<label for="email">Email</label>
-								<!-- TODO: Sacar mensajes de error si hay algun campo no valido en el registro-->
-								<p class="font-10 color-red lh-30"><i class="ion-close"></i><span class="pl-5">Correo no válido</span></p>
-								<input type="email" name="email" placeholder="Email"/>
-							</div>
-							
-							<div class="col-sm-12 col-md-6">
-								<label for="clave">Contraseña</label>
-								<input type="password" name="clave" placeholder="Contraseña"/>
-							</div>
-							
-							<div class="col-sm-12 col-md-6">
-								<label for="reclave">Repite la contraseña</label>
-								<input type="password" name="reclave" placeholder="Repite la contraseña"/>
-							</div>
-
+					<div class="row mt-30">
+						<div class="col-12 col-sm-6 mb-20">
+							<h4 class="mb-5">Alias</h4>
+							<p>JuanEcologico27</p>
 						</div>
 
-						<div class="row">
-							<div class="col-12">
-								<label for="imagen">Foto de perfil</label>
-							</div>
-							<div class="col-12">
-								<input class="m-5" type="file" name="imagen"/>
-							</div>
+						<div class="col-12 col-sm-6 mb-20">
+							<h4 class="mb-5">Fecha de nacimiento</h4>
+							<p>04/03/1981</p>
+						</div>
+
+						<div class="col-12 col-sm-6 mb-20">
+							<h4 class="mb-5">Nombre</h4>
+							<p>Juan</p>
 						</div>
 						
-						<div class="row mt-40">
-							<div class="col-12">
-								<button class="w-100 btn-fill-primary" type="submit"><b>Registrarse</b></button>
-							</div>
+						<div class="col-12 col-sm-6 mb-20">
+							<h4 class="mb-5">Apellidos</h4>
+							<p>Martinez Perez</p>
 						</div>
-					
-					</form>
+							
+						<div class="col-12 mb-20">
+							<h4 class="mb-5">Email</h4>
+							<p>juanmartinezperez@gmail.com</p>
+						</div>
+						
+						<div class="col-sm-12 mtb-20">
+							<a class="color-primary link-brdr-btm-primary" href="11_editarPerfil.html"><b>Editar datos del perfil</b></a>
+						</div>
+						
+						<div class="col-sm-12 mb-20">
+							<a class="color-primary link-brdr-btm-primary" href="05_cambiarClave.html"><b>Cambiar contraseña</b></a>
+						</div>
+					</div>
 				</div>
-
-				<div class="col-md-6 col-lg-4">
-					<h3 class="mb-30"><b>¿Ya tienes una cuenta?</b></h3>
-					<a class="w-100 btn-fill-primary" href="03_inicioSesion.html"><b>Iniciar sesión</b></a>
-				</div>
-
+			
 			</div>
 
 		</div><!-- container -->

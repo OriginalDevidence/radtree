@@ -13,7 +13,7 @@
     <!-- ============ Servlets Mapping======= -->
     <servlet-mapping>
         <servlet-name>Registro</servlet-name>
-        <url-pattern>/RegistrarUsuario.do</url-pattern>
+        <url-pattern>/RegistrarUsuario</url-pattern>
     </servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>

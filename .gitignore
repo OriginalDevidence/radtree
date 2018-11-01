@@ -3,7 +3,7 @@
 .classpath
 .project
 .settings
-RadTree/WEB_INF/classes/sistinfo/*
+RadTree/WEB_INF/classes
 docs
 examples
 host-manager
@@ -11,4 +11,8 @@ manager
 newsbit
 root_viejo
 Servers
+<<<<<<< HEAD
 RadTree/src/sistinfo/capadatos/jdbc/login.properties
+=======
+login.properties
+>>>>>>> develop
