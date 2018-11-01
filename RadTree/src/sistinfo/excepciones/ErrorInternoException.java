@@ -1,4 +1,4 @@
-package sistinfo.capadatos.excepciones;
+package sistinfo.excepciones;
 
 @SuppressWarnings("serial")
 public class ErrorInternoException extends Exception {
