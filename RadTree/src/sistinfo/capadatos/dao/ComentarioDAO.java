@@ -3,14 +3,14 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.LinkedList;
 
-import sistinfo.capadatos.excepciones.ErrorInternoException;
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ComentarioVO;
+import sistinfo.excepciones.ErrorInternoException;
 
 public class ComentarioDAO {
 	
 	/**
-	 * Búsqueda de comentario por su identificador interno.
+	 * Bï¿½squeda de comentario por su identificador interno.
 	 * @param id
 	 * @return El comentario si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
@@ -36,7 +36,7 @@ public class ComentarioDAO {
 	}
 	
 	/**
-	 * Búsqueda de comentarios por un identificador de contenido.
+	 * Bï¿½squeda de comentarios por un identificador de contenido.
 	 * @param id
 	 * @return Lista de comentarios pertenecientes al contenido idContenido
 	 * @throws ErrorInternoException 
@@ -67,7 +67,7 @@ public class ComentarioDAO {
 	/**
 	 * Inserta un comentario en la base de datos, con valor 0 en numLikes y la fecha actual en fecha.
 	 * @param comentario
-	 * @return true si la inserción ha sido correcta, false en caso contrario
+	 * @return true si la inserciï¿½n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	public boolean insertComentario(ComentarioVO comentario) throws ErrorInternoException {
@@ -97,7 +97,7 @@ public class ComentarioDAO {
 	/**
 	 * Actualiza los datos de un comentario (asumiendo que ya existe un comentario con ese ID).
 	 * @param comentario
-	 * @return true si la actualización ha sido correcta, false en caso contrario
+	 * @return true si la actualizaciï¿½n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updateComentario(ComentarioVO comentario) throws ErrorInternoException {

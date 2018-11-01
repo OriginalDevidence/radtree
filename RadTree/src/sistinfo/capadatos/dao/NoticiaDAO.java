@@ -2,15 +2,15 @@ package sistinfo.capadatos.dao;
 import java.sql.*;
 import java.util.LinkedList;
 
-import sistinfo.capadatos.excepciones.ErrorInternoException;
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ContenidoVO;
 import sistinfo.capadatos.vo.NoticiaVO;
+import sistinfo.excepciones.ErrorInternoException;
 
 public class NoticiaDAO extends ContenidoDAO {
 	
 	/**
-	 * Búsqueda de noticia por su identificador interno.
+	 * Bï¿½squeda de noticia por su identificador interno.
 	 * @param id
 	 * @return La noticia si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
@@ -38,7 +38,7 @@ public class NoticiaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Búsqueda de noticias que contienen search en su nombre nombre, cuerpo o URL, por orden de creación (más recientes primero).
+	 * Bï¿½squeda de noticias que contienen search en su nombre nombre, cuerpo o URL, por orden de creaciï¿½n (mï¿½s recientes primero).
 	 * @param search
 	 * @return Lista con todas las noticias
 	 * @throws ErrorInternoException 
@@ -67,9 +67,9 @@ public class NoticiaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Búsqueda de hasta las últimas num noticias según su fecha de realización.
+	 * Bï¿½squeda de hasta las ï¿½ltimas num noticias segï¿½n su fecha de realizaciï¿½n.
 	 * @param num
-	 * @return Lista de hasta num noticias ordenadas por fecha de realización
+	 * @return Lista de hasta num noticias ordenadas por fecha de realizaciï¿½n
 	 * @throws ErrorInternoException 
 	 */
 	public LinkedList<NoticiaVO> getNoticiasUltimas(int num) throws ErrorInternoException {
@@ -92,9 +92,9 @@ public class NoticiaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Búsqueda de hasta las últimas num noticias según su número de visitas.
+	 * Bï¿½squeda de hasta las ï¿½ltimas num noticias segï¿½n su nï¿½mero de visitas.
 	 * @param num
-	 * @return Lista de hasta num noticias ordenadas por su número de visitas
+	 * @return Lista de hasta num noticias ordenadas por su nï¿½mero de visitas
 	 * @throws ErrorInternoException 
 	 */
 	public LinkedList<NoticiaVO> getNoticiasPopulares(int num) throws ErrorInternoException {
@@ -119,7 +119,7 @@ public class NoticiaDAO extends ContenidoDAO {
 	/**
 	 * Inserta una noticia en la base de datos.
 	 * @param reto
-	 * @return true si la inserción ha sido correcta, false en caso contrario
+	 * @return true si la inserciï¿½n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException
 	 */
 	public boolean insertNoticia(NoticiaVO noticia) throws ErrorInternoException {
@@ -151,7 +151,7 @@ public class NoticiaDAO extends ContenidoDAO {
 	/**
 	 * Actualiza los datos de una noticia (asumiendo que ya existe una noticia con ese ID).
 	 * @param noticia
-	 * @return true si la actualización ha sido correcta, false en caso contrario
+	 * @return true si la actualizaciï¿½n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updateNoticia(NoticiaVO noticia) throws ErrorInternoException {
@@ -183,7 +183,7 @@ public class NoticiaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Elimina a una noticia de la base de datos según su id.
+	 * Elimina a una noticia de la base de datos segï¿½n su id.
 	 * @param id
 	 * @return true si el borrado ha sido correcto, false en caso contrario
 	 * @throws ErrorInternoException 
@@ -194,7 +194,7 @@ public class NoticiaDAO extends ContenidoDAO {
 	
 	/**
 	 * Extrae los datos de una noticia dado un ResultSet.
-	 * IMPORTANTE: El resultado de la consulta debe tener los atributos de Contenido además de Noticia.
+	 * IMPORTANTE: El resultado de la consulta debe tener los atributos de Contenido ademï¿½s de Noticia.
 	 * @param rs
 	 * @return Datos de la noticia de la fila que apunta rs
 	 * @throws SQLException

@@ -4,17 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import sistinfo.capadatos.excepciones.ErrorInternoException;
-import sistinfo.capadatos.excepciones.PreguntaYaRespondidaException;
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ContenidoVO;
 import sistinfo.capadatos.vo.PreguntaVO;
 import sistinfo.capadatos.vo.RespuestaVO;
+import sistinfo.excepciones.ErrorInternoException;
+import sistinfo.excepciones.PreguntaYaRespondidaException;
 
 public class PreguntaDAO extends ContenidoDAO {
 	
 	/**
-	 * Búsqueda de pregunta por su identificador interno.
+	 * Bï¿½squeda de pregunta por su identificador interno.
 	 * @param id
 	 * @return La pregunta si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
@@ -42,7 +42,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	}
 
 	/**
-	 * Búsqueda de respuesta por su identificador interno.
+	 * Bï¿½squeda de respuesta por su identificador interno.
 	 * @param id
 	 * @return La respuesta si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
@@ -67,7 +67,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Búsqueda de preguntas que contienen search en su nombre nombre, cuerpo o URL, por orden de creación (más recientes primero).
+	 * Bï¿½squeda de preguntas que contienen search en su nombre nombre, cuerpo o URL, por orden de creaciï¿½n (mï¿½s recientes primero).
 	 * @param search
 	 * @return Lista con todas las preguntas
 	 * @throws ErrorInternoException 
@@ -94,9 +94,9 @@ public class PreguntaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Búsqueda de hasta las últimas num preguntas según su fecha de realización
+	 * Bï¿½squeda de hasta las ï¿½ltimas num preguntas segï¿½n su fecha de realizaciï¿½n
 	 * @param num
-	 * @return Lista de hasta num preguntas ordenadas por fecha de realización
+	 * @return Lista de hasta num preguntas ordenadas por fecha de realizaciï¿½n
 	 * @throws ErrorInternoException 
 	 */
 	public LinkedList<PreguntaVO> getPreguntasUltimas(int num) throws ErrorInternoException {
@@ -104,10 +104,10 @@ public class PreguntaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Búsqueda de hasta las últimas num preguntas según su fecha de realización y si las ha contestado el usuario o no
+	 * Bï¿½squeda de hasta las ï¿½ltimas num preguntas segï¿½n su fecha de realizaciï¿½n y si las ha contestado el usuario o no
 	 * @param num
 	 * @param contestadas Si el usuario ha contestado a la pregunta o no
-	 * @return Lista de hasta num preguntas ordenadas por fecha de realización
+	 * @return Lista de hasta num preguntas ordenadas por fecha de realizaciï¿½n
 	 * @throws ErrorInternoException 
 	 */
 	public LinkedList<PreguntaVO> getPreguntasUltimasContestadas(int num, boolean contestadas) throws ErrorInternoException {
@@ -115,7 +115,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	}
 
 	/**
-	 * Búsqueda de respuesta por su identificador interno.
+	 * Bï¿½squeda de respuesta por su identificador interno.
 	 * @param id
 	 * @return La respuesta si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
@@ -142,7 +142,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	/**
 	 * Inserta una pregunta con sus respectivas preguntas en la base de datos.
 	 * @param pregunta
-	 * @return true si la inserción ha sido correcta, false en caso contrario
+	 * @return true si la inserciï¿½n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException
 	 */
 	public boolean insertPregunta(PreguntaVO pregunta, List<RespuestaVO> respuestas) throws ErrorInternoException {
@@ -184,7 +184,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	/**
 	 * Inserta una respuesta en la base de datos.
 	 * @param respuesta
-	 * @return true si la inserción ha sido correcta, false en caso contrario
+	 * @return true si la inserciï¿½n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	public boolean insertRespuesta(RespuestaVO respuesta) throws ErrorInternoException {
@@ -209,11 +209,11 @@ public class PreguntaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Inserta la contestación que da un usuario a una pregunta y actualiza su puntuación
+	 * Inserta la contestaciï¿½n que da un usuario a una pregunta y actualiza su puntuaciï¿½n
 	 * @param idUsuario ID del usuario que responde
 	 * @param idPregunta ID de la pregunta que responde
-	 * @param contesta Mapa de correspondencia entre idRespuesta y la contestación del usuario
-	 * @return true si la inserción ha sido correcta, false en caso contrario
+	 * @param contesta Mapa de correspondencia entre idRespuesta y la contestaciï¿½n del usuario
+	 * @return true si la inserciï¿½n ha sido correcta, false en caso contrario
 	 * @throws PreguntaYaRespondidaException
 	 * @throws ErrorInternoException
 	 */
@@ -238,12 +238,12 @@ public class PreguntaDAO extends ContenidoDAO {
             double numRespuestas = (double) rsPregunta.getRow();
             rsPregunta.first();
             
-            // Insertar, para cada pregunta, la respuesta del usuario e ir almacenando la puntuación
+            // Insertar, para cada pregunta, la respuesta del usuario e ir almacenando la puntuaciï¿½n
             double puntuacion = 0.0;
             do {
             	long idRespuesta = rsPregunta.getLong("idRespuesta");
             	if (contesta.containsKey(idRespuesta)) {
-            		// Sumar la puntuación
+            		// Sumar la puntuaciï¿½n
             		if (contesta.get(idRespuesta) == rsPregunta.getBoolean("correcta")) {
                 		puntuacion += 10.0 / numRespuestas;	/* TODO: mejorar el sistema de puntuacion como se dijo */
             		}
@@ -269,7 +269,7 @@ public class PreguntaDAO extends ContenidoDAO {
             	}
             } while (rsPregunta.next());
             
-            // Actualizar la puntuación del usuario
+            // Actualizar la puntuaciï¿½n del usuario
             PreparedStatement stmtUsuario = connection.prepareStatement("UPDATE Usuario SET puntuacion=puntuacion+?");
             stmtUsuario.setDouble(1, puntuacion);
             int resultUsuario = stmtUsuario.executeUpdate();
@@ -288,7 +288,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	/**
 	 * Actualiza los datos de una pregunta (asumiendo que ya existe una pregunta con ese ID).
 	 * @param pregunta
-	 * @return true si la actualización ha sido correcta, false en caso contrario
+	 * @return true si la actualizaciï¿½n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updatePregunta(PreguntaVO pregunta) throws ErrorInternoException {
@@ -320,7 +320,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	/**
 	 * Actualiza los datos de un reto (asumiendo que ya existe un reto con ese ID).
 	 * @param reto
-	 * @return true si la actualización ha sido correcta, false en caso contrario
+	 * @return true si la actualizaciï¿½n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updateRespuesta(RespuestaVO respuesta) throws ErrorInternoException {
@@ -345,7 +345,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Elimina a una pregunta y sus respectivas respuestas de la base de datos según su id.
+	 * Elimina a una pregunta y sus respectivas respuestas de la base de datos segï¿½n su id.
 	 * @param id
 	 * @return true si el borrado ha sido correcto, false en caso contrario
 	 * @throws ErrorInternoException 
@@ -355,7 +355,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Elimina a una respuesta de la base de datos según su id.
+	 * Elimina a una respuesta de la base de datos segï¿½n su id.
 	 * @param id
 	 * @return true si el borrado ha sido correcto, false en caso contrario
 	 * @throws ErrorInternoException
@@ -380,10 +380,10 @@ public class PreguntaDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * Búsqueda de hasta las últimas num preguntas según su fecha de realización y según si ha respondido el usuario
+	 * Bï¿½squeda de hasta las ï¿½ltimas num preguntas segï¿½n su fecha de realizaciï¿½n y segï¿½n si ha respondido el usuario
 	 * @param num
 	 * @param elegirContestadas true/false para si/no elegir las contestadas, null para elegir todas
-	 * @return Lista de hasta num preguntas ordenadas por fecha de realización
+	 * @return Lista de hasta num preguntas ordenadas por fecha de realizaciï¿½n
 	 * @throws ErrorInternoException 
 	 */
 	private LinkedList<PreguntaVO> getPreguntasUltimasHelper(int num, Boolean elegirContestadas) throws ErrorInternoException {
@@ -417,7 +417,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	
 	/**
 	 * Extrae los datos de una pregunta dado un ResultSet.
-	 * IMPORTANTE: El resultado de la consulta debe tener los atributos de Contenido además de Pregunta.
+	 * IMPORTANTE: El resultado de la consulta debe tener los atributos de Contenido ademï¿½s de Pregunta.
 	 * @param rs
 	 * @return Datos de la pregunta de la fila que apunta rs
 	 * @throws SQLException

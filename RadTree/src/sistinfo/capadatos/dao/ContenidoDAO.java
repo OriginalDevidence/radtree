@@ -2,17 +2,17 @@ package sistinfo.capadatos.dao;
 import java.sql.*;
 import java.util.Calendar;
 
-import sistinfo.capadatos.excepciones.ErrorInternoException;
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ContenidoVO;
+import sistinfo.excepciones.ErrorInternoException;
 
 public abstract class ContenidoDAO {
 	
 	/**
-	 * Cambia el estado de un contenido según su id.
+	 * Cambia el estado de un contenido segï¿½n su id.
 	 * @param id
 	 * @param nuevoEstado
-	 * @return true si la actualización ha sido correcta, false en caso contrario
+	 * @return true si la actualizaciï¿½n ha sido correcta, false en caso contrario
 	 */
 	public boolean updateEstado(long id, ContenidoVO.Estado nuevoEstado) {
 		Connection connection = ConnectionFactory.getConnection();
@@ -34,7 +34,7 @@ public abstract class ContenidoDAO {
 	}
 	
 	/**
-	 * Búsqueda de contenido por su identificador interno.
+	 * Bï¿½squeda de contenido por su identificador interno.
 	 * @param id
 	 * @return El contenido si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
@@ -69,7 +69,7 @@ public abstract class ContenidoDAO {
 	/**
 	 * Inserta un contenido en la base de datos, con valor 0 en numVisitas, la fecha actual en fechaRealizacion, y "pendiente" en estado.
 	 * @param contenido
-	 * @return El idContenido del contenido recién insertado (mayor que 0 si es correcto, menor o igual si ha salido mal)
+	 * @return El idContenido del contenido reciï¿½n insertado (mayor que 0 si es correcto, menor o igual si ha salido mal)
 	 * @throws ErrorInternoException 
 	 */
 	protected int insertContenido(ContenidoVO contenido) throws ErrorInternoException {
@@ -94,7 +94,7 @@ public abstract class ContenidoDAO {
 	/**
 	 * Actualiza los datos de un contenido (asumiendo que ya existe un comentario con ese ID).
 	 * @param contenido
-	 * @return true si la actualización ha sido correcta, false en caso contrario
+	 * @return true si la actualizaciï¿½n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	protected boolean updateContenido(ContenidoVO contenido) throws ErrorInternoException {
