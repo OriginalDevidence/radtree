@@ -1,4 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Date" %>
+<%@ page import="sistinfo.capadatos.dao.UsuarioDAO" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
+<%@ page import="sistinfo.excepciones.ErrorInternoException" %>
+<%--
+	Almacena datos de usuario (UsuarioVO) en la request para que luego pueda ser usada por la bean
+	Orden de comprobaciones:
+	- Si ya hay un UsuarioVO en la request (id="usuario"), no hacer nada
+	- Si no hay un UsuarioVO en la request, intentar cargar los datos del usuario con id idUsuario (atributo de request)
+		- Si no lo encuentra, intentar cargar los datos del usuario almacenado en la sesion
+--%>
+<%
+	if (request.getAttribute("usuario") == null) {
+		// Encontrar un ID de usuario para mostrar
+		Long idUsuario = (Long)request.getAttribute("idUsuario");
+		if (idUsuario == null || idUsuario == 0L) {
+			idUsuario = (Long)session.getAttribute("idUsuario");
+			if (idUsuario == null || idUsuario == 0L) {
+				// No sabemos qué usuario mostrar
+	            response.sendRedirect("70_errorInterno.html");
+			}
+		}
+		// Cargar el usuario con ese ID en la request
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		try {
+			UsuarioVO usuario = usuarioDAO.getUsuarioById(idUsuario);
+			if (usuario == null) {
+	            response.sendRedirect("70_errorInterno.html");
+			} else {
+				request.setAttribute("usuario", usuario);
+			}
+		} catch (ErrorInternoException e) {
+            response.sendRedirect("70_errorInterno.html");
+		}
+	}
+%>
+<jsp:useBean id="usuario" class="sistinfo.capadatos.vo.UsuarioVO" scope="request"/>
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -6,8 +43,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<!-- TODO: Cambiar *usuario* por el nombre de usuario -->
-	<title>Perfil de *usuario*</title>
+	<title><jsp:getProperty name="usuario" property="alias"/> - RadTree</title>
 	<meta name="description" content="Página de perfil de usuario">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 	
@@ -18,7 +54,6 @@
 	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
 	<link href="fonts/ionicons.css" rel="stylesheet">
 	<link href="common/styles.css" rel="stylesheet">
-	
 </head>
 <body>
 
@@ -28,7 +63,8 @@
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
 			<a class="mt-10" href="index.html"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10 color-ash" href="">Perfil de *nombre*</a>
+			<!-- TODO: enviar al usuario a este mismo perfil -->
+			<a class="mt-10 color-ash" href="perfil.jsp">Perfil de <jsp:getProperty name="usuario" property="alias"/></a>
 		</div><!-- container -->
 	</section>
 	
@@ -39,8 +75,7 @@
 			<div class="row">
 			
 				<div class="col-md-12 col-lg-8">
-					<jsp:useBean id="usuario" class="sistinfo.capadatos.vo.UsuarioVO">
-					<h3 class="p-title mb-30"><b>Perfil de *nombre*</b></h3>
+					<h3 class="p-title mb-30"><b>Perfil de <jsp:getProperty name="usuario" property="alias"/></b></h3>
 					
 					<!-- Medallas de perfil (administrador, creador de contenido, etc) -->
 					<!-- TODO arreglar -->
@@ -51,30 +86,27 @@
 					<div class="row mt-30">
 						<div class="col-12 col-sm-6 mb-20">
 							<h4 class="mb-5">Alias</h4>
-							<p>
-								<jsp:getProperty name="usuario" property="alias"/>
-								<jsp:getProperty name="usuario" property="puntuacion"/>
-							</p>
+							<p><jsp:getProperty name="usuario" property="alias"/></p>
 						</div>
 
 						<div class="col-12 col-sm-6 mb-20">
 							<h4 class="mb-5">Fecha de nacimiento</h4>
-							<p>04/03/1981</p>
+							<p><jsp:getProperty name="usuario" property="fechaNacimiento"/></p>
 						</div>
 
 						<div class="col-12 col-sm-6 mb-20">
 							<h4 class="mb-5">Nombre</h4>
-							<p>Juan</p>
+							<p><jsp:getProperty name="usuario" property="nombre"/></p>
 						</div>
 						
 						<div class="col-12 col-sm-6 mb-20">
 							<h4 class="mb-5">Apellidos</h4>
-							<p>Martinez Perez</p>
+							<p><jsp:getProperty name="usuario" property="apellidos"/></p>
 						</div>
 							
 						<div class="col-12 mb-20">
 							<h4 class="mb-5">Email</h4>
-							<p>juanmartinezperez@gmail.com</p>
+							<p><jsp:getProperty name="usuario" property="email"/></p>
 						</div>
 						
 						<div class="col-sm-12 mtb-20">
@@ -85,7 +117,6 @@
 							<a class="color-primary link-brdr-btm-primary" href="05_cambiarClave.html"><b>Cambiar contraseña</b></a>
 						</div>
 					</div>
-					</jsp:useBean>
 				</div>
 			
 			</div>
