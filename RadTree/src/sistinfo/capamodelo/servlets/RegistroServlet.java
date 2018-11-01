@@ -1,4 +1,4 @@
-package sistinfo.servlets;
+package sistinfo.capamodelo.servlets;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
