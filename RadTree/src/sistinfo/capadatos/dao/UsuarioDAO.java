@@ -2,16 +2,16 @@ package sistinfo.capadatos.dao;
 
 import java.sql.*;
 
-import sistinfo.capadatos.excepciones.AliasYaExistenteException;
-import sistinfo.capadatos.excepciones.EmailYaExistenteException;
-import sistinfo.capadatos.excepciones.ErrorInternoException;
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.UsuarioVO;
+import sistinfo.excepciones.AliasYaExistenteException;
+import sistinfo.excepciones.EmailYaExistenteException;
+import sistinfo.excepciones.ErrorInternoException;
 
 public class UsuarioDAO {
 	
 	/**
-	 * B鷖queda de usuario por su identificador interno.
+	 * B煤squeda de usuario por su identificador interno.
 	 * @param id
 	 * @return El usuario si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
@@ -50,7 +50,7 @@ public class UsuarioDAO {
         	stmt.setString(1, alias);
             ResultSet rs = stmt.executeQuery();
             
-            // Mover el cursor a la ultima posici髇 y comprobar que el resultSet solamente ha devuelto un usuario
+            // Mover el cursor a la ultima posici煤n y comprobar que el resultSet solamente ha devuelto un usuario
             // Si ha devuelto 0 no existe un usuario con ese alias, si devuelve mas de 1 algo raro ha pasado con el query
             if (rs.last()) {
             	if (rs.getRow() == 1) {
@@ -82,7 +82,7 @@ public class UsuarioDAO {
         	stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             
-            // Mover el cursor a la ultima posici髇 y comprobar que el resultSet solamente ha devuelto un usuario
+            // Mover el cursor a la ultima posici贸n y comprobar que el resultSet solamente ha devuelto un usuario
             // Si ha devuelto 0 no existe un usuario con ese alias, si devuelve mas de 1 algo raro ha pasado con el query
             if (rs.last()) {
             	if (rs.getRow() == 1) {
@@ -103,16 +103,17 @@ public class UsuarioDAO {
 	/**
 	 * Inserta un usuario en la base de datos.
 	 * @param usuario
-	 * @return true si la inserci髇 ha sido correcta, false en caso contrario
+	 * @return El ID del usuario insertado o 0 si la inserci贸n ha sido incorrecta
 	 * @throws AliasYaExistenteException
 	 * @throws EmailYaExistenteException
 	 * @throws ErrorInternoException 
 	 */
-	public boolean insertUsuario(UsuarioVO usuario) throws AliasYaExistenteException, EmailYaExistenteException, ErrorInternoException {
+	public Long insertUsuario(UsuarioVO usuario) throws AliasYaExistenteException, EmailYaExistenteException, ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Usuario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
+        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Usuario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)",
+        															Statement.RETURN_GENERATED_KEYS);
         	stmt.setString(1, usuario.getAlias());
         	stmt.setString(2, usuario.getNombre());
         	stmt.setString(3, usuario.getApellidos());
@@ -124,7 +125,11 @@ public class UsuarioDAO {
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
-        		return true;
+        		// Devolver el ID del usuario insertado
+        		ResultSet rs = stmt.getGeneratedKeys();
+        		if (rs != null && rs.last()) {
+        			return rs.getLong(1);
+        		}
         	} else {
         		checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail());
         	}
@@ -133,13 +138,13 @@ public class UsuarioDAO {
             ex.printStackTrace();
             throw new ErrorInternoException();
         }
-        return false;
+        return 0L;
 	}
 	
 	/**
 	 * Actualiza los datos de un usuario (asumiendo que ya existe un usuario con ese ID).
 	 * @param usuario
-	 * @return true si la actualizaci髇 ha sido correcta, false en caso contrario
+	 * @return true si la actualizaci贸n ha sido correcta, false en caso contrario
 	 * @throws AliasYaExistenteException
 	 * @throws EmailYaExistenteException
 	 * @throws ErrorInternoException 
@@ -175,7 +180,7 @@ public class UsuarioDAO {
 	}
 	
 	/**
-	 * Elimina a un usuario de la base de datos seg鷑 su id.
+	 * Elimina a un usuario de la base de datos seg煤n su id.
 	 * @param id
 	 * @return true si el borrado ha sido correcto, false en caso contrario
 	 * @throws ErrorInternoException 
@@ -224,7 +229,7 @@ public class UsuarioDAO {
 	 * Comprueba si los datos de login para el usuario son correctos.
 	 * @param usuario
 	 * @param passwordHash
-	 * @return true si las contrase馻s coinciden, false en caso contrario
+	 * @return true si las contrase煤as coinciden, false en caso contrario
 	 */
 	private boolean checkLogin(UsuarioVO usuario, String passwordHash) {
 		return usuario.getPasswordHash().equals(passwordHash);
@@ -242,7 +247,7 @@ public class UsuarioDAO {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
-        	// Comprobaci髇 de alias
+        	// Comprobaci贸n de alias
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE alias=?");
         	stmt.setString(1, alias);
             ResultSet rs = stmt.executeQuery();
@@ -250,7 +255,7 @@ public class UsuarioDAO {
                 throw new AliasYaExistenteException();
             }
             
-            // Comprobaci髇 de email
+            // Comprobaci贸n de email
             stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE email=?");
         	stmt.setString(1, email);
             rs = stmt.executeQuery();
