@@ -111,7 +111,7 @@ public class RegistroServlet extends HttpServlet {
         	datosCorrectos = false;
         	errors.put("clave", "Clave inválida");
         }
-        if (reclave == null || alias.trim().isEmpty()) {
+        if (reclave == null || reclave.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("reclave", "Clave inválida");
         }
