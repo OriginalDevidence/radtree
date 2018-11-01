@@ -19,22 +19,24 @@
 			if (idUsuario == null || idUsuario == 0L) {
 				// No sabemos qué usuario mostrar
 	            response.sendRedirect("70_errorInterno.html");
-			}
-		}
-		// Cargar el usuario con ese ID en la request
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		try {
-			UsuarioVO usuario = usuarioDAO.getUsuarioById(idUsuario);
-			if (usuario == null) {
-	            response.sendRedirect("70_errorInterno.html");
 			} else {
-				request.setAttribute("usuario", usuario);
+				// Cargar el usuario con ese ID en la request
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				try {
+					UsuarioVO usuario = usuarioDAO.getUsuarioById(idUsuario);
+					if (usuario == null) {
+			            response.sendRedirect("70_errorInterno.html");
+					} else {
+						request.setAttribute("usuario", usuario);
+					}
+				} catch (ErrorInternoException e) {
+		            response.sendRedirect("70_errorInterno.html");
+				}
 			}
-		} catch (ErrorInternoException e) {
-            response.sendRedirect("70_errorInterno.html");
 		}
 	}
 %>
+<%-- Bean que almacena los datos del usuario a mostrar en el perfil --%>
 <jsp:useBean id="usuario" class="sistinfo.capadatos.vo.UsuarioVO" scope="request"/>
 <!DOCTYPE HTML>
 <html lang="es">

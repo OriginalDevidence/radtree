@@ -31,6 +31,7 @@ public class RegistroServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         Map<String, String> errores = new HashMap<String, String>();
+        request.setCharacterEncoding("UTF-8");
         
     	UsuarioVO usuario = extractUsuarioFromHttpRequest(request, errores);
         try {
@@ -45,7 +46,6 @@ public class RegistroServlet extends HttpServlet {
         } catch (EmailYaExistenteException e) {
         	errores.put("Email", "Ya existe una cuenta con ese email");
         } catch (Exception e) {
-        	System.out.println("whoops");
             response.sendRedirect("70_errorInterno.html");
         }
 
