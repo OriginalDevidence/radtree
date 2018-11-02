@@ -24,7 +24,7 @@
       			<c:if test="${not empty sessionScope.alias}">
 					<ul class="float-right list-a-plr-10 list-a-plr-sm-5 ptb-5 mtb-5 mtb-sm-0">
 						<li>
-							<a href="perfil.jsp">Bienvenido, Diego<i class="pl-10 ion-arrow-down-b"></i></a>
+							<a href="perfil.jsp">Bienvenido, <c:out value="${sessionScope.alias}"/><i class="pl-10 ion-arrow-down-b"></i></a>
 						</li>
 					</ul>
       			</c:if>
