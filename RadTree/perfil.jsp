@@ -2,27 +2,31 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="sistinfo.capadatos.dao.UsuarioDAO" %>
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
+<%@ page import="sistinfo.utils.CookieManager" %>
 <%@ page import="sistinfo.excepciones.ErrorInternoException" %>
 <%--
 	Almacena datos de usuario (UsuarioVO) en la request para que luego pueda ser usada por la bean
 	Orden de comprobaciones:
 	- Si ya hay un UsuarioVO en la request, no hacer nada
-	- Si no hay un UsuarioVO en la request, intentar cargar los datos del usuario con el alias incluido en la request
-		- Si no lo encuentra, intentar cargar los datos del usuario almacenado en la sesion
+	- Si no hay un UsuarioVO en la request, intentar cargar los datos del usuario con el alias incluido en los parametros
+		- Si no lo encuentra, intentar cargar los datos del usuario de las cookies
 --%>
 <%
 	if (request.getAttribute("usuario") == null) {
 		// Encontrar un ID de usuario para mostrar
-		String alias = (String)request.getAttribute("alias");
+		String alias = (String)request.getParameter("alias");
 		if (alias == null || alias.trim().isEmpty()) {
-			alias = (String)session.getAttribute("alias");
-			if (alias == null || alias.trim().isEmpty()) {
+			alias = CookieManager.getAliasFromCookies(request);
+			if (alias == null) { // CookieManager ya comprueba que es vacio
 				// No sabemos qué usuario mostrar
 	            response.sendRedirect("errorInterno.html");
+			} else {
+				// Mostrar el usuario alias
+				RequestDispatcher dispatcher = request.getRequestDispatcher("perfil.jsp?alias=" + alias);
+				response.sendRedirect("perfil.jsp?alias=" + alias);
+				dispatcher.include(request, response);
 			}
-		}  
-		if (alias != null && !alias.trim().isEmpty()) {
-			// Cargar el usuario con ese alias
+		} else {// Cargar el usuario con ese alias
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			try {
 				UsuarioVO usuario = usuarioDAO.getUsuarioByAlias(alias);
@@ -111,7 +115,7 @@
 						
 						<!-- TODO Funcionalidad -->
 						<div class="col-sm-12 mtb-20">
-							<a class="color-primary link-brdr-btm-primary" href="11_editarPerfil.html"><b>Cerrar sesión</b></a>
+							<a class="color-primary link-brdr-btm-primary" href="CerrarSesion.do"><b>Cerrar sesión</b></a>
 						</div>
 						
 						<div class="col-sm-12 mb-20">

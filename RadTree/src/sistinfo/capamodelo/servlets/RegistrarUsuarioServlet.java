@@ -19,7 +19,7 @@ import sistinfo.utils.PBKDF2Hash;
 import sistinfo.capadatos.dao.UsuarioDAO;
 
 @SuppressWarnings("serial")
-public class RegistroServlet extends HttpServlet {
+public class RegistrarUsuarioServlet extends HttpServlet {
 	
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doPost(request, response);
@@ -39,9 +39,9 @@ public class RegistroServlet extends HttpServlet {
                 usuarioDAO.insertUsuario(usuario);
                 
                 RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
-                response.sendRedirect("perfil.jsp");
-                request.setAttribute("usuario", usuario);
                 CookieManager.addLoginCookiesToResponse(usuario, response);
+                response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());
+                request.setAttribute("usuario", usuario);
                 req.include(request, response);
             } catch (UsuarioYaExistenteException e) {
                 RequestDispatcher req = request.getRequestDispatcher("registro.jsp");

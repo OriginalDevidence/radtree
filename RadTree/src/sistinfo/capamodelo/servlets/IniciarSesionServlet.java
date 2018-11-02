@@ -15,14 +15,14 @@ import sistinfo.utils.CookieManager;
 import sistinfo.utils.PBKDF2Hash;
 
 @SuppressWarnings("serial")
-public class InicioSesionServlet extends HttpServlet {
+public class IniciarSesionServlet extends HttpServlet {
 	
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doPost(request, response);
     }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    
+    	
     	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -63,7 +63,7 @@ public class InicioSesionServlet extends HttpServlet {
 					// Enviar al perfil y añadir los datos de login en cookies
 	                RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
 	                CookieManager.addLoginCookiesToResponse(usuario, response);
-	                response.sendRedirect("perfil.jsp");
+	                response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());
 	                request.setAttribute("usuario", usuario);
 	                req.include(request, response);
 				}

@@ -24,7 +24,7 @@
       			<c:if test="${not empty cookie.aliasUsuario and not empty cookie.claveUsuario}">
 					<ul class="float-right list-a-plr-10 list-a-plr-sm-5 ptb-5 mtb-5 mtb-sm-0">
 						<li>
-							<a href="perfil.jsp">Bienvenido, <c:out value="${cookie.aliasUsuario.value}"/><i class="pl-10 ion-arrow-down-b"></i></a>
+							<a href="perfil.jsp?alias=<c:out value='${cookie.aliasUsuario.value}'/>">Bienvenido, <c:out value="${cookie.aliasUsuario.value}"/><i class="pl-10 ion-arrow-down-b"></i></a>
 						</li>
 					</ul>
       			</c:if>

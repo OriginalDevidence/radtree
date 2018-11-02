@@ -7,24 +7,32 @@
     <display-name>RadTree</display-name>
     <!-- ================ Servlets ================ -->
     <servlet>
-        <servlet-name>Registro</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.RegistroServlet</servlet-class>
+        <servlet-name>RegistrarUsuario</servlet-name>
+        <servlet-class>sistinfo.capamodelo.servlets.RegistrarUsuarioServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InicioSesion</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.InicioSesionServlet</servlet-class>
+        <servlet-name>IniciarSesion</servlet-name>
+        <servlet-class>sistinfo.capamodelo.servlets.IniciarSesionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CerrarSesion</servlet-name>
+        <servlet-class>sistinfo.capamodelo.servlets.CerrarSesionServlet</servlet-class>
     </servlet>
     <!-- ============ Servlets Mapping======= -->
     <servlet-mapping>
-        <servlet-name>Registro</servlet-name>
+        <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/RegistrarUsuario.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InicioSesion</servlet-name>
+        <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/IniciarSesion.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CerrarSesion</servlet-name>
+        <url-pattern>/CerrarSesion.do</url-pattern>
     </servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
