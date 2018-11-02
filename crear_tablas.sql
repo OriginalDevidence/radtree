@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
   /* Hash de la contraseña (MD5), 128 bits */
   /* Se puede añadir salt pero no es objetivo de la asignatura */
   passwordHash        BINARY(128)   NOT NULL,
-  tipoUsuario         ENUM ('administrador', 'creador', 'participante')
+  tipoUsuario         ENUM ('ADMINISTRADOR', 'CREADOR', 'PARTICIPANTE')
                                     NOT NULL,
   /* No guardamos la foto de perfil ya que no se almacena en la base de datos y podemos acceder con el idUsuario */
   puntuacion          DOUBLE        NOT NULL
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS Contenido (
   idAutor             BIGINT        NOT NULL,
   numVisitas          BIGINT        NOT NULL,
   fechaRealizacion    DATETIME      NOT NULL,
-  estado              ENUM('pendiente', 'validado', 'borrado')
+  estado              ENUM('PENDIENTE', 'VALIDADO', 'BORRADO')
                                     NOT NULL,
   FOREIGN KEY(idAutor) REFERENCES Usuario(idUsuario) ON DELETE CASCADE
 );

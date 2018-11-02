@@ -1,4 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="sistinfo.capamodelo.resultados.ResultadoInicioSesion" %>
+<%--
+	Comprueba los errores que han podido ocurrir en el inicio de sesion y les añade formato
+--%>
+<%
+	String errorMessage = (String)request.getAttribute("error");
+	if (errorMessage != null) {
+		String estiloCabecera = "<p class=\"font-10 color-red lh-30 mb-20 ml-15\"><i class=\"ion-close\"></i><span class=\"pl-5\">";
+		String estiloFinal = "</span></p>";
+		errorMessage = estiloCabecera + errorMessage + estiloFinal;
+		ResultadoInicioSesion resultado = new ResultadoInicioSesion(errorMessage);
+		request.setAttribute("resultadoInicioSesion", resultado);
+	}
+%>
+<%-- Bean que almacena el resultado del inicio de sesion --%>
+<jsp:useBean id="resultadoInicioSesion" class="sistinfo.capamodelo.resultados.ResultadoInicioSesion" scope="request"/>
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -17,7 +33,6 @@
 	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
 	<link href="fonts/ionicons.css" rel="stylesheet">
 	<link href="common/styles.css" rel="stylesheet">
-	
 </head>
 <body>
 	
@@ -37,21 +52,19 @@
 			
 				<div class="col-md-12 col-lg-8">
 					<h3 class="p-title mb-30"><b>Iniciar sesión</b></h3>
-					<form name="inicioSesion" action="TODO.do" method="post">
+					<form name="inicioSesion" action="IniciarSesion" method="post">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
+						
+							<jsp:getProperty name="resultadoInicioSesion" property="error"/>
 
 							<div class="col-12">
-								<label for="email">Email</label>
-								<!-- TODO: Sacar mensajes de error si hay algun campo no valido en el registro-->
-								<p class="font-10 color-red lh-30"><i class="ion-close"></i><span class="pl-5">Correo electrónico no válido</span></p>
-								<input type="email" name="email" placeholder="Email"/>
+								<label for="identificador">Email o alias</label>
+								<input type="text" name="identificador" placeholder="Email o alias"/>
 							</div>
 							
 							<div class="col-12">
 								<label for="clave">Contraseña</label>
-								<!-- TODO: Sacar mensajes de error si hay algun campo no valido en el registro-->
-								<p class="font-10 color-red lh-30"><i class="ion-close"></i><span class="pl-5">Contraseña incorrecta</span></p>
 								<input type="password" name="clave" placeholder="Contraseña"/>
 							</div>
 
