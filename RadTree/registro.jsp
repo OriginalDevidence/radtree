@@ -4,37 +4,22 @@
 <%@ page import="sistinfo.capamodelo.resultados.ResultadoRegistro" %>
 <%--
 	Comprueba los errores que han podido ocurrir en el registro y les añade formato
+	SuppressWarnings para evitar el warning de type cast de "errores" (aunque esta bien hecho)
 --%>
+<%! @SuppressWarnings("unchecked") %>
 <%
-	Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
-	if (errores != null) {
-		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
-		String estiloFinal = "</span>";
-		// Añadir formato
-		for (String k : errores.keySet()) {
-			errores.replace(k, estiloCabecera + errores.get(k) + estiloFinal);
+	if (request.getAttribute("errores") instanceof HashMap) {
+		Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
+		if (errores != null) {
+			String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
+			String estiloFinal = "</span>";
+			// Añadir formato
+			for (String k : errores.keySet()) {
+				errores.replace(k, estiloCabecera + errores.get(k) + estiloFinal);
+			}
 		}
-		ResultadoRegistro resultadoRegistro = new ResultadoRegistro(
-			errores.getOrDefault("alias", ""),
-			(String)request.getParameter("alias"),
-			errores.getOrDefault("nacimiento", ""),
-			(String)request.getParameter("nacimiento"),
-			errores.getOrDefault("nombre", ""),
-			(String)request.getParameter("nombre"),
-			errores.getOrDefault("apellidos", ""),
-			(String)request.getParameter("apellidos"),
-			errores.getOrDefault("email", ""),
-			(String)request.getParameter("email"),
-			errores.getOrDefault("clave", ""),
-			(String)request.getParameter("clave"),
-			errores.getOrDefault("reclave", ""),
-			(String)request.getParameter("reclave")
-		);
-		request.setAttribute("resultadoRegistro", resultadoRegistro);
 	}
 %>
-<%-- Bean que almacena el resultado del registro --%>
-<jsp:useBean id="resultadoRegistro" class="sistinfo.capamodelo.resultados.ResultadoRegistro" scope="request"/>
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -56,7 +41,7 @@
 </head>
 <body>
 	
-	<jsp:include page="WEB-INF/header.jsp"/>
+	<%@ include file="WEB-INF/header.jsp" %>
 	
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
@@ -78,49 +63,48 @@
 
 							<div class="col-sm-12 col-md-6">
 								<label for="alias">Alias</label>
-								<jsp:getProperty name="resultadoRegistro" property="errorAlias"/>
+								<c:out value="${requestScope.errores.get(\"alias\")}" escapeXml="false"/>
 								<input class="mt-5" type="text" name="alias" placeholder="Alias"
-									value="<jsp:getProperty name="resultadoRegistro" property="valorAlias"/>"/>
+									value="<c:out value="${param.alias}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nacimiento">Fecha de nacimiento</label>
-								<jsp:getProperty name="resultadoRegistro" property="errorNacimiento"
-								/>
+								<c:out value="${requestScope.errores.get(\"nacimiento\")}" escapeXml="false"/>
 								<input class="mt-5" type="date" name="nacimiento"
-									value="<jsp:getProperty name="resultadoRegistro" property="valorNacimiento"/>"/>
+									value="<c:out value="${param.nacimiento}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nombre">Nombre</label>
-								<jsp:getProperty name="resultadoRegistro" property="errorNombre"/>
+								<c:out value="${requestScope.errores.get(\"nombre\")}" escapeXml="false"/>
 								<input class="mt-5" type="text" name="nombre" placeholder="Nombre"
-									value="<jsp:getProperty name="resultadoRegistro" property="valorNombre"/>"/>
+									value="<c:out value="${param.nombre}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="apellidos">Apellidos</label>
-								<jsp:getProperty name="resultadoRegistro" property="errorApellidos"/>
+								<c:out value="${requestScope.errores.get(\"apellidos\")}" escapeXml="false"/>
 								<input class="mt-5" type="text" name="apellidos" placeholder="Apellidos"
-									value="<jsp:getProperty name="resultadoRegistro" property="valorApellidos"/>"/>
+									value="<c:out value="${param.apellidos}"/>"/>
 							</div>
 							
 							<div class="col-12">
 								<label for="email">Email</label>
-								<jsp:getProperty name="resultadoRegistro" property="errorEmail"/>
+								<c:out value="${requestScope.errores.get(\"email\")}" escapeXml="false"/>
 								<input class="mt-5" type="email" name="email" placeholder="Email"
-									value="<jsp:getProperty name="resultadoRegistro" property="valorEmail"/>"/>
+									value="<c:out value="${param.email}"/>"/>
 							</div>
 							
 							<div class="col-sm-12 col-md-6">
 								<label for="clave">Contraseña</label>
-								<jsp:getProperty name="resultadoRegistro" property="errorClave"/>
+								<c:out value="${requestScope.errores.get(\"clave\")}" escapeXml="false"/>
 								<input class="mt-5" type="password" name="clave" placeholder="Contraseña"/>
 							</div>
 							
 							<div class="col-sm-12 col-md-6">
 								<label for="reclave">Repite la contraseña</label>
-								<jsp:getProperty name="resultadoRegistro" property="errorReclave"/>
+								<c:out value="${requestScope.errores.get(\"reclave\")}" escapeXml="false"/>
 								<input class="mt-5" type="password" name="reclave" placeholder="Repite la contraseña"/>
 							</div>
 
@@ -154,7 +138,7 @@
 		</div><!-- container -->
 	</section>
 	
-	<jsp:include page="WEB-INF/footer.jsp"/>
+	<%@ include file="WEB-INF/footer.jsp" %>
 	
 	<!-- SCRIPTS -->
 	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>

@@ -6,15 +6,12 @@
 <%
 	String errorMessage = (String)request.getAttribute("error");
 	if (errorMessage != null) {
+		// Dar formato al error
 		String estiloCabecera = "<p class=\"font-10 color-red lh-30 mb-20 ml-15\"><i class=\"ion-close\"></i><span class=\"pl-5\">";
 		String estiloFinal = "</span></p>";
-		errorMessage = estiloCabecera + errorMessage + estiloFinal;
-		ResultadoInicioSesion resultado = new ResultadoInicioSesion(errorMessage);
-		request.setAttribute("resultadoInicioSesion", resultado);
+		request.setAttribute("error", estiloCabecera + errorMessage + estiloFinal);
 	}
 %>
-<%-- Bean que almacena el resultado del inicio de sesion --%>
-<jsp:useBean id="resultadoInicioSesion" class="sistinfo.capamodelo.resultados.ResultadoInicioSesion" scope="request"/>
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -36,7 +33,7 @@
 </head>
 <body>
 	
-	<jsp:include page="WEB-INF/header.jsp"/>
+	<%@ include file="WEB-INF/header.jsp" %>
 	
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
@@ -56,11 +53,12 @@
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 						
-							<jsp:getProperty name="resultadoInicioSesion" property="error"/>
+							<c:out value="${requestScope.error}" escapeXml="false"/>
 
 							<div class="col-12">
 								<label for="identificador">Email o alias</label>
-								<input type="text" name="identificador" placeholder="Email o alias"/>
+								<input type="text" name="identificador" placeholder="Email o alias"
+									value="<c:out value="${param.identificador}"/>"/>
 							</div>
 							
 							<div class="col-12">
@@ -91,7 +89,7 @@
 		</div><!-- container -->
 	</section>
 	
-	<jsp:include page="WEB-INF/footer.jsp"/>
+	<%@ include file="WEB-INF/footer.jsp" %>
 
 	<!-- SCRIPTS -->
 	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
