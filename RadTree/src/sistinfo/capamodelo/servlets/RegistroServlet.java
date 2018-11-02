@@ -39,12 +39,13 @@ public class RegistroServlet extends HttpServlet {
                 usuarioDAO.insertUsuario(usuario);
                 
                 RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
-				request.getSession().setAttribute("alias", usuario.getAlias());
+                response.sendRedirect("perfil.jsp");
                 request.setAttribute("usuario", usuario);
                 CookieManager.addLoginCookiesToResponse(usuario, response);
                 req.include(request, response);
             } catch (UsuarioYaExistenteException e) {
                 RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
+                response.sendRedirect("registro.jsp");
             	if (e.isAliasExistente()) {
             		errores.put("alias", "El alias ya está registrado");
             	}
@@ -58,6 +59,7 @@ public class RegistroServlet extends HttpServlet {
             }
         } else {
             RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
+            response.sendRedirect("registro.jsp");
             request.setAttribute("errores", errores);
             req.include(request, response);
         }

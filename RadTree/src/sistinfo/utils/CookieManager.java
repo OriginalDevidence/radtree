@@ -10,7 +10,7 @@ public class CookieManager {
 
 	public static void addLoginCookiesToResponse(UsuarioVO usuario, HttpServletResponse response) {
         Cookie aliasCookie = new Cookie("aliasUsuario", usuario.getAlias());
-        Cookie claveCookie = new Cookie("claveUsuario", new String(usuario.getPasswordHash()).trim());
+        Cookie claveCookie = new Cookie("claveUsuario", usuario.getPasswordHash());
         response.addCookie(aliasCookie);
         response.addCookie(claveCookie);
 	}

@@ -17,11 +17,11 @@
     <!-- ============ Servlets Mapping======= -->
     <servlet-mapping>
         <servlet-name>Registro</servlet-name>
-        <url-pattern>/RegistrarUsuario</url-pattern>
+        <url-pattern>/RegistrarUsuario.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InicioSesion</servlet-name>
-        <url-pattern>/IniciarSesion</url-pattern>
+        <url-pattern>/IniciarSesion.do</url-pattern>
     </servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>

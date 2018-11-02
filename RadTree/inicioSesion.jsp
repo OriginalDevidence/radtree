@@ -19,7 +19,7 @@
 			request.setAttribute("usoCookies", true);
 			request.setAttribute("loginCookie", alias);
 			request.setAttribute("claveHashCookie", claveHash);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("IniciarSesion");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("IniciarSesion.do");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -62,7 +62,7 @@
 			
 				<div class="col-md-12 col-lg-8">
 					<h3 class="p-title mb-30"><b>Iniciar sesión</b></h3>
-					<form name="inicioSesion" action="IniciarSesion" method="post">
+					<form name="inicioSesion" action="IniciarSesion.do" method="post">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 						
@@ -95,7 +95,7 @@
 
 				<div class="col-md-12 col-lg-4">
 					<h3 class="mb-30"><b>¿No tienes una cuenta?</b></h3>
-					<a class="w-100 btn-fill-primary" href="02_registro.html"><b>Regístrate</b></a>
+					<a class="w-100 btn-fill-primary" href="registro.jsp"><b>Regístrate</b></a>
 				</div>
 
 			</div>

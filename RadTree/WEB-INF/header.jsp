@@ -13,7 +13,7 @@
 				</ul>
 
 				<%-- El usuario NO ha iniciado sesion --%>
-      			<c:if test="${empty sessionScope.alias}">
+      			<c:if test="${empty cookie.aliasUsuario or empty cookie.claveUsuario}">
 					<ul class="float-right list-a-plr-10 list-a-plr-sm-5 mtb-5 mtb-sm-0">
 						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="registro.jsp">Regístrate</a></li>
 						<li><span class="plr-10 plr-sm-5">o</span></li>
@@ -21,10 +21,10 @@
 					</ul>
 				</c:if>
 				<%-- El usuario SI ha iniciado sesion --%>
-      			<c:if test="${not empty sessionScope.alias}">
+      			<c:if test="${not empty cookie.aliasUsuario and not empty cookie.claveUsuario}">
 					<ul class="float-right list-a-plr-10 list-a-plr-sm-5 ptb-5 mtb-5 mtb-sm-0">
 						<li>
-							<a href="perfil.jsp">Bienvenido, <c:out value="${sessionScope.alias}"/><i class="pl-10 ion-arrow-down-b"></i></a>
+							<a href="perfil.jsp">Bienvenido, <c:out value="${cookie.aliasUsuario.value}"/><i class="pl-10 ion-arrow-down-b"></i></a>
 						</li>
 					</ul>
       			</c:if>

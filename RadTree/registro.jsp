@@ -25,7 +25,7 @@
 			request.setAttribute("usoCookies", true);
 			request.setAttribute("loginCookie", alias);
 			request.setAttribute("claveHashCookie", claveHash);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("IniciarSesion");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("IniciarSesion.do");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -67,41 +67,41 @@
 			
 				<div class="col-md-12 col-lg-8 pb-50">
 					<h3 class="p-title mb-30"><b>Registro</b></h3>
-					<form name="registro" action="RegistrarUsuario" method="post">
+					<form name="registro" action="RegistrarUsuario.do" method="post">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 
 							<div class="col-sm-12 col-md-6">
 								<label for="alias">Alias</label>
-								<c:out value="${requestScope.errores.get(\"alias\")}" escapeXml="false"/>
+								<c:out value="${requestScope.errores.get('alias')}" escapeXml="false"/>
 								<input class="mt-5" type="text" name="alias" placeholder="Alias"
 									value="<c:out value="${param.alias}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nacimiento">Fecha de nacimiento</label>
-								<c:out value="${requestScope.errores.get(\"nacimiento\")}" escapeXml="false"/>
+								<c:out value="${requestScope.errores.get('nacimiento')}" escapeXml="false"/>
 								<input class="mt-5" type="date" name="nacimiento"
 									value="<c:out value="${param.nacimiento}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nombre">Nombre</label>
-								<c:out value="${requestScope.errores.get(\"nombre\")}" escapeXml="false"/>
+								<c:out value="${requestScope.errores.get('nombre')}" escapeXml="false"/>
 								<input class="mt-5" type="text" name="nombre" placeholder="Nombre"
 									value="<c:out value="${param.nombre}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="apellidos">Apellidos</label>
-								<c:out value="${requestScope.errores.get(\"apellidos\")}" escapeXml="false"/>
+								<c:out value="${requestScope.errores.get('apellidos')}" escapeXml="false"/>
 								<input class="mt-5" type="text" name="apellidos" placeholder="Apellidos"
 									value="<c:out value="${param.apellidos}"/>"/>
 							</div>
 							
 							<div class="col-12">
 								<label for="email">Email</label>
-								<c:out value="${requestScope.errores.get(\"email\")}" escapeXml="false"/>
+								<c:out value="${requestScope.errores.get('email')}" escapeXml="false"/>
 								<input class="mt-5" type="email" name="email" placeholder="Email"
 									value="<c:out value="${param.email}"/>"/>
 							</div>

@@ -62,8 +62,9 @@ public class InicioSesionServlet extends HttpServlet {
 				} else {
 					// Enviar al perfil y añadir los datos de login en cookies
 	                RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
-	                request.setAttribute("usuario", usuario);
 	                CookieManager.addLoginCookiesToResponse(usuario, response);
+	                response.sendRedirect("perfil.jsp");
+	                request.setAttribute("usuario", usuario);
 	                req.include(request, response);
 				}
 			} catch (ErrorInternoException e) {
@@ -82,6 +83,7 @@ public class InicioSesionServlet extends HttpServlet {
      */
     private void loginError(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         RequestDispatcher req = request.getRequestDispatcher("inicioSesion.jsp");
+        response.sendRedirect("inicioSesion.jsp");
         request.setAttribute("error", "Identificador o clave inválidos o incorrectos");
         req.include(request, response);
     }
