@@ -11,8 +11,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
   fechaNacimiento     DATE          NOT NULL,
   /* La longitud máxima de un email válido es de 254 caracteres */
   email               VARCHAR(254)  UNIQUE NOT NULL,
-  /* Hash de la contraseña (SHA-256), 256 bits */
-  /* Se puede añadir salt pero no es objetivo de la asignatura */
+  /* Hash de la contraseña (PBKDF2), 256 bits */
   passwordHash        BLOB          NOT NULL,
   tipoUsuario         ENUM ('ADMINISTRADOR', 'CREADOR', 'PARTICIPANTE')
                                     NOT NULL,
