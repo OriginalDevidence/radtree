@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="sistinfo.capamodelo.resultados.ResultadoInicioSesion" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--
 	Comprueba los errores que han podido ocurrir en el inicio de sesion y les añade formato
 --%>
