@@ -51,7 +51,7 @@ public class RegistroServlet extends HttpServlet {
                 request.setAttribute("errores", errores);
                 req.include(request, response);
             } catch (Exception e) {
-                response.sendRedirect("70_errorInterno.html");
+                response.sendRedirect("errorInterno.html");
             }
         } else {
             RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
@@ -125,7 +125,7 @@ public class RegistroServlet extends HttpServlet {
         
         if (datosCorrectos) {
         	if (clave.equals(reclave)) {
-        		String claveHash = MD5Hash.getMD5Hash(clave);
+        		byte[] claveHash = MD5Hash.getMD5Hash(clave);
         		if (claveHash != null) {
         			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, UsuarioVO.TipoUsuario.PARTICIPANTE);
         		}
