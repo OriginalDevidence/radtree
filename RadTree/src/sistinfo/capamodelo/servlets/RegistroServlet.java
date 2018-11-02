@@ -38,6 +38,7 @@ public class RegistroServlet extends HttpServlet {
                 usuarioDAO.insertUsuario(usuario);
                 
                 RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
+				request.getSession().setAttribute("alias", usuario.getAlias());
                 request.setAttribute("usuario", usuario);
                 req.include(request, response);
             } catch (UsuarioYaExistenteException e) {

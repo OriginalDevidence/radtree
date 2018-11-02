@@ -25,6 +25,7 @@ public class InicioSesionServlet extends HttpServlet {
     	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        
      	String id = request.getParameter("identificador");
     	String clave = request.getParameter("clave");
     	

@@ -6,8 +6,8 @@
 <%--
 	Almacena datos de usuario (UsuarioVO) en la request para que luego pueda ser usada por la bean
 	Orden de comprobaciones:
-	- Si ya hay un UsuarioVO en la request (id="usuario"), no hacer nada
-	- Si no hay un UsuarioVO en la request, intentar cargar los datos del usuario con id idUsuario (atributo de request)
+	- Si ya hay un UsuarioVO en la request, no hacer nada
+	- Si no hay un UsuarioVO en la request, intentar cargar los datos del usuario con el alias incluido en la request
 		- Si no lo encuentra, intentar cargar los datos del usuario almacenado en la sesion
 --%>
 <%
@@ -18,21 +18,21 @@
 			alias = (String)session.getAttribute("alias");
 			if (alias == null || alias.trim().isEmpty()) {
 				// No sabemos qué usuario mostrar
-	            response.sendRedirect("70_errorInterno.html");
+	            response.sendRedirect("errorInterno.html");
 			}
-		}
+		}  
 		if (alias != null && !alias.trim().isEmpty()) {
 			// Cargar el usuario con ese alias
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			try {
 				UsuarioVO usuario = usuarioDAO.getUsuarioByAlias(alias);
 				if (usuario == null) {
-		            response.sendRedirect("70_errorInterno.html");
+		            response.sendRedirect("errorInterno.html");
 				} else {
 					request.setAttribute("usuario", usuario);
 				}
 			} catch (ErrorInternoException e) {
-	            response.sendRedirect("70_errorInterno.html");
+	            response.sendRedirect("errorInterno.html");
 			}
 		}
 	}
