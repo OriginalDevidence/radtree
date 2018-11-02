@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <header>
 	<div class="bg-191">
@@ -11,23 +10,18 @@
 					<li><a href="#"><i class="ion-social-twitter"></i></a></li>
 					<li><a href="#"><i class="ion-social-instagram"></i></a></li>
 				</ul>
-				
-				<%-- El usuario NO ha iniciado sesion --%>
-      			<c:if test="${empty sessionScope.alias}">
-					<ul class="float-right list-a-plr-10 list-a-plr-sm-5 mtb-5 mtb-sm-0">
-						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="registro.jsp">Regístrate</a></li>
-						<li><span class="plr-10 plr-sm-5">o</span></li>
-						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="inicioSesion.jsp">Inicia sesión</a></li>
-					</ul>
-				</c:if>
-				<%-- El usuario SI ha iniciado sesion --%>
-      			<c:if test="${not empty sessionScope.alias}">
-					<ul class="float-right list-a-plr-10 list-a-plr-sm-5 ptb-5 mtb-5 mtb-sm-0">
-						<li>
-							<a href="perfil.jsp">Bienvenido, <c:out value="${sessionScope.alias}"/><i class="pl-10 ion-arrow-down-b"></i></a>
-						</li>
-					</ul>
-      			</c:if>
+
+				<ul class="float-right list-a-plr-10 list-a-plr-sm-5 mtb-5 mtb-sm-0">
+					<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="registro.jsp">Regístrate</a></li>
+					<li><span class="plr-10 plr-sm-5">o</span></li>
+					<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="inicioSesion.jsp">Inicia sesión</a></li>
+				</ul>
+				<!-- TODO: Para cuando este logueado, añadir menu que lleve al perfil o logout
+				<ul class="float-right list-a-plr-10 list-a-plr-sm-5 ptb-5 mtb-5 mtb-sm-0">
+					<li>
+						<a href="perfil.jsp">Bienvenido, Diego<i class="pl-10 ion-arrow-down-b"></i></a>
+					</li>
+				</ul>-->
 				
 			</div><!-- top-menu -->
 		</div><!-- container -->

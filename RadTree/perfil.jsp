@@ -13,26 +13,25 @@
 <%
 	if (request.getAttribute("usuario") == null) {
 		// Encontrar un ID de usuario para mostrar
-		String alias = (String)request.getAttribute("alias");
-		if (alias == null || alias.trim().isEmpty()) {
-			alias = (String)session.getAttribute("alias");
-			if (alias == null || alias.trim().isEmpty()) {
+		Long idUsuario = (Long)request.getAttribute("idUsuario");
+		if (idUsuario == null || idUsuario == 0L) {
+			idUsuario = (Long)session.getAttribute("idUsuario");
+			if (idUsuario == null || idUsuario == 0L) {
 				// No sabemos qué usuario mostrar
 	            response.sendRedirect("70_errorInterno.html");
-			}
-		}
-		if (alias != null && !alias.trim().isEmpty()) {
-			// Cargar el usuario con ese alias
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			try {
-				UsuarioVO usuario = usuarioDAO.getUsuarioByAlias(alias);
-				if (usuario == null) {
+			} else {
+				// Cargar el usuario con ese ID en la request
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				try {
+					UsuarioVO usuario = usuarioDAO.getUsuarioById(idUsuario);
+					if (usuario == null) {
+			            response.sendRedirect("70_errorInterno.html");
+					} else {
+						request.setAttribute("usuario", usuario);
+					}
+				} catch (ErrorInternoException e) {
 		            response.sendRedirect("70_errorInterno.html");
-				} else {
-					request.setAttribute("usuario", usuario);
 				}
-			} catch (ErrorInternoException e) {
-	            response.sendRedirect("70_errorInterno.html");
 			}
 		}
 	}

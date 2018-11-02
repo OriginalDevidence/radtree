@@ -10,18 +10,10 @@
         <servlet-name>Registro</servlet-name>
         <servlet-class>sistinfo.capamodelo.servlets.RegistroServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>InicioSesion</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.InicioSesionServlet</servlet-class>
-    </servlet>
     <!-- ============ Servlets Mapping======= -->
     <servlet-mapping>
         <servlet-name>Registro</servlet-name>
         <url-pattern>/RegistrarUsuario</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>InicioSesion</servlet-name>
-        <url-pattern>/IniciarSesion</url-pattern>
     </servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
