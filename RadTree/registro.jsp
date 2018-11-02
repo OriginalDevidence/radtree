@@ -18,6 +18,7 @@
 			errores.replace(k, estiloCabecera + errores.get(k) + estiloFinal);
 		}
 	} else {
+		// Comprobar login en cookies
 		String alias = CookieManager.getAliasFromCookies(request);
 		String claveHash = CookieManager.getClaveHashFromCookies(request);
 		if (alias != null && claveHash != null) { // ya se ha comprobado que no son vacias en CookieManager

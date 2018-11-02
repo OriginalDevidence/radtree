@@ -12,6 +12,7 @@
 		String estiloFinal = "</span></p>";
 		request.setAttribute("error", estiloCabecera + errorMessage + estiloFinal);
 	} else {
+		// Comprobar login en cookies
 		String alias = CookieManager.getAliasFromCookies(request);
 		String claveHash = CookieManager.getClaveHashFromCookies(request);
 		if (alias != null && claveHash != null) { // ya se ha comprobado que no son vacias en CookieManager
