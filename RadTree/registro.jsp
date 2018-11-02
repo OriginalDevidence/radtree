@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page import="sistinfo.capamodelo.resultados.ResultadoRegistro" %>
 <%--
 	Comprueba los errores que han podido ocurrir en el registro y les añade formato
 --%>
 <%
-	Map<String, String> errores = (Map<String, String>)request.getAttribute("errores");
+	Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
 	if (errores != null) {
 		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
 		String estiloFinal = "</span>";

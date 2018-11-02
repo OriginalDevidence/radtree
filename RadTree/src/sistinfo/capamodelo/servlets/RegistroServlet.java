@@ -125,7 +125,7 @@ public class RegistroServlet extends HttpServlet {
         
         if (datosCorrectos) {
         	if (clave.equals(reclave)) {
-        		String claveHash = MD5Hash.getMD5Hash(clave);
+        		byte[] claveHash = MD5Hash.getMD5Hash(clave);
         		if (claveHash != null) {
         			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, UsuarioVO.TipoUsuario.PARTICIPANTE);
         		}
