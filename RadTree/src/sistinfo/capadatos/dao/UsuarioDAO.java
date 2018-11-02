@@ -69,7 +69,7 @@ public class UsuarioDAO {
 	 * @return El usuario si los datos de login son correctos, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public UsuarioVO getUsuarioByLoginAlias(String alias, byte[] passwordHash) throws ErrorInternoException {
+	public UsuarioVO getUsuarioByLoginAlias(String alias, String passwordHash) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE alias=?");
@@ -101,7 +101,7 @@ public class UsuarioDAO {
 	 * @return El usuario si los datos de login son correctos, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public UsuarioVO getUsuarioByLoginEmail(String email, byte[] passwordHash) throws ErrorInternoException {
+	public UsuarioVO getUsuarioByLoginEmail(String email, String passwordHash) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE email=?");
@@ -147,7 +147,7 @@ public class UsuarioDAO {
             	stmt.setString(3, usuario.getApellidos());
             	stmt.setDate(4, usuario.getFechaNacimiento());
             	stmt.setString(5, usuario.getEmail());
-            	stmt.setBytes(6, usuario.getPasswordHash());
+            	stmt.setString(6, usuario.getPasswordHash());
             	stmt.setString(7, usuario.getTipoUsuario().toString());
             	stmt.setDouble(8, 0.0);
             	int result = stmt.executeUpdate();
@@ -189,7 +189,7 @@ public class UsuarioDAO {
 		    	stmt.setString(3, usuario.getApellidos());
 		    	stmt.setDate(4, usuario.getFechaNacimiento());
 		    	stmt.setString(5, usuario.getEmail());
-		    	stmt.setBytes(6, usuario.getPasswordHash());
+		    	stmt.setString(6, usuario.getPasswordHash());
 		    	stmt.setString(7, usuario.getTipoUsuario().toString());
 		    	stmt.setDouble(8, usuario.getPuntuacion());
 		    	stmt.setLong(9, usuario.getIdUsuario());
@@ -244,7 +244,7 @@ public class UsuarioDAO {
          	rs.getString("apellidos"),
          	rs.getDate("fechaNacimiento"),
          	rs.getString("email"),
-         	rs.getBytes("passwordHash"),
+         	rs.getString("passwordHash"),
          	UsuarioVO.TipoUsuario.valueOf(rs.getString("tipoUsuario")),
          	rs.getInt("puntuacion")
          );
@@ -257,8 +257,8 @@ public class UsuarioDAO {
 	 * @param passwordHash
 	 * @return true si las contraseúas coinciden, false en caso contrario
 	 */
-	private boolean checkLogin(UsuarioVO usuario, byte[] passwordHash) {
-		return new String(usuario.getPasswordHash()).trim().equals(new String(passwordHash).trim());
+	private boolean checkLogin(UsuarioVO usuario, String passwordHash) {
+		return usuario.getPasswordHash().equals(passwordHash);
 	}
 	
 	/**

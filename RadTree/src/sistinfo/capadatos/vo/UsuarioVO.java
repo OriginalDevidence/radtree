@@ -14,14 +14,14 @@ public class UsuarioVO implements java.io.Serializable {
 	private String apellidos;
 	private Date fechaNacimiento;
 	private String email;
-	private byte[] passwordHash;
+	private String passwordHash;
 	private TipoUsuario tipoUsuario;
 	private double puntuacion;
 	
 	public UsuarioVO() {}
 	
 	public UsuarioVO(String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
-			byte[] passwordHash, TipoUsuario tipoUsuario) {
+			String passwordHash, TipoUsuario tipoUsuario) {
 		this.alias = alias;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -33,7 +33,7 @@ public class UsuarioVO implements java.io.Serializable {
 	}
 	
 	public UsuarioVO(String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
-			byte[] passwordHash, TipoUsuario tipoUsuario, double puntuacion) {
+			String passwordHash, TipoUsuario tipoUsuario, double puntuacion) {
 		this.alias = alias;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -45,7 +45,7 @@ public class UsuarioVO implements java.io.Serializable {
 	}
 	
 	public UsuarioVO(long idUsuario, String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
-			byte[] passwordHash, TipoUsuario tipoUsuario, double puntuacion) {
+			String passwordHash, TipoUsuario tipoUsuario, double puntuacion) {
 		this.idUsuario = idUsuario;
 		this.alias = alias;
 		this.nombre = nombre;
@@ -93,10 +93,10 @@ public class UsuarioVO implements java.io.Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public byte[] getPasswordHash() {
+	public String getPasswordHash() {
 		return passwordHash;
 	}
-	public void setPasswordHash(byte[] passwordHash) {
+	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
 	public TipoUsuario getTipoUsuario() {

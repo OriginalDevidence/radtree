@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.UsuarioYaExistenteException;
-import sistinfo.utils.MD5Hash;
+import sistinfo.utils.CookieManager;
+import sistinfo.utils.PBKDF2Hash;
 import sistinfo.capadatos.dao.UsuarioDAO;
 
 @SuppressWarnings("serial")
@@ -40,6 +41,7 @@ public class RegistroServlet extends HttpServlet {
                 RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
 				request.getSession().setAttribute("alias", usuario.getAlias());
                 request.setAttribute("usuario", usuario);
+                CookieManager.addLoginCookiesToResponse(usuario, response);
                 req.include(request, response);
             } catch (UsuarioYaExistenteException e) {
                 RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
@@ -126,7 +128,7 @@ public class RegistroServlet extends HttpServlet {
         
         if (datosCorrectos) {
         	if (clave.equals(reclave)) {
-        		byte[] claveHash = MD5Hash.getMD5Hash(clave);
+        		String claveHash = PBKDF2Hash.hash(clave.toCharArray());
         		if (claveHash != null) {
         			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, UsuarioVO.TipoUsuario.PARTICIPANTE);
         		}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="sistinfo.utils.CookieManager" %>
 <%--
 	Comprueba los errores que han podido ocurrir en el inicio de sesion y les añade formato
 --%>
@@ -10,6 +11,16 @@
 		String estiloCabecera = "<p class=\"font-10 color-red lh-30 mb-20 ml-15\"><i class=\"ion-close\"></i><span class=\"pl-5\">";
 		String estiloFinal = "</span></p>";
 		request.setAttribute("error", estiloCabecera + errorMessage + estiloFinal);
+	} else {
+		String alias = CookieManager.getAliasFromCookies(request);
+		String claveHash = CookieManager.getClaveHashFromCookies(request);
+		if (alias != null && claveHash != null) { // ya se ha comprobado que no son vacias en CookieManager
+			request.setAttribute("usoCookies", true);
+			request.setAttribute("loginCookie", alias);
+			request.setAttribute("claveHashCookie", claveHash);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("IniciarSesion");
+			dispatcher.forward(request, response);
+		}
 	}
 %>
 <!DOCTYPE HTML>

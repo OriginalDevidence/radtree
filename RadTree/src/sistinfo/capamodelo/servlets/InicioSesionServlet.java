@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.dao.UsuarioDAO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
-import sistinfo.utils.MD5Hash;
+import sistinfo.utils.CookieManager;
+import sistinfo.utils.PBKDF2Hash;
 
 @SuppressWarnings("serial")
 public class InicioSesionServlet extends HttpServlet {
@@ -26,19 +27,29 @@ public class InicioSesionServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
-     	String id = request.getParameter("identificador");
-    	String clave = request.getParameter("clave");
+        // Necesitamos ID y clave para poder hacer login
+        String id;
+        String claveHash;
+        if (request.getAttribute("usoCookies") != null) {
+        	// Obtenerlas de las cookies
+        	id = (String) request.getAttribute("loginCookie");
+        	claveHash = (String) request.getAttribute("claveHashCookie");
+        } else {
+        	// Obtenerlas del formulario de login
+         	id = request.getParameter("identificador");
+        	String clave = request.getParameter("clave");
+     		claveHash = PBKDF2Hash.hash(clave.toCharArray());
+        }
     	
-    	if (id == null || id.trim().isEmpty() || clave == null || clave.trim().isEmpty()) {
+        // Intentar hacer login con los datos anteriores
+        if (id == null || id.trim().isEmpty() || claveHash == null || claveHash.trim().isEmpty()) {
 			// Algo ha ido mal
 			loginError(request, response);
     	} else {
-     		byte[] claveHash = MD5Hash.getMD5Hash(clave);
-    		UsuarioVO usuario;
-    		try {
-        		// Intentar acceder
-        		UsuarioDAO usuarioDAO = new UsuarioDAO();
-        		// Probar login con clave
+			UsuarioVO usuario;
+			try {
+	    		UsuarioDAO usuarioDAO = new UsuarioDAO();
+	    		// Probar login con clave
 				usuario = usuarioDAO.getUsuarioByLoginEmail(id, claveHash);
 				if (usuario == null) {
 					// Probar login con alias
@@ -49,16 +60,15 @@ public class InicioSesionServlet extends HttpServlet {
 					// Algo ha ido mal
 					loginError(request, response);
 				} else {
-					// Enviar al perfil e incluir el alias en la sesión
+					// Enviar al perfil y añadir los datos de login en cookies
 	                RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
-					request.getSession().setAttribute("alias", usuario.getAlias());
 	                request.setAttribute("usuario", usuario);
+	                CookieManager.addLoginCookiesToResponse(usuario, response);
 	                req.include(request, response);
 				}
 			} catch (ErrorInternoException e) {
-				response.sendRedirect("70_errorInterno.html");
+				response.sendRedirect("errorInterno.html");
 			}
-    		
     	}
     	
     }
