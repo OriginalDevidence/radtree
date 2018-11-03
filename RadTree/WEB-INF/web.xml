@@ -19,6 +19,10 @@
         <servlet-class>sistinfo.capamodelo.servlets.CerrarSesionServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ModificarUsuario</servlet-name>
+        <servlet-class>sistinfo.capamodelo.servlets.ModificarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet>
         <display-name>CrearPregunta Name</display-name>
         <servlet-name>CrearPregunta</servlet-name>
         <servlet-class>sistinfo.capamodelo.servlets.CrearPreguntaServlet</servlet-class>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>CerrarSesion</servlet-name>
         <url-pattern>/CerrarSesion.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarUsuario</servlet-name>
+        <url-pattern>/ModificarUsuario.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
 	    <servlet-name>CrearPregunta</servlet-name>
