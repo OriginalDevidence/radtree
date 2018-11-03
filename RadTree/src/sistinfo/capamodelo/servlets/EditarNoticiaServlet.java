@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import sistinfo.capadatos.vo.RetoVO;
-import sistinfo.capadatos.dao.RetoDAO;
+import sistinfo.capadatos.vo.NoticiaVO;
+import sistinfo.capadatos.dao.NoticiaDAO;
 import sistinfo.capadatos.excepciones.AliasYaExistenteException;
 import sistinfo.capadatos.excepciones.EmailYaExistenteException;
 
@@ -29,12 +29,12 @@ public class RegistroServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         Map<String, String> errores = new HashMap<String, String>();
-      	RetoVO reto = extractRetoFromHttpRequest(request, errores);
+      	NoticiaVO noticia = extractNoticiaFromHttpRequest(request, errores);
 
-        if (reto != null) {
+        if (noticia != null) {
 	        	try {
-	        		RetoDAO retoDAO = new RetoDAO();
-	                RetoDAO.insertReto(reto);
+	        		NoticiaDAO noticiaDAO = new NoticiaDAO();
+	                NoticiaDAO.updateNoticia(noticia);
 
 	                response.sendRedirect("perfil.jsp"); // DUDA
 
@@ -52,7 +52,7 @@ public class RegistroServlet extends HttpServlet {
      * @param errors
      * @return El usuario si se ha extraido correctamente, o null
      */
-  public RetoVO extractRetoFromHttpRequest(HttpServletRequest request, Map<String, String> errors) {
+  public NoticiaVO extractNoticiaFromHttpRequest(HttpServletRequest request, Map<String, String> errors) {
 
         //Como obtener la idAutor mirar DUDA
         long idAutor = new long(1);
@@ -62,6 +62,7 @@ public class RegistroServlet extends HttpServlet {
         long numVisitas = new long(0);
         String titulo = request.getParameter("titulo");
         String cuerpo = request.getParameter("cuerpo");
+        String url = request.getParameter("url");
 
         boolean datosCorrectos = true;
         if (titulo == null || titulo.trim().isEmpty()) {
@@ -70,19 +71,33 @@ public class RegistroServlet extends HttpServlet {
         }
         if (cuerpo == null || cuerpo.trim().isEmpty()) {
           datosCorrectos = false;
-          errors.put("cuerpo", "Cuerpo del reto inválido");
+          errors.put("cuerpo", "Cuerpo noticia inválido");
         }
+
+        if (url == null || alias.url().isEmpty() || !validarURLFormato(url)) {
+           datosCorrectos = false;
+           errors.put("url", "Campo obligatorio");
+           errorsArriba.add("Una url debe ser: http://www.example.com ");
+         } else if (!validarURLFormato(url)) {
+           datosCorrectos = false;
+           errors.put("url", "Formato incorrecto");
+           errorsArriba.add("Una url debe de poser el formato: http://www.example.com ");
+         }
 
         if (datosCorrectos) {
           if (clave.equals(reclave)) {
             String claveHash = PBKDF2Hash.hash(clave.toCharArray());
             if (claveHash != null) {
-              return new RetoVO(idAutor, numVisitas, fechaRealizacion, estado, titulo, cuerpo);
+              return new NoticiaVO(idAutor, numVisitas, fechaRealizacion, estado, titulo, cuerpo, url);
             }
           } else {
             errors.put("reclave", "La clave no coincide");
           }
         }
         return null;
+  }
+
+  private boolean validarURLFormato(String url) {
+    return url.matches("^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
   }
 }

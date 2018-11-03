@@ -34,7 +34,7 @@ public class RegistroServlet extends HttpServlet {
         if (reto != null) {
 	        	try {
 	        		RetoDAO retoDAO = new RetoDAO();
-	                RetoDAO.insertReto(reto);
+	                RetoDAO.updateReto(reto);
 
 	                response.sendRedirect("perfil.jsp"); // DUDA
 
