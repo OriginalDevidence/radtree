@@ -16,10 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.capadatos.vo.UsuarioVO;
+import sistinfo.capadatos.vo.UsuarioVO.TipoUsuario;
 import sistinfo.excepciones.UsuarioYaExistenteException;
 import sistinfo.utils.CookieManager;
 import sistinfo.utils.PBKDF2Hash;
-import sistinfo.utils.UsuarioFormatChecker;
+import sistinfo.utils.FormatChecker;
 import sistinfo.capadatos.dao.UsuarioDAO;
 
 @SuppressWarnings("serial")
@@ -75,12 +76,14 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 	}
 
 	/**
-     * Obtiene los datos de un usuario dado un HttpServletRequest y escribe los errores en errors
+     * Obtiene los datos de un usuario dado un HttpServletRequest y escribe los errores en errors y errorsArriba
      * @param request
      * @param errors
+     * @param errorsArriba
      * @return El usuario si se ha extraido correctamente, o null
      */
 	public UsuarioVO extractUsuarioFromHttpRequest(HttpServletRequest request, Map<String, String> errors, List<String> errorsArriba) {
+		
     	String alias = request.getParameter("alias");
         String nacimientoString = request.getParameter("nacimiento");
         java.sql.Date nacimiento = null;
@@ -91,6 +94,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String reclave = request.getParameter("reclave");
         
         boolean datosCorrectos = true;
+        /* ALIAS */
         if (alias == null || alias.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("alias", "Campo obligatorio");
@@ -99,11 +103,12 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         	datosCorrectos = false;
         	errors.put("alias", "Demasiado corto");
         	errorsArriba.add("Un alias debe tener al menos 3 caracteres.");
-        } else if (!UsuarioFormatChecker.checkAlias(alias)) {
+        } else if (!FormatChecker.checkAlias(alias)) {
         	datosCorrectos = false;
         	errors.put("alias", "Formato incorrecto");
         	errorsArriba.add("Un alias solo puede contener letras (a-z), números (0-9) y carácteres especiales (_-). Además, debe empezar por una letra.");
         }
+        /* FECHA NACIMIENTO */
         if (nacimientoString == null || nacimientoString.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("nacimiento", "Campo obligatorio");
@@ -128,22 +133,26 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 	        	errors.put("nacimiento", "Formato incorrecto");
 			}
         }
+        /* NOMBRE */
         if (nombre == null || nombre.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("nombre", "Campo obligatorio");
         }
+        /* APELLIDOS */
         if (apellidos == null || apellidos.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("apellidos", "Campo obligatorio");
         }
+        /* EMAIL */
         if (email == null || email.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("email", "Campo obligatorio");
-        } else if (!UsuarioFormatChecker.checkEmail(email)) {
+        } else if (!FormatChecker.checkEmail(email)) {
         	datosCorrectos = false;
         	errors.put("email", "Formato incorrecto");
         	errorsArriba.add("La dirección de email no es válida");
         }
+        /* CLAVE */
         if (clave == null || clave.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("clave", "Campo obligatorio");
@@ -152,6 +161,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 	    	errors.put("clave", "Demasiado corta");
 	    	errorsArriba.add("La clave debe tener al menos 8 caracteres.");
 	    }
+        /* RECLAVE */
         if (reclave == null || reclave.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("reclave", "Campo obligatorio");
@@ -163,10 +173,11 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         if (datosCorrectos) {
     		String claveHash = PBKDF2Hash.hash(clave.toCharArray());
     		if (claveHash != null) {
-    			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, UsuarioVO.TipoUsuario.PARTICIPANTE);
+    			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, TipoUsuario.PARTICIPANTE);
     		}
         }
         return null;
+        
 	}
 
 }
