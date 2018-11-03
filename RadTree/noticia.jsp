@@ -11,8 +11,8 @@
 <%
 	if (request.getAttribute("noticia") == null || request.getAttribute("autor") == null) {
 		// Encontrar un ID de usuario para mostrar
-		Long id = new Long((String)request.getParameter("id"));
-		if (id == null || id <= 0L) {
+		Long idContenido = new Long((String)request.getParameter("id"));
+		if (idContenido == null || idContenido <= 0L) {
 			// No sabemos qué reto mostrar
 			response.sendRedirect("errorInterno.html");
 		} else {
@@ -20,7 +20,7 @@
 			NoticiaDAO noticiaDAO = new NoticiaDAO();
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			try {
-				NoticiaVO reto = noticiaDAO.getNoticiaById(id);
+				NoticiaVO reto = noticiaDAO.getNoticiaById(idContenido);
 				if (reto == null) {
 		            response.sendRedirect("errorInterno.html");
 				} else {

@@ -11,8 +11,8 @@
 <%
 	if (request.getAttribute("reto") == null || request.getAttribute("autor") == null) {
 		// Encontrar un ID de usuario para mostrar
-		Long id = new Long((String)request.getParameter("id"));
-		if (id == null || id <= 0L) {
+		Long idContenido = new Long((String)request.getParameter("id"));
+		if (idContenido == null || idContenido <= 0L) {
 			// No sabemos qué reto mostrar
 			response.sendRedirect("errorInterno.html");
 		} else {
@@ -20,7 +20,7 @@
 			RetoDAO retoDAO = new RetoDAO();
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			try {
-				RetoVO reto = retoDAO.getRetoById(id);
+				RetoVO reto = retoDAO.getRetoById(idContenido);
 				if (reto == null) {
 		            response.sendRedirect("errorInterno.html");
 				} else {
@@ -67,7 +67,7 @@
 		<div class="container">
 			<a class="mt-10" href="index.jsp"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10" href="listaDeRetos.jsp">Retos<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10 color-ash" href="#"></a>
+			<a class="mt-10 color-ash" href="#"><c:out value="${requestScope.reto.titulo}"/></a>
 		</div><!-- container -->
 	</section>
 
@@ -79,18 +79,19 @@
 					<h3 class="mb-30"><b><c:out value="${requestScope.reto.titulo}"/></b></h3>
 
                     <p class="text-justify mb-20">
-                        <c:out value="${requestScope.autor}"/>
+                        <c:out value="${requestScope.reto.cuerpo}"/>
                     </p>
 
-                    <p><i>Autor: <c:out value="${requestScope.alias}"/></i></p>
+                    <p><i>Autor: <c:out value="${requestScope.autor}"/></i></p>
                 </div>
 			</div>
 
 		</div><!-- container -->
-	<section>
+		
+		<%@ include file="WEB-INF/comentarios.jsp" %>
+		
+	</section>
 	
-	<%@ include file="WEB-INF/comentarios.jsp" %>
-
 	<%@ include file="WEB-INF/footer.jsp" %>
 
 	<!-- SCRIPTS -->
