@@ -34,10 +34,9 @@ public class RegistroServlet extends HttpServlet {
         if (noticia != null) {
 	        	try {
 	        		NoticiaDAO noticiaDAO = new NoticiaDAO();
-	                NoticiaDAO.insertNoticia(noticia, null);
+	                NoticiaDAO.insertNoticia(noticia);
 
-	                response.sendRedirect("perfil.jsp");
-	                request.setAttribute("usuario", noticia);
+	                response.sendRedirect("perfil.jsp"); // DUDA
 
 	            } catch (Exception e) {
 	                response.sendRedirect("errorInterno.html");
@@ -101,5 +100,4 @@ public class RegistroServlet extends HttpServlet {
   private boolean validarURLFormato(String url) {
     return url.matches("^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
   }
-
 }
