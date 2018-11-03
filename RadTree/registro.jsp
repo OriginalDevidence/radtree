@@ -70,6 +70,16 @@
 					<form name="registro" action="RegistrarUsuario.do" method="post">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
+							
+							<c:if test="${not empty requestScope.erroresArriba}">
+								<div class="col-10 offset-1 mb-30 alert alert-danger">
+									<ul>
+										<c:forEach items="${requestScope.erroresArriba}" var="error">
+										    <li><i class="ion-close color-red pr-10 pb-5"></i>${error}</li>
+										</c:forEach>
+									</ul>
+								</div>
+							</c:if>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="alias">Alias</label>
