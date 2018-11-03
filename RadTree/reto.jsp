@@ -1,4 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="sistinfo.capadatos.dao.RetoDAO" %>
+<%@ page import="sistinfo.capadatos.dao.UsuarioDAO" %>
+<%@ page import="sistinfo.capadatos.vo.RetoVO" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
+<%@ page import="sistinfo.excepciones.ErrorInternoException" %>
+<%--
+	Obtener el reto del id pasado como parametro y el nombre de su autor
+--%>
 <%
 	if (request.getAttribute("reto") == null || request.getAttribute("autor") == null) {
 		// Encontrar un ID de usuario para mostrar
@@ -20,7 +29,7 @@
 			            response.sendRedirect("errorInterno.html");
 					} else {
 						request.setAttribute("reto", reto);
-						request.setAttribute("autor", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")"));
+						request.setAttribute("autor", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
 					}
 				}
 			} catch (ErrorInternoException e) {
@@ -73,7 +82,7 @@
                         <c:out value="${requestScope.autor}"/>
                     </p>
 
-                    <p><i>Autor: Martín Martínez</i></p>
+                    <p><i>Autor: <c:out value="${requestScope.alias}"/></i></p>
                 </div>
 			</div>
 

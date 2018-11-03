@@ -1,6 +1,6 @@
 package sistinfo.utils;
 
-public class UsuarioFormatChecker {
+public class FormatChecker {
 
 	/**
 	 * Comprueba que el alias sigue con las normas de formato: solo se permiten
@@ -14,11 +14,20 @@ public class UsuarioFormatChecker {
 
 	/**
 	 * Comprueba que el email tiene el formato correcto
-	 * @param alias
+	 * @param email
 	 * @return
 	 */
 	public static boolean checkEmail(String email) {
 		return email.matches("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
+	}
+	
+	/**
+	 * Comprueba que la url tiene formato correcto
+	 * @param url
+	 * @return
+	 */
+	public static boolean checkUrl(String url) {
+		return url.matches("^(?:http(s)?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$");
 	}
 	
 }
