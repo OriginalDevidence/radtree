@@ -16,10 +16,10 @@ public class CookieManager {
 	public static void addLoginCookiesToResponse(UsuarioVO usuario, HttpServletResponse response) {
 		Cookie aliasCookie = new Cookie("aliasUsuario", usuario.getAlias());
 		Cookie claveCookie = new Cookie("claveUsuario", usuario.getPasswordHash());
-//		Cookie idCookie = new Cookie("idUsuario", Long.toString(usuario.getIdUsuario()));
+		Cookie idCookie = new Cookie("idUsuario", Long.toString(usuario.getIdUsuario()));
 		response.addCookie(aliasCookie);
 		response.addCookie(claveCookie);
-//		response.addCookie(idCookie);
+		response.addCookie(idCookie);
 	}
 
 	/**
@@ -88,20 +88,20 @@ public class CookieManager {
 	 * @param request
 	 * @return
 	 */
-//	public static long getIdFromCookies(HttpServletRequest request) {
-//		Cookie[] cookies = request.getCookies();
-//		String id = null;
-//		if (cookies != null) {
-//			for (Cookie c : cookies) {
-//				if (c.getName().equals("idUsuario")) {
-//					id = c.getValue();
-//					if (id != null && !id.trim().isEmpty()) {
-//						return Long.parseLong(id);
-//					}
-//				}
-//			}
-//		}
-//		return 0;
-//	}
+	public static long getIdFromCookies(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		String id = null;
+		if (cookies != null) {
+			for (Cookie c : cookies) {
+				if (c.getName().equals("idUsuario")) {
+					id = c.getValue();
+					if (id != null && !id.trim().isEmpty()) {
+						return Long.parseLong(id);
+					}
+				}
+			}
+		}
+		return 0;
+	}
 
 }
