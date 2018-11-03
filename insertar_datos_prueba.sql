@@ -45,14 +45,14 @@ INSERT INTO Respuesta VALUES
 
 /* modificar cuerpo solamente, el resto ya esta */
 INSERT INTO Comentario VALUES
-(NULL, 1, 1, 'cuerpo', 0, '2000-02-01', NULL),
-(NULL, 2, 1, 'cuerpo', 0, '2000-02-02', 1),
-(NULL, 3, 1, 'cuerpo', 0, '2000-02-03', 2),
-(NULL, 2, 1, 'cuerpo', 0, '2000-02-04', NULL),
-(NULL, 3, 1, 'cuerpo', 0, '2000-02-05', NULL),
+(NULL, 1, 3, 'cuerpo', 0, '2000-02-01', NULL),
+(NULL, 2, 3, 'cuerpo', 0, '2000-02-02', 1),
+(NULL, 3, 3, 'cuerpo', 0, '2000-02-03', 2),
+(NULL, 2, 3, 'cuerpo', 0, '2000-02-04', NULL),
+(NULL, 3, 3, 'cuerpo', 0, '2000-02-05', NULL),
 (NULL, 1, 2, 'cuerpo', 0, '2000-02-06', NULL),
 (NULL, 1, 2, 'cuerpo', 0, '2000-02-07', NULL),
-(NULL, 2, 2, 'cuerpo', 0, '2000-02-08', 1);
+(NULL, 2, 2, 'cuerpo', 0, '2000-02-08', 6);
 
 /* no hace falta cambiar nada aqui */
 INSERT INTO Contesta VALUES
