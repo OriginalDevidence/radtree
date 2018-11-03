@@ -113,17 +113,12 @@
 							<p><c:out value="${requestScope.usuario.email}"/></p>
 						</div>
 						
-						<!-- TODO Funcionalidad -->
-						<div class="col-sm-12 mtb-20">
-							<a class="color-primary link-brdr-btm-primary" href="CerrarSesion.do"><b>Cerrar sesión</b></a>
-						</div>
-						
 						<div class="col-sm-12 mb-20">
 							<a class="color-primary link-brdr-btm-primary" href="editarPerfil.jsp"><b>Editar datos del perfil</b></a>
 						</div>
 						
-						<div class="col-sm-12 mb-20">
-							<a class="color-primary link-brdr-btm-primary" href="05_cambiarClave.html"><b>Cambiar contraseña</b></a>
+						<div class="col-sm-12 mtb-20">
+							<a class="color-primary link-brdr-btm-primary" href="CerrarSesion.do"><b>Cerrar sesión</b></a>
 						</div>
 					</div>
 				</div>
