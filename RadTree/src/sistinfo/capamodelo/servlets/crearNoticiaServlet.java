@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import sistinfo.capadatos.vo.UsuarioVO;
-import sistinfo.capadatos.dao.UsuarioDAO;
+import sistinfo.capadatos.vo.NoticiaVO;
+import sistinfo.capadatos.dao.NoticiaDAO;
 import sistinfo.capadatos.excepciones.AliasYaExistenteException;
 import sistinfo.capadatos.excepciones.EmailYaExistenteException;
 
