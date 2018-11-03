@@ -6,9 +6,8 @@ public class PreguntaVO extends ContenidoVO {
 	
 	private String enunciado;
 	
-	public PreguntaVO(long idAutor, long numVisitas, Date fechaRealizacion, Estado estado,
-			String enunciado) {
-		super(idAutor, numVisitas, fechaRealizacion, estado);
+	public PreguntaVO(long idAutor, Date fechaRealizacion, String enunciado) {
+		super(idAutor, 0, fechaRealizacion, Estado.PENDIENTE);
 
 		this.enunciado = enunciado;
 	}

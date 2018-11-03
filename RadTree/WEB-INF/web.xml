@@ -18,6 +18,12 @@
         <servlet-name>CerrarSesion</servlet-name>
         <servlet-class>sistinfo.capamodelo.servlets.CerrarSesionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <display-name>CrearPregunta Name</display-name>
+        <servlet-name>CrearPregunta</servlet-name>
+        <servlet-class>sistinfo.capamodelo.servlets.CrearPreguntaServlet</servlet-class>
+	</servlet>
+	
     <!-- ============ Servlets Mapping======= -->
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
@@ -31,6 +37,11 @@
         <servlet-name>CerrarSesion</servlet-name>
         <url-pattern>/CerrarSesion.do</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+	    <servlet-name>CrearPregunta</servlet-name>
+ 	   <url-pattern>/CrearPregunta.do</url-pattern>
+	</servlet-mapping>
+	
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
