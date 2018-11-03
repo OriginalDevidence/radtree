@@ -19,6 +19,7 @@ import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.UsuarioYaExistenteException;
 import sistinfo.utils.CookieManager;
 import sistinfo.utils.PBKDF2Hash;
+import sistinfo.utils.UsuarioFormatChecker;
 import sistinfo.capadatos.dao.UsuarioDAO;
 
 @SuppressWarnings("serial")
@@ -98,7 +99,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         	datosCorrectos = false;
         	errors.put("alias", "Demasiado corto");
         	errorsArriba.add("Un alias debe tener al menos 3 caracteres.");
-        } else if (!validarAliasFormato(alias)) {
+        } else if (!UsuarioFormatChecker.checkAlias(alias)) {
         	datosCorrectos = false;
         	errors.put("alias", "Formato incorrecto");
         	errorsArriba.add("Un alias solo puede contener letras (a-z), números (0-9) y carácteres especiales (_-). Además, debe empezar por una letra.");
@@ -138,7 +139,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         if (email == null || email.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("email", "Campo obligatorio");
-        } else if (!validarEmailFormato(email)) {
+        } else if (!UsuarioFormatChecker.checkEmail(email)) {
         	datosCorrectos = false;
         	errors.put("email", "Formato incorrecto");
         	errorsArriba.add("La dirección de email no es válida");
@@ -166,27 +167,6 @@ public class RegistrarUsuarioServlet extends HttpServlet {
     		}
         }
         return null;
-	}
-
-	/**
-	 * Comprueba que el alias sigue con las normas de formato: solo se permiten
-	 * letras, números o carácteres especiales (_-)
-	 * 
-	 * @param alias
-	 * @return
-	 */
-	private boolean validarAliasFormato(String alias) {
-		return alias.matches("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$");
-	}
-
-	/**
-	 * Comprueba que el email tiene el formato correcto
-	 * 
-	 * @param alias
-	 * @return
-	 */
-	private boolean validarEmailFormato(String email) {
-		return email.matches("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
 	}
 
 }
