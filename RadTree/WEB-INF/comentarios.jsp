@@ -8,14 +8,12 @@
 <%@ page import="sistinfo.capadatos.vo.ComentarioVO" %>
 <%@ page import="sistinfo.utils.ProfilePictureManager" %>
 <%--
-	
+	Obtiene los comentarios para el contenido con id pasado por parametro y los almacena en la request (comentarios)
+	También hace un mapa con las fotos de perfil que tiene cada usuario y lo almacena en la request (profileImages)
 --%>
 <%
 	Long idContenido = new Long((String)request.getParameter("id"));
-	if (idContenido == null || idContenido <= 0L) {
-		// No sabemos qué comentarios mostrrar
-		response.sendRedirect("errorInterno.html");
-	} else {
+	if (idContenido != null && idContenido > 0) {
 		// Obtener los comentarios del contenido y añadirlos a la request
 		ComentarioDAO comentarioDAO = new ComentarioDAO();
 		ArrayList<ComentarioVO> comentarios = comentarioDAO.getComentariosFromContenido(idContenido);
