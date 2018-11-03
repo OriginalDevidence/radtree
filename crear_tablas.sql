@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Reto (
   FOREIGN KEY(idContenido) REFERENCES Contenido(idContenido) ON DELETE CASCADE
 );
 
-CREATE TABLE Pregunta (
+CREATE TABLE IF NOT EXISTS Pregunta (
   idContenido         BIGINT        PRIMARY KEY,
   enunciado           VARCHAR(200)  NOT NULL,
   FOREIGN KEY(idContenido) REFERENCES Contenido(idContenido) ON DELETE CASCADE
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS Respuesta (
 CREATE TABLE IF NOT EXISTS Comentario (
   idComentario        BIGINT        PRIMARY KEY AUTO_INCREMENT,
   idAutor             BIGINT        NOT NULL,
-  idContenido         BIGINT      NOT NULL,
+  idContenido         BIGINT        NOT NULL,
   cuerpo              VARCHAR(300)  NOT NULL,
   numLikes            MEDIUMINT     NOT NULL,
   fecha               DATETIME      NOT NULL,
