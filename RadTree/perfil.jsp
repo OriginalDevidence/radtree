@@ -113,11 +113,11 @@
 							<p><c:out value="${requestScope.usuario.email}"/></p>
 						</div>
 						
-						<div class="col-sm-12 mb-20">
+						<div class="col-sm-12 mtb-20">
 							<a class="color-primary link-brdr-btm-primary" href="editarPerfil.jsp"><b>Editar datos del perfil</b></a>
 						</div>
 						
-						<div class="col-sm-12 mtb-20">
+						<div class="col-sm-12 mb-20">
 							<a class="color-primary link-brdr-btm-primary" href="CerrarSesion.do"><b>Cerrar sesión</b></a>
 						</div>
 					</div>
