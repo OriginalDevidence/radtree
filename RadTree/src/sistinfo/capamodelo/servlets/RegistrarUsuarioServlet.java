@@ -23,54 +23,57 @@ import sistinfo.capadatos.dao.UsuarioDAO;
 
 @SuppressWarnings("serial")
 public class RegistrarUsuarioServlet extends HttpServlet {
-	
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        doPost(request, response);
-    }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-    	
-    	Map<String, String> errores = new HashMap<String, String>();
-    	List<String> erroresArriba = new ArrayList<String>();
-    	UsuarioVO usuario = extractUsuarioFromHttpRequest(request, errores, erroresArriba);
-        if (usuario != null) {
-        	try {
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                usuarioDAO.insertUsuario(usuario);
-                
-                RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
-                CookieManager.addLoginCookiesToResponse(usuario, response);
-                response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());
-                request.setAttribute("usuario", usuario);
-                req.include(request, response);
-            } catch (UsuarioYaExistenteException e) {
-                RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
-            	if (e.isAliasExistente()) {
-            		errores.put("alias", "Alias ya registrado");
-            	}
-            	if (e.isEmailExistente()) {
-            		errores.put("email", "Email ya existente");
-            	}
-                request.setAttribute("errores", errores);
-                request.setAttribute("erroresArriba", erroresArriba);
-                req.include(request, response);
-            } catch (Exception e) {
-                response.sendRedirect("errorInterno.html");
-            }
-        } else {
-            RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
-            request.setAttribute("errores", errores);
-            request.setAttribute("erroresArriba", erroresArriba);
-            req.include(request, response);
-        }
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		doPost(request, response);
+	}
 
-    }
-	
-    /**
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+		/*
+		 * TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding
+		 * todo el rato
+		 */
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		Map<String, String> errores = new HashMap<String, String>();
+		List<String> erroresArriba = new ArrayList<String>();
+		UsuarioVO usuario = extractUsuarioFromHttpRequest(request, errores, erroresArriba);
+		if (usuario != null) {
+			try {
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				usuarioDAO.insertUsuario(usuario);
+
+				RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
+				CookieManager.addLoginCookiesToResponse(usuario, response);
+				response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());
+				request.setAttribute("usuario", usuario);
+				req.include(request, response);
+			} catch (UsuarioYaExistenteException e) {
+				RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
+				if (e.isAliasExistente()) {
+					errores.put("alias", "Alias ya registrado");
+				}
+				if (e.isEmailExistente()) {
+					errores.put("email", "Email ya existente");
+				}
+				request.setAttribute("errores", errores);
+				request.setAttribute("erroresArriba", erroresArriba);
+				req.include(request, response);
+			} catch (Exception e) {
+				response.sendRedirect("errorInterno.html");
+			}
+		} else {
+			RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
+			request.setAttribute("errores", errores);
+			request.setAttribute("erroresArriba", erroresArriba);
+			req.include(request, response);
+		}
+
+	}
+
+	/**
      * Obtiene los datos de un usuario dado un HttpServletRequest y escribe los errores en errors
      * @param request
      * @param errors
@@ -87,9 +90,13 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String reclave = request.getParameter("reclave");
         
         boolean datosCorrectos = true;
-        if (alias == null || !validarAliasLongitud(alias)) {
+        if (alias == null || alias.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("alias", "Campo obligatorio");
+        	errorsArriba.add("Un alias debe tener al menos 3 caracteres.");
+        } else if (alias.length() < 3) {
+        	datosCorrectos = false;
+        	errors.put("alias", "Demasiado corto");
         	errorsArriba.add("Un alias debe tener al menos 3 caracteres.");
         } else if (!validarAliasFormato(alias)) {
         	datosCorrectos = false;
@@ -139,50 +146,47 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         if (clave == null || clave.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("clave", "Campo obligatorio");
-        }
+	    } else if (clave.length() < 8) {
+	    	datosCorrectos = false;
+	    	errors.put("clave", "Demasiado corta");
+	    	errorsArriba.add("La clave debe tener al menos 8 caracteres.");
+	    }
         if (reclave == null || reclave.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("reclave", "Campo obligatorio");
+        } else if (!reclave.equals(clave)) {
+        	datosCorrectos = false;
+    		errors.put("reclave", "La clave no coincide");
         }
         
         if (datosCorrectos) {
-        	if (clave.equals(reclave)) {
-        		String claveHash = PBKDF2Hash.hash(clave.toCharArray());
-        		if (claveHash != null) {
-        			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, UsuarioVO.TipoUsuario.PARTICIPANTE);
-        		}
-        	} else {
-        		errors.put("reclave", "La clave no coincide");
-        	}
+    		String claveHash = PBKDF2Hash.hash(clave.toCharArray());
+    		if (claveHash != null) {
+    			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, UsuarioVO.TipoUsuario.PARTICIPANTE);
+    		}
         }
         return null;
 	}
-	
+
 	/**
-	 * Comprueba que el alias tiene por lo menos 3 carácteres
-	 * @param alias
-	 * @return
-	 */
-	private boolean validarAliasLongitud(String alias) {
-		return alias.trim().length() >= 3;
-	}
-	
-	/**
-	 * Comprueba que el alias sigue con las normas de formato: solo se permiten letras, números o carácteres especiales (_-)
+	 * Comprueba que el alias sigue con las normas de formato: solo se permiten
+	 * letras, números o carácteres especiales (_-)
+	 * 
 	 * @param alias
 	 * @return
 	 */
 	private boolean validarAliasFormato(String alias) {
 		return alias.matches("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$");
 	}
-	
+
 	/**
-	 * Comprueba que el alias tiene por lo menos 3 carácteres
+	 * Comprueba que el email tiene el formato correcto
+	 * 
 	 * @param alias
 	 * @return
 	 */
 	private boolean validarEmailFormato(String email) {
 		return email.matches("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$");
 	}
-    
+
 }
