@@ -174,7 +174,7 @@ public class RetoDAO extends ContenidoDAO {
 	private RetoVO extractRetoFromResultSet(ResultSet rs) throws SQLException {
          RetoVO reto = new RetoVO(
           	rs.getLong("idContenido"),
-          	rs.getLong("idUsuario"),
+          	rs.getLong("idAutor"),
           	rs.getLong("numVisitas"),
           	rs.getDate("fechaRealizacion"),
           	ContenidoVO.Estado.valueOf(rs.getString("estado")),

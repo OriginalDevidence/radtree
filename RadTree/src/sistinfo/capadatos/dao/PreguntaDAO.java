@@ -425,7 +425,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	private PreguntaVO extractPreguntaFromResultSet(ResultSet rs) throws SQLException {
 		PreguntaVO pregunta = new PreguntaVO(
          	rs.getLong("idContenido"),
-         	rs.getLong("idUsuario"),
+         	rs.getLong("idAutor"),
          	rs.getLong("numVisitas"),
          	rs.getDate("fechaRealizacion"),
          	ContenidoVO.Estado.valueOf(rs.getString("estado")),
