@@ -1,3 +1,4 @@
+/* TODO: juntar editar reto con crear reto?
 package sistinfo.servlets;
 
 import java.io.IOException;
@@ -24,8 +25,7 @@ public class RegistroServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-      /* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
-        request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8"); // TODO
         response.setCharacterEncoding("UTF-8");
 
         Map<String, String> errores = new HashMap<String, String>();
@@ -51,7 +51,7 @@ public class RegistroServlet extends HttpServlet {
      * @param request
      * @param errors
      * @return El usuario si se ha extraido correctamente, o null
-     */
+     *//*
   public RetoVO extractRetoFromHttpRequest(HttpServletRequest request, Map<String, String> errors) {
 
         //Como obtener la idAutor mirar DUDA
@@ -86,3 +86,4 @@ public class RegistroServlet extends HttpServlet {
         return null;
   }
 }
+*/

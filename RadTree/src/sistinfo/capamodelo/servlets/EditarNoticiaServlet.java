@@ -1,4 +1,6 @@
-package sistinfo.servlets;
+/* TODO: juntar editar noticia con crear noticia?
+
+package sistinfo.capamodelo.servlets;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -8,12 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import sistinfo.capadatos.vo.NoticiaVO;
 import sistinfo.capadatos.dao.NoticiaDAO;
-import sistinfo.capadatos.excepciones.AliasYaExistenteException;
-import sistinfo.capadatos.excepciones.EmailYaExistenteException;
 
 @SuppressWarnings("serial")
 public class RegistroServlet extends HttpServlet {
@@ -24,8 +23,7 @@ public class RegistroServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-      /* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
-        request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8"); // TODO
         response.setCharacterEncoding("UTF-8");
 
         Map<String, String> errores = new HashMap<String, String>();
@@ -51,7 +49,7 @@ public class RegistroServlet extends HttpServlet {
      * @param request
      * @param errors
      * @return El usuario si se ha extraido correctamente, o null
-     */
+     *//*
   public NoticiaVO extractNoticiaFromHttpRequest(HttpServletRequest request, Map<String, String> errors) {
 
         //Como obtener la idAutor mirar DUDA
@@ -101,3 +99,4 @@ public class RegistroServlet extends HttpServlet {
     return url.matches("^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
   }
 }
+*/
