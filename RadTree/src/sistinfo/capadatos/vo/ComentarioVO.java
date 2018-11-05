@@ -45,7 +45,7 @@ public class ComentarioVO implements java.io.Serializable {
 	}
 	
 	public ComentarioVO(Long idComentario, Long idAutor, Long idContenido, String cuerpo, Integer numLikes, Date fecha,
-			 Long respuestaDe, String nombreAutor, String nombreRespuestaDe) {
+			 Long respuestaDe, String nombreAutor) {
 		this.idComentario = idComentario;
 		this.idAutor = idAutor;
 		this.idContenido = idContenido;
@@ -54,7 +54,7 @@ public class ComentarioVO implements java.io.Serializable {
 		this.fecha = fecha;
 		this.respuestaDe = respuestaDe;
 		this.autor = nombreAutor;
-		this.autorPadre = nombreRespuestaDe;
+		this.autorPadre = null;
 	}
 
 	public Long getIdComentario() {

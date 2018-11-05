@@ -44,7 +44,8 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 		if (usuario != null) {
 			try {
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
-				usuarioDAO.insertUsuario(usuario);
+				Long nuevoId = usuarioDAO.insertUsuario(usuario);
+				usuario.setIdUsuario(nuevoId);
 
 				// Enviar al perfil y añadir los datos del usuario en la sesión
 				response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());

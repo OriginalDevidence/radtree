@@ -2,7 +2,6 @@ package sistinfo.capadatos.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ComentarioVO;
@@ -16,38 +15,14 @@ public class ComentarioDAO {
 	 * @return Lista de comentarios pertenecientes al contenido idContenido
 	 * @throws ErrorInternoException 
 	 */
-	public ArrayList<ComentarioVO> getComentariosFromContenido(long idContenido) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
-        ArrayList<ComentarioVO> comentarios = new ArrayList<ComentarioVO>();
-        try {
-        	
-        	PreparedStatement stmt = connection.prepareStatement("SELECT C1.idComentario, C1.idAutor, C1.idContenido, C1.cuerpo, C1.numLikes, C1.fecha, C1.respuestaDe, U1.alias \'autor\', U2.alias \'autorPadre\'"
-	    			+ " FROM Comentario C1"
-	    			+ " INNER JOIN Usuario U1 ON C1.idAutor = U1.idUsuario"
-	    			+ " LEFT OUTER JOIN Comentario C2 ON C1.respuestaDe = C2.idComentario"
-	    			+ " LEFT OUTER JOIN Usuario U2 on C2.idAutor = U2.idUsuario"
-	    			+ " WHERE C1.idContenido = ?"
-	    			+ " ORDER BY C1.fecha ASC");
-        	stmt.setLong(1, idContenido);
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-            	// Añadir el comentario
-	        	ComentarioVO com = extractComentarioFromResultSet(rs);
-	        	comentarios.add(com);
-            }
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new ErrorInternoException();
-        }
-        return comentarios;
+	public ArrayList<ComentarioVO> getComentariosFromContenido(Long idContenido) throws ErrorInternoException {
+		return getComentariosFromContenido(idContenido, null);
 	}
 	
 	/**
 	 * Inserta un comentario en la base de datos, con valor 0 en numLikes y la fecha actual en fecha.
 	 * @param comentario
-	 * @return true si la inserci�n ha sido correcta, false en caso contrario
+	 * @return true si la inserción ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	public boolean insertComentario(ComentarioVO comentario) throws ErrorInternoException {
@@ -135,6 +110,48 @@ public class ComentarioDAO {
 	}
 	
 	/**
+	 * Búsqueda de comentarios por un identificador de contenido y según a quién respondan
+	 * @param id
+	 * @return Lista de comentarios pertenecientes al contenido idContenido y respondiendo al comentario respuestaDe
+	 * @throws ErrorInternoException 
+	 */
+	private ArrayList<ComentarioVO> getComentariosFromContenido(Long idContenido, Long respuestaDe) throws ErrorInternoException {
+		Connection connection = ConnectionFactory.getConnection();
+        ArrayList<ComentarioVO> comentarios = new ArrayList<ComentarioVO>();
+        try {
+        	
+        	PreparedStatement stmt = connection.prepareStatement("SELECT idComentario, idAutor, idContenido, cuerpo, numLikes, fecha, respuestaDe, alias \'autor\'"
+	    			+ " FROM Comentario C"
+	    			+ " INNER JOIN Usuario U ON C.idAutor = U.idUsuario"
+	    			+ " WHERE idContenido = ? AND respuestaDe" + (respuestaDe == null ? " IS NULL" : "= ?")
+	    			+ " ORDER BY fecha ASC");
+        	stmt.setLong(1, idContenido);
+        	if (respuestaDe != null) {
+            	stmt.setLong(2, respuestaDe);
+        	}
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+            	// Añadir el comentario
+	        	ComentarioVO com = extractComentarioFromResultSet(rs);
+	        	comentarios.add(com);
+	        	ArrayList<ComentarioVO> hijos = getComentariosFromContenido(idContenido, com.getIdComentario());
+	        	for (ComentarioVO c : hijos) {
+	        		if (c.getAutorPadre() == null) {
+		        		c.setAutorPadre(com.getAutor());
+	        		}
+	        	}
+	        	comentarios.addAll(hijos);
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return comentarios;
+	}
+	
+	/**
 	 * Extrae los datos de un comentario dado un ResultSet.
 	 * @param rs
 	 * @return Datos del comentario de la fila que apunta rs
@@ -149,8 +166,7 @@ public class ComentarioDAO {
          	rs.getInt("numLikes"),
          	rs.getDate("fecha"),
          	rs.getLong("respuestaDe"),
-         	rs.getString("autor"),
-         	rs.getString("autorPadre")
+         	rs.getString("autor")
          );
          return user;
 	}

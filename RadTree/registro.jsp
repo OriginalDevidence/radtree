@@ -112,13 +112,13 @@
 							
 							<div class="col-sm-12 col-md-6">
 								<label for="clave">Contraseña</label>
-								<c:out value="${requestScope.errores.get(\"clave\")}" escapeXml="false"/>
+								<c:out value="${requestScope.errores.get('clave')}" escapeXml="false"/>
 								<input class="mt-5" type="password" name="clave" placeholder="Contraseña"/>
 							</div>
 							
 							<div class="col-sm-12 col-md-6">
 								<label for="reclave">Repite la contraseña</label>
-								<c:out value="${requestScope.errores.get(\"reclave\")}" escapeXml="false"/>
+								<c:out value="${requestScope.errores.get('reclave')}" escapeXml="false"/>
 								<input class="mt-5" type="password" name="reclave" placeholder="Repite la contraseña"/>
 							</div>
 

@@ -6,7 +6,9 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="sistinfo.capadatos.dao.ComentarioDAO" %>
 <%@ page import="sistinfo.capadatos.vo.ComentarioVO" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
 <%@ page import="sistinfo.utils.ProfilePictureManager" %>
+<%@ page import="sistinfo.utils.RequestExtractor" %>
 <%--
 	Obtiene los comentarios para el contenido con id pasado por parametro y los almacena en la request (comentarios)
 	También hace un mapa con las fotos de perfil que tiene cada usuario y lo almacena en la request (profileImages)
@@ -14,11 +16,11 @@
 <%
 	// Obtener los comentarios para el contenido que se está viendo
 	// Si no se obtienen no se redirige a error, simplemente no se muestran
-	Long idContenido = new Long((String)request.getParameter("id"));
-	if (idContenido != null && idContenido > 0) {
+	Long idContenidoIncluido = RequestExtractor.getLong(request, "id");
+	ComentarioDAO comentarioDAO = new ComentarioDAO();
+	if (idContenidoIncluido != null && idContenidoIncluido > 0) {
 		// Obtener los comentarios del contenido y añadirlos a la request
-		ComentarioDAO comentarioDAO = new ComentarioDAO();
-		ArrayList<ComentarioVO> comentarios = comentarioDAO.getComentariosFromContenido(idContenido);
+		ArrayList<ComentarioVO> comentarios = comentarioDAO.getComentariosFromContenido(idContenidoIncluido);
 		request.setAttribute("comentarios", comentarios);
 		// Crear un mapa idUsuario - path a su foto de perfil
 		Map<Long, String> profileImages = new HashMap<Long, String>();
@@ -35,7 +37,15 @@
 		request.setAttribute("profileImages", profileImages);
 	}
 	
-	// TODO Mirar a ver si ha habido errores al enviar el comentario y añadirles formato
+	/* No se muestran los errores al enviar un comentario mal
+	String error = (String)request.getAttribute("errorComentario");
+	if (error != null && !error.trim().isEmpty()) {
+		error = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">"
+				+ error
+				+ "</span>";
+		request.setAttribute("errorComentario", error);
+	}
+	*/
 %>
 <!DOCTYPE html>
 <!-- COMENTARIOS -->
@@ -44,6 +54,8 @@
 	<div class="row">
 		<div class="col-12">
 			<h3 class="p-title mb-40"><b>Comentarios</b></h3>
+
+			<script src="common/comments.js"></script>
 
 			<c:if test="${empty requestScope.comentarios}">
 				<p class="mb-25">Parece que no hay ningún comentario todavía. <i>¡Se el primero en comentar!</i></p>
@@ -71,9 +83,8 @@
 							</h5>
 							<p class="mtb-15"><c:out value="${comentario.cuerpo}"/></p>
 							<c:if test="${not empty sessionScope.usuario}">
-								<!-- TODO funcionalidad -->
-								<button class="btn-brdr-grey btn-b-sm plr-15 mr-10 mt-5"><b>Like</b></button>
-								<button class="btn-brdr-grey btn-b-sm plr-15 mt-5"><b>Responder</b></button>
+								<button class="btn-brdr-grey btn-b-sm plr-15 mt-5"
+									onclick="setRespuestaDe(<c:out value="${comentario.idComentario}"/>, '<c:out value="${comentario.autor}'"/>)"><b>Responder</b></button>
 							</c:if>
 						</div><!-- s-right -->
 						
@@ -87,14 +98,16 @@
 			<div class="col-md-12 col-lg-8 sided-70">
 				<h4 class="p-title mt-20"><b>Deja un comentario</b></h4>
 				<h5 class="mb-20">Comentando como <b><c:out value="${sessionScope.usuario.alias}"/></b></h5>
+				<h5 id="respondiendo" class="mb-20"></h5>
 				<form
 					class="form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50"
 					name="enviarComentario" action="EnviarComentario.do" method="post">
-					<textarea class="ptb-10" name="cuerpo" maxlength=300
+					<%-- <c:out value="${requestScope.errorComentario}" escapeXml="false"/> --%>
+					<textarea class="ptb-10" name="cuerpo" maxlength=300 required
 						placeholder="Deja un comentario..." rows=3></textarea>
 					<input type="hidden" name="redirect" value="<c:out value="${requestScope.redirect}"/>"/>
 					<input type="hidden" name="id" value="<c:out value="${requestScope.id}"/>"/>
-					<input type="hidden" name="respuestaDe" value=""/>
+					<input id="respuestaDe" type="hidden" name="respuestaDe" value=""/>
 					<button class="btn-fill-primary plr-30" type="submit">
 						<b>Comentar</b>
 					</button>

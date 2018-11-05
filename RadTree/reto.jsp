@@ -5,39 +5,38 @@
 <%@ page import="sistinfo.capadatos.vo.RetoVO" %>
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
 <%@ page import="sistinfo.excepciones.ErrorInternoException" %>
+<%@ page import="sistinfo.utils.RequestExtractor" %>
 <%--
 	Obtener el reto del id pasado como parametro y el nombre de su autor
 --%>
 <%
-	if (request.getAttribute("reto") == null || request.getAttribute("autor") == null) {
-		// Encontrar un ID de usuario para mostrar
-		Long idContenido = Long.parseLong(request.getParameter("id"));
-		if (idContenido == null || idContenido <= 0L) {
-			// No sabemos qué reto mostrar
-			response.sendRedirect("errorInterno.html");
-		} else {
-			// Añadirlo a los atributos de la request por si decide poner un comentario
-			request.setAttribute("id", idContenido);
-			request.setAttribute("redirect", "reto.jsp");
-			// Cargar el reto con ese ID y el usuario autor
-			RetoDAO retoDAO = new RetoDAO();
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			try {
-				RetoVO reto = retoDAO.getRetoById(idContenido);
-				if (reto == null) {
+	// Encontrar un ID de contenido
+	Long idContenido = RequestExtractor.getLong(request, "id");
+	if (idContenido == null || idContenido <= 0L) {
+		// No sabemos qué reto mostrar
+		response.sendRedirect("errorInterno.html");
+	} else {
+		// Añadirlo a los atributos de la request para comentario
+		request.setAttribute("id", idContenido);
+		request.setAttribute("redirect", "reto.jsp");
+		// Cargar el reto con ese ID y el usuario autor
+		RetoDAO retoDAO = new RetoDAO();
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		try {
+			RetoVO reto = retoDAO.getRetoById(idContenido);
+			if (reto == null) {
+	            response.sendRedirect("errorInterno.html");
+			} else {
+				UsuarioVO usuario = usuarioDAO.getUsuarioById(reto.getIdAutor());
+				if (usuario == null) {
 		            response.sendRedirect("errorInterno.html");
 				} else {
-					UsuarioVO usuario = usuarioDAO.getUsuarioById(reto.getIdAutor());
-					if (usuario == null) {
-			            response.sendRedirect("errorInterno.html");
-					} else {
-						request.setAttribute("reto", reto);
-						request.setAttribute("autor", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
-					}
+					request.setAttribute("reto", reto);
+					request.setAttribute("autor", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
 				}
-			} catch (ErrorInternoException e) {
-	            response.sendRedirect("errorInterno.html");
 			}
+		} catch (ErrorInternoException e) {
+            response.sendRedirect("errorInterno.html");
 		}
 	}
 %>
@@ -59,7 +58,6 @@
 	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
 	<link href="fonts/ionicons.css" rel="stylesheet">
 	<link href="common/styles.css" rel="stylesheet">
-
 </head>
 <body>
 
