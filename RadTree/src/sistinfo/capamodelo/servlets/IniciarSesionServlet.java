@@ -27,18 +27,9 @@ public class IniciarSesionServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         
         // Necesitamos ID y clave para poder hacer login
-        String id;
-        String claveHash;
-        if (request.getAttribute("usoCookies") != null) {
-        	// Obtenerlas de las cookies
-        	id = (String) request.getAttribute("loginCookie");
-        	claveHash = (String) request.getAttribute("claveHashCookie");
-        } else {
-        	// Obtenerlas del formulario de login
-         	id = request.getParameter("identificador");
-        	String clave = request.getParameter("clave");
-     		claveHash = PBKDF2Hash.hash(clave.toCharArray());
-        }
+        String id = request.getParameter("identificador");
+        String clave = request.getParameter("clave");
+ 		String claveHash = PBKDF2Hash.hash(clave.toCharArray());
     	
         // Intentar hacer login con los datos anteriores
         if (id == null || id.trim().isEmpty() || claveHash == null || claveHash.trim().isEmpty()) {
@@ -79,7 +70,6 @@ public class IniciarSesionServlet extends HttpServlet {
      */
     private void loginError(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         RequestDispatcher req = request.getRequestDispatcher("inicioSesion.jsp");
-        response.sendRedirect("inicioSesion.jsp");
         request.setAttribute("error", "Identificador o clave inválidos o incorrectos");
         req.include(request, response);
     }
