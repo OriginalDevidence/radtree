@@ -54,13 +54,17 @@ public class ComentarioDAO {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Comentario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)");
+        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Comentario VALUES (NULL, ?, ?, ?, ?, ?, ?)");
         	stmt.setLong(1, comentario.getIdAutor());
         	stmt.setLong(2, comentario.getIdContenido());
         	stmt.setString(3, comentario.getCuerpo());
-        	stmt.setLong(4, 0); // numLikes
-        	stmt.setDate(5, new java.sql.Date(Calendar.getInstance().getTime().getTime())); // fecha
-        	stmt.setLong(6, comentario.getRespuestaDe());
+        	stmt.setLong(4, comentario.getNumLikes()); // numLikes
+        	stmt.setDate(5, comentario.getFecha()); // fecha
+        	if (comentario.getRespuestaDe() == null) {
+            	stmt.setNull(6, java.sql.Types.BIGINT);
+        	} else {
+            	stmt.setLong(6, comentario.getRespuestaDe());
+        	}
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {

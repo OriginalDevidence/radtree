@@ -11,11 +11,14 @@
 <%
 	if (request.getAttribute("reto") == null || request.getAttribute("autor") == null) {
 		// Encontrar un ID de usuario para mostrar
-		Long idContenido = new Long((String)request.getParameter("id"));
+		Long idContenido = Long.parseLong(request.getParameter("id"));
 		if (idContenido == null || idContenido <= 0L) {
 			// No sabemos qué reto mostrar
 			response.sendRedirect("errorInterno.html");
 		} else {
+			// Añadirlo a los atributos de la request por si decide poner un comentario
+			request.setAttribute("id", idContenido);
+			request.setAttribute("redirect", "reto.jsp");
 			// Cargar el reto con ese ID y el usuario autor
 			RetoDAO retoDAO = new RetoDAO();
 			UsuarioDAO usuarioDAO = new UsuarioDAO();

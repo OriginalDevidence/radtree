@@ -87,10 +87,17 @@
 			<div class="col-md-12 col-lg-8 sided-70">
 				<h4 class="p-title mt-20"><b>Deja un comentario</b></h4>
 				<h5 class="mb-20">Comentando como <b><c:out value="${sessionScope.usuario.alias}"/></b></h5>
-				<form class="form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50"
+				<form
+					class="form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50"
 					name="enviarComentario" action="EnviarComentario.do" method="post">
-					<textarea class="ptb-10" name="comentario" placeholder="Deja un comentario..." rows=3></textarea>
-					<button class="btn-fill-primary plr-30" type="submit"><b>Comentar</b></button>
+					<textarea class="ptb-10" name="cuerpo" maxlength=300
+						placeholder="Deja un comentario..." rows=3></textarea>
+					<input type="hidden" name="redirect" value="<c:out value="${requestScope.redirect}"/>"/>
+					<input type="hidden" name="id" value="<c:out value="${requestScope.id}"/>"/>
+					<input type="hidden" name="respuestaDe" value=""/>
+					<button class="btn-fill-primary plr-30" type="submit">
+						<b>Comentar</b>
+					</button>
 				</form>
 			</div>
 		</c:if>

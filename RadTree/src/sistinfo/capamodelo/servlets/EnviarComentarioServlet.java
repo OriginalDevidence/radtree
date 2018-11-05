@@ -31,27 +31,29 @@ public class EnviarComentarioServlet extends HttpServlet {
     		response.sendRedirect("errorInterno.html");
     	} else {
     		
-    		// Comprobar que el campo comentario no es vacío ni demasiado largo
-        	String cuerpo = (String)request.getAttribute("comentario");
-        	if (cuerpo == null || cuerpo.trim().isEmpty()) {
-                RequestDispatcher req = request.getRequestDispatcher(request.getRequestURI());
-                request.setAttribute("errorComentario", "Campo obligatorio");
-                req.include(request, response);
-        	} else if (cuerpo.length() > 300) {
-                RequestDispatcher req = request.getRequestDispatcher(request.getRequestURI());
-                request.setAttribute("errorComentario", "Comentario demasiado largo");
-                req.include(request, response);
-        	} else {
-        		
-        		// Obtener los datos de idContenido
-        		Long idContenido = new Long((String)request.getParameter("id"));
-        		if (idContenido == null || idContenido <= 0L) {
-            		response.sendRedirect("errorInterno.html");
-        		} else {
-        			
+    		// Leer la URL de redirect y obtener idContenido
+    		Long idContenido = Long.parseLong(request.getParameter("id"));
+    		String redirect = (String)request.getParameter("redirect");
+    		if (redirect == null || redirect.trim().isEmpty() || idContenido == null || idContenido <= 0L) {
+    			response.sendRedirect("errorInterno.html");
+    		} else {
+	    		// Comprobar que el campo comentario no es vacío ni demasiado largo
+	        	String cuerpo = (String)request.getParameter("cuerpo");
+	        	if (cuerpo == null || cuerpo.trim().isEmpty()) {
+	                RequestDispatcher req = request.getRequestDispatcher(redirect);
+	                request.setAttribute("errorComentario", "Campo obligatorio");
+	                response.sendRedirect(redirect + "?id=" + idContenido.toString());
+	                req.include(request, response);
+	        	} else if (cuerpo.length() > 300) {
+	                RequestDispatcher req = request.getRequestDispatcher(redirect);
+	                request.setAttribute("errorComentario", "Comentario demasiado largo");
+	                response.sendRedirect(redirect + "?id=" + idContenido.toString());
+	                req.include(request, response);
+	        	} else {
+	        		
         			// Ya podemos insertar el comentario, obtener la fecha actual y si es respuesta de alguien
         			Date fechaActual = new Date(new java.util.Date().getTime());
-            		Long respuestaDe = new Long((String)request.getAttribute("comentarioRespuestaDe"));
+        			Long respuestaDe = Long.parseLong(request.getParameter("respuestaDe"));
             		ComentarioDAO comentarioDAO = new ComentarioDAO();
             		try {
             			// Insertar el comentario
@@ -59,13 +61,13 @@ public class EnviarComentarioServlet extends HttpServlet {
             			comentarioDAO.insertComentario(comentario);
             			
             			// Redirigir a la misma página para limpiar la caja de comentarios y mostrar el nuevo comment
-            			response.sendRedirect(request.getRequestURI());
+            			response.sendRedirect(redirect);
             		} catch (ErrorInternoException e) {
                 		response.sendRedirect("errorInterno.html");
             		}
             		
-        		}
-        	}
+	        	}
+    		}
     	}
     	
     }
