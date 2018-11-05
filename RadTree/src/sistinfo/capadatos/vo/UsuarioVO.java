@@ -8,7 +8,7 @@ public class UsuarioVO implements java.io.Serializable {
 	
 	public enum TipoUsuario { ADMINISTRADOR, CREADOR, PARTICIPANTE };
 	
-	private long idUsuario;
+	private Long idUsuario;
 	private String alias;
 	private String nombre;
 	private String apellidos;
@@ -16,7 +16,7 @@ public class UsuarioVO implements java.io.Serializable {
 	private String email;
 	private String passwordHash;
 	private TipoUsuario tipoUsuario;
-	private double puntuacion;
+	private Double puntuacion;
 	
 	public UsuarioVO() {}
 	
@@ -29,11 +29,11 @@ public class UsuarioVO implements java.io.Serializable {
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.tipoUsuario = tipoUsuario;
-		this.puntuacion = 0;
+		this.puntuacion = 0.0;
 	}
 	
 	public UsuarioVO(String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
-			String passwordHash, TipoUsuario tipoUsuario, double puntuacion) {
+			String passwordHash, TipoUsuario tipoUsuario, Double puntuacion) {
 		this.alias = alias;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -44,8 +44,8 @@ public class UsuarioVO implements java.io.Serializable {
 		this.puntuacion = puntuacion;
 	}
 	
-	public UsuarioVO(long idUsuario, String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
-			String passwordHash, TipoUsuario tipoUsuario, double puntuacion) {
+	public UsuarioVO(Long idUsuario, String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
+			String passwordHash, TipoUsuario tipoUsuario, Double puntuacion) {
 		this.idUsuario = idUsuario;
 		this.alias = alias;
 		this.nombre = nombre;
@@ -57,10 +57,22 @@ public class UsuarioVO implements java.io.Serializable {
 		this.puntuacion = puntuacion;
 	}
 	
-	public long getIdUsuario() {
+	public UsuarioVO(UsuarioVO original, String alias, String nombre, String apellidos, Date fechaNacimiento, String email) {
+		this.idUsuario = original.getIdUsuario();
+		this.alias = alias;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.fechaNacimiento = fechaNacimiento;
+		this.email = email;
+		this.passwordHash = original.getPasswordHash();
+		this.tipoUsuario = original.getTipoUsuario();
+		this.puntuacion = original.getPuntuacion();
+	}
+	
+	public Long getIdUsuario() {
 		return idUsuario;
 	}
-	public void setIdUsuario(long idUsuario) {
+	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 	public String getAlias() {
@@ -105,10 +117,10 @@ public class UsuarioVO implements java.io.Serializable {
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
-	public double getPuntuacion() {
+	public Double getPuntuacion() {
 		return puntuacion;
 	}
-	public void setPuntuacion(double puntuacion) {
+	public void setPuntuacion(Double puntuacion) {
 		this.puntuacion = puntuacion;
 	}
 	

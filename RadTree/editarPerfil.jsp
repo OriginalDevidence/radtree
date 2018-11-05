@@ -1,26 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="sistinfo.capadatos.dao.UsuarioDAO" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
-<%@ page import="sistinfo.utils.CookieManager" %>
-<%@ page import="sistinfo.excepciones.ErrorInternoException" %>
+<%-- 
+	Comprobar que hay un usuario con la sesión iniciada y dar formato a los errores de editar perfil
+	(SuppressWarnings para evitar el warning de type cast de "errores", aunque esta bien hecho))
+--%>
+<%! @SuppressWarnings("unchecked") %>
 <%
-	String alias = CookieManager.getAliasFromCookies(request);
-	String claveHash = CookieManager.getClaveHashFromCookies(request);
-	if (alias != null && claveHash != null) { // ya se comprueban no-vacios en CookieManager
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		try {
-			UsuarioVO usuario = usuarioDAO.getUsuarioByLoginAlias(alias, claveHash);
-			if (usuario != null) {
-				request.setAttribute("usuario", usuario);
-			} else {
-				response.sendRedirect("inicioSesion.jsp");
-			}
-		} catch (ErrorInternoException e) {
-			response.sendRedirect("errorInterno.html");
-		}
-	} else {
+	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+	if (usuario == null) {
 		response.sendRedirect("inicioSesion.jsp");
+	} else if (request.getAttribute("errores") instanceof HashMap) {
+		// Hay errores en un registro previo, darles formato
+		Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
+		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
+		String estiloFinal = "</span>";
+		// Añadir formato
+		for (String k : errores.keySet()) {
+			errores.replace(k, estiloCabecera + errores.get(k) + estiloFinal);
+		}
 	}
 %>
 <!DOCTYPE HTML>
@@ -30,7 +30,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Editar perfil</title>
+	<title><c:out value="${sessionScope.usuario.alias}"/> - Editar perfil</title>
 	<meta name="description" content="Formulario para editar los datos del perfil">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 	
@@ -50,7 +50,7 @@
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
 			<a class="mt-10" href="index.html"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10" href="perfil.jsp?alias=<c:out value="${requestScope.usuario.alias}"/>">Perfil de <c:out value="${requestScope.usuario.alias}"/><i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="perfil.jsp?alias=<c:out value="${sessionScope.usuario.alias}"/>">Perfil de <c:out value="${sessionScope.usuario.alias}"/><i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Editar perfil</a>
 		</div><!-- container -->
 	</section>
@@ -63,34 +63,38 @@
 				<div class="col-md-12 col-lg-8">
 					<h3 class="p-title mb-30"><b>Editar perfil</b></h3>
 
-					<form name="modificarUsuario" action="ModificarUsuario.do" method="post">
+					<form name="editarUsuario" action="EditarUsuario.do" method="post">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 
 							<div class="col-sm-12 col-md-6">
 								<label for="alias">Alias</label>
-								<input type="text" name="alias" placeholder="Alias" value="<c:out value="${requestScope.usuario.alias}"/>"/>
+								<c:out value="${requestScope.errores.get('alias')}" escapeXml="false"/>
+								<input type="text" name="alias" placeholder="Alias" value="<c:out value="${sessionScope.usuario.alias}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nacimiento">Fecha de nacimiento</label>
-								<input type="date" name="nacimiento" value="1981-03-04"/>
+								<c:out value="${requestScope.errores.get('nacimiento')}" escapeXml="false"/>
+								<input type="date" name="nacimiento" value="<c:out value="${sessionScope.usuario.fechaNacimiento}"/>"/>
 							</div>
 
 							<div class="col-12 col-sm-6">
 								<label for="nombre">Nombre</label>
-								<input type="text" name="nombre" placeholder="Nombre" value="<c:out value="${requestScope.usuario.nombre}"/>"/>
+								<c:out value="${requestScope.errores.get('nombre')}" escapeXml="false"/>
+								<input type="text" name="nombre" placeholder="Nombre" value="<c:out value="${sessionScope.usuario.nombre}"/>"/>
 							</div>
 
 							<div class="col-12 col-sm-6">
 								<label for="apellidos">Apellidos</label>
-								<input type="text" name="apellidos" placeholder="Apellidos" value="<c:out value="${requestScope.usuario.apellidos}"/>"/>
+								<c:out value="${requestScope.errores.get('apellidos')}" escapeXml="false"/>
+								<input type="text" name="apellidos" placeholder="Apellidos" value="<c:out value="${sessionScope.usuario.apellidos}"/>"/>
 							</div>
 							
 							<div class="col-12">
 								<label for="email">Email</label>
-								<p class="font-10 color-red lh-30"><i class="ion-close"></i><span class="pl-5">Correo no válido</span></p>
-								<input type="email" name="email" placeholder="Email" value="<c:out value="${requestScope.usuario.email}"/>"/>
+								<c:out value="${requestScope.errores.get('email')}" escapeXml="false"/>
+								<input type="email" name="email" placeholder="Email" value="<c:out value="${sessionScope.usuario.email}"/>"/>
 							</div>
 
 						</div>
