@@ -2,13 +2,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO.TipoUsuario" %>
 <%--
 	Comprueba los errores que se han podido obtener al crear noticia y les añade formato
 	SuppressWarnings para evitar el warning de type cast de "errores" (aunque esta bien hecho)
 --%>
 <%! @SuppressWarnings("unchecked") %>
 <%
-	if (request.getAttribute("errores") instanceof HashMap) {
+	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+	if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
+		// El usuario no es un creador de contenido o admin, no deberia estar en esta página
+		response.sendRedirect("errorInterno.html");
+	} else if (request.getAttribute("errores") instanceof HashMap) {
+		// Mostrar errores
 		Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
 		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
 		String estiloFinal = "</span>";
