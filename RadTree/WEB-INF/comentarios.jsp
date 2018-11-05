@@ -18,13 +18,16 @@
 		ComentarioDAO comentarioDAO = new ComentarioDAO();
 		ArrayList<ComentarioVO> comentarios = comentarioDAO.getComentariosFromContenido(idContenido);
 		request.setAttribute("comentarios", comentarios);
+		// Crear un mapa idUsuario - path a su foto de perfil
 		Map<Long, String> profileImages = new HashMap<Long, String>();
 		for (ComentarioVO c : comentarios) {
-			String path = ProfilePictureManager.getPathForId(c.getIdAutor());
-			if (new File(path).isFile()) {
-				profileImages.put(c.getIdAutor(), path);
-			} else {
-				profileImages.put(c.getIdAutor(), ProfilePictureManager.getDefaultPath());
+			if (!profileImages.containsKey(c.getIdAutor())){
+				String path = ProfilePictureManager.getPathForId(c.getIdAutor());
+				if (new File(path).isFile()) {
+					profileImages.put(c.getIdAutor(), path);
+				} else {
+					profileImages.put(c.getIdAutor(), ProfilePictureManager.getDefaultPath());
+				}
 			}
 		}
 		request.setAttribute("profileImages", profileImages);
@@ -63,8 +66,11 @@
 								</c:if>
 							</h5>
 							<p class="mtb-15"><c:out value="${comentario.cuerpo}"/></p>
-							<button class="btn-brdr-grey btn-b-sm plr-15 mr-10 mt-5"><b>Like</b></button>
-							<button class="btn-brdr-grey btn-b-sm plr-15 mt-5"><b>Responder</b></button>
+							<c:if test="${not empty sessionScope.usuario}">
+								<!-- TODO funcionalidad -->
+								<button class="btn-brdr-grey btn-b-sm plr-15 mr-10 mt-5"><b>Like</b></button>
+								<button class="btn-brdr-grey btn-b-sm plr-15 mt-5"><b>Responder</b></button>
+							</c:if>
 						</div><!-- s-right -->
 						
 					</div><!-- sided-70 -->
@@ -73,15 +79,15 @@
 			
 		</div>
 
-
-		<!-- TODO cambiar el nombre de quien comenta y permitir comentarios e informar de los errores (caja vacia) -->
-		<div class="col-md-12 col-lg-8 sided-70">
-			<h4 class="p-title mt-20"><b>Deja un comentario</b></h4>
-			<h5 class="mb-20">Comentando como <b>Shuhein Chui</b></h5>
-			<form class="form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50">
-				<textarea class="ptb-10" placeholder="Deja un comentario..." rows=3></textarea>
-				<button class="btn-fill-primary plr-30" type="submit" formaction="EnviarComentario.do"><b>Comentar</b></button>
-			</form>
-		</div>
+		<c:if test="${not empty sessionScope.usuario}">
+			<div class="col-md-12 col-lg-8 sided-70">
+				<h4 class="p-title mt-20"><b>Deja un comentario</b></h4>
+				<h5 class="mb-20">Comentando como <b><c:out value="${sessionScope.usuario.alias}"/></b></h5>
+				<form class="form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50">
+					<textarea class="ptb-10" placeholder="Deja un comentario..." rows=3></textarea>
+					<button class="btn-fill-primary plr-30" type="submit" formaction="EnviarComentario.do"><b>Comentar</b></button>
+				</form>
+			</div>
+		</c:if>
 	</div>
 </div>
