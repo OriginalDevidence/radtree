@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.dao.UsuarioDAO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
-import sistinfo.utils.CookieManager;
 import sistinfo.utils.PBKDF2Hash;
 
 @SuppressWarnings("serial")
@@ -60,12 +59,9 @@ public class IniciarSesionServlet extends HttpServlet {
 					// Algo ha ido mal
 					loginError(request, response);
 				} else {
-					// Enviar al perfil y añadir los datos de login en cookies
-	                RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
-	                CookieManager.addLoginCookiesToResponse(usuario, response);
-	                response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());
-	                request.setAttribute("usuario", usuario);
-	                req.include(request, response);
+					// Enviar al perfil y añadir los datos del usuario en la sesión
+					response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());
+					request.getSession().setAttribute("usuario", usuario);
 				}
 			} catch (ErrorInternoException e) {
 				response.sendRedirect("errorInterno.html");

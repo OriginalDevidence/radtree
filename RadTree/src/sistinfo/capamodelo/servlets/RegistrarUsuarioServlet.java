@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.capadatos.vo.UsuarioVO.TipoUsuario;
 import sistinfo.excepciones.UsuarioYaExistenteException;
-import sistinfo.utils.CookieManager;
 import sistinfo.utils.PBKDF2Hash;
 import sistinfo.utils.FormatChecker;
 import sistinfo.capadatos.dao.UsuarioDAO;
@@ -47,11 +46,9 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				usuarioDAO.insertUsuario(usuario);
 
-				RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
-				CookieManager.addLoginCookiesToResponse(usuario, response);
+				// Enviar al perfil y añadir los datos del usuario en la sesión
 				response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());
-				request.setAttribute("usuario", usuario);
-				req.include(request, response);
+				request.getSession().setAttribute("usuario", usuario);
 			} catch (UsuarioYaExistenteException e) {
 				RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
 				if (e.isAliasExistente()) {

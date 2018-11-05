@@ -2,31 +2,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="sistinfo.utils.CookieManager" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
 <%--
-	Comprueba los errores que han podido ocurrir en el registro y les añade formato
-	SuppressWarnings para evitar el warning de type cast de "errores" (aunque esta bien hecho)
+	Primero comprueba que no haya ningún usuario logueado ya (si no le redirige a su perfil)
+	Si no, comprueba los errores que han podido ocurrir en el registro y les añade formato
+	(SuppressWarnings para evitar el warning de type cast de "errores", aunque esta bien hecho))
 --%>
 <%! @SuppressWarnings("unchecked") %>
 <%
-	if (request.getAttribute("errores") instanceof HashMap) {
+	if (session.getAttribute("usuario") != null) {
+		// Ya hay un usuario logueado, enviarlo a su perfil
+		response.sendRedirect("perfil.jsp?alias=" + ((UsuarioVO)session.getAttribute("usuario")).getAlias());
+	} else if (request.getAttribute("errores") instanceof HashMap) {
+		// Hay errores en un registro previo, darles formato
 		Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
 		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
 		String estiloFinal = "</span>";
 		// Añadir formato
 		for (String k : errores.keySet()) {
 			errores.replace(k, estiloCabecera + errores.get(k) + estiloFinal);
-		}
-	} else {
-		// Comprobar login en cookies
-		String alias = CookieManager.getAliasFromCookies(request);
-		String claveHash = CookieManager.getClaveHashFromCookies(request);
-		if (alias != null && claveHash != null) { // ya se ha comprobado que no son vacias en CookieManager
-			request.setAttribute("usoCookies", true);
-			request.setAttribute("loginCookie", alias);
-			request.setAttribute("claveHashCookie", claveHash);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("IniciarSesion.do");
-			dispatcher.forward(request, response);
 		}
 	}
 %>

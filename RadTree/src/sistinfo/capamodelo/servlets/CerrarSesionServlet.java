@@ -3,12 +3,9 @@ package sistinfo.capamodelo.servlets;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import sistinfo.utils.CookieManager;
 
 @SuppressWarnings("serial")
 public class CerrarSesionServlet extends HttpServlet {
@@ -18,7 +15,7 @@ public class CerrarSesionServlet extends HttpServlet {
     }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	CookieManager.removeLoginCookies(request, response);
+    	request.getSession().invalidate();
     	response.sendRedirect("index.jsp");
     }
     

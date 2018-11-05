@@ -5,40 +5,33 @@
 <%@ page import="sistinfo.utils.CookieManager" %>
 <%@ page import="sistinfo.excepciones.ErrorInternoException" %>
 <%--
-	Almacena datos de usuario (UsuarioVO) en la request para que luego pueda ser usada por la bean
-	Orden de comprobaciones:
-	- Si ya hay un UsuarioVO en la request, no hacer nada
-	- Si no hay un UsuarioVO en la request, intentar cargar los datos del usuario con el alias incluido en los parametros
-		- Si no lo encuentra, intentar cargar los datos del usuario de las cookies
+	Muestra los datos de un usuario, estos son obtenidos en este orden:
+	- Si hay un alias en los parámetros de la request (perfil.jsp?alias=JuanEcologico27), mostrar ese usuario
+		- En caso de que no exista ese alias, redirigir a la página de error
+	- Si no hay un alias en los parámetros (perfil.jsp) y hay un usuario logueado, mostrar ese usuario por defecto
+		- En caso de que no haya ningún usuario logueado, redirigir a la página de error
 --%>
 <%
-	if (request.getAttribute("usuario") == null) {
-		// Encontrar un ID de usuario para mostrar
-		String alias = (String)request.getParameter("alias");
-		if (alias == null || alias.trim().isEmpty()) {
-			alias = CookieManager.getAliasFromCookies(request);
-			if (alias == null) { // CookieManager ya comprueba que es vacio
-				// No sabemos qué usuario mostrar
+	String alias = (String)request.getParameter("alias");
+	if (alias != null && !alias.trim().isEmpty()) {
+		// Mostrar el usuario pasado por la request
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		try {
+			UsuarioVO usuario = usuarioDAO.getUsuarioByAlias(alias);
+			if (usuario == null) {
 	            response.sendRedirect("errorInterno.html");
 			} else {
-				// Mostrar el usuario alias
-				RequestDispatcher dispatcher = request.getRequestDispatcher("perfil.jsp?alias=" + alias);
-				response.sendRedirect("perfil.jsp?alias=" + alias);
-				dispatcher.include(request, response);
+				request.setAttribute("usuario", usuario);
 			}
-		} else {// Cargar el usuario con ese alias
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			try {
-				UsuarioVO usuario = usuarioDAO.getUsuarioByAlias(alias);
-				if (usuario == null) {
-		            response.sendRedirect("errorInterno.html");
-				} else {
-					request.setAttribute("usuario", usuario);
-				}
-			} catch (ErrorInternoException e) {
-	            response.sendRedirect("errorInterno.html");
-			}
+		} catch (ErrorInternoException e) {
+            response.sendRedirect("errorInterno.html");
 		}
+	} else if (session.getAttribute("usuario") != null) {
+		// No ha pasado ningun parámetro por request, mostrar su perfil por defecto
+		request.setAttribute("usuario", session.getAttribute("usuario"));
+	} else {
+		// No sabemos qué usuario mostrar
+        response.sendRedirect("errorInterno.html");
 	}
 %>
 <!DOCTYPE HTML>

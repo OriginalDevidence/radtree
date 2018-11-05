@@ -1,26 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="sistinfo.utils.CookieManager" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
 <%--
-	Comprueba los errores que han podido ocurrir en el inicio de sesion y les añade formato
+	Primero comprueba que no haya ningún usuario logueado ya (si no le redirige a su perfil)
+	Si no, comprueba los errores que han podido ocurrir en el inicio de sesión y les añade formato
 --%>
 <%
-	String errorMessage = (String)request.getAttribute("error");
-	if (errorMessage != null) {
-		// Dar formato al error
-		String estiloCabecera = "<p class=\"font-10 color-red lh-30 mb-20 ml-15\"><i class=\"ion-close\"></i><span class=\"pl-5\">";
-		String estiloFinal = "</span></p>";
-		request.setAttribute("error", estiloCabecera + errorMessage + estiloFinal);
+	if (session.getAttribute("usuario") != null) {
+		// Ya hay un usuario logueado, enviarlo a su perfil
+		response.sendRedirect("perfil.jsp?alias=" + ((UsuarioVO)session.getAttribute("usuario")).getAlias());
 	} else {
-		// Comprobar login en cookies
-		String alias = CookieManager.getAliasFromCookies(request);
-		String claveHash = CookieManager.getClaveHashFromCookies(request);
-		if (alias != null && claveHash != null) { // ya se ha comprobado que no son vacias en CookieManager
-			request.setAttribute("usoCookies", true);
-			request.setAttribute("loginCookie", alias);
-			request.setAttribute("claveHashCookie", claveHash);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("IniciarSesion.do");
-			dispatcher.forward(request, response);
+		// Comprobar errores y darle formato
+		String errorMessage = (String)request.getAttribute("error");
+		if (errorMessage != null) {
+			// Dar formato al error
+			String estiloCabecera = "<p class=\"font-10 color-red lh-30 mb-20 ml-15\"><i class=\"ion-close\"></i><span class=\"pl-5\">";
+			String estiloFinal = "</span></p>";
+			request.setAttribute("error", estiloCabecera + errorMessage + estiloFinal);
 		}
 	}
 %>
