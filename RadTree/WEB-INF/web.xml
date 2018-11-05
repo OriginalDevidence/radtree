@@ -35,6 +35,10 @@
         <servlet-name>CrearReto</servlet-name>
         <servlet-class>sistinfo.capamodelo.servlets.CrearRetoServlet</servlet-class>
 	</servlet>
+    <servlet>
+        <servlet-name>EnviarComentario</servlet-name>
+        <servlet-class>sistinfo.capamodelo.servlets.EnviarComentarioServlet</servlet-class>
+	</servlet>
     <!-- ============ Servlets Mapping======= -->
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
@@ -63,6 +67,10 @@
     <servlet-mapping>
 	    <servlet-name>CrearReto</servlet-name>
 		<url-pattern>/CrearReto.do</url-pattern>
+	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnviarComentario</servlet-name>
+		<url-pattern>/EnviarComentario.do</url-pattern>
 	</servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>

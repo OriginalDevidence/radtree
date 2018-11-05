@@ -12,6 +12,8 @@
 	También hace un mapa con las fotos de perfil que tiene cada usuario y lo almacena en la request (profileImages)
 --%>
 <%
+	// Obtener los comentarios para el contenido que se está viendo
+	// Si no se obtienen no se redirige a error, simplemente no se muestran
 	Long idContenido = new Long((String)request.getParameter("id"));
 	if (idContenido != null && idContenido > 0) {
 		// Obtener los comentarios del contenido y añadirlos a la request
@@ -32,6 +34,8 @@
 		}
 		request.setAttribute("profileImages", profileImages);
 	}
+	
+	// TODO Mirar a ver si ha habido errores al enviar el comentario y añadirles formato
 %>
 <!DOCTYPE html>
 <!-- COMENTARIOS -->
@@ -83,9 +87,10 @@
 			<div class="col-md-12 col-lg-8 sided-70">
 				<h4 class="p-title mt-20"><b>Deja un comentario</b></h4>
 				<h5 class="mb-20">Comentando como <b><c:out value="${sessionScope.usuario.alias}"/></b></h5>
-				<form class="form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50">
-					<textarea class="ptb-10" placeholder="Deja un comentario..." rows=3></textarea>
-					<button class="btn-fill-primary plr-30" type="submit" formaction="EnviarComentario.do"><b>Comentar</b></button>
+				<form class="form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50"
+					name="enviarComentario" action="EnviarComentario.do" method="post">
+					<textarea class="ptb-10" name="comentario" placeholder="Deja un comentario..." rows=3></textarea>
+					<button class="btn-fill-primary plr-30" type="submit"><b>Comentar</b></button>
 				</form>
 			</div>
 		</c:if>
