@@ -6,35 +6,36 @@
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
 <%@ page import="sistinfo.excepciones.ErrorInternoException" %>
 <%--
-	Obtener el reto del id pasado como parametro y el nombre de su autor
+	Obtener la noticia del id pasado como parametro y el nombre de su autor
 --%>
 <%
-	if (request.getAttribute("noticia") == null || request.getAttribute("autor") == null) {
-		// Encontrar un ID de usuario para mostrar
-		Long idContenido = new Long((String)request.getParameter("id"));
-		if (idContenido == null || idContenido <= 0L) {
-			// No sabemos qué reto mostrar
-			response.sendRedirect("errorInterno.html");
-		} else {
-			// Cargar el reto con ese ID y el usuario autor
-			NoticiaDAO noticiaDAO = new NoticiaDAO();
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			try {
-				NoticiaVO reto = noticiaDAO.getNoticiaById(idContenido);
-				if (reto == null) {
+	// Encontrar un ID de contenido
+	Long idContenido = RequestExtractor.getLong(request, "id");
+	if (idContenido == null || idContenido <= 0L) {
+		// No sabemos qué noticia mostrar
+		response.sendRedirect("errorInterno.html");
+	} else {
+		// Añadirlo a los atributos de la request para comentario
+		request.setAttribute("id", idContenido);
+		request.setAttribute("redirect", "noticia.jsp");
+		// Cargar la noticia con ese ID y el usuario autor
+		NoticiaDAO noticiaDAO = new NoticiaDAO();
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		try {
+			NoticiaVO noticia = noticiaDAO.getNoticiaById(idContenido);
+			if (noticia == null) {
+	            response.sendRedirect("errorInterno.html");
+			} else {
+				UsuarioVO usuario = usuarioDAO.getUsuarioById(noticia.getIdAutor());
+				if (usuario == null) {
 		            response.sendRedirect("errorInterno.html");
 				} else {
-					UsuarioVO usuario = usuarioDAO.getUsuarioById(reto.getIdAutor());
-					if (usuario == null) {
-			            response.sendRedirect("errorInterno.html");
-					} else {
-						request.setAttribute("noticia", reto);
-						request.setAttribute("autor", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
-					}
+					request.setAttribute("noticia", noticia);
+					request.setAttribute("autor", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
 				}
-			} catch (ErrorInternoException e) {
-	            response.sendRedirect("errorInterno.html");
 			}
+		} catch (ErrorInternoException e) {
+            response.sendRedirect("errorInterno.html");
 		}
 	}
 %>
@@ -62,6 +63,7 @@
 	<%@ include file="WEB-INF/header.jsp" %>
 
 	<section>
+	
 		<div class="container">
 
 			<div class="row">
@@ -79,7 +81,7 @@
 						<b><a href="<c:out value="${requestScope.noticia.url}"/>"><c:out value="${requestScope.noticia.url}"/></a></b>
 					</p>
 					<p class="mb-30">
-						<i>Autor: <c:out value="${requestScope.alias}" /></i>
+						<i>Autor: <c:out value="${requestScope.autor}" /></i>
 					</p>
 				</div>
 
@@ -89,10 +91,11 @@
 			</div>
 
 		</div>
-		<!-- container -->
+		
+		<%@ include file="WEB-INF/comentarios.jsp" %>
+		
 	</section>
 
-	<%@ include file="WEB-INF/comentarios.jsp" %>
 	
 	<%@ include file="WEB-INF/footer.jsp" %>
 
