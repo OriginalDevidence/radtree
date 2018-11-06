@@ -27,6 +27,13 @@ public class EditarUsuarioServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+		/*
+		 * TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding
+		 * todo el rato
+		 */
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		// Comprobar que el usuario está logueado
     	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
     	if (usuario == null) {
