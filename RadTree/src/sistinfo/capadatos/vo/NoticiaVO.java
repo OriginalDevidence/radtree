@@ -8,7 +8,7 @@ public class NoticiaVO extends ContenidoVO {
 	private String cuerpo;
 	private String url;
 	
-	public NoticiaVO(long idAutor, long numVisitas, Date fechaRealizacion, Estado estado,
+	public NoticiaVO(Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado,
 			String titulo, String cuerpo, String url) {
 		super(idAutor, numVisitas, fechaRealizacion, estado);
 		this.titulo = titulo;
@@ -16,7 +16,7 @@ public class NoticiaVO extends ContenidoVO {
 		this.url = url;
 	}
 	
-	public NoticiaVO(long idContenido, long idAutor, long numVisitas, Date fechaRealizacion, Estado estado,
+	public NoticiaVO(Long idContenido, Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado,
 			String titulo, String cuerpo, String url) {
 		super(idContenido, idAutor, numVisitas, fechaRealizacion, estado);
 		this.titulo = titulo;

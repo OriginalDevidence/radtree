@@ -15,7 +15,7 @@ public class UsuarioDAO {
 	 * @return El usuario si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public UsuarioVO getUsuarioById(long id) throws ErrorInternoException {
+	public UsuarioVO getUsuarioById(Long id) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE idUsuario=?");
@@ -149,7 +149,7 @@ public class UsuarioDAO {
             	stmt.setString(5, usuario.getEmail());
             	stmt.setString(6, usuario.getPasswordHash());
             	stmt.setString(7, usuario.getTipoUsuario().toString());
-            	stmt.setDouble(8, 0.0);
+            	stmt.setDouble(8, usuario.getPuntuacion());
             	int result = stmt.executeUpdate();
                 
             	if (result == 1) {
@@ -176,12 +176,12 @@ public class UsuarioDAO {
 	 * @throws UsuarioYaExistenteException
 	 * @throws ErrorInternoException 
 	 */
-	public boolean updateUsuario(UsuarioVO usuario) throws UsuarioYaExistenteException, ErrorInternoException {
+	public boolean updateUsuario(UsuarioVO usuario, boolean cambiaAlias, boolean cambiaEmail) throws UsuarioYaExistenteException, ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
         	// Comprobar que no exista alguien con ese alias o email ya
-    		if (checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail())) {
+    		if (checkAliasYEmailExistente(cambiaAlias ? usuario.getAlias() : "$", cambiaEmail ? usuario.getEmail() : "$")) {
         	
 		    	PreparedStatement stmt = connection.prepareStatement("UPDATE Usuario SET alias=?, nombre=?, apellidos=?, fechaNacimiento=?, email=?, passwordHash=?, tipoUsuario=?, puntuacion=? WHERE idUsuario=?");
 		    	stmt.setString(1, usuario.getAlias());
@@ -211,7 +211,7 @@ public class UsuarioDAO {
 	 * @return true si el borrado ha sido correcto, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public boolean deleteUsuario(long id) throws ErrorInternoException {
+	public boolean deleteUsuario(Long id) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
@@ -246,7 +246,7 @@ public class UsuarioDAO {
          	rs.getString("email"),
          	rs.getString("passwordHash"),
          	UsuarioVO.TipoUsuario.valueOf(rs.getString("tipoUsuario")),
-         	rs.getInt("puntuacion")
+         	rs.getDouble("puntuacion")
          );
          return user;
 	}

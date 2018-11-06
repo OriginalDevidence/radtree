@@ -7,14 +7,14 @@ public class RetoVO extends ContenidoVO  {
 	private String titulo;
 	private String cuerpo;
 
-	public RetoVO(long idAutor, long numVisitas, Date fechaRealizacion, Estado estado,
+	public RetoVO(Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado,
 			String titulo, String cuerpo) {
 		super(idAutor, numVisitas, fechaRealizacion, estado);
 		this.titulo = titulo;
 		this.cuerpo = cuerpo;
 	}
 	
-	public RetoVO(long idContenido, long idAutor, long numVisitas, Date fechaRealizacion, Estado estado,
+	public RetoVO(Long idContenido, Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado,
 			String titulo, String cuerpo) {
 		super(idContenido, idAutor, numVisitas, fechaRealizacion, estado);
 		this.titulo = titulo;

@@ -6,20 +6,20 @@ public class ContenidoVO implements java.io.Serializable {
 	
 	public enum Estado { PENDIENTE, VALIDADO, BORRADO };
 	
-	private long idContenido;
-	private long idAutor;
-	private long numVisitas;
+	private Long idContenido;
+	private Long idAutor;
+	private Long numVisitas;
 	private Date fechaRealizacion;
 	private Estado estado;
 	
-	public ContenidoVO(long idAutor, long numVisitas, Date fechaRealizacion, Estado estado) {
+	public ContenidoVO(Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado) {
 		this.idAutor = idAutor;
 		this.numVisitas = numVisitas;
 		this.fechaRealizacion = fechaRealizacion;
 		this.estado = estado;
 	}
 	
-	public ContenidoVO(long idContenido, long idAutor, long numVisitas, Date fechaRealizacion, Estado estado) {
+	public ContenidoVO(Long idContenido, Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado) {
 		this.idContenido = idContenido;
 		this.idAutor = idAutor;
 		this.numVisitas = numVisitas;
@@ -27,22 +27,22 @@ public class ContenidoVO implements java.io.Serializable {
 		this.estado = estado;
 	}
 	
-	public long getIdContenido() {
+	public Long getIdContenido() {
 		return idContenido;
 	}
-	public void setIdContenido(long idContenido) {
+	public void setIdContenido(Long idContenido) {
 		this.idContenido = idContenido;
 	}
-	public long getIdAutor() {
+	public Long getIdAutor() {
 		return idAutor;
 	}
-	public void setIdAutor(long idUsuario) {
+	public void setIdAutor(Long idUsuario) {
 		this.idAutor = idUsuario;
 	}
-	public long getNumVisitas() {
+	public Long getNumVisitas() {
 		return numVisitas;
 	}
-	public void setNumVisitas(long numVisitas) {
+	public void setNumVisitas(Long numVisitas) {
 		this.numVisitas = numVisitas;
 	}
 	public Date getFechaRealizacion() {
