@@ -121,7 +121,9 @@
 				<div class="col-md-12 col-lg-4">
 					<h3 class="p-title mb-30"><b>Eliminar perfil</b></h3>
 					<p>Ten cuidado, una vez eliminado no se puede volver atrás.</p>
-					<button class="w-100 dplay-block btn-brdr-red mt-30 mb-md-50"><b>Eliminar perfil</b></button>
+					<form name="eliminarUsuario" action="EliminarUsuario.do">
+						<button type="submit" class="w-100 dplay-block btn-brdr-red mt-30 mb-md-50"><b>Eliminar perfil</b></button>
+					</form>
 				</div>
 			
 			</div>

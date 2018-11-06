@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.capadatos.vo.UsuarioVO.TipoUsuario;
+import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.excepciones.UsuarioYaExistenteException;
 import sistinfo.utils.PBKDF2Hash;
 import sistinfo.utils.FormatChecker;
@@ -61,7 +62,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 				request.setAttribute("errores", errores);
 				request.setAttribute("erroresArriba", erroresArriba);
 				req.include(request, response);
-			} catch (Exception e) {
+			} catch (ErrorInternoException e) {
 				response.sendRedirect("errorInterno.html");
 			}
 		} else {

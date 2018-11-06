@@ -23,6 +23,10 @@
         <servlet-class>sistinfo.capamodelo.servlets.EditarUsuarioServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>EliminarUsuario</servlet-name>
+        <servlet-class>sistinfo.capamodelo.servlets.EliminarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CrearNoticia</servlet-name>
         <servlet-class>sistinfo.capamodelo.servlets.CrearNoticiaServlet</servlet-class>
 	</servlet>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>EditarUsuario</servlet-name>
         <url-pattern>/EditarUsuario.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarUsuario</servlet-name>
+        <url-pattern>/EliminarUsuario.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
 	    <servlet-name>CrearNoticia</servlet-name>

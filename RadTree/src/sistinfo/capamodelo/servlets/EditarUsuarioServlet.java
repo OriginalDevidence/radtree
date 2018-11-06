@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.capadatos.vo.UsuarioVO;
+import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.excepciones.UsuarioYaExistenteException;
 import sistinfo.utils.FormatChecker;
 import sistinfo.capadatos.dao.UsuarioDAO;
@@ -63,7 +64,7 @@ public class EditarUsuarioServlet extends HttpServlet {
 					}
 					request.setAttribute("errores", errores);
 					req.include(request, response);
-				} catch (Exception e) {
+				} catch (ErrorInternoException e) {
 					response.sendRedirect("errorInterno.html");
 				}
 			} else {

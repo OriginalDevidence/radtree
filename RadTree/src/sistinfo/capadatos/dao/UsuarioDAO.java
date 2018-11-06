@@ -15,7 +15,7 @@ public class UsuarioDAO {
 	 * @return El usuario si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public UsuarioVO getUsuarioById(long id) throws ErrorInternoException {
+	public UsuarioVO getUsuarioById(Long id) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE idUsuario=?");
@@ -211,7 +211,7 @@ public class UsuarioDAO {
 	 * @return true si el borrado ha sido correcto, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public boolean deleteUsuario(long id) throws ErrorInternoException {
+	public boolean deleteUsuario(Long id) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
