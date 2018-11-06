@@ -80,3 +80,13 @@ CREATE TABLE IF NOT EXISTS Contesta (
   FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario) ON DELETE CASCADE,
   FOREIGN KEY(idRespuesta) REFERENCES Respuesta(idRespuesta) ON DELETE CASCADE
 );
+
+/*
+CREATE TABLE IF NOT EXISTS Likes (
+  idUsuario           BIGINT,
+  idComentario        BIGINT,
+  PRIMARY KEY(idUsuario, idComentario),
+  FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario) ON DELETE CASCADE,
+  FOREIGN KEY(idComentario) REFERENCES Comentario(idComentario) ON DELETE CASCADE
+);
+*/
