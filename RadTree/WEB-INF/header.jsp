@@ -34,7 +34,7 @@
 	</div><!-- bg-191 -->
 	
 	<div class="container">
-		<a class="logo" href="index.html"><img src="images/logo-black.png" alt="Logo"></a>
+		<a class="logo" href="index.jsp"><img src="images/logo-black.png" alt="Logo"></a>
 		
 		<a class="right-area src-btn" href="#" >
 			<i class="active src-icn ion-search"></i>
@@ -52,14 +52,16 @@
 		<ul class="main-menu" id="main-menu">
 			<li class="drop-down"><a href="">CARTELES<i class="ion-arrow-down-b"></i></a>
 				<ul class="drop-down-menu drop-down-inner">
-					<li><a href="50_listaDeNoticias.html">NOTICIAS</a></li>
-					<li><a href="52_listaDePreguntas.html">PREGUNTAS</a></li>
-					<li><a href="54_listaDeRetos.html">RETOS</a></li>
+					<li><a href="listaDeNoticias.jsp">NOTICIAS</a></li>
+					<li><a href="listaDePreguntas.jsp">PREGUNTAS</a></li>
+					<li><a href="listaDeRetos.jsp">RETOS</a></li>
 				</ul>
 			</li>
-			<li><a href="60_clasificacion.html">CLASIFICACION</a></li>
-			<li><a href="20_quienesSomos.html">QUIENES SOMOS</a></li>
-			<li><a class="btn-b-md btn-fill-primary lh-30" href="30_gestionContenido.html">GESTIONAR CONTENIDO</a></li>
+			<li><a href="clasificacion.jsp">CLASIFICACION</a></li>
+			<li><a href="quienesSomos.jsp">QUIENES SOMOS</a></li>
+			<c:if test="${sessionScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
+				<li><a class="btn-b-md btn-fill-primary lh-30" href="gestionContenido.jsp">GESTIONAR CONTENIDO</a></li>
+			</c:if>
 		</ul>
 		<div class="clearfix"></div>
 	</div><!-- container -->
