@@ -8,12 +8,7 @@
 --%>
 <%! @SuppressWarnings("unchecked") %>
 <%
-	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-	if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
-		// El usuario no es un creador de contenido o admin, no deberia estar en esta página
-		response.sendRedirect("errorInterno.html");
-	} else if (request.getAttribute("errores") instanceof HashMap) {
-		// Mostrar errores
+	if (request.getAttribute("errores") instanceof HashMap) {
 		Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
 		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
 		String estiloFinal = "</span>";
@@ -118,7 +113,7 @@
 		</div>
 		<!-- container -->
 	</section>
-
+	
 	<%@ include file="WEB-INF/footer.jsp"%>
 
 	<!-- SCRIPTS -->
