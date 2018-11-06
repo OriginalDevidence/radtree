@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
 <%--
 	Comprueba los errores que se han podido obtener al crear noticia y les añade formato
 	SuppressWarnings para evitar el warning de type cast de "errores" (aunque esta bien hecho)
@@ -9,7 +10,8 @@
 <%! @SuppressWarnings("unchecked") %>
 <%
 	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-	if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
+  UsuarioVO usuario1 = (UsuarioVO)request.getSession().getAttribute("TipoUsuario");
+	if (usuario == null || usuario1 == TipoUsuario.CREADOR) {
 		// El usuario no es un creador de contenido o admin, no deberia estar en esta página
 		response.sendRedirect("errorInterno.html");
 	} else if (request.getAttribute("errores") instanceof HashMap) {
@@ -72,7 +74,7 @@
 
 							<div class="col-sm-12">
 								<label for="cuerpo">Cuerpo</label>
-								<textarea class="brdr-grey p-10" type="text" name="cuerpo" value="<c:out value="${sessionScope.noticia.cuerpo}"/>"</textarea>
+								<textarea class="brdr-grey p-10" type="text" name="cuerpo"  rows=8><c:out value="${sessionScope.noticia.cuerpo}"/></textarea>
                             </div>
 
 							<div class="col-sm-12">
