@@ -51,7 +51,7 @@
 		<div class="container">
 			<a class="mt-10" href="index.html"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10" href="30_gestionContenido.html">Gestionar contenido<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10 color-ash" href="">Editar noticia</a>
+			<a class="mt-10 color-ash" href="">Editar reto</a>
 		</div><!-- container -->
 	</section>
 
@@ -61,29 +61,21 @@
 
 			<div class="row">
 				<div class="col-md-12 col-lg-8">
-					<h3 class="mb-30"><b>Editar noticia</b></h3>
-					<form name="crearNoticia" action="TODO.do" method="post">
+					<h3 class="mb-30"><b>Editar reto</b></h3>
+					<form name="crearReto" action="TODO.do" method="post">
 
-						<div class="row form-block form-plr-15 form-h-45 form-mb-20">
-							<div class="col-sm-12">
-								<label for="titulo">Título de la Noticia</label>
-								<input class="brdr-grey" type="text" name="titulo" placeholder="Título" value="<c:out value="${sessionScope.noticia.titulo}"/>"/>
+						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
+
+							<div class="col-sm-8">
+								<label for="titulo">Título del reto</label>
+								<input type="text" name="titulo" placeholder="Título" value="<c:out value="${sessionScope.reto.titulo}"/>"/>
 							</div>
 
 							<div class="col-sm-12">
-								<label for="cuerpo">Cuerpo</label>
-								<textarea class="brdr-grey p-10" type="text" name="cuerpo" value="<c:out value="${sessionScope.noticia.cuerpo}"/>"</textarea>
-                            </div>
-
-							<div class="col-sm-12">
-                                <label for="url">URL de la fuente</label>
-                                <input class="brdr-grey" type="text" name="url" placeholder="URL de la fuente" value="<c:out value="${sessionScope.noticia.url}"/>"/>
+								<label for="reto">Planteamiento del reto</label>
+								<textarea class="p-10" type="text" name="reto" value="<c:out value="${sessionScope.reto.cuerpo}"/>"</textarea>
 							</div>
 
-							<div class="col-sm-12">
-                                <label for="imagen">Imagen</label>
-                                <input class="m-5" name="imagen" type="file" placeholder="Subir imagen">
-                            </div>
 						</div>
 
 						<div class="row">
@@ -93,13 +85,7 @@
 						</div>
 
 					</form>
-                </div>
-                <!-- TODO: mostrar la imagen subida aqui?
-				<div class="col-md-12 col-lg-4">
-					<div class="img-bg bg-1 bg-grad-layer-6"></div>
-                </div>
-                -->
-
+				</div>
 			</div>
 
 		</div><!-- container -->
