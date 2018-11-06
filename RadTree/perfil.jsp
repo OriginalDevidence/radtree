@@ -75,10 +75,14 @@
 					<h3 class="p-title mb-30"><b>Perfil de <c:out value="${requestScope.usuario.alias}"/></b></h3>
 					
 					<!-- Medallas de perfil (administrador, creador de contenido, etc) -->
-					<!-- TODO arreglar -->
-					<ul class="float-left list-a-plr-10 list-a-plr-sm-5 list-a-ptb-10 list-a-ptb-sm-5"></ul>
-						<li class="bg-primary ptb-5 plr-10"><i class="mr-5 ion-settings"></i>Administrador</li>
-						<li class="bg-primary ptb-5 plr-10"><i class="mr-5 ion-paintbrush"></i>Creador de contenido</li>
+					<c:if test="${requestScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
+						<ul class="list-a-plr-10 list-a-plr-sm-5 list-a-ptb-10 list-a-ptb-sm-5">
+							<c:if test="${requestScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
+								<li class="bg-primary ptb-5 plr-15"><i class="mr-5 ion-settings"></i>Administrador</li>
+							</c:if>
+							<li class="bg-primary ptb-5 plr-15"><i class="mr-5 ion-paintbrush"></i>Creador de contenido</li>
+						</ul>
+					</c:if>
 
 					<div class="row mt-30">
 						<div class="col-12 col-sm-6 mb-20">
