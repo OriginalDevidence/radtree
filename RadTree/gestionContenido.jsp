@@ -93,7 +93,7 @@
 					<c:if test="${sessionScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
 						<h3 class="p-title mb-30"><b>Validar contenido</b></h3>
 						<p class="mb-25">Actualmente hay <b><c:out value="${requestScope.numInValidacion}"/></b> elementos en la cola de validación.</p>
-						<a class="w-100 mb-40 btn-fill-primary" href="31_colaValidacion.html"><b>Ver cola de validación</b></a>
+						<a class="w-100 mb-40 btn-fill-primary" href="colaValidacion.jsp"><b>Ver cola de validación</b></a>
 					</c:if>
 					<h3 class="p-title mb-30"><b>Gestionar contenido</b></h3>
 					<p class="mb-25">Todos los contenidos subidos han de ser aprobados previamente por un administrador para poder ser mostrados en la web.</p>
