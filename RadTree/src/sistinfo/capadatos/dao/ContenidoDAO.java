@@ -1,20 +1,44 @@
 package sistinfo.capadatos.dao;
 import java.sql.*;
-import java.util.Calendar;
 
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ContenidoVO;
 import sistinfo.excepciones.ErrorInternoException;
 
-public abstract class ContenidoDAO {
+public class ContenidoDAO {
 	
 	/**
-	 * Cambia el estado de un contenido seg�n su id.
+	 * Obtiene el número de contenidos que están en la cola de validación (estado = PENDIENTE)
+	 * @return Número de elementos de la cola de validación
+	 * @throws ErrorInternoException 
+	 */
+	public int getNumContenidosInColaValidacion() throws ErrorInternoException {
+		Connection connection = ConnectionFactory.getConnection();
+        try {
+        	
+        	Statement stmt = connection.createStatement();
+        	ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Contenido WHERE estado='PENDIENTE'");
+            
+        	if (rs.last()) {
+        		if (rs.getRow() == 1) {
+        			return rs.getInt(1);
+        		}
+        	}
+        	
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return 0;
+	}
+	
+	/**
+	 * Cambia el estado de un contenido según su id.
 	 * @param id
 	 * @param nuevoEstado
-	 * @return true si la actualizaci�n ha sido correcta, false en caso contrario
+	 * @return true si la actualización ha sido correcta, false en caso contrario
 	 */
-	public boolean updateEstado(long id, ContenidoVO.Estado nuevoEstado) {
+	public boolean updateEstado(Long id, ContenidoVO.Estado nuevoEstado) {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
@@ -34,7 +58,7 @@ public abstract class ContenidoDAO {
 	}
 	
 	/**
-	 * B�squeda de contenido por su identificador interno.
+	 * Búsqueda de contenido por su identificador interno.
 	 * @param id
 	 * @return El contenido si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
@@ -67,7 +91,7 @@ public abstract class ContenidoDAO {
 	}
 	
 	/**
-	 * Inserta un contenido en la base de datos, con valor 0 en numVisitas, la fecha actual en fechaRealizacion, y "pendiente" en estado.
+	 * Inserta un contenido en la base de datos
 	 * @param contenido
 	 * @return El idContenido del contenido reci�n insertado (mayor que 0 si es correcto, menor o igual si ha salido mal)
 	 * @throws ErrorInternoException 
@@ -78,9 +102,9 @@ public abstract class ContenidoDAO {
         	
         	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Reto VALUES (NULL, ?, ?, ?, ?)");
         	stmt.setLong(1, contenido.getIdAutor());
-        	stmt.setLong(2, 0); // numVisitas
-        	stmt.setDate(3, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-        	stmt.setString(4, "pendiente");
+        	stmt.setLong(2, contenido.getNumVisitas()); 
+        	stmt.setDate(3, contenido.getFechaRealizacion());
+        	stmt.setString(4, contenido.getEstado().toString());
         	int result = stmt.executeUpdate(stmt.toString(), Statement.RETURN_GENERATED_KEYS);
             
         	return result;
@@ -94,7 +118,7 @@ public abstract class ContenidoDAO {
 	/**
 	 * Actualiza los datos de un contenido (asumiendo que ya existe un comentario con ese ID).
 	 * @param contenido
-	 * @return true si la actualizaci�n ha sido correcta, false en caso contrario
+	 * @return true si la actualización ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	protected boolean updateContenido(ContenidoVO contenido) throws ErrorInternoException {
