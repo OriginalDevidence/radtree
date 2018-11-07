@@ -4,8 +4,6 @@ import java.sql.Date;
 @SuppressWarnings("serial")
 public class UsuarioVO implements java.io.Serializable {
 	
-	/* TODO: restringir los posibles caracteres de alias y asegurar que el email tiene un @ al menos */
-	
 	public enum TipoUsuario { ADMINISTRADOR, CREADOR, PARTICIPANTE };
 	
 	private Long idUsuario;
@@ -17,20 +15,6 @@ public class UsuarioVO implements java.io.Serializable {
 	private String passwordHash;
 	private TipoUsuario tipoUsuario;
 	private Double puntuacion;
-	
-	public UsuarioVO() {}
-	
-	public UsuarioVO(String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
-			String passwordHash, TipoUsuario tipoUsuario) {
-		this.alias = alias;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.fechaNacimiento = fechaNacimiento;
-		this.email = email;
-		this.passwordHash = passwordHash;
-		this.tipoUsuario = tipoUsuario;
-		this.puntuacion = 0.0;
-	}
 	
 	public UsuarioVO(String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
 			String passwordHash, TipoUsuario tipoUsuario, Double puntuacion) {
@@ -57,6 +41,7 @@ public class UsuarioVO implements java.io.Serializable {
 		this.puntuacion = puntuacion;
 	}
 	
+	/* Constructor especial para editar usuario */
 	public UsuarioVO(UsuarioVO original, String alias, String nombre, String apellidos, Date fechaNacimiento, String email) {
 		this.idUsuario = original.getIdUsuario();
 		this.alias = alias;

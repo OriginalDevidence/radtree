@@ -38,8 +38,6 @@ public class ComentarioVO implements java.io.Serializable {
 		this.numLikes = numLikes;
 		this.fecha = fecha;
 		this.respuestaDe = respuestaDe;
-		
-		// No guardamos el nombre, sino el id
 		this.autor = null;
 		this.autorPadre = null;
 	}
