@@ -17,16 +17,12 @@
 	</servlet-mapping>
     <!-- ================ Filtros ================ -->
     <filter>
-		<filter-name>UsuarioLogueado</filter-name>
-		<filter-class>sistinfo.filters.UsuarioLogueadoFilter</filter-class>
-		<init-param>
-			<param-name>my-param</param-name>
-			<param-value>my-param-value</param-value>
-		</init-param>
+		<filter-name>RedirectJSP</filter-name>
+		<filter-class>sistinfo.filters.RedirectJSPFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>UsuarioLogueado</filter-name>
-		<url-pattern>/inicioSesion.jsp</url-pattern>
+		<filter-name>RedirectJSP</filter-name>
+		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
     <!-- ================ Servlets ================ -->
     <servlet>
