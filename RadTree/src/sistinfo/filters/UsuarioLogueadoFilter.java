@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-public class TestFilter implements Filter {
+public class UsuarioLogueadoFilter implements Filter {
 
 	FilterConfig filterConfig = null;
 
