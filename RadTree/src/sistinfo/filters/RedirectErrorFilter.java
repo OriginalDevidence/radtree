@@ -12,7 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
-public class RedirectJSPFilter implements Filter {
+public class RedirectErrorFilter implements Filter {
 
 	FilterConfig filterConfig = null;
 

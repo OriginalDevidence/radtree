@@ -17,12 +17,16 @@
 	</servlet-mapping>
     <!-- ================ Filtros ================ -->
     <filter>
-		<filter-name>RedirectJSP</filter-name>
-		<filter-class>sistinfo.filters.RedirectJSPFilter</filter-class>
+		<filter-name>RedirectError</filter-name>
+		<filter-class>sistinfo.filters.RedirectErrorFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>RedirectJSP</filter-name>
+		<filter-name>RedirectError</filter-name>
 		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>RedirectJSP</filter-name>
+		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
     <!-- ================ Servlets ================ -->
     <servlet>
