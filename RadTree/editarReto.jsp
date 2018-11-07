@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO.TipoUsuario" %>
 <%--
 	Comprueba los errores que se han podido obtener al crear noticia y les añade formato
 	SuppressWarnings para evitar el warning de type cast de "errores" (aunque esta bien hecho)

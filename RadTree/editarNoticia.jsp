@@ -3,6 +3,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
+<%@ page import="sistinfo.capadatos.vo.UsuarioVO.TipoUsuario" %>
 <%--
 	Comprueba los errores que se han podido obtener al crear noticia y les añade formato
 	SuppressWarnings para evitar el warning de type cast de "errores" (aunque esta bien hecho)
@@ -10,7 +11,7 @@
 <%! @SuppressWarnings("unchecked") %>
 <%
 	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-	if (usuario == null || usuario1 == TipoUsuario.PARTICIPANTE) {
+	if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
 		// El usuario no es un creador de contenido o admin, no deberia estar en esta página
 		response.sendRedirect("errorInterno.html");
 	} else if (request.getAttribute("errores") instanceof HashMap) {
