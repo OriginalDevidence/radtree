@@ -10,8 +10,7 @@
 <%! @SuppressWarnings("unchecked") %>
 <%
 	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-  UsuarioVO usuario1 = (UsuarioVO)request.getSession().getAttribute("TipoUsuario");
-	if (usuario == null || usuario1 == TipoUsuario.CREADOR) {
+	if (usuario == null || usuario1 == TipoUsuario.PARTICIPANTE) {
 		// El usuario no es un creador de contenido o admin, no deberia estar en esta página
 		response.sendRedirect("errorInterno.html");
 	} else if (request.getAttribute("errores") instanceof HashMap) {
