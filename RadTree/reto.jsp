@@ -3,6 +3,7 @@
 <%@ page import="sistinfo.capadatos.dao.RetoDAO" %>
 <%@ page import="sistinfo.capadatos.dao.UsuarioDAO" %>
 <%@ page import="sistinfo.capadatos.vo.RetoVO" %>
+<%@ page import="sistinfo.capadatos.vo.ContenidoVO.Estado" %>
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
 <%@ page import="sistinfo.excepciones.ErrorInternoException" %>
 <%@ page import="sistinfo.utils.RequestExtractor" %>
@@ -24,7 +25,8 @@
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		try {
 			RetoVO reto = retoDAO.getRetoById(idContenido);
-			if (reto == null) {
+			if (reto == null || reto.getEstado() != Estado.VALIDADO) {
+				// El contenido no existe (o no debería ser mostrado)
 	            response.sendRedirect("errorInterno.html");
 			} else {
 				UsuarioVO usuario = usuarioDAO.getUsuarioById(reto.getIdAutor());
