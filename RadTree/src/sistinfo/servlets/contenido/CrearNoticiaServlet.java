@@ -1,4 +1,4 @@
-package sistinfo.capamodelo.servlets;
+package sistinfo.servlets.contenido;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.capadatos.vo.ContenidoVO.Estado;
+import sistinfo.util.FormatChecker;
 import sistinfo.capadatos.vo.NoticiaVO;
 import sistinfo.capadatos.dao.NoticiaDAO;
-import sistinfo.utils.FormatChecker;
 
 @SuppressWarnings("serial")
 public class CrearNoticiaServlet extends HttpServlet {

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="sistinfo.capadatos.dao.UsuarioDAO" %>
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
-<%@ page import="sistinfo.utils.CookieManager" %>
+<%@ page import="sistinfo.util.CookieManager" %>
 <%@ page import="sistinfo.excepciones.ErrorInternoException" %>
 <%--
 	Muestra los datos de un usuario, estos son obtenidos en este orden:

@@ -1,4 +1,4 @@
-package sistinfo.utils;
+package sistinfo.util;
 
 import javax.servlet.http.HttpServletRequest;
 

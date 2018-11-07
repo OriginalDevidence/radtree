@@ -1,4 +1,4 @@
-package sistinfo.utils;
+package sistinfo.util;
 
 public class FormatChecker {
 

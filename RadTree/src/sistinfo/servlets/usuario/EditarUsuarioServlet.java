@@ -1,4 +1,4 @@
-package sistinfo.capamodelo.servlets;
+package sistinfo.servlets.usuario;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.excepciones.UsuarioYaExistenteException;
-import sistinfo.utils.FormatChecker;
+import sistinfo.util.FormatChecker;
 import sistinfo.capadatos.dao.UsuarioDAO;
 
 @SuppressWarnings("serial")

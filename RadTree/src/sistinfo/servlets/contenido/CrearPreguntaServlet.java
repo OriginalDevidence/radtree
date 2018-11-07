@@ -1,4 +1,4 @@
-package sistinfo.capamodelo.servlets;
+package sistinfo.servlets.contenido;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.vo.PreguntaVO;
 import sistinfo.capadatos.vo.ContenidoVO.Estado;
 import sistinfo.excepciones.UsuarioYaExistenteException;
-import sistinfo.utils.CookieManager;
-import sistinfo.utils.PBKDF2Hash;
+import sistinfo.util.CookieManager;
+import sistinfo.util.PBKDF2Hash;
 import sistinfo.capadatos.dao.PreguntaDAO;
 import sistinfo.capadatos.dao.UsuarioDAO;
 
