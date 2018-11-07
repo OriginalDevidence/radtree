@@ -1,4 +1,4 @@
-package sistinfo.capamodelo.servlets;
+package sistinfo.servlets.usuario;
 
 import java.io.IOException;
 

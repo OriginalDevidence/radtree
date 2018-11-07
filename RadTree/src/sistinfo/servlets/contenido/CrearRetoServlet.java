@@ -1,4 +1,4 @@
-package sistinfo.capamodelo.servlets;
+package sistinfo.servlets.contenido;
 
 import java.io.IOException;
 import java.sql.Date;

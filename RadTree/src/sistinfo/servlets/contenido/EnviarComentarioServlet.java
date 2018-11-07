@@ -1,4 +1,4 @@
-package sistinfo.capamodelo.servlets;
+package sistinfo.servlets.contenido;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -12,7 +12,7 @@ import sistinfo.capadatos.dao.ComentarioDAO;
 import sistinfo.capadatos.vo.ComentarioVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
-import sistinfo.utils.RequestExtractor;
+import sistinfo.util.RequestExtractor;
 
 @SuppressWarnings("serial")
 public class EnviarComentarioServlet extends HttpServlet {

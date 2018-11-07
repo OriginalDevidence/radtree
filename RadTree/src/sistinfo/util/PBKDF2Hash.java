@@ -1,4 +1,4 @@
-package sistinfo.utils;
+package sistinfo.util;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;

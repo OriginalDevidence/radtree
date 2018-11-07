@@ -1,4 +1,4 @@
-package sistinfo.capamodelo.servlets;
+package sistinfo.servlets.usuario;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.dao.UsuarioDAO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
-import sistinfo.utils.PBKDF2Hash;
+import sistinfo.util.PBKDF2Hash;
 
 @SuppressWarnings("serial")
 public class IniciarSesionServlet extends HttpServlet {

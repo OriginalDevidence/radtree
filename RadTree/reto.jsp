@@ -6,7 +6,7 @@
 <%@ page import="sistinfo.capadatos.vo.ContenidoVO.Estado" %>
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
 <%@ page import="sistinfo.excepciones.ErrorInternoException" %>
-<%@ page import="sistinfo.utils.RequestExtractor" %>
+<%@ page import="sistinfo.util.RequestExtractor" %>
 <%--
 	Obtener el reto del id pasado como parametro y el nombre de su autor
 --%>

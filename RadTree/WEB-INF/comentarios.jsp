@@ -7,8 +7,8 @@
 <%@ page import="sistinfo.capadatos.dao.ComentarioDAO" %>
 <%@ page import="sistinfo.capadatos.vo.ComentarioVO" %>
 <%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
-<%@ page import="sistinfo.utils.ProfilePictureManager" %>
-<%@ page import="sistinfo.utils.RequestExtractor" %>
+<%@ page import="sistinfo.util.ProfilePictureManager" %>
+<%@ page import="sistinfo.util.RequestExtractor" %>
 <%--
 	Obtiene los comentarios para el contenido con id pasado por parametro y los almacena en la request (comentarios)
 	También hace un mapa con las fotos de perfil que tiene cada usuario y lo almacena en la request (profileImages)
