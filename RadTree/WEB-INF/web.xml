@@ -5,43 +5,66 @@
     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <description>Proyecto medioambiental de la Universidad de Zaragoza</description>
     <display-name>RadTree</display-name>
+	<!-- ================ Mapeo JSP =============== -->
+	<servlet>
+	    <servlet-name>Registro</servlet-name>
+	    <jsp-file>registro.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+	    <servlet-name>Registro</servlet-name>
+	    <url-pattern>/registro</url-pattern>
+	</servlet-mapping>
+    <!-- ================ Filtros ================ -->
+    <filter>
+		<filter-name>UsuarioLogueado</filter-name>
+		<filter-class>sistinfo.filters</filter-class>
+		<init-param>
+			<param-name>my-param</param-name>
+			<param-value>my-param-value</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>MyFilter</filter-name>
+		<url-pattern>/inicioSesion.jsp</url-pattern>
+	</filter-mapping>
     <!-- ================ Servlets ================ -->
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.RegistrarUsuarioServlet</servlet-class>
+        <servlet-class>sistinfo.servlets.usuario.RegistrarUsuarioServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>IniciarSesion</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.IniciarSesionServlet</servlet-class>
+        <servlet-class>sistinfo.servlets.usuario.IniciarSesionServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CerrarSesion</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.CerrarSesionServlet</servlet-class>
+        <servlet-class>sistinfo.servlets.usuario.CerrarSesionServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditarUsuario</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.EditarUsuarioServlet</servlet-class>
+        <servlet-class>sistinfo.servlets.usuario.EditarUsuarioServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EliminarUsuario</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.EliminarUsuarioServlet</servlet-class>
+        <servlet-class>sistinfo.servlets.usuario.EliminarUsuarioServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CrearNoticia</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.CrearNoticiaServlet</servlet-class>
+        <servlet-class>sistinfo.servlets.contenido.CrearNoticiaServlet</servlet-class>
 	</servlet>
     <servlet>
         <display-name>CrearPregunta Name</display-name>
         <servlet-name>CrearPregunta</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.CrearPreguntaServlet</servlet-class>
+        <servlet-class>sistinfo.servlets.contenido.CrearPreguntaServlet</servlet-class>
 	</servlet>
     <servlet>
         <servlet-name>CrearReto</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.CrearRetoServlet</servlet-class>
+        <servlet-class>sistinfo.servlets.contenido.CrearRetoServlet</servlet-class>
 	</servlet>
     <servlet>
         <servlet-name>EnviarComentario</servlet-name>
-        <servlet-class>sistinfo.capamodelo.servlets.EnviarComentarioServlet</servlet-class>
+        <servlet-class>sistinfo.servlets.contenido.EnviarComentarioServlet</servlet-class>
 	</servlet>
     <!-- ============ Servlets Mapping======= -->
     <servlet-mapping>
