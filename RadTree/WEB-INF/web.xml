@@ -8,7 +8,7 @@
 	<!-- ================ Mapeo JSP =============== -->
 	<servlet>
 	    <servlet-name>Registro</servlet-name>
-	    <jsp-file>registro.jsp</jsp-file>
+	    <jsp-file>/registro.jsp</jsp-file>
 	</servlet>
 	
 	<servlet-mapping>
@@ -16,7 +16,7 @@
 	    <url-pattern>/registro</url-pattern>
 	</servlet-mapping>
     <!-- ================ Filtros ================ -->
-    <filter>
+    <!-- <filter>
 		<filter-name>UsuarioLogueado</filter-name>
 		<filter-class>sistinfo.filters</filter-class>
 		<init-param>
@@ -25,9 +25,9 @@
 		</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>MyFilter</filter-name>
+		<filter-name>UsuarioLogueado</filter-name>
 		<url-pattern>/inicioSesion.jsp</url-pattern>
-	</filter-mapping>
+	</filter-mapping>-->
     <!-- ================ Servlets ================ -->
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
