@@ -94,9 +94,12 @@
 			
 		</div>
 
-		<c:if test="${not empty sessionScope.usuario}">
-			<div class="col-md-12 col-lg-8 sided-70">
-				<h4 class="p-title mt-20"><b>Deja un comentario</b></h4>
+		<div class="col-md-12 col-lg-8 sided-70">
+			<h4 class="p-title mt-20"><b>Deja un comentario</b></h4>
+			<c:if test="${empty sessionScope.usuario}">
+				<p class="mb-20"><a class="link-brdr-btm-primary color-primary" href="inicioSesion.jsp">Inicia sesión</a> para comentar.</p>
+			</c:if>
+			<c:if test="${not empty sessionScope.usuario}">
 				<h5 class="mb-20">Comentando como <b><c:out value="${sessionScope.usuario.alias}"/></b></h5>
 				<h5 id="respondiendo" class="mb-20"></h5>
 				<form
@@ -112,7 +115,7 @@
 						<b>Comentar</b>
 					</button>
 				</form>
-			</div>
-		</c:if>
+			</c:if>
+		</div>
 	</div>
 </div>

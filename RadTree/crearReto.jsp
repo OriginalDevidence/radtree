@@ -57,7 +57,6 @@
 		</div><!-- container -->
 	</section>
 
-
 	<section>
 		<div class="container">
 
@@ -90,6 +89,10 @@
 
 						<div class="row">
 							<div class="col-sm-12 mt-30">
+								<p class="mb-20"><i>
+									Recuerda que todos los contenidos deben ser aprobados previamente por un administrador antes de ser visibles para el público.
+									Este proceso puede tomar un tiempo, así que ten paciencia.
+								</i></p>
 								<button class="w-100 btn-fill-primary" type="submit">
 									<b>Enviar reto</b>
 								</button>

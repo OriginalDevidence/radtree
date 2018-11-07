@@ -59,7 +59,7 @@
 			</li>
 			<li><a href="clasificacion.jsp">CLASIFICACION</a></li>
 			<li><a href="quienesSomos.jsp">QUIENES SOMOS</a></li>
-			<c:if test="${sessionScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
+			<c:if test="${not empty sessionScope.usuario and sessionScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
 				<li><a class="btn-b-md btn-fill-primary lh-30" href="gestionContenido.jsp">GESTIONAR CONTENIDO</a></li>
 			</c:if>
 		</ul>

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.capadatos.vo.ContenidoVO.Estado;
 import sistinfo.capadatos.vo.RetoVO;
+import sistinfo.capadatos.vo.UsuarioVO;
+import sistinfo.capadatos.vo.UsuarioVO.TipoUsuario;
 import sistinfo.capadatos.dao.RetoDAO;
 
 @SuppressWarnings("serial")
@@ -28,38 +30,44 @@ public class CrearRetoServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
-		Map<String, String> errores = new HashMap<String, String>();
-		RetoVO reto = extractRetoFromHttpRequest(request, errores);
-
-		if (reto != null) {
-			RetoDAO retoDAO = new RetoDAO();
-			try {
-				retoDAO.insertReto(reto);
-				response.sendRedirect("gestionarContenido.jsp");
-			} catch (Exception e) {
-				response.sendRedirect("errorInterno.html");
+    	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+    	if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
+    		// No hay un usuario con la sesión iniciada
+    		// o si lo hay es participante, no debería subir contenido
+    		response.sendRedirect("errorInterno.html");
+    	} else {
+		
+			Map<String, String> errores = new HashMap<String, String>();
+			RetoVO reto = extractRetoFromHttpRequest(request, usuario.getIdUsuario(), errores);
+	
+			if (reto != null) {
+				RetoDAO retoDAO = new RetoDAO();
+				try {
+					retoDAO.insertReto(reto);
+					response.sendRedirect("gestionarContenido.jsp");
+				} catch (Exception e) {
+					response.sendRedirect("errorInterno.html");
+				}
+			} else {
+				RequestDispatcher req = request.getRequestDispatcher("crearReto.jsp");
+				request.setAttribute("errores", errores);
+				req.include(request, response);
 			}
-		} else {
-			RequestDispatcher req = request.getRequestDispatcher("crearReto.jsp");
-			request.setAttribute("errores", errores);
-			req.include(request, response);
-		}
+		
+    	}
 		
 	}
 
 	/**
-	 * Obtiene los datos de un reto dado un HttpServletRequest y escribe los errores
+	 * Obtiene los datos de un reto dado un HttpServletRequest y el id de su autor y escribe los errores
 	 * en errors
 	 * @param request
+	 * @param idUsuario
 	 * @param errors
 	 * @return El reto si se ha extraido correctamente, o null en caso contrario
 	 */
-	public RetoVO extractRetoFromHttpRequest(HttpServletRequest request, Map<String, String> errors) {
-
-		// TODO: Como obtener la idAutor mirar DUDA
-		long idAutor = 1L;
-		Date fechaRealizacion = new Date(0L); // TODO fecha actual
-
+	public RetoVO extractRetoFromHttpRequest(HttpServletRequest request, Long idUsuario, Map<String, String> errors) {
+		
 		String titulo = request.getParameter("titulo");
 		String cuerpo = request.getParameter("cuerpo");
 
@@ -76,7 +84,9 @@ public class CrearRetoServlet extends HttpServlet {
 		}
 
 		if (datosCorrectos) {
-			return new RetoVO(idAutor, 0L, fechaRealizacion, Estado.PENDIENTE, titulo, cuerpo);
+			Date fechaActual = new Date(new java.util.Date().getTime());
+			// visitas iniciales = 0L
+			return new RetoVO(idUsuario, 0L, fechaActual, Estado.PENDIENTE, titulo, cuerpo);
 		} else {
 			return null;
 		}
