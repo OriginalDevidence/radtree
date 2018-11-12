@@ -1,25 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
-<%--
-	Primero comprueba que no haya ningún usuario logueado ya (si no le redirige a su perfil)
-	Si no, comprueba los errores que han podido ocurrir en el inicio de sesión y les añade formato
---%>
-<%
-	if (session.getAttribute("usuario") != null) {
-		// Ya hay un usuario logueado, enviarlo a su perfil
-		response.sendRedirect("perfil.jsp?alias=" + ((UsuarioVO)session.getAttribute("usuario")).getAlias());
-	} else {
-		// Comprobar errores y darle formato
-		String errorMessage = (String)request.getAttribute("error");
-		if (errorMessage != null) {
-			// Dar formato al error
-			String estiloCabecera = "<p class=\"font-10 color-red lh-30 mb-20 ml-15\"><i class=\"ion-close\"></i><span class=\"pl-5\">";
-			String estiloFinal = "</span></p>";
-			request.setAttribute("error", estiloCabecera + errorMessage + estiloFinal);
-		}
-	}
-%>
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -62,8 +42,11 @@
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 						
-							<c:out value="${requestScope.error}" escapeXml="false"/>
-
+							<c:if test="${not empty requestScope.error}">
+								<p class="font-10 color-red lh-30 mb-20 ml-15"><i class="ion-close"></i><span class="pl-5">
+								<c:out value="${requestScope.error}"/>
+								</span></p>
+							</c:if>
 							<div class="col-12">
 								<label for="identificador">Email o alias</label>
 								<input type="text" name="identificador" placeholder="Email o alias"

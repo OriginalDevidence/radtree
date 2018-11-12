@@ -1,39 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="sistinfo.capadatos.dao.UsuarioDAO" %>
-<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
-<%@ page import="sistinfo.util.CookieManager" %>
-<%@ page import="sistinfo.excepciones.ErrorInternoException" %>
-<%--
-	Muestra los datos de un usuario, estos son obtenidos en este orden:
-	- Si hay un alias en los parámetros de la request (perfil.jsp?alias=JuanEcologico27), mostrar ese usuario
-		- En caso de que no exista ese alias, redirigir a la página de error
-	- Si no hay un alias en los parámetros (perfil.jsp) y hay un usuario logueado, mostrar ese usuario por defecto
-		- En caso de que no haya ningún usuario logueado, redirigir a la página de error
---%>
-<%
-	String alias = (String)request.getParameter("alias");
-	if (alias != null && !alias.trim().isEmpty()) {
-		// Mostrar el usuario pasado por la request
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		try {
-			UsuarioVO usuario = usuarioDAO.getUsuarioByAlias(alias);
-			if (usuario == null) {
-	            response.sendRedirect("errorInterno.html");
-			} else {
-				request.setAttribute("usuario", usuario);
-			}
-		} catch (ErrorInternoException e) {
-            response.sendRedirect("errorInterno.html");
-		}
-	} else if (session.getAttribute("usuario") != null) {
-		// No ha pasado ningun parámetro por request, mostrar su perfil por defecto
-		request.setAttribute("usuario", session.getAttribute("usuario"));
-	} else {
-		// No sabemos qué usuario mostrar
-        response.sendRedirect("errorInterno.html");
-	}
-%>
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -60,11 +26,10 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="index.jsp"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="index"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Perfil de <c:out value="${requestScope.usuario.alias}"/></a>
 		</div><!-- container -->
 	</section>
-	
 	
 	<section>
 		<div class="container">
@@ -111,7 +76,7 @@
 						</div>
 						
 						<div class="col-sm-12 mtb-20">
-							<a class="color-primary link-brdr-btm-primary" href="editarPerfil.jsp"><b>Editar datos del perfil</b></a>
+							<a class="color-primary link-brdr-btm-primary" href="perfil/editar"><b>Editar datos del perfil</b></a>
 						</div>
 						
 						<div class="col-sm-12 mb-20">

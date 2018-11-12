@@ -36,11 +36,10 @@ public class IniciarSesionServlet extends HttpServlet {
 			// Algo ha ido mal
 			loginError(request, response);
     	} else {
-			UsuarioVO usuario;
 			try {
 	    		UsuarioDAO usuarioDAO = new UsuarioDAO();
 	    		// Probar login con clave
-				usuario = usuarioDAO.getUsuarioByLoginEmail(id, claveHash);
+	    		UsuarioVO usuario = usuarioDAO.getUsuarioByLoginEmail(id, claveHash);
 				if (usuario == null) {
 					// Probar login con alias
 					usuario = usuarioDAO.getUsuarioByLoginAlias(id, claveHash);
@@ -51,11 +50,11 @@ public class IniciarSesionServlet extends HttpServlet {
 					loginError(request, response);
 				} else {
 					// Enviar al perfil y añadir los datos del usuario en la sesión
-					response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());
-					request.getSession().setAttribute("usuario", usuario);
+					//request.setAttribute("usuario", usuario);
+					response.sendRedirect("perfil?alias=" + usuario.getAlias());
 				}
 			} catch (ErrorInternoException e) {
-				response.sendRedirect("errorInterno.html");
+				response.sendRedirect("error");
 			}
     	}
     	
@@ -69,9 +68,9 @@ public class IniciarSesionServlet extends HttpServlet {
      * @throws ServletException
      */
     private void loginError(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        RequestDispatcher req = request.getRequestDispatcher("inicioSesion.jsp");
-        request.setAttribute("error", "Identificador o clave inválidos o incorrectos");
-        req.include(request, response);
+    	RequestDispatcher req = request.getRequestDispatcher("/inicioSesion");
+    	request.setAttribute("error", "Identificador o clave inválidos o incorrectos");
+    	req.forward(request, response);
     }
     
 } 

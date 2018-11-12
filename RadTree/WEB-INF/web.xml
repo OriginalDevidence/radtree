@@ -7,104 +7,175 @@
     <display-name>RadTree</display-name>
 	<!-- ================ Mapeo JSP =============== -->
 	<servlet>
+	    <servlet-name>Index</servlet-name>
+	    <jsp-file>/index.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Index</servlet-name>
+	    <url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 	    <servlet-name>Registro</servlet-name>
 	    <jsp-file>/registro.jsp</jsp-file>
 	</servlet>
-	
 	<servlet-mapping>
 	    <servlet-name>Registro</servlet-name>
 	    <url-pattern>/registro</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>InicioSesion</servlet-name>
+	    <jsp-file>/inicioSesion.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>InicioSesion</servlet-name>
+	    <url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>Perfil</servlet-name>
+	    <jsp-file>/perfil.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Perfil</servlet-name>
+	    <url-pattern>/perfil</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>EditarPerfil</servlet-name>
+	    <jsp-file>/editarPerfil.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EditarPerfil</servlet-name>
+	    <url-pattern>/editarPerfil</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>QuienesSomos</servlet-name>
+	    <jsp-file>/quienesSomos.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>QuienesSomos</servlet-name>
+	    <url-pattern>/quienes-somos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>ErrorInterno</servlet-name>
+	    <jsp-file>/errorInterno.html</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ErrorInterno</servlet-name>
+	    <url-pattern>/error</url-pattern>
+	</servlet-mapping>
     <!-- ================ Filtros ================ -->
-    <filter>
+    <!-- RedirectError: Para páginas a las que no se debería acceder -->
+    <!--<filter>
 		<filter-name>RedirectError</filter-name>
 		<filter-class>sistinfo.filters.RedirectErrorFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>RedirectError</filter-name>
 		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>RedirectJSP</filter-name>
 		<url-pattern>*.do</url-pattern>
+	</filter-mapping>-->
+    <!-- RedirectPerfilUsuarioLogueado: Para evitar que un usuario logueado
+         acceda a páginas de usuarios no registrados -->
+    <filter>
+		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
+		<filter-class>sistinfo.filters.RedirectPerfilUsuarioLogueadoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
+		<url-pattern>/registro</url-pattern>
+		<url-pattern>/inicioSesion</url-pattern>
 	</filter-mapping>
-    <!-- ================ Servlets ================ -->
+    <!-- ObtenerUsuarioPerfil: Obtiene un usuario para mostrar en el perfil -->
+    <filter>
+		<filter-name>ObtenerUsuarioPerfil</filter-name>
+		<filter-class>sistinfo.filters.ObtenerUsuarioPerfilFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ObtenerUsuarioPerfil</filter-name>
+		<url-pattern>/perfil</url-pattern>
+	</filter-mapping>
+    <!-- ================ Servlets usuario ================ -->
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.RegistrarUsuarioServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>RegistrarUsuario</servlet-name>
+        <url-pattern>/RegistrarUsuario.do</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>IniciarSesion</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.IniciarSesionServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>IniciarSesion</servlet-name>
+        <url-pattern>/IniciarSesion.do</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>CerrarSesion</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.CerrarSesionServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>CerrarSesion</servlet-name>
+        <url-pattern>/CerrarSesion.do</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>EditarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.EditarUsuarioServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>EditarUsuario</servlet-name>
+        <url-pattern>/EditarUsuario.do</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>EliminarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.EliminarUsuarioServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>EliminarUsuario</servlet-name>
+        <url-pattern>/EliminarUsuario.do</url-pattern>
+    </servlet-mapping>
+    <!-- ============ Servlets Contenido ============ -->
     <servlet>
         <servlet-name>CrearNoticia</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.CrearNoticiaServlet</servlet-class>
 	</servlet>
+    <servlet-mapping>
+	    <servlet-name>CrearNoticia</servlet-name>
+		<url-pattern>/CrearNoticia.do</url-pattern>
+	</servlet-mapping>
     <servlet>
         <display-name>CrearPregunta Name</display-name>
         <servlet-name>CrearPregunta</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.CrearPreguntaServlet</servlet-class>
 	</servlet>
-    <servlet>
-        <servlet-name>CrearReto</servlet-name>
-        <servlet-class>sistinfo.servlets.contenido.CrearRetoServlet</servlet-class>
-	</servlet>
-    <servlet>
-        <servlet-name>EnviarComentario</servlet-name>
-        <servlet-class>sistinfo.servlets.contenido.EnviarComentarioServlet</servlet-class>
-	</servlet>
-    <!-- ============ Servlets Mapping======= -->
-    <servlet-mapping>
-        <servlet-name>RegistrarUsuario</servlet-name>
-        <url-pattern>/RegistrarUsuario.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>IniciarSesion</servlet-name>
-        <url-pattern>/IniciarSesion.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CerrarSesion</servlet-name>
-        <url-pattern>/CerrarSesion.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditarUsuario</servlet-name>
-        <url-pattern>/EditarUsuario.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EliminarUsuario</servlet-name>
-        <url-pattern>/EliminarUsuario.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-	    <servlet-name>CrearNoticia</servlet-name>
-		<url-pattern>/CrearNoticia.do</url-pattern>
-	</servlet-mapping>
     <servlet-mapping>
 	    <servlet-name>CrearPregunta</servlet-name>
 		<url-pattern>/CrearPregunta.do</url-pattern>
 	</servlet-mapping>
+    <servlet>
+        <servlet-name>CrearReto</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.CrearRetoServlet</servlet-class>
+	</servlet>
     <servlet-mapping>
 	    <servlet-name>CrearReto</servlet-name>
 		<url-pattern>/CrearReto.do</url-pattern>
 	</servlet-mapping>
+    <servlet>
+        <servlet-name>EnviarComentario</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EnviarComentarioServlet</servlet-class>
+	</servlet>
     <servlet-mapping>
         <servlet-name>EnviarComentario</servlet-name>
 		<url-pattern>/EnviarComentario.do</url-pattern>
 	</servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/</welcome-file>
     </welcome-file-list>
 </web-app>

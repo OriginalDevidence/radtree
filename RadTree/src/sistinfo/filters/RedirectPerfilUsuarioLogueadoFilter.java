@@ -8,9 +8,12 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RedirectErrorFilter implements Filter {
+import sistinfo.capadatos.vo.UsuarioVO;
+
+public class RedirectPerfilUsuarioLogueadoFilter implements Filter {
 
 	FilterConfig filterConfig = null;
 
@@ -25,11 +28,19 @@ public class RedirectErrorFilter implements Filter {
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		
-		if (servletResponse instanceof HttpServletResponse) {
+		if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
+			HttpServletRequest request = (HttpServletRequest)servletRequest;
 			HttpServletResponse response = (HttpServletResponse)servletResponse;
-			response.sendRedirect("error");
-			filterChain.doFilter(servletRequest, response);
+			UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+			if (usuario != null) {
+				// Forward a la página de perfil con el usuario
+				request.setAttribute("usuario", usuario);
+				System.out.println("usuario encontrado en la sesion");
+				response.sendRedirect("perfil?alias=" + usuario.getAlias());
+			}
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
+
 	}
 
 }

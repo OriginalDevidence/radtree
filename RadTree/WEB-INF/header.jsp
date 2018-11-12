@@ -15,16 +15,16 @@
 				<%-- El usuario NO ha iniciado sesion --%>
       			<c:if test="${empty sessionScope.usuario}">
 					<ul class="float-right list-a-plr-10 list-a-plr-sm-5 mtb-5 mtb-sm-0">
-						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="registro.jsp">Regístrate</a></li>
+						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="registro">Regístrate</a></li>
 						<li><span class="plr-10 plr-sm-5">o</span></li>
-						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="inicioSesion.jsp">Inicia sesión</a></li>
+						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="inicioSesion">Inicia sesión</a></li>
 					</ul>
 				</c:if>
 				<%-- El usuario SI ha iniciado sesion --%>
       			<c:if test="${not empty sessionScope.usuario}">
 					<ul class="float-right list-a-plr-10 list-a-plr-sm-5 ptb-5 mtb-5 mtb-sm-0">
 						<li>
-							<a href="perfil.jsp?alias=<c:out value='${sessionScope.usuario.alias}'/>">Bienvenido, <c:out value="${sessionScope.usuario.alias}"/><i class="pl-10 ion-arrow-down-b"></i></a>
+							<a href="perfil?alias=<c:out value='${sessionScope.usuario.alias}'/>">Bienvenido, <c:out value="${sessionScope.usuario.alias}"/><i class="pl-10 ion-arrow-down-b"></i></a>
 						</li>
 					</ul>
       			</c:if>
@@ -34,7 +34,7 @@
 	</div><!-- bg-191 -->
 	
 	<div class="container">
-		<a class="logo" href="index.jsp"><img src="images/logo-black.png" alt="Logo"></a>
+		<a class="logo" href="."><img src="images/logo-black.png" alt="Logo"></a>
 		
 		<a class="right-area src-btn" href="#" >
 			<i class="active src-icn ion-search"></i>
@@ -50,17 +50,17 @@
 		<a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
 		
 		<ul class="main-menu" id="main-menu">
-			<li class="drop-down"><a href="">CARTELES<i class="ion-arrow-down-b"></i></a>
+			<li class="drop-down"><a href="#">CARTELES<i class="ion-arrow-down-b"></i></a>
 				<ul class="drop-down-menu drop-down-inner">
-					<li><a href="listaDeNoticias.jsp">NOTICIAS</a></li>
-					<li><a href="listaDePreguntas.jsp">PREGUNTAS</a></li>
-					<li><a href="listaDeRetos.jsp">RETOS</a></li>
+					<li><a href="listaDeNoticias">NOTICIAS</a></li>
+					<li><a href="listaDePreguntas">PREGUNTAS</a></li>
+					<li><a href="listaDeRetos">RETOS</a></li>
 				</ul>
 			</li>
-			<li><a href="clasificacion.jsp">CLASIFICACIÓN</a></li>
-			<li><a href="quienesSomos.jsp">QUIENES SOMOS</a></li>
+			<li><a href="clasificacion">CLASIFICACIÓN</a></li>
+			<li><a href="quienesSomos">QUIENES SOMOS</a></li>
 			<c:if test="${not empty sessionScope.usuario and sessionScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
-				<li><a class="btn-b-md btn-fill-primary lh-30" href="gestionContenido.jsp">GESTIONAR CONTENIDO</a></li>
+				<li><a class="btn-b-md btn-fill-primary lh-30" href="gestionContenido">GESTIONAR CONTENIDO</a></li>
 			</c:if>
 		</ul>
 		<div class="clearfix"></div>

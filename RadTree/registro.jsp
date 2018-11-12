@@ -1,29 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
-<%--
-	Primero comprueba que no haya ningún usuario logueado ya (si no le redirige a su perfil)
-	Si no, comprueba los errores que han podido ocurrir en el registro y les añade formato
-	(SuppressWarnings para evitar el warning de type cast de "errores", aunque esta bien hecho))
---%>
-<%! @SuppressWarnings("unchecked") %>
-<%
-	if (session.getAttribute("usuario") != null) {
-		// Ya hay un usuario logueado, enviarlo a su perfil
-		response.sendRedirect("perfil.jsp?alias=" + ((UsuarioVO)session.getAttribute("usuario")).getAlias());
-	} else if (request.getAttribute("errores") instanceof HashMap) {
-		// Hay errores en un registro previo, darles formato
-		Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
-		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
-		String estiloFinal = "</span>";
-		// Añadir formato
-		for (String k : errores.keySet()) {
-			errores.replace(k, estiloCabecera + errores.get(k) + estiloFinal);
-		}
-	}
-%>
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -77,48 +53,76 @@
 
 							<div class="col-sm-12 col-md-6">
 								<label for="alias">Alias</label>
-								<c:out value="${requestScope.errores.get('alias')}" escapeXml="false"/>
+								<c:if test="${not empty requestScope.errores.get('alias')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('alias')}"/>
+									</span>
+								</c:if>
 								<input class="mt-5" type="text" name="alias" placeholder="Alias"
 									value="<c:out value="${param.alias}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nacimiento">Fecha de nacimiento</label>
-								<c:out value="${requestScope.errores.get('nacimiento')}" escapeXml="false"/>
+								<c:if test="${not empty requestScope.errores.get('nacimiento')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('nacimiento')}"/>
+									</span>
+								</c:if>
 								<input class="mt-5" type="date" name="nacimiento"
 									value="<c:out value="${param.nacimiento}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="nombre">Nombre</label>
-								<c:out value="${requestScope.errores.get('nombre')}" escapeXml="false"/>
+								<c:if test="${not empty requestScope.errores.get('nombre')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('nombre')}"/>
+									</span>
+								</c:if>
 								<input class="mt-5" type="text" name="nombre" placeholder="Nombre"
 									value="<c:out value="${param.nombre}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
 								<label for="apellidos">Apellidos</label>
-								<c:out value="${requestScope.errores.get('apellidos')}" escapeXml="false"/>
+								<c:if test="${not empty requestScope.errores.get('apellidos')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('apellidos')}"/>
+									</span>
+								</c:if>
 								<input class="mt-5" type="text" name="apellidos" placeholder="Apellidos"
 									value="<c:out value="${param.apellidos}"/>"/>
 							</div>
 							
 							<div class="col-12">
 								<label for="email">Email</label>
-								<c:out value="${requestScope.errores.get('email')}" escapeXml="false"/>
+								<c:if test="${not empty requestScope.errores.get('email')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('email')}"/>
+									</span>
+								</c:if>
 								<input class="mt-5" type="email" name="email" placeholder="Email"
 									value="<c:out value="${param.email}"/>"/>
 							</div>
 							
 							<div class="col-sm-12 col-md-6">
 								<label for="clave">Contraseña</label>
-								<c:out value="${requestScope.errores.get('clave')}" escapeXml="false"/>
+								<c:if test="${not empty requestScope.errores.get('clave')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('clave')}"/>
+									</span>
+								</c:if>
 								<input class="mt-5" type="password" name="clave" placeholder="Contraseña"/>
 							</div>
 							
 							<div class="col-sm-12 col-md-6">
 								<label for="reclave">Repite la contraseña</label>
-								<c:out value="${requestScope.errores.get('reclave')}" escapeXml="false"/>
+								<c:if test="${not empty requestScope.errores.get('reclave')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('reclave')}"/>
+									</span>
+								</c:if>
 								<input class="mt-5" type="password" name="reclave" placeholder="Repite la contraseña"/>
 							</div>
 
