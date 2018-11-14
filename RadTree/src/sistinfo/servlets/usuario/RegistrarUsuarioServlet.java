@@ -49,8 +49,8 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 				usuario.setIdUsuario(nuevoId);
 
 				// Enviar al perfil y añadir los datos del usuario en la sesión
-				response.sendRedirect("perfil.jsp?alias=" + usuario.getAlias());
 				request.getSession().setAttribute("usuario", usuario);
+				response.sendRedirect("perfil?alias=" + usuario.getAlias());
 			} catch (UsuarioYaExistenteException e) {
 				RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
 				if (e.isAliasExistente()) {
@@ -63,7 +63,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 				request.setAttribute("erroresArriba", erroresArriba);
 				req.include(request, response);
 			} catch (ErrorInternoException e) {
-				response.sendRedirect("errorInterno.html");
+				response.sendRedirect("error-interno");
 			}
 		} else {
 			RequestDispatcher req = request.getRequestDispatcher("registro.jsp");

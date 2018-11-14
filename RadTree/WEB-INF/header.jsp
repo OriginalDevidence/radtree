@@ -17,7 +17,7 @@
 					<ul class="float-right list-a-plr-10 list-a-plr-sm-5 mtb-5 mtb-sm-0">
 						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="registro">Regístrate</a></li>
 						<li><span class="plr-10 plr-sm-5">o</span></li>
-						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="inicioSesion">Inicia sesión</a></li>
+						<li><a class="btn-fill-primary btn-b-sm plr-20 plr-sm-5" href="inicio-sesion">Inicia sesión</a></li>
 					</ul>
 				</c:if>
 				<%-- El usuario SI ha iniciado sesion --%>
@@ -58,9 +58,9 @@
 				</ul>
 			</li>
 			<li><a href="clasificacion">CLASIFICACIÓN</a></li>
-			<li><a href="quienesSomos">QUIENES SOMOS</a></li>
+			<li><a href="quienes-somos">QUIENES SOMOS</a></li>
 			<c:if test="${not empty sessionScope.usuario and sessionScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
-				<li><a class="btn-b-md btn-fill-primary lh-30" href="gestionContenido">GESTIONAR CONTENIDO</a></li>
+				<li><a class="btn-b-md btn-fill-primary lh-30" href="gestion-contenido">GESTIONAR CONTENIDO</a></li>
 			</c:if>
 		</ul>
 		<div class="clearfix"></div>

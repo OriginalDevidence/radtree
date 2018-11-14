@@ -1,25 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="sistinfo.capadatos.dao.ContenidoDAO" %>
-<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
-<%@ page import="sistinfo.capadatos.vo.UsuarioVO.TipoUsuario" %>
-<%@ page import="sistinfo.excepciones.ErrorInternoException" %>
-<%--
-	Comprobar que hay un usuario logueado y que es creador o administrador
---%>
-<%
-	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-	if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
-		response.sendRedirect("errorInterno.html");
-	} else {
-		ContenidoDAO contenidoDAO = new ContenidoDAO();
-		try {
-			int numValidacion = contenidoDAO.getNumContenidosInColaValidacion();
-			request.setAttribute("numInValidacion", numValidacion);
-		} catch (ErrorInternoException e) {
-            response.sendRedirect("errorInterno.html");
-		}
-	}
-%>
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -46,7 +25,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="index.jsp"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="."><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Gestionar contenido</a>
 		</div><!-- container -->
 	</section>
@@ -93,13 +72,13 @@
 					<c:if test="${sessionScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
 						<h3 class="p-title mb-30"><b>Validar contenido</b></h3>
 						<p class="mb-25">Actualmente hay <b><c:out value="${requestScope.numInValidacion}"/></b> elementos en la cola de validación.</p>
-						<a class="w-100 mb-40 btn-fill-primary" href="colaValidacion.jsp"><b>Ver cola de validación</b></a>
+						<a class="w-100 mb-40 btn-fill-primary" href="gestion-contenido/cola-validacion"><b>Ver cola de validación</b></a>
 					</c:if>
 					<h3 class="p-title mb-30"><b>Gestionar contenido</b></h3>
 					<p class="mb-25">Todos los contenidos subidos han de ser aprobados previamente por un administrador para poder ser mostrados en la web.</p>
-					<a class="w-100 mb-15 btn-fill-primary" href="crearNoticia.jsp"><b>Crear noticia</b></a>
-					<a class="w-100 mb-15 btn-fill-primary" href="crearPregunta.jsp"><b>Crear pregunta</b></a>
-					<a class="w-100 mb-15 btn-fill-primary" href="crearReto.jsp"><b>Crear reto</b></a>
+					<a class="w-100 mb-15 btn-fill-primary" href="gestion-contenido/crear-noticia"><b>Crear noticia</b></a>
+					<a class="w-100 mb-15 btn-fill-primary" href="gestion-contenido/crear-pregunta"><b>Crear pregunta</b></a>
+					<a class="w-100 mb-15 btn-fill-primary" href="gestion-contenido/crear-reto"><b>Crear reto</b></a>
 				</div>
 			
 			</div>

@@ -52,7 +52,7 @@
 									</span>
 								</c:if>
 								<input class="mt-5" type="text" name="alias" placeholder="Alias"
-									value="<c:out value="${param.alias}"/>"/>
+									value="<c:out value="${sessionScope.usuario.alias}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
@@ -63,7 +63,7 @@
 									</span>
 								</c:if>
 								<input class="mt-5" type="date" name="nacimiento"
-									value="<c:out value="${param.nacimiento}"/>"/>
+									value="<c:out value="${sessionScope.usuario.fechaNacimiento}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
@@ -85,7 +85,7 @@
 									</span>
 								</c:if>
 								<input class="mt-5" type="text" name="apellidos" placeholder="Apellidos"
-									value="<c:out value="${param.apellidos}"/>"/>
+									value="<c:out value="${sessionScope.usuario.apellidos}"/>"/>
 							</div>
 							
 							<div class="col-12">
@@ -96,7 +96,7 @@
 									</span>
 								</c:if>
 								<input class="mt-5" type="email" name="email" placeholder="Email"
-									value="<c:out value="${param.email}"/>"/>
+									value="<c:out value="${sessionScope.usuario.email}"/>"/>
 							</div>
 
 						</div>

@@ -1,4 +1,4 @@
-package sistinfo.filters;
+package sistinfo.filters.contenido;
 
 import java.io.IOException;
 
@@ -8,9 +8,13 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RedirectErrorFilter implements Filter {
+import sistinfo.capadatos.dao.ContenidoDAO;
+import sistinfo.excepciones.ErrorInternoException;
+
+public class ElementosColaValidacionFilter implements Filter {
 
 	FilterConfig filterConfig = null;
 
@@ -20,15 +24,24 @@ public class RedirectErrorFilter implements Filter {
 
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
-
+		
     	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		
-		if (servletResponse instanceof HttpServletResponse) {
+		if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
+			HttpServletRequest request = (HttpServletRequest)servletRequest;
 			HttpServletResponse response = (HttpServletResponse)servletResponse;
-			response.sendRedirect("error");
-			filterChain.doFilter(servletRequest, response);
+			
+			ContenidoDAO contenidoDAO = new ContenidoDAO();
+			try {
+				int numColaValidacion = contenidoDAO.getNumContenidosInColaValidacion();
+				request.setAttribute("numInValidacion", numColaValidacion);
+			} catch (ErrorInternoException e) {
+				e.printStackTrace();
+				response.sendRedirect("error-interno");
+			}
+			filterChain.doFilter(request, response);
 		}
 	}
 

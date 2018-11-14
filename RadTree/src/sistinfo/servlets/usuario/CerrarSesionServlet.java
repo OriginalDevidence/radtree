@@ -16,7 +16,7 @@ public class CerrarSesionServlet extends HttpServlet {
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	request.getSession().invalidate();
-    	response.sendRedirect("index");
+    	response.sendRedirect(".");
     }
     
 }

@@ -1,4 +1,4 @@
-package sistinfo.filters;
+package sistinfo.filters.usuario;
 
 import java.io.IOException;
 
@@ -26,8 +26,6 @@ public class ObtenerUsuarioPerfilFilter implements Filter {
 
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
-
-		System.out.println("filtro");
 		
     	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
@@ -62,7 +60,6 @@ public class ObtenerUsuarioPerfilFilter implements Filter {
 				// Si no hay alias en parámetro y hay un usuario logueado, mostrar ese usuario
 				} else if (request.getSession().getAttribute("usuario") != null) {
 					// No ha pasado ningun parámetro por request, mostrar su perfil por defecto
-					System.out.println("usuario de sesion");
 					UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 					request.setAttribute("usuario", usuario);
 					response.sendRedirect("perfil?alias=" + usuario.getAlias());

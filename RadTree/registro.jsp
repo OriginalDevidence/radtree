@@ -26,7 +26,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="index.jsp"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="."><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Registro</a>
 		</div><!-- container -->
 	</section>
@@ -148,7 +148,7 @@
 
 				<div class="col-md-6 col-lg-4">
 					<h3 class="mb-30"><b>¿Ya tienes una cuenta?</b></h3>
-					<a class="w-100 btn-fill-primary" href="inicioSesion.jsp"><b>Iniciar sesión</b></a>
+					<a class="w-100 btn-fill-primary" href="inicio-sesion"><b>Iniciar sesión</b></a>
 				</div>
 
 			</div>

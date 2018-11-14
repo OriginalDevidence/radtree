@@ -1,4 +1,4 @@
-package sistinfo.filters;
+package sistinfo.filters.util;
 
 import java.io.IOException;
 
@@ -8,12 +8,9 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sistinfo.capadatos.vo.UsuarioVO;
-
-public class RedirectPerfilUsuarioLogueadoFilter implements Filter {
+public class RedirectErrorFilter implements Filter {
 
 	FilterConfig filterConfig = null;
 
@@ -28,19 +25,11 @@ public class RedirectPerfilUsuarioLogueadoFilter implements Filter {
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		
-		if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
-			HttpServletRequest request = (HttpServletRequest)servletRequest;
+		if (servletResponse instanceof HttpServletResponse) {
 			HttpServletResponse response = (HttpServletResponse)servletResponse;
-			UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-			if (usuario != null) {
-				// Forward a la página de perfil con el usuario
-				request.setAttribute("usuario", usuario);
-				System.out.println("usuario encontrado en la sesion");
-				response.sendRedirect("perfil?alias=" + usuario.getAlias());
-			}
-			filterChain.doFilter(servletRequest, servletResponse);
+			response.sendRedirect("error");
+			filterChain.doFilter(servletRequest, response);
 		}
-
 	}
 
 }

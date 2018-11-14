@@ -30,7 +30,7 @@
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>InicioSesion</servlet-name>
-	    <url-pattern>/login</url-pattern>
+	    <url-pattern>/inicio-sesion</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -61,18 +61,36 @@
 	</servlet-mapping>
 	
 	<servlet>
+	    <servlet-name>GestionContenido</servlet-name>
+	    <jsp-file>/gestionContenido.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>GestionContenido</servlet-name>
+	    <url-pattern>/gestion-contenido</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>ColaValidacion</servlet-name>
+	    <jsp-file>/colaValidacion.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ColaValidacion</servlet-name>
+	    <url-pattern>/gestion-contenido/cola-validacion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 	    <servlet-name>ErrorInterno</servlet-name>
 	    <jsp-file>/errorInterno.html</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>ErrorInterno</servlet-name>
-	    <url-pattern>/error</url-pattern>
+	    <url-pattern>/error-interno</url-pattern>
 	</servlet-mapping>
     <!-- ================ Filtros ================ -->
     <!-- RedirectError: Para páginas a las que no se debería acceder -->
     <!--<filter>
 		<filter-name>RedirectError</filter-name>
-		<filter-class>sistinfo.filters.RedirectErrorFilter</filter-class>
+		<filter-class>sistinfo.filters.util.RedirectErrorFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>RedirectError</filter-name>
@@ -83,21 +101,60 @@
          acceda a páginas de usuarios no registrados -->
     <filter>
 		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
-		<filter-class>sistinfo.filters.RedirectPerfilUsuarioLogueadoFilter</filter-class>
+		<filter-class>sistinfo.filters.usuario.RedirectPerfilUsuarioLogueadoFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
 		<url-pattern>/registro</url-pattern>
-		<url-pattern>/inicioSesion</url-pattern>
+		<url-pattern>/login</url-pattern>
 	</filter-mapping>
     <!-- ObtenerUsuarioPerfil: Obtiene un usuario para mostrar en el perfil -->
     <filter>
 		<filter-name>ObtenerUsuarioPerfil</filter-name>
-		<filter-class>sistinfo.filters.ObtenerUsuarioPerfilFilter</filter-class>
+		<filter-class>sistinfo.filters.usuario.ObtenerUsuarioPerfilFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>ObtenerUsuarioPerfil</filter-name>
 		<url-pattern>/perfil</url-pattern>
+	</filter-mapping>
+    <!-- UsuarioParticipante: Se asegura de que haya un usuario logueado -->
+    <filter>
+		<filter-name>UsuarioParticipante</filter-name>
+		<filter-class>sistinfo.filters.usuario.UsuarioParticipanteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UsuarioParticipante</filter-name>
+		<url-pattern>/editarPerfil</url-pattern>
+	</filter-mapping>
+    <!-- UsuarioCreador: Se asegura de que haya un usuario logueado y que sea creador o administador -->
+    <filter>
+		<filter-name>UsuarioCreador</filter-name>
+		<filter-class>sistinfo.filters.usuario.UsuarioCreadorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UsuarioCreador</filter-name>
+		<url-pattern>/gestion-contenido</url-pattern>
+		<url-pattern>/gestion-contenido/crear-noticia</url-pattern>
+		<url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
+		<url-pattern>/gestion-contenido/crear-reto</url-pattern>
+	</filter-mapping>
+    <!-- UsuarioParticipante: Se asegura de que haya un usuario logueado y que sea administrador -->
+    <filter>
+		<filter-name>UsuarioAdministrador</filter-name>
+		<filter-class>sistinfo.filters.usuario.UsuarioAdministradorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UsuarioAdministrador</filter-name>
+		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
+	</filter-mapping>
+    <!-- ElementosColaValidacion: Devuelve los elementos de la cola de validacion -->
+    <filter>
+		<filter-name>ElementosColaValidacion</filter-name>
+		<filter-class>sistinfo.filters.contenido.ElementosColaValidacionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ElementosColaValidacion</filter-name>
+		<url-pattern>/gestion-contenido</url-pattern>
 	</filter-mapping>
     <!-- ================ Servlets usuario ================ -->
     <servlet>
