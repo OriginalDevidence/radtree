@@ -12,7 +12,7 @@
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Index</servlet-name>
-	    <url-pattern>/</url-pattern>
+	    <url-pattern>/index</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -97,8 +97,7 @@
 		<url-pattern>*.jsp</url-pattern>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>-->
-    <!-- RedirectPerfilUsuarioLogueado: Para evitar que un usuario logueado
-         acceda a páginas de usuarios no registrados -->
+    <!-- RedirectPerfilUsuarioLogueado: Para evitar que un usuario logueado acceda a páginas de usuarios no registrados -->
     <filter>
 		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
 		<filter-class>sistinfo.filters.usuario.RedirectPerfilUsuarioLogueadoFilter</filter-class>
@@ -233,6 +232,6 @@
 	</servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
-        <welcome-file>/</welcome-file>
+        <welcome-file>/index</welcome-file>
     </welcome-file-list>
 </web-app>
