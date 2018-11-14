@@ -7,15 +7,6 @@
     <display-name>RadTree</display-name>
 	<!-- ================ Mapeo JSP =============== -->
 	<servlet>
-	    <servlet-name>Index</servlet-name>
-	    <jsp-file>/index.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Index</servlet-name>
-	    <url-pattern>/index</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
 	    <servlet-name>Registro</servlet-name>
 	    <jsp-file>/registro.jsp</jsp-file>
 	</servlet>
@@ -61,6 +52,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+	    <servlet-name>Clasificacion</servlet-name>
+	    <jsp-file>/clasificacion.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Clasificacion</servlet-name>
+	    <url-pattern>/clasificacion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 	    <servlet-name>GestionContenido</servlet-name>
 	    <jsp-file>/gestionContenido.jsp</jsp-file>
 	</servlet>
@@ -88,15 +88,15 @@
 	</servlet-mapping>
     <!-- ================ Filtros ================ -->
     <!-- RedirectError: Para páginas a las que no se debería acceder -->
-    <!--<filter>
+    <filter>
 		<filter-name>RedirectError</filter-name>
 		<filter-class>sistinfo.filters.util.RedirectErrorFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>RedirectError</filter-name>
 		<url-pattern>*.jsp</url-pattern>
-		<url-pattern>*.do</url-pattern>
-	</filter-mapping>-->
+		<!-- <url-pattern>*.do</url-pattern> -->
+	</filter-mapping>
     <!-- RedirectPerfilUsuarioLogueado: Para evitar que un usuario logueado acceda a páginas de usuarios no registrados -->
     <filter>
 		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
@@ -232,6 +232,6 @@
 	</servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
-        <welcome-file>/index</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
