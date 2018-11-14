@@ -6,6 +6,30 @@ Prácticas de Sistemas de Información 2018-19
 - Alonso Muñoz García (<745016@unizar.es>)
 - Gregorio Largo Mayor (<746621@unizar.es>)
 
+## Mapeo de las páginas
+
+- /
+- /registrar
+- /iniciar-sesion
+- /perfil _(recibe por POST el alias de usuario)_
+- /perfil/editar
+- /noticias
+  - /noticias/ver _(recibe por POST el ID de contenido)_
+- /preguntas
+  - /preguntas/ver _(recibe por POST el ID de contenido)_
+- /retos
+  - /retos/ver _(recibe por POST el ID de contenido)_
+- /quienes-somos
+- /clasificacion
+- /gestion-contenido
+  - /gestion-contenido/crear-noticia
+  - /gestion-contenido/editar-noticia _(recibe por POST el ID de contenido)_
+  - /gestion-contenido/crear-pregunta
+  - /gestion-contenido/editar-pregunta _(recibe por POST el ID de contenido)_
+  - /gestion-contenido/crear-reto
+  - /gestion-contenido/editar-reto _(recibe por POST el ID de contenido)_
+- /error-interno
+
 ## Pasos para crear un proyecto Eclipse Java EE
 
 Descarga de Eclise Java EE:
