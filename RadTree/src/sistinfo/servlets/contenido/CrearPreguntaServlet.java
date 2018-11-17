@@ -42,24 +42,20 @@ public class CrearPreguntaServlet extends HttpServlet {
 		String button = request.getParameter("button");
 		
 		if ("annadirRespuesta".equals(button)) {
-			Integer respuestasTotales = (Integer)getServletContext().getAttribute("respuestasTotales");
-			if (respuestasTotales == null) {
-				request.setAttribute("respuestasTotales", new Integer(2));
-				respuestasTotales = 2;
+
+			int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
+			if (respuestasTotales < 10) {
+				respuestasTotales += 1;
 			}
-			respuestasTotales += 1;
 			
-			request.setAttribute("respuestasTotales", new Integer(respuestasTotales));
+			request.setAttribute("respuestasTotales", new Long(respuestasTotales));
 
 		} else if ("quitarRespuesta".equals(button)) {
-			Integer respuestasTotales = (Integer)getServletContext().getAttribute("respuestasTotales");
-			if (respuestasTotales == null) {
-				request.setAttribute("respuestasTotales", new Integer(2));
-				respuestasTotales = 2;
+			int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
+			if (respuestasTotales > 2) {
+				respuestasTotales -= 1;
 			}
-			respuestasTotales -= 1;
-			
-			request.setAttribute("respuestasTotales", new Integer(respuestasTotales));
+			request.setAttribute("respuestasTotales", new Long(respuestasTotales));
 
 		} else {
 			Map<String, String> errores = new HashMap<String, String>();

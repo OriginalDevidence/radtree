@@ -5,16 +5,8 @@
 <%@ page import="java.util.HashMap"%>
 <%@ page import="sistinfo.util.CookieManager"%>
 
-
-
+	
 <%
-	Integer variable = (Integer)request.getAttribute("respuestasTotales");
-	if (variable == null) {
-		variable = 2;
-	}
-	application.setAttribute("respuestasTotales", new Integer(variable));
-	
-	
 	if (request.getAttribute("errores") instanceof HashMap) {
 		// Hay errores en un registro previo, darles formato
 		Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
@@ -93,17 +85,24 @@
 							</div>
 
 
+							<c:if test = "${respuestasTotales == null}">
+								<c:set var = "respuestasTotales" scope = "request" value = "${2}"/>
+							</c:if>
 
-							<%	for(int i = 0; i < variable; i++){ %>
-							
+							<input type="hidden" name="respuestasTotales" value = "${respuestasTotales}"/>
+
+
+							<c:forEach var = "i" begin = "1" end = "${respuestasTotales}">
+        						
+
 								<div class="pl-50 pl-sm-25 col-10">
-									<label for="res2">Respuesta <% out.println( i + 1 ); %></label> <input type="text"
-										name="res2" placeholder="Respuesta<% out.println( i ); %>" />
+									<label for="res<c:out value = "${i}"/>">Respuesta <c:out value = "${i}"/></label> <input type="text"
+										name="res<c:out value = "${i}"/>" placeholder="Respuesta <c:out value = "${i}"/>" />
 								</div>
 								<div class="col-2">
-									<input class="mt-30" type="submit" name="correcta" />
+									<input class="mt-30" type="checkbox" name="correcta" />
 								</div>
-							<% } %>
+							</c:forEach>
 
 
 
