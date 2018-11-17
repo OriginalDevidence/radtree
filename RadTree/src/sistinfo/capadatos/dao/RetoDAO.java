@@ -1,6 +1,8 @@
 package sistinfo.capadatos.dao;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ContenidoVO;
@@ -43,20 +45,20 @@ public class RetoDAO extends ContenidoDAO {
 	 * @return Lista con todas los retos
 	 * @throws ErrorInternoException 
 	 */
-	public LinkedList<RetoVO> getRetoBySearch(String search) throws ErrorInternoException {
+	public LinkedList<RetoVO> getRetosBySearch(String search, int num) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
 		LinkedList<RetoVO> listReto = new LinkedList<RetoVO>();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE titulo LIKE '%?%' OR cuerpo LIKE '%?%' ORDER BY fechaRealizacion DESC");
-        	stmt.setString(1, search);
-        	stmt.setString(2, search);
+        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE titulo LIKE ? OR cuerpo LIKE ? ORDER BY fechaRealizacion DESC");
+        	stmt.setString(1, "%" + search + "%");
+        	stmt.setString(2, "%" + search + "%");
             ResultSet rs = stmt.executeQuery();
             
-            do {
+            while (rs.next() && listReto.size() < num) {
             	RetoVO reto = extractRetoFromResultSet(rs);
             	listReto.add(reto);
-            } while (rs.next());
+            }
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -71,17 +73,17 @@ public class RetoDAO extends ContenidoDAO {
 	 * @return Lista de hasta num retos ordenados por fecha de realizaci�n
 	 * @throws ErrorInternoException 
 	 */
-	public LinkedList<RetoVO> getRetosUltimos(int num) throws ErrorInternoException {
+	public List<RetoVO> getRetosUltimos(int num) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
-		LinkedList<RetoVO> listReto = new LinkedList<RetoVO>();
+		List<RetoVO> listReto = new ArrayList<RetoVO>();
         try {
         	
         	Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Reto NATURAL JOIN Contenido ORDER BY fechaRealizacion DESC");
-            do {
+            while (rs.next() && listReto.size() < num) {
             	RetoVO reto = extractRetoFromResultSet(rs);
             	listReto.add(reto);
-            } while (rs.next() && listReto.size() < num);
+            }
             
         } catch (SQLException ex) {
             ex.printStackTrace();

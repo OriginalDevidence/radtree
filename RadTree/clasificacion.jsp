@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Clasificación</title>
+	<title>Clasificación - RadTree</title>
 	<meta name="description" content="Clasificación de usuarios por puntos obtenidos al responder preguntas">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 	
@@ -14,9 +14,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
 	
 	<!-- Stylesheets -->
-	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
-	<link href="fonts/ionicons.css" rel="stylesheet">
-	<link href="common/styles.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 </head>
 <body>
 	
@@ -39,60 +39,32 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-12">
-					<div class="container">
-						<div class="row">
-							<div class="col-sm-12 col-md-4 mb-5">
-								<button class="w-100 btn-fill-grey" href="#"><b>Semanal</b></button>
-							</div>
-							<div class="col-sm-12 col-md-4 mb-5">
-								<button class="w-100 btn-fill-grey" href="#"><b>Mensual</b></button>
-							</div>
-							<div class="col-sm-12 col-md-4 mb-5">
-								<button class="w-100 btn-fill-primary" href="#"><b>Todos los tiempos</b></button>
-							</div>
-						</div>
-					</div>
+				<div class="col-12">
+					<p>Puedes obtener puntos respondiendo a las <a class="link-brdr-btm-primary color-primary" href="${pageContext.request.contextPath}/preguntas">preguntas</a> de la web.
+					Los usuarios que hayan conseguido más puntos aparecerán aquí.</p>
 				</div>
-				<div class="col-sm-12">
+				<div class="col-12 col-md-8 offset-md-2">
 					<div class="oflow-auto">
 						<table class="w-100 clasificacion mt-30">
 							<tr class="bg-primary">
 								<th>Usuario</th>
 								<th>Preguntas contestadas</th>
-								<th>Preguntas acertadas</th>
 								<th>Puntuación</th>
 							</tr>
-							<tr>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-							</tr>
-							<tr>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-							</tr>
-							<tr>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-							</tr>
-							<tr>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-							</tr>
-							<tr>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-								<td>Test</td>
-							</tr>
+							<c:forEach items="${requestScope.clasificacion}" var="row">
+								<tr>
+									<td>
+										<form name="perfil" action="${pageContext.request.contextPath}/perfil" method="post">
+											<input type="hidden" name="alias" value="<c:out value='${row.alias}'/>"/>
+											<button class="color-primary" type="submit">
+												<c:out value="${row.alias}"/>
+											</button>
+										</form>
+									</td>
+									<td><c:out value="${row.preguntasContestadas}"/></td>
+									<td><c:out value="${row.puntuacion}"/></td>
+								</tr>
+							</c:forEach>
 						</table>
 					</div>
 				</div>
@@ -104,10 +76,10 @@
 	<%@ include file="WEB-INF/footer.jsp" %>
 	
 	<!-- SCRIPTS -->
-	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
-	<script src="plugin-frameworks/tether.min.js"></script>
-	<script src="plugin-frameworks/bootstrap.js"></script>
-	<script src="common/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/common/scripts.js"></script>
 	
 </body>
 </html>

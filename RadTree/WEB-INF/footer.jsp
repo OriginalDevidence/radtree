@@ -4,17 +4,17 @@
 	<div class="container">
 		<div class="pt-50 pb-20 pos-relative">
 			<div class="abs-tblr pt-50 z--1 text-center">
-				<div class="h-80 pos-relative"><img class="opacty-1 h-100 w-auto" src="images/map.png" alt=""></div>
+				<div class="h-80 pos-relative"><img class="opacty-1 h-100 w-auto" src="${pageContext.request.contextPath}/images/map.png" alt=""></div>
 			</div>
 			<div class="row">
 			
 				<div class="col-sm-4">
 					<div class="mb-30">
-						<a href="index.html"><img src="images/logo-white.png"></a>
+						<a href="."><img src="${pageContext.request.contextPath}/images/logo-white.png"></a>
 						<p class="mt-20 color-ccc">
 							RadTree es un proyecto de la Universidad de Zaragoza que intenta concienciar a la población sobre los peligros medioambientales.
 						</p>
-						<p class="mb-20"><a class="mt-10 link-brdr-btm-primary color-primary" href="quienesSomos.jsp">¿Quieres saber más?</a></p>
+						<p class="mb-20"><a class="mt-10 link-brdr-btm-primary color-primary" href="${pageContext.request.contextPath}/quienes-somos">¿Quieres saber más?</a></p>
 						<p class="color-ash">
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ion-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>

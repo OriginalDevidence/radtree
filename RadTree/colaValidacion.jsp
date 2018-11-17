@@ -14,9 +14,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
 	
 	<!-- Stylesheets -->
-	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
-	<link href="fonts/ionicons.css" rel="stylesheet">
-	<link href="common/styles.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 </head>
 <body>
 	
@@ -26,7 +26,7 @@
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
 			<a class="mt-10" href=".."><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10" href="../gestionar-contenido">Gestionar contenido<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="../gestion-contenido">Gestionar contenido<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Cola de validación</a>
 		</div><!-- container -->
 	</section>
@@ -58,8 +58,8 @@
 
 			<div class="row mt-20">
 				<div class="col-12">
-					<h5 class="mr-15"><b>Autor:</b> *nombre*</h4>
-					<h5 class="mr-15 mb-15"><b>Fecha:</b> *fecha*</h4>
+					<h5 class="mr-15"><b>Autor:</b> *nombre*</h5>
+					<h5 class="mr-15 mb-15"><b>Fecha:</b> *fecha*</h5>
 					<h4 class="mr-15"><b>Noticia: *titulo*</b></h4>
 					<p class="mt-10">*descripcion de la noticia*</p>
 				</div>
@@ -71,10 +71,10 @@
 	<%@ include file="WEB-INF/footer.jsp" %>
 	
 	<!-- SCRIPTS -->
-	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
-	<script src="plugin-frameworks/tether.min.js"></script>
-	<script src="plugin-frameworks/bootstrap.js"></script>
-	<script src="common/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/common/scripts.js"></script>
 	
 </body>
 </html>

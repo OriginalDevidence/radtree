@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Iniciar sesión</title>
+	<title>Iniciar sesión - RadTree</title>
 	<meta name="description" content="Inicio de sesión para usuarios">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 	
@@ -15,9 +15,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
 	
 	<!-- Stylesheets -->
-	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
-	<link href="fonts/ionicons.css" rel="stylesheet">
-	<link href="common/styles.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 	
 </head>
 <body>
@@ -38,7 +38,7 @@
 			
 				<div class="col-md-12 col-lg-8">
 					<h3 class="p-title mb-30"><b>Iniciar sesión</b></h3>
-					<form name="inicioSesion" action="IniciarSesion.do" method="post">
+					<form name="inicioSesion" action="${pageContext.request.contextPath}/iniciar-sesion/inicio" method="post">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 						
@@ -74,7 +74,7 @@
 
 				<div class="col-md-12 col-lg-4">
 					<h3 class="mb-30"><b>¿No tienes una cuenta?</b></h3>
-					<a class="w-100 btn-fill-primary" href="registro"><b>Regístrate</b></a>
+					<a class="w-100 btn-fill-primary" href="${pageContext.request.contextPath}/registrar"><b>Regístrate</b></a>
 				</div>
 
 			</div>
@@ -85,10 +85,10 @@
 	<%@ include file="WEB-INF/footer.jsp" %>
 
 	<!-- SCRIPTS -->
-	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
-	<script src="plugin-frameworks/tether.min.js"></script>
-	<script src="plugin-frameworks/bootstrap.js"></script>
-	<script src="common/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/common/scripts.js"></script>
 	
 </body>
 </html>

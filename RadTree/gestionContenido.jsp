@@ -14,9 +14,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
 	
 	<!-- Stylesheets -->
-	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
-	<link href="fonts/ionicons.css" rel="stylesheet">
-	<link href="common/styles.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 </head>
 <body>
 	
@@ -72,13 +72,13 @@
 					<c:if test="${sessionScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
 						<h3 class="p-title mb-30"><b>Validar contenido</b></h3>
 						<p class="mb-25">Actualmente hay <b><c:out value="${requestScope.numInValidacion}"/></b> elementos en la cola de validación.</p>
-						<a class="w-100 mb-40 btn-fill-primary" href="gestion-contenido/cola-validacion"><b>Ver cola de validación</b></a>
+						<a class="w-100 mb-40 btn-fill-primary" href="${pageContext.request.contextPath}/gestion-contenido/cola-validacion"><b>Ver cola de validación</b></a>
 					</c:if>
 					<h3 class="p-title mb-30"><b>Gestionar contenido</b></h3>
 					<p class="mb-25">Todos los contenidos subidos han de ser aprobados previamente por un administrador para poder ser mostrados en la web.</p>
-					<a class="w-100 mb-15 btn-fill-primary" href="gestion-contenido/crear-noticia"><b>Crear noticia</b></a>
-					<a class="w-100 mb-15 btn-fill-primary" href="gestion-contenido/crear-pregunta"><b>Crear pregunta</b></a>
-					<a class="w-100 mb-15 btn-fill-primary" href="gestion-contenido/crear-reto"><b>Crear reto</b></a>
+					<a class="w-100 mb-15 btn-fill-primary" href="${pageContext.request.contextPath}/gestion-contenido/crear-noticia"><b>Crear noticia</b></a>
+					<a class="w-100 mb-15 btn-fill-primary" href="${pageContext.request.contextPath}/gestion-contenido/crear-pregunta"><b>Crear pregunta</b></a>
+					<a class="w-100 mb-15 btn-fill-primary" href="${pageContext.request.contextPath}/gestion-contenido/crear-reto"><b>Crear reto</b></a>
 				</div>
 			
 			</div>
@@ -89,10 +89,10 @@
 	<%@ include file="WEB-INF/footer.jsp" %>
 	
 	<!-- SCRIPTS -->
-	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
-	<script src="plugin-frameworks/tether.min.js"></script>
-	<script src="plugin-frameworks/bootstrap.js"></script>
-	<script src="common/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/common/scripts.js"></script>
 	
 </body>
 </html>

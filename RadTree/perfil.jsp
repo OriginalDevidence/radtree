@@ -15,9 +15,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
 	
 	<!-- Stylesheets -->
-	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
-	<link href="fonts/ionicons.css" rel="stylesheet">
-	<link href="common/styles.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -75,13 +75,15 @@
 							<p><c:out value="${requestScope.usuario.email}"/></p>
 						</div>
 						
-						<div class="col-sm-12 mtb-20">
-							<a class="color-primary link-brdr-btm-primary" href="editarPerfil"><b>Editar datos del perfil</b></a>
-						</div>
-						
-						<div class="col-sm-12 mb-20">
-							<a class="color-primary link-brdr-btm-primary" href="CerrarSesion.do"><b>Cerrar sesión</b></a>
-						</div>
+						<c:if test="${requestScope.usuario.alias == sessionScope.usuario.alias}">
+							<div class="col-sm-12 mtb-20">
+								<a class="color-primary link-brdr-btm-primary" href="${pageContext.request.contextPath}/perfil/editar"><b>Editar datos del perfil</b></a>
+							</div>
+							
+							<div class="col-sm-12 mb-20">
+								<a class="color-primary link-brdr-btm-primary" href="${pageContext.request.contextPath}/perfil/cerrar-sesion"><b>Cerrar sesión</b></a>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			
@@ -93,10 +95,10 @@
 	<%@ include file="WEB-INF/footer.jsp" %>
 	
 	<!-- SCRIPTS -->
-	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
-	<script src="plugin-frameworks/tether.min.js"></script>
-	<script src="plugin-frameworks/bootstrap.js"></script>
-	<script src="common/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/common/scripts.js"></script>
 	
 </body>
 </html>

@@ -50,12 +50,11 @@ public class IniciarSesionServlet extends HttpServlet {
 					loginError(request, response);
 				} else {
 					// Enviar al perfil y añadir los datos del usuario en la sesión
-					//request.setAttribute("usuario", usuario);
 					request.getSession().setAttribute("usuario", usuario);
-					response.sendRedirect("perfil?alias=" + usuario.getAlias());
+					response.sendRedirect(request.getContextPath() + "/perfil");
 				}
 			} catch (ErrorInternoException e) {
-				response.sendRedirect("error-interno");
+				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
     	}
     	
@@ -69,7 +68,7 @@ public class IniciarSesionServlet extends HttpServlet {
      * @throws ServletException
      */
     private void loginError(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	RequestDispatcher req = request.getRequestDispatcher("inicioSesion.jsp");
+    	RequestDispatcher req = request.getRequestDispatcher("/iniciar-sesion");
     	request.setAttribute("error", "Identificador o clave inválidos o incorrectos");
     	req.forward(request, response);
     }

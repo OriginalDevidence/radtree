@@ -23,7 +23,7 @@ public class EliminarUsuarioServlet extends HttpServlet {
 		// Comprobar que el usuario está logueado
     	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
     	if (usuario == null) {
-    		response.sendRedirect("errorInterno.html");
+    		response.sendRedirect(request.getContextPath() + "/error-interno");
     	} else {
     		
 			try {
@@ -31,9 +31,9 @@ public class EliminarUsuarioServlet extends HttpServlet {
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				usuarioDAO.deleteUsuario(usuario.getIdUsuario());
 				request.getSession().invalidate();
-				response.sendRedirect("index.jsp");
+				response.sendRedirect(request.getContextPath());
 			} catch (ErrorInternoException e) {
-				response.sendRedirect("errorInterno.html");
+				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
     		
     	}

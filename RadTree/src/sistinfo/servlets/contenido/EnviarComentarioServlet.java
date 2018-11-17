@@ -3,6 +3,7 @@ package sistinfo.servlets.contenido;
 import java.io.IOException;
 import java.sql.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,14 +34,13 @@ public class EnviarComentarioServlet extends HttpServlet {
     	// Comprobar que el usuario está logueado
     	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
     	if (usuario == null) {
-    		response.sendRedirect("errorInterno.html");
+    		response.sendRedirect(request.getContextPath() + "/error-interno");
     	} else {
     		
     		// Leer la URL de redirect y obtener idContenido
     		Long idContenido = RequestExtractor.getLong(request, "id");
-    		String redirect = (String)request.getParameter("redirect");
-    		if (redirect == null || redirect.trim().isEmpty() || idContenido == null || idContenido <= 0L) {
-    			response.sendRedirect("errorInterno.html");
+    		if (idContenido == null || idContenido <= 0L) {
+    			response.sendRedirect(request.getContextPath() + "/error-interno");
     		} else {
 	    		// Comprobar que el campo comentario no es vacío ni demasiado largo
 	        	String cuerpo = (String)request.getParameter("cuerpo");
@@ -56,9 +56,11 @@ public class EnviarComentarioServlet extends HttpServlet {
             			comentarioDAO.insertComentario(comentario);
             			
             			// Redirigir a la misma página para limpiar la caja de comentarios y mostrar el nuevo comment
-            			response.sendRedirect(redirect + "?id=" + idContenido.toString());
+            			RequestDispatcher req = request.getRequestDispatcher("ver");
+            			request.setAttribute("id", idContenido);
+            			req.forward(request, response);
             		} catch (ErrorInternoException e) {
-                		response.sendRedirect("errorInterno.html");
+                		response.sendRedirect(request.getContextPath() + "/error-interno");
             		}
             		
 	        	}

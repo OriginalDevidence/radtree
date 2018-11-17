@@ -1,13 +1,41 @@
 package sistinfo.capadatos.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import sistinfo.capadatos.jdbc.ConnectionFactory;
+import sistinfo.capadatos.vo.ClasificacionVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.UsuarioYaExistenteException;
 import sistinfo.excepciones.ErrorInternoException;
 
 public class UsuarioDAO {
+	
+	/**
+	 * TODO
+	 */
+	public List<ClasificacionVO> getClasificacion(int num) throws ErrorInternoException {
+		Connection connection = ConnectionFactory.getConnection();
+		List<ClasificacionVO> clasificacion = new ArrayList<ClasificacionVO>();
+		try {
+			
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT U.idUsuario, alias, puntuacion, COUNT(DISTINCT idPregunta) 'contestadas' FROM Contesta C NATURAL JOIN Respuesta RIGHT OUTER JOIN Usuario U ON U.idUsuario = C.idUsuario GROUP BY U.idUsuario ORDER BY puntuacion DESC, contestadas ASC, alias ASC");
+			while (rs.next() && clasificacion.size() < num) {
+				clasificacion.add(new ClasificacionVO(
+					rs.getString("alias"),
+					rs.getLong("contestadas"),
+					rs.getLong("puntuacion")
+				));
+			}
+			
+		} catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+		}
+		return clasificacion;
+	}
 	
 	/**
 	 * Búsqueda de usuario por su identificador interno.

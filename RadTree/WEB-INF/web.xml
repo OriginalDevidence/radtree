@@ -12,7 +12,7 @@
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Registro</servlet-name>
-	    <url-pattern>/registro</url-pattern>
+	    <url-pattern>/registrar</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -21,7 +21,7 @@
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>InicioSesion</servlet-name>
-	    <url-pattern>/inicio-sesion</url-pattern>
+	    <url-pattern>/iniciar-sesion</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -39,7 +39,25 @@
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>EditarPerfil</servlet-name>
-	    <url-pattern>/editarPerfil</url-pattern>
+	    <url-pattern>/perfil/editar</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>ListaRetos</servlet-name>
+	    <jsp-file>/listaDeRetos.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaRetos</servlet-name>
+	    <url-pattern>/retos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>Reto</servlet-name>
+	    <jsp-file>/reto.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Reto</servlet-name>
+	    <url-pattern>/retos/ver</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -87,16 +105,6 @@
 	    <url-pattern>/error-interno</url-pattern>
 	</servlet-mapping>
     <!-- ================ Filtros ================ -->
-    <!-- RedirectError: Para páginas a las que no se debería acceder -->
-    <filter>
-		<filter-name>RedirectError</filter-name>
-		<filter-class>sistinfo.filters.util.RedirectErrorFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>RedirectError</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-		<!-- <url-pattern>*.do</url-pattern> -->
-	</filter-mapping>
     <!-- RedirectPerfilUsuarioLogueado: Para evitar que un usuario logueado acceda a páginas de usuarios no registrados -->
     <filter>
 		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
@@ -115,6 +123,8 @@
 	<filter-mapping>
 		<filter-name>ObtenerUsuarioPerfil</filter-name>
 		<url-pattern>/perfil</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
     <!-- UsuarioParticipante: Se asegura de que haya un usuario logueado -->
     <filter>
@@ -123,7 +133,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>UsuarioParticipante</filter-name>
-		<url-pattern>/editarPerfil</url-pattern>
+		<url-pattern>/perfil/editar</url-pattern>
 	</filter-mapping>
     <!-- UsuarioCreador: Se asegura de que haya un usuario logueado y que sea creador o administador -->
     <filter>
@@ -146,6 +156,48 @@
 		<filter-name>UsuarioAdministrador</filter-name>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
+    <!-- ListaRetos: Genera una lista con los últimos retos -->
+    <filter>
+		<filter-name>ListaUltimosRetos</filter-name>
+		<filter-class>sistinfo.filters.contenido.ListaRetosFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ListaUltimosRetos</filter-name>
+		<url-pattern>/retos</url-pattern>
+	</filter-mapping>
+    <!-- CargarReto: Carga un reto según el parámetro de ID pasado -->
+    <filter>
+		<filter-name>CargarReto</filter-name>
+		<filter-class>sistinfo.filters.contenido.CargarRetoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CargarReto</filter-name>
+		<url-pattern>/retos/ver</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+    <!-- CargarComentarios: Carga los comentarios de un contenido -->
+    <filter>
+		<filter-name>CargarComentarios</filter-name>
+		<filter-class>sistinfo.filters.contenido.CargarComentariosFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CargarComentarios</filter-name>
+		<url-pattern>/noticias/ver</url-pattern>
+		<url-pattern>/preguntas/ver</url-pattern>
+		<url-pattern>/retos/ver</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+    <!-- GenerarClasificacion: Devuelve la clasificacion de usuarios por puntos -->
+    <filter>
+		<filter-name>GenerarClasificacion</filter-name>
+		<filter-class>sistinfo.filters.usuario.GenerarClasificacionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GenerarClasificacion</filter-name>
+		<url-pattern>/clasificacion</url-pattern>
+	</filter-mapping>
     <!-- ElementosColaValidacion: Devuelve los elementos de la cola de validacion -->
     <filter>
 		<filter-name>ElementosColaValidacion</filter-name>
@@ -162,7 +214,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarUsuario</servlet-name>
-        <url-pattern>/RegistrarUsuario.do</url-pattern>
+        <url-pattern>/registrar/registro</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>IniciarSesion</servlet-name>
@@ -170,7 +222,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>IniciarSesion</servlet-name>
-        <url-pattern>/IniciarSesion.do</url-pattern>
+        <url-pattern>/iniciar-sesion/inicio</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>CerrarSesion</servlet-name>
@@ -178,7 +230,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>CerrarSesion</servlet-name>
-        <url-pattern>/CerrarSesion.do</url-pattern>
+        <url-pattern>/perfil/cerrar-sesion</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>EditarUsuario</servlet-name>
@@ -186,7 +238,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>EditarUsuario</servlet-name>
-        <url-pattern>/EditarUsuario.do</url-pattern>
+        <url-pattern>/perfil/editar-usuario</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>EliminarUsuario</servlet-name>
@@ -194,7 +246,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>EliminarUsuario</servlet-name>
-        <url-pattern>/EliminarUsuario.do</url-pattern>
+        <url-pattern>/perfil/eliminar</url-pattern>
     </servlet-mapping>
     <!-- ============ Servlets Contenido ============ -->
     <servlet>
@@ -228,10 +280,12 @@
 	</servlet>
     <servlet-mapping>
         <servlet-name>EnviarComentario</servlet-name>
-		<url-pattern>/EnviarComentario.do</url-pattern>
+		<url-pattern>/noticias/comentar</url-pattern>
+		<url-pattern>/preguntas/comentar</url-pattern>
+		<url-pattern>/retos/comentar</url-pattern>
 	</servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

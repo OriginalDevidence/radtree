@@ -46,27 +46,27 @@ public class ObtenerUsuarioPerfilFilter implements Filter {
 					try {
 						UsuarioVO usuario = usuarioDAO.getUsuarioByAlias(alias);
 						if (usuario == null) {
-				            response.sendRedirect("error");
+				            response.sendRedirect(request.getContextPath() + "/error-interno");
 						} else {
-							System.out.println("cargado usuario");
-							RequestDispatcher req = request.getRequestDispatcher("perfil.jsp");
+							RequestDispatcher req = request.getRequestDispatcher("/perfil");
 							request.setAttribute("usuario", usuario);
-							req.include(request, response);
+							req.forward(request, response);
 						}
 					} catch (ErrorInternoException e) {
-			            response.sendRedirect("error");
+			            response.sendRedirect(request.getContextPath() + "/error-interno");
 					}
 					
 				// Si no hay alias en parámetro y hay un usuario logueado, mostrar ese usuario
 				} else if (request.getSession().getAttribute("usuario") != null) {
 					// No ha pasado ningun parámetro por request, mostrar su perfil por defecto
 					UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+					RequestDispatcher req = request.getRequestDispatcher("/perfil");
 					request.setAttribute("usuario", usuario);
-					response.sendRedirect("perfil?alias=" + usuario.getAlias());
+					req.forward(request, response);
 
 				// No sabemos qué usuario mostrar
 				} else {
-			        response.sendRedirect("error");
+			        response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
 			}
 			filterChain.doFilter(request, response);

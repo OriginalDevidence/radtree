@@ -37,7 +37,7 @@ public class EditarUsuarioServlet extends HttpServlet {
 		// Comprobar que el usuario está logueado
     	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
     	if (usuario == null) {
-    		response.sendRedirect("errorInterno.html");
+    		response.sendRedirect(request.getContextPath() + "/error-interno");
     	} else {
     		
 			/*
@@ -56,13 +56,13 @@ public class EditarUsuarioServlet extends HttpServlet {
 					boolean cambiaEmail = !usuarioEditado.getEmail().equals(usuario.getEmail());
 					if (usuarioDAO.updateUsuario(usuarioEditado, cambiaAlias, cambiaEmail)) {
 						// Enviar al perfil y actualizar los datos del usuario en la sesión
-						response.sendRedirect("perfil.jsp?alias=" + usuarioEditado.getAlias());
 						request.getSession().setAttribute("usuario", usuarioEditado);
+						response.sendRedirect(request.getContextPath() + "/perfil");
 					} else {
-						response.sendRedirect("errorInterno.html");
+						response.sendRedirect(request.getContextPath() + "/error-interno");
 					}
 				} catch (UsuarioYaExistenteException e) {
-					RequestDispatcher req = request.getRequestDispatcher("editarPerfil.jsp");
+					RequestDispatcher req = request.getRequestDispatcher("/perfil/editar");
 					if (e.isAliasExistente()) {
 						errores.put("alias", "Alias ya registrado");
 					}
@@ -72,10 +72,10 @@ public class EditarUsuarioServlet extends HttpServlet {
 					request.setAttribute("errores", errores);
 					req.include(request, response);
 				} catch (ErrorInternoException e) {
-					response.sendRedirect("errorInterno.html");
+					response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
 			} else {
-				RequestDispatcher req = request.getRequestDispatcher("editarPerfil.jsp");
+				RequestDispatcher req = request.getRequestDispatcher("/perfil/editar");
 				request.setAttribute("errores", errores);
 				req.include(request, response);
 			}

@@ -50,9 +50,9 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 
 				// Enviar al perfil y añadir los datos del usuario en la sesión
 				request.getSession().setAttribute("usuario", usuario);
-				response.sendRedirect("perfil?alias=" + usuario.getAlias());
+				response.sendRedirect(request.getContextPath() + "/perfil");
 			} catch (UsuarioYaExistenteException e) {
-				RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
+				RequestDispatcher req = request.getRequestDispatcher("/registrar");
 				if (e.isAliasExistente()) {
 					errores.put("alias", "Alias ya registrado");
 				}
@@ -61,15 +61,15 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 				}
 				request.setAttribute("errores", errores);
 				request.setAttribute("erroresArriba", erroresArriba);
-				req.include(request, response);
+				req.forward(request, response);
 			} catch (ErrorInternoException e) {
-				response.sendRedirect("error-interno");
+				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
 		} else {
-			RequestDispatcher req = request.getRequestDispatcher("registro.jsp");
+			RequestDispatcher req = request.getRequestDispatcher("/registrar");
 			request.setAttribute("errores", errores);
 			request.setAttribute("erroresArriba", erroresArriba);
-			req.include(request, response);
+			req.forward(request, response);
 		}
 
 	}

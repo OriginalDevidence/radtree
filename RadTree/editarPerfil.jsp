@@ -15,9 +15,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
 	
 	<!-- Stylesheets -->
-	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
-	<link href="fonts/ionicons.css" rel="stylesheet">
-	<link href="common/styles.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 </head>
 <body>
 	
@@ -26,7 +26,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="index.jsp"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href=".."><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10" href="perfil.jsp?alias=<c:out value="${sessionScope.usuario.alias}"/>">Perfil de <c:out value="${sessionScope.usuario.alias}"/><i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Editar perfil</a>
 		</div><!-- container -->
@@ -40,7 +40,7 @@
 				<div class="col-md-12 col-lg-8">
 					<h3 class="p-title mb-30"><b>Editar perfil</b></h3>
 
-					<form name="editarUsuario" action="EditarUsuario.do" method="post">
+					<form name="editarUsuario" action="${pageContext.request.contextPath}/perfil/editar-usuario" method="post">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 
@@ -74,7 +74,7 @@
 									</span>
 								</c:if>
 								<input class="mt-5" type="text" name="nombre" placeholder="Nombre"
-									value="<c:out value="${param.nombre}"/>"/>
+									value="<c:out value="${sessionScope.usuario.nombre}"/>"/>
 							</div>
 
 							<div class="col-sm-12 col-md-6">
@@ -121,13 +121,17 @@
 				</div>
 
 				<div class="col-md-12 col-lg-4">
-					<h3 class="p-title mb-30"><b>Eliminar perfil</b></h3>
+					<h3 class="p-title mb-30">
+						<b>Eliminar perfil</b>
+					</h3>
 					<p>Ten cuidado, una vez eliminado no se puede volver atrás.</p>
-					<form name="eliminarUsuario" action="EliminarUsuario.do">
-						<button type="submit" class="w-100 dplay-block btn-brdr-red mt-30 mb-md-50"><b>Eliminar perfil</b></button>
-					</form>
+					<a
+						href="${pageContext.request.contextPath}/perfil/eliminar"
+						class="w-100 dplay-block btn-brdr-red mt-30 mb-md-50">
+						<b>Eliminar perfil</b>
+					</a>
 				</div>
-			
+
 			</div>
 
 		</div><!-- container -->
@@ -136,10 +140,10 @@
 	<%@ include file="WEB-INF/footer.jsp" %>
 	
 	<!-- SCRIPTS -->
-	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
-	<script src="plugin-frameworks/tether.min.js"></script>
-	<script src="plugin-frameworks/bootstrap.js"></script>
-	<script src="common/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/common/scripts.js"></script>
 	
 </body>
 </html>

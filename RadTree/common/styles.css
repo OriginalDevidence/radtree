@@ -555,15 +555,14 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 /* LISTA DE TITULOS */
 
-.lista-titulos li{ width: 100%; border: solid #0cc300 1px; padding: 15px; margin-bottom: 10px; }
-.lista-titulos p{ font-size:1.5em; }
+.lista-titulos li{ margin: 5px 10px; width: auto!important; border: solid #0cc300 1px; float: left; }
+.lista-titulos button{ padding: 15px 25px; }
+.lista-titulos span{ float: left; text-align: left; font-size:1.5em; margin-bottom: 5px;}
 .lista-titulos .titulo-desc,
 .lista-titulos .titulo-extra{ font-size: 1.2em; }
-.lista-titulos .titulo-extra{ display:none; }
-.lista-titulos li:hover{ border: solid #000 1px; border-left: 6px solid green; background-color: #0cc300; }
-.lista-titulos li:hover p{ color:white; }
+.lista-titulos li:hover{ margin: 5px 6px 5px 10px; border: solid #000 1px; border-left: 5px solid green; background-color: #0cc300; }
+.lista-titulos li:hover span{ color:white; }
 .lista-titulos li:hover i{ color:white; }
-.lista-titulos li:hover .titulo-extra{ display:inline; }
 
 /* INDIVIDUAL STYLING */
 

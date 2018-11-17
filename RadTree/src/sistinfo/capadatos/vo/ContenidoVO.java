@@ -12,6 +12,8 @@ public class ContenidoVO implements java.io.Serializable {
 	private Date fechaRealizacion;
 	private Estado estado;
 	
+	private Long numComentarios;
+	
 	public ContenidoVO(Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado) {
 		this.idAutor = idAutor;
 		this.numVisitas = numVisitas;
@@ -25,6 +27,15 @@ public class ContenidoVO implements java.io.Serializable {
 		this.numVisitas = numVisitas;
 		this.fechaRealizacion = fechaRealizacion;
 		this.estado = estado;
+	}
+	
+	public ContenidoVO(Long idContenido, Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado, Long numComentarios) {
+		this.idContenido = idContenido;
+		this.idAutor = idAutor;
+		this.numVisitas = numVisitas;
+		this.fechaRealizacion = fechaRealizacion;
+		this.estado = estado;
+		this.numComentarios = numComentarios;
 	}
 	
 	public Long getIdContenido() {
@@ -56,6 +67,12 @@ public class ContenidoVO implements java.io.Serializable {
 	}
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+	public Long getNumComentarios() {
+		return numComentarios;
+	}
+	public void setNumComentarios(Long numComentarios) {
+		this.numComentarios = numComentarios;
 	}
 	
 }

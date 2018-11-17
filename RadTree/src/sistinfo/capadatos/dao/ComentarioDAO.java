@@ -2,12 +2,40 @@ package sistinfo.capadatos.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ComentarioVO;
+import sistinfo.capadatos.vo.ContenidoVO;
 import sistinfo.excepciones.ErrorInternoException;
 
 public class ComentarioDAO {
+
+	/**
+	 * Añade a cada contenido de la lista el número de comentarios correspondientes a ese contenido
+	 * @param id
+	 * @return Lista de comentarios pertenecientes al contenido idContenido
+	 * @throws ErrorInternoException 
+	 */
+	public <T extends ContenidoVO> List<T> addNumComentariosToContenido(List<T> contenidos) throws ErrorInternoException {
+		Connection connection = ConnectionFactory.getConnection();
+		try {
+			
+			for (T contenido : contenidos) {
+				PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM Comentario WHERE idContenido=?");
+	        	stmt.setLong(1, contenido.getIdContenido());
+	            ResultSet rs = stmt.executeQuery();
+	            if (rs.last() && rs.getRow() == 1) {
+	            	contenido.setNumComentarios(rs.getLong(1));
+	            }
+			}
+			
+		} catch (SQLException ex) {
+	        ex.printStackTrace();
+	        throw new ErrorInternoException();
+	    }
+	    return contenidos;
+	}
 	
 	/**
 	 * Búsqueda de comentarios por un identificador de contenido.
@@ -15,7 +43,7 @@ public class ComentarioDAO {
 	 * @return Lista de comentarios pertenecientes al contenido idContenido
 	 * @throws ErrorInternoException 
 	 */
-	public ArrayList<ComentarioVO> getComentariosFromContenido(Long idContenido) throws ErrorInternoException {
+	public List<ComentarioVO> getComentariosFromContenido(Long idContenido) throws ErrorInternoException {
 		return getComentariosFromContenido(idContenido, null);
 	}
 	
@@ -115,9 +143,9 @@ public class ComentarioDAO {
 	 * @return Lista de comentarios pertenecientes al contenido idContenido y respondiendo al comentario respuestaDe
 	 * @throws ErrorInternoException 
 	 */
-	private ArrayList<ComentarioVO> getComentariosFromContenido(Long idContenido, Long respuestaDe) throws ErrorInternoException {
+	private List<ComentarioVO> getComentariosFromContenido(Long idContenido, Long respuestaDe) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
-        ArrayList<ComentarioVO> comentarios = new ArrayList<ComentarioVO>();
+        List<ComentarioVO> comentarios = new ArrayList<ComentarioVO>();
         try {
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT idComentario, idAutor, idContenido, cuerpo, numLikes, fecha, respuestaDe, alias \'autor\'"
@@ -135,7 +163,7 @@ public class ComentarioDAO {
             	// Añadir el comentario
 	        	ComentarioVO com = extractComentarioFromResultSet(rs);
 	        	comentarios.add(com);
-	        	ArrayList<ComentarioVO> hijos = getComentariosFromContenido(idContenido, com.getIdComentario());
+	        	List<ComentarioVO> hijos = getComentariosFromContenido(idContenido, com.getIdComentario());
 	        	for (ComentarioVO c : hijos) {
 	        		if (c.getAutorPadre() == null) {
 		        		c.setAutorPadre(com.getAutor());
