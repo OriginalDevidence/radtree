@@ -36,33 +36,77 @@
 			
 			<div class="row">
 				<div class="col-12">
-					<h3 class="mb-15"><b>Cola de validación</b></h3>
+					<h3 class="p-title mb-30"><b>Cola de validación</b></h3>
 				</div>
-				<div class="col-12 col-md-4">
-					<ul class="mb-20">
-						<li class="mr-5"><button class="btn-b-sm btn-fill-grey plr-10"><i class="ion-arrow-left-a"></i></button></li>
-						<li class="mr-10">Elemento</li>
-						<!-- Se puede emplear type="number" pero no permite usar size, como hay flechas a cada lado no importa -->
-						<li class="mr-10"><input class="form-brdr-grey text-center" type="text" value="1" size=1></li>
-						<li class="mr-5">de la cola de validación</li>
-						<li><button class="btn-b-sm btn-fill-grey plr-10"><i class="ion-arrow-right-a"></i></button></li>
-					</ul>
-				</div>
-				<div class="col-6 col-md-2">
-					<button class="w-100 btn-b-sm btn-fill-primary plr-10"><i class="mr-5 ion-checkmark"></i>Aprobar</button>
-				</div>
-				<div class="col-6 col-md-2">	
-					<button class="w-100 btn-b-sm btn-fill-primary plr-10"><i class="mr-5 ion-close"></i>Denegar</button>
-				</div>
-			</div>
-
-			<div class="row mt-20">
-				<div class="col-12">
-					<h5 class="mr-15"><b>Autor:</b> *nombre*</h5>
-					<h5 class="mr-15 mb-15"><b>Fecha:</b> *fecha*</h5>
-					<h4 class="mr-15"><b>Noticia: *titulo*</b></h4>
-					<p class="mt-10">*descripcion de la noticia*</p>
-				</div>
+				<c:if test="${requestScope.numInValidacion == null or requestScope.numInValidacion == 0}">
+					<p class="ml-20 pr-20"><i>No hay elementos en la cola de validación. Cuando un usuario inserte o actualice cualquier contenido, aparecerá aquí.</i></p>
+				</c:if>
+				<c:if test="${requestScope.numInValidacion != null and requestScope.numInValidacion != 0}">
+					<div class="col-12 col-md-4">
+						<ul class="mb-20">
+							<c:if test="${requestScope.elemento > 1}">
+								<li class="mr-5">
+									<form name="colaAtras" action="${pageContext.request.contextPath}/gestion-contenido/cola-validacion" method="post">
+										<input type="hidden" name="elemento" value="<c:out value='${requestScope.elemento - 1}'/>"/>
+										<button type="submit" class="btn-b-sm btn-fill-grey plr-10"><i class="ion-arrow-left-a"></i></button>
+									</form>
+								</li>
+							</c:if>
+							<li class="mr-10">Elemento</li>
+							<!-- Se puede emplear type="number" pero no permite usar size, como hay flechas a cada lado no importa -->
+							<li class="mr-10">
+								<form name="colaCustom" action="${pageContext.request.contextPath}/gestion-contenido/cola-validacion" method="post">
+									<input class="form-brdr-grey text-center" type="text" name="elemento"
+									value="<c:out value="${requestScope.elemento}"/>" size="1"/>
+									<!-- <input type="submit"/> -->
+								</form>
+							</li>
+							<li class="mr-5">de <c:out value="${requestScope.numInValidacion}"/> de la cola</li>
+							<c:if test="${requestScope.elemento < requestScope.numInValidacion}">
+								<li>
+									<form name="colaDespues" action="${pageContext.request.contextPath}/gestion-contenido/cola-validacion" method="post">
+										<input type="hidden" name="elemento" value="<c:out value='${requestScope.elemento + 1}'/>"/>
+										<button type="submit" class="btn-b-sm btn-fill-grey plr-10"><i class="ion-arrow-right-a"></i></button>
+									</form>
+								</li>
+							</c:if>
+						</ul>
+					</div>
+					<div class="col-6 col-md-2">
+						<button class="w-100 btn-b-sm btn-fill-primary plr-10"><i class="mr-5 ion-checkmark"></i>Aprobar</button>
+					</div>
+					<div class="col-6 col-md-2">	
+						<button class="w-100 btn-b-sm btn-fill-primary plr-10"><i class="mr-5 ion-close"></i>Denegar</button>
+					</div>
+					
+					<div class="mt-20 col-12">
+						<form name="perfil" action="${pageContext.request.contextPath}/perfil" method="post">
+							<h5>
+								<b>Autor: </b>
+								<input type="hidden" name="alias" value="<c:out value="${requestScope.alias}"/>"/>
+								<button type="submit" class="link-brdr-btm-primary color-primary"><b><c:out value="${requestScope.autorCompleto}"/></b></button>
+							</h5>
+						</form>
+						<h5 class="mt-10 mr-15 mb-50"><b>Fecha:</b> <c:out value="${requestScope.contenido.fechaRealizacion}"/></h5>
+						
+						<c:if test="${not empty requestScope.noticia}">
+							<h4 class="p-title mr-15"><b><span class="color-primary">Noticia:</span> <c:out value="${requestScope.noticia.titulo}"/></b></h4>
+							<p class="mt-10 text-justify"><c:out value="${requestScope.noticia.cuerpo}"/></p>
+							<p class="mt-10">
+								<b>URL de la fuente: </b>
+								<a class="link-brdr-btm-primary color-primary" href="<c:out value="${requestScope.noticia.url}"/>"><c:out value="${requestScope.noticia.url}"/></a>
+							</p>
+						</c:if>
+						<c:if test="${not empty requestScope.reto}">
+							<h4 class="p-title mr-15"><b>Noticia: *titulo*</b></h4>
+							<p class="mt-10">*descripcion de la noticia*</p>
+						</c:if>
+						<c:if test="${not empty requestScope.pregunta}">
+							<h4 class="mr-15"><b>Noticia: *titulo*</b></h4>
+							<p class="mt-10">*descripcion de la noticia*</p>
+						</c:if>
+					</div>
+				</c:if>
 			</div>
 
 		</div><!-- container -->

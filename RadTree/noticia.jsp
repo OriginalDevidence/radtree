@@ -77,8 +77,8 @@
 					</p>
 
 					<p class="mb-20">
-						URL de la fuente:
-						<b><a href="<c:out value="${requestScope.noticia.url}"/>"><c:out value="${requestScope.noticia.url}"/></a></b>
+						<b>URL de la fuente: </b>
+						<a class="link-brdr-btm-primary color-primary" href="<c:out value="${requestScope.noticia.url}"/>"><c:out value="${requestScope.noticia.url}"/></a>
 					</p>
 					<p class="mb-30">
 						<i>Autor: <c:out value="${requestScope.autor}" /></i>

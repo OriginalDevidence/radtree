@@ -253,14 +253,24 @@
 		<filter-name>GenerarClasificacion</filter-name>
 		<url-pattern>/clasificacion</url-pattern>
 	</filter-mapping>
-    <!-- ElementosColaValidacion: Devuelve los elementos de la cola de validacion -->
+    <!-- NumeroColaValidacion: Devuelve los elementos de la cola de validacion -->
     <filter>
-		<filter-name>ElementosColaValidacion</filter-name>
-		<filter-class>sistinfo.filters.contenido.ElementosColaValidacionFilter</filter-class>
+		<filter-name>NumeroColaValidacion</filter-name>
+		<filter-class>sistinfo.filters.contenido.NumeroColaValidacionFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>ElementosColaValidacion</filter-name>
+		<filter-name>NumeroColaValidacion</filter-name>
 		<url-pattern>/gestion-contenido</url-pattern>
+		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
+	</filter-mapping>
+    <!-- ElementoColaValidacion: Devuelve los elementos de la cola de validacion -->
+    <filter>
+		<filter-name>ElementoColaValidacion</filter-name>
+		<filter-class>sistinfo.filters.contenido.ElementoColaValidacionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ElementoColaValidacion</filter-name>
+		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
     <!-- ================ Servlets usuario ================ -->
     <servlet>
