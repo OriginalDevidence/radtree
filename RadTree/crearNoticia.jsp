@@ -2,22 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
-<%--
-	Comprueba los errores que se han podido obtener al crear noticia y les añade formato
-	SuppressWarnings para evitar el warning de type cast de "errores" (aunque esta bien hecho)
---%>
-<%! @SuppressWarnings("unchecked") %>
-<%
-	if (request.getAttribute("errores") instanceof HashMap) {
-		Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
-		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
-		String estiloFinal = "</span>";
-		// Añadir formato
-		for (String k : errores.keySet()) {
-			errores.replace(k, estiloCabecera + errores.get(k) + estiloFinal);
-		}
-	}
-%>
+
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -33,9 +18,9 @@
 	<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
 
 	<!-- Stylesheets -->
-	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
-	<link href="fonts/ionicons.css" rel="stylesheet">
-	<link href="common/styles.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -44,8 +29,8 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="index.jsp"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10" href="gestionarContenido.jsp">Gestionar contenido<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="."><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="gestion-contenido">Gestionar contenido<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Crear noticia</a>
 		</div><!-- container -->
 	</section>
@@ -58,29 +43,41 @@
 					<h3 class="mb-30">
 						<b>Crear noticia</b>
 					</h3>
-					<form name="crearNoticia" action="CrearNoticia.do" method="post">
+					<form name="crearNoticia" action="${pageContext.request.contextPath}/gestion-contenido/crear-noticia/crear" method="post">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20">
 							<div class="col-sm-12">
 								<label for="titulo">Título de la Noticia</label>
-								<c:out value="${requestScope.errores.get('titulo')}"
-									escapeXml="false" />
+								<c:if test="${not empty requestScope.errores.get('titulo')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('titulo')}"
+										escapeXml="false" />
+									</span>
+								</c:if>
 								<input class="brdr-grey" type="text" name="titulo"
 									placeholder="Título" value="<c:out value="${param.titulo}"/>" />
 							</div>
 
 							<div class="col-sm-12">
 								<label for="cuerpo">Cuerpo</label>
-								<c:out value="${requestScope.errores.get('cuerpo')}"
-									escapeXml="false" />
+								<c:if test="${not empty requestScope.errores.get('cuerpo')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('cuerpo')}"
+										escapeXml="false" />
+									</span>
+								</c:if>
 								<textarea class="brdr-grey p-10" name="cuerpo"
 									rows=8><c:out value="${param.nacimiento}"/></textarea>
 							</div>
 
 							<div class="col-sm-12">
 								<label for="url">URL de la fuente</label>
-								<c:out value="${requestScope.errores.get('url')}"
-									escapeXml="false" />
+								<c:if test="${not empty requestScope.errores.get('url')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('url')}"
+										escapeXml="false" />
+									</span>
+								</c:if>
 								<input class="brdr-grey" type="text" name="url"
 									placeholder="URL de la fuente"
 									value="<c:out value="${param.nombre}"/>" />
