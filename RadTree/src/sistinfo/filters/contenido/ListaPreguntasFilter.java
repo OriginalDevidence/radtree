@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.dao.ComentarioDAO;
 import sistinfo.capadatos.dao.PreguntaDAO;
 import sistinfo.capadatos.vo.PreguntaVO;
+import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
 
 public class ListaPreguntasFilter implements Filter {
@@ -38,27 +39,27 @@ public class ListaPreguntasFilter implements Filter {
 			
 			String busqueda = request.getParameter("busqueda");
 			String noContestadasString = request.getParameter("noContestadas");
-			boolean noContestadas = noContestadasString != null && noContestadasString.equals("on");
+			boolean noContestadas = noContestadasString != null && request.getSession().getAttribute("usuario") != null && noContestadasString.equals("on");
+			Long idUsuario = ((UsuarioVO)request.getSession().getAttribute("usuario")).getIdUsuario();
 			PreguntaDAO preguntaDAO = new PreguntaDAO();
 			ComentarioDAO comentarioDAO = new ComentarioDAO();
 			try {
 				List<PreguntaVO> preguntas;
 				if (busqueda == null || busqueda.trim().isEmpty()) {
 					if (noContestadas) {
-						preguntas = preguntaDAO.getPreguntasUltimasContestadas(false, 10);
+						preguntas = preguntaDAO.getPreguntasUltimasContestadas(false, idUsuario, 10);
 					} else {
 						preguntas = preguntaDAO.getPreguntasUltimas(10);
 					}
 				} else {
 					if (noContestadas) {
-						preguntas = preguntaDAO.getPreguntasBySearchContestadas(busqueda, false, 10);
+						preguntas = preguntaDAO.getPreguntasBySearchContestadas(busqueda, false, idUsuario, 10);
 					} else {
 						preguntas = preguntaDAO.getPreguntasBySearch(busqueda, 10);
 					}
 				}
 				preguntas = comentarioDAO.addNumComentariosToContenido(preguntas);
 				preguntas = preguntaDAO.addVecesContestadaToPregunta(preguntas);
-				System.out.println(preguntas.size());
 				request.setAttribute("preguntas", preguntas);
 			} catch (ErrorInternoException e) {
 				e.printStackTrace();

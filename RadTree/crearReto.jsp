@@ -2,29 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="sistinfo.capadatos.vo.UsuarioVO" %>
-<%@ page import="sistinfo.capadatos.vo.UsuarioVO.TipoUsuario" %>
-<%--
-	Comprueba los errores que se han podido obtener al crear noticia y les añade formato
-	SuppressWarnings para evitar el warning de type cast de "errores" (aunque esta bien hecho)
---%>
-<%! @SuppressWarnings("unchecked") %>
-<%
-	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-	if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
-		// El usuario no es un creador de contenido o admin, no deberia estar en esta página
-		response.sendRedirect("errorInterno.html");
-	} else if (request.getAttribute("errores") instanceof HashMap) {
-		// Mostrar errores
-		Map<String, String> errores = (HashMap<String, String>)request.getAttribute("errores");
-		String estiloCabecera = "<i class=\"ml-10 ion-close color-red\"></i><span class=\"pl-5 font-10 color-red\">";
-		String estiloFinal = "</span>";
-		// Añadir formato
-		for (String k : errores.keySet()) {
-			errores.replace(k, estiloCabecera + errores.get(k) + estiloFinal);
-		}
-	}
-%>
+
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -40,9 +18,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
 
 	<!-- Stylesheets -->
-	<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
-	<link href="fonts/ionicons.css" rel="stylesheet">
-	<link href="common/styles.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -51,8 +30,8 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="index.jsp"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10" href="gestionContenido.jsp">Gestionar contenido<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href=".."><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="../gestion-contenido">Gestionar contenido<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Crear reto</a>
 		</div><!-- container -->
 	</section>
@@ -65,23 +44,31 @@
 					<h3 class="mb-30">
 						<b>Crear reto</b>
 					</h3>
-					<form name="crearReto" action="CrearReto.do" method="post">
+					<form name="crearReto" action="${pageContext.request.contextPath}/gestion-contenido/crear-reto/crear" method="post">
 
 						<div
 							class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 
 							<div class="col-sm-8">
 								<label for="titulo">Título del reto</label>
-								<c:out value="${requestScope.errores.get('titulo')}"
-									escapeXml="false" />
+								<c:if test="${not empty requestScope.errores.get('titulo')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('titulo')}"
+										escapeXml="false" />
+									</span>
+								</c:if>
 								<input type="text" name="titulo" placeholder="Título"
 									value="<c:out value="${param.titulo}"/>" />
 							</div>
 
 							<div class="col-sm-12">
 								<label for="cuerpo">Planteamiento del reto</label>
-								<c:out value="${requestScope.errores.get('cuerpo')}"
-									escapeXml="false" />
+								<c:if test="${not empty requestScope.errores.get('cuerpo')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('cuerpo')}"
+										escapeXml="false" />
+									</span>
+								</c:if>
 								<textarea class="p-10" name="cuerpo" rows=4><c:out value="${param.cuerpo}"/></textarea>
 							</div>
 
@@ -110,10 +97,10 @@
 	<%@ include file="WEB-INF/footer.jsp" %>
 
 	<!-- SCRIPTS -->
-	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
-	<script src="plugin-frameworks/tether.min.js"></script>
-	<script src="plugin-frameworks/bootstrap.js"></script>
-	<script src="common/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/common/scripts.js"></script>
 
 </body>
 </html>
