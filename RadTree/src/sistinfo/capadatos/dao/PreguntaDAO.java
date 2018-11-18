@@ -96,7 +96,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<PreguntaVO> getPreguntasUltimas(int num) throws ErrorInternoException {
-		return getPreguntasUltimasHelper(num, null, null);
+		return getPreguntasUltimasHelper(num, null, null, null);
 	}
 	
 	/**
@@ -106,8 +106,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return Lista de hasta num preguntas ordenadas por fecha de realización
 	 * @throws ErrorInternoException 
 	 */
-	public List<PreguntaVO> getPreguntasUltimasContestadas(boolean contestadas, int num) throws ErrorInternoException {
-		return getPreguntasUltimasHelper(num, contestadas, null);
+	public List<PreguntaVO> getPreguntasUltimasContestadas(boolean contestadas, Long idUsuario, int num) throws ErrorInternoException {
+		return getPreguntasUltimasHelper(num, contestadas, idUsuario, null);
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<PreguntaVO> getPreguntasBySearch(String search, int num) throws ErrorInternoException {
-		return getPreguntasUltimasHelper(num, null, search);
+		return getPreguntasUltimasHelper(num, null, null, search);
 	}
 	
 	/**
@@ -126,8 +126,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return Lista con todas las preguntas
 	 * @throws ErrorInternoException 
 	 */
-	public List<PreguntaVO> getPreguntasBySearchContestadas(String search, boolean contestadas, int num) throws ErrorInternoException {
-		return getPreguntasUltimasHelper(num, contestadas, search);
+	public List<PreguntaVO> getPreguntasBySearchContestadas(String search, boolean contestadas, Long idUsuario, int num) throws ErrorInternoException {
+		return getPreguntasUltimasHelper(num, contestadas, idUsuario, search);
 	}
 
 	/**
@@ -400,17 +400,18 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @param num
 	 * @param elegirContestadas true/false para si/no elegir las contestadas, null para elegir todas
 	 * @param busqueda null para elegir todas, no null para buscar preguntas con ese contenido en el enunciado
+	 * @param idUsuario Si busqueda es diferente de null, idUsuario que ha respondido a esas preguntas
 	 * @return Lista de hasta num preguntas ordenadas por fecha de realización
 	 * @throws ErrorInternoException 
 	 */
-	private List<PreguntaVO> getPreguntasUltimasHelper(int num, Boolean elegirContestadas, String busqueda) throws ErrorInternoException {
+	private List<PreguntaVO> getPreguntasUltimasHelper(int num, Boolean elegirContestadas, Long idUsuario, String busqueda) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
 		List<PreguntaVO> listPregunta = new ArrayList<PreguntaVO>();
         try {
         	
         	String where = "WHERE estado='VALIDADO'";
         	if (elegirContestadas != null) {
-        		String dentro = "SELECT DISTINCT idPregunta FROM Contesta NATURAL JOIN Respuesta";
+        		String dentro = "SELECT DISTINCT idPregunta FROM Contesta NATURAL JOIN Respuesta WHERE idUsuario = '" + idUsuario + "'";
         		if (elegirContestadas) {
         			where += " AND idContenido IN (" + dentro + ")";
         		} else {

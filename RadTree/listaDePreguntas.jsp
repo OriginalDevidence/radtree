@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Preguntas - RadTree </title>
+	<title>Preguntas - RadTree</title>
 	<meta name="description" content="Listado de todas las preguntas">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 
@@ -93,10 +93,10 @@
 			                                <i class="mr-5 color-primary ion-ios-bolt"></i>
 			                                <c:out value="${pregunta.vecesContestada}"/>
 			                                <c:if test="${pregunta.vecesContestada == 1}">
-			                                	 respuesta
+			                                	 vez respondida
 			                               	</c:if>
 			                               	<c:if test="${pregunta.vecesContestada != 1}">
-			                                	 respuestas
+			                                	 veces respondida
 			                               	</c:if>
 			                                <i class="ml-10 mr-5 color-primary ion-chatbubbles"></i>
 			                                <c:out value="${pregunta.numComentarios}"/>
