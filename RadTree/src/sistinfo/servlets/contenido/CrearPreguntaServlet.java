@@ -42,7 +42,7 @@ public class CrearPreguntaServlet extends HttpServlet {
 
 		// Comprobamos el botón pulsado.
 		String button = request.getParameter("button");
-		
+
 		if ("annadirRespuesta".equals(button)) {
 
 			int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
@@ -61,10 +61,11 @@ public class CrearPreguntaServlet extends HttpServlet {
 			request.setAttribute("respuestasTotales", new Long(respuestasTotales));
 			request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
 
-		} else {
+		} else if ("crearPregunta".equals(button)){
 			Map<String, String> errores = new HashMap<String, String>();
+			Map<String, String> erroresArriba = new HashMap<String, String>();
 			PreguntaVO pregunta = extractPreguntaFromHttpRequest(request, errores);
-			List<RespuestaVO> listaRespuestas = extractRespuestaListFromHttpRequest(request, errores, 1);
+			List<RespuestaVO> listaRespuestas = extractRespuestaListFromHttpRequest(request, errores, erroresArriba, 1);
 
 			if (pregunta != null && listaRespuestas != null) {
 				try {
@@ -78,9 +79,12 @@ public class CrearPreguntaServlet extends HttpServlet {
 				}
 			} else {
 				request.setAttribute("errores", errores);
+				request.setAttribute("erroresArriba", erroresArriba);
 				request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
 			}
 			
+		} else {
+			request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
 		}
 
 	}
@@ -113,15 +117,13 @@ public class CrearPreguntaServlet extends HttpServlet {
 			}
 	
 			if (datosCorrectos) {
-				System.out.println(usuario.getIdUsuario());
 				return new PreguntaVO(usuario.getIdUsuario(), fechaRealizacion, enunciado);
-	
 			}
     	}
 		return null;
 	}
 	
-	public List<RespuestaVO> extractRespuestaListFromHttpRequest(HttpServletRequest request, Map<String, String> errors, long idPregunta) {
+	public List<RespuestaVO> extractRespuestaListFromHttpRequest(HttpServletRequest request, Map<String, String> errors, Map<String, String> upErrors, long idPregunta) {
 		
 		// Comprobar que el usuario está logueado
     	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
@@ -129,21 +131,44 @@ public class CrearPreguntaServlet extends HttpServlet {
     		errors.put("idAutor", "Debes haber iniciado sesión para someter una pregunta.");
     		return null;
     	} else {
-		
-			String enunciado = request.getParameter("res1");
-	
-			boolean datosCorrectos = true;
-			
-			if (enunciado == null || enunciado.trim().isEmpty()) {
-				datosCorrectos = false;
-				errors.put("enunciado", "Introduzca un enunciado para la pregunta.");
-			}
+    		int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
+    		
+    		boolean datosCorrectos = true;
+    		boolean unaRespuestaCorrecta = false;
+    		//Comprobamos que todas
+    		for(int i = 1; i <= respuestasTotales; i++) {
+    			String enunciado = request.getParameter("res" + i);
+    			if (enunciado == null || enunciado.trim().isEmpty()) {
+    				datosCorrectos = false;
+    				errors.put("respuesta" + i, "Debes introducir un enunciado para todas las respuestas.");
+    			}
+    			String esCorrecta = request.getParameter("correcta" + i);
+
+    			if (esCorrecta != null) {
+    				unaRespuestaCorrecta = true;
+    			} 
+    		}
+    		
+    		if(!unaRespuestaCorrecta) {
+    			upErrors.put("unaRespuestaCorrecta", "Debes introducir al menos una respuesta correcta.");
+    			datosCorrectos = false;
+    		}
 	
 			if (datosCorrectos) {
-				System.out.println(usuario.getIdUsuario());
-				RespuestaVO res1 = new RespuestaVO(idPregunta, enunciado, true);
 				List<RespuestaVO> listaRespuestas = new LinkedList<RespuestaVO>();
-				listaRespuestas.add(res1);
+				boolean correcta = false;
+				for(int i = 1; i <= respuestasTotales; i++) {
+	    			String enunciado = request.getParameter("res" + i);
+	    			String esCorrecta = request.getParameter("correcta" + i);
+	    			if (esCorrecta != null) {
+	    				correcta = true;
+	    			} else {
+	    				correcta = false;
+	    			}
+	    			RespuestaVO res = new RespuestaVO(idPregunta, enunciado, correcta);
+					
+					listaRespuestas.add(res);
+	    		}
 				
 				return listaRespuestas;
 			}

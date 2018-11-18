@@ -10,7 +10,7 @@
 			
 				<div class="col-sm-4">
 					<div class="mb-30">
-						<a href="."><img src="${pageContext.request.contextPath}/images/logo-white.png"></a>
+						<a href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath}/images/logo-white.png"></a>
 						<p class="mt-20 color-ccc">
 							RadTree es un proyecto de la Universidad de Zaragoza que intenta concienciar a la población sobre los peligros medioambientales.
 						</p>

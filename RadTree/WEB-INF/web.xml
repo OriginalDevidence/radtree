@@ -58,6 +58,14 @@
 	    <servlet-name>ListaRetos</servlet-name>
 	    <url-pattern>/retos</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	    <servlet-name>ListaNoticias</servlet-name>
+	    <jsp-file>/listaDeNoticias.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaNoticias</servlet-name>
+	    <url-pattern>/noticias</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 	    <servlet-name>Reto</servlet-name>
@@ -332,7 +340,7 @@
 	    <servlet-name>CrearReto</servlet-name>
 		<url-pattern>/gestion-contenido/crear-reto/crear</url-pattern>
 	</servlet-mapping>
-	
+
     <servlet>
         <servlet-name>EnviarComentario</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.EnviarComentarioServlet</servlet-class>

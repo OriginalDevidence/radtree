@@ -41,7 +41,7 @@
 	</div><!-- bg-191 -->
 	
 	<div class="container">
-		<a class="logo" href="."><img src="${pageContext.request.contextPath}/images/logo-black.png" alt="Logo"></a>
+		<a class="logo" href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath}/images/logo-black.png" alt="Logo"></a>
 		
 		<a class="right-area src-btn" href="#" >
 			<i class="active src-icn ion-search"></i>
