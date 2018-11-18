@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.dao.ContenidoDAO;
 import sistinfo.excepciones.ErrorInternoException;
 
-public class ElementosColaValidacionFilter implements Filter {
+public class NumeroColaValidacionFilter implements Filter {
 
 	FilterConfig filterConfig = null;
 
@@ -39,7 +39,7 @@ public class ElementosColaValidacionFilter implements Filter {
 				request.setAttribute("numInValidacion", numColaValidacion);
 			} catch (ErrorInternoException e) {
 				e.printStackTrace();
-				response.sendRedirect("error-interno");
+				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
 			filterChain.doFilter(request, response);
 		}

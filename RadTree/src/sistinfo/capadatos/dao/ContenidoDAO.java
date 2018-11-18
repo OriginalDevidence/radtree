@@ -1,5 +1,7 @@
 package sistinfo.capadatos.dao;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ContenidoVO;
@@ -30,6 +32,30 @@ public class ContenidoDAO {
             throw new ErrorInternoException();
         }
         return 0;
+	}
+	
+	/**
+	 * Obtiene una lista con los ID de contenidos que están en la cola de validación (estado = PENDIENTE)
+	 * @return Número de elementos de la cola de validación
+	 * @throws ErrorInternoException 
+	 */
+	public List<Long> getContenidosInColaValidacion() throws ErrorInternoException {
+		Connection connection = ConnectionFactory.getConnection();
+		List<Long> contenidos = new ArrayList<Long>();
+        try {
+        	
+        	Statement stmt = connection.createStatement();
+        	ResultSet rs = stmt.executeQuery("SELECT idContenido FROM Contenido WHERE estado='PENDIENTE'");
+            
+        	while (rs.next()) {
+        		contenidos.add(rs.getLong(1));
+        	}
+        	
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return contenidos;
 	}
 	
 	/**

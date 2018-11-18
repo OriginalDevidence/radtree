@@ -42,7 +42,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return La pregunta si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public PreguntaVO getPreguntaById(long id) throws ErrorInternoException {
+	public PreguntaVO getPreguntaById(Long id) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
@@ -70,7 +70,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return La respuesta si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public RespuestaVO getRespuestaById(long id) {
+	public RespuestaVO getRespuestaById(Long id) {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
@@ -136,7 +136,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return La respuesta si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public List<RespuestaVO> getRespuestasByPregunta(long idPregunta) {
+	public List<RespuestaVO> getRespuestasByPregunta(Long idPregunta) {
 		Connection connection = ConnectionFactory.getConnection();
 		List<RespuestaVO> listRespuesta = new ArrayList<RespuestaVO>();
         try {
@@ -233,7 +233,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws PreguntaYaRespondidaException
 	 * @throws ErrorInternoException
 	 */
-	public boolean insertContestacion(long idUsuario, long idPregunta, Map<Long, Boolean> contesta) throws PreguntaYaRespondidaException, ErrorInternoException {
+	public boolean insertContestacion(Long idUsuario, Long idPregunta, Map<Long, Boolean> contesta) throws PreguntaYaRespondidaException, ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
@@ -366,7 +366,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return true si el borrado ha sido correcto, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public boolean deletePregunta(long id) throws ErrorInternoException {
+	public boolean deletePregunta(Long id) throws ErrorInternoException {
         return deleteContenido(id);
 	}
 	
@@ -376,7 +376,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return true si el borrado ha sido correcto, false en caso contrario
 	 * @throws ErrorInternoException
 	 */
-	public boolean deleteRespuesta(long id) throws ErrorInternoException {
+	public boolean deleteRespuesta(Long id) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
