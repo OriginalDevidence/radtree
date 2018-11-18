@@ -99,7 +99,7 @@
 										name="res<c:out value = "${i}"/>" placeholder="Respuesta <c:out value = "${i}"/>" />
 								</div>
 								<div class="col-2">
-									<input class="mt-30" type="checkbox" name="correcta"/>
+									<input class="mt-30" type="checkbox" name="correcta<c:out value = "${i}"/>"/>
 								</div>
 							</c:forEach>
 							

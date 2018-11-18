@@ -113,9 +113,7 @@ public class CrearPreguntaServlet extends HttpServlet {
 			}
 	
 			if (datosCorrectos) {
-				System.out.println(usuario.getIdUsuario());
 				return new PreguntaVO(usuario.getIdUsuario(), fechaRealizacion, enunciado);
-	
 			}
     	}
 		return null;
@@ -129,21 +127,43 @@ public class CrearPreguntaServlet extends HttpServlet {
     		errors.put("idAutor", "Debes haber iniciado sesión para someter una pregunta.");
     		return null;
     	} else {
-		
-			String enunciado = request.getParameter("res1");
-	
-			boolean datosCorrectos = true;
-			
-			if (enunciado == null || enunciado.trim().isEmpty()) {
-				datosCorrectos = false;
-				errors.put("enunciado", "Introduzca un enunciado para la pregunta.");
-			}
+    		int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
+    		
+    		boolean datosCorrectos = true;
+    		boolean unaRespuestaCorrecta = false;
+    		for(int i = 1; i <= respuestasTotales; i++) {
+    			String enunciado = request.getParameter("res" + i);
+    			if (enunciado == null || enunciado.trim().isEmpty()) {
+    				datosCorrectos = false;
+    				errors.put("enunciado", "Debes introducir todas las respuestas.");
+    			}
+    			String esCorrecta = request.getParameter("correcta" + i);
+    			System.out.println(esCorrecta);
+    			if (esCorrecta != null) {
+    				unaRespuestaCorrecta = true;
+    			} 
+    		}
+    		
+    		if(!unaRespuestaCorrecta) {
+    			errors.put("enunciado", "Debes introducir al menos una respuesta correcta.");
+    			datosCorrectos = false;
+    		}
 	
 			if (datosCorrectos) {
-				System.out.println(usuario.getIdUsuario());
-				RespuestaVO res1 = new RespuestaVO(idPregunta, enunciado, true);
 				List<RespuestaVO> listaRespuestas = new LinkedList<RespuestaVO>();
-				listaRespuestas.add(res1);
+				boolean correcta = false;
+				for(int i = 1; i <= respuestasTotales; i++) {
+	    			String enunciado = request.getParameter("res" + i);
+	    			String esCorrecta = request.getParameter("correcta" + i);
+	    			if (esCorrecta != null) {
+	    				correcta = true;
+	    			} else {
+	    				correcta = false;
+	    			}
+	    			RespuestaVO res = new RespuestaVO(idPregunta, enunciado, correcta);
+					
+					listaRespuestas.add(res);
+	    		}
 				
 				return listaRespuestas;
 			}
