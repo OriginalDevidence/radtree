@@ -96,23 +96,31 @@ public class ContenidoDAO {
 	 * @return El idContenido del contenido reci�n insertado (mayor que 0 si es correcto, menor o igual si ha salido mal)
 	 * @throws ErrorInternoException 
 	 */
-	protected int insertContenido(ContenidoVO contenido) throws ErrorInternoException {
+	protected Long insertContenido(ContenidoVO contenido) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Reto VALUES (NULL, ?, ?, ?, ?)");
+        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Contenido VALUES (NULL, ?, ?, ?, ?)",
+																	Statement.RETURN_GENERATED_KEYS);
         	stmt.setLong(1, contenido.getIdAutor());
         	stmt.setLong(2, contenido.getNumVisitas()); 
         	stmt.setDate(3, contenido.getFechaRealizacion());
         	stmt.setString(4, contenido.getEstado().toString());
-        	int result = stmt.executeUpdate(stmt.toString(), Statement.RETURN_GENERATED_KEYS);
-            
-        	return result;
+        	int result = stmt.executeUpdate();
+
+        	if (result == 1) {
+        		// Devolver el ID del usuario insertado
+        		ResultSet rs = stmt.getGeneratedKeys();
+        		if (rs != null && rs.last()) {
+        			return rs.getLong(1);
+        		}
+        	}
         	
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
         }
+        return null;
 	}
 	
 	/**

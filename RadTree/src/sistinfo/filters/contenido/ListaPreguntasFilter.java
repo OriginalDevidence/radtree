@@ -38,8 +38,7 @@ public class ListaPreguntasFilter implements Filter {
 			
 			String busqueda = request.getParameter("busqueda");
 			String noContestadasString = request.getParameter("noContestadas");
-			System.out.println(noContestadasString);
-			boolean noContestadas = noContestadasString != null && noContestadasString.equals("true");
+			boolean noContestadas = noContestadasString != null && noContestadasString.equals("on");
 			PreguntaDAO preguntaDAO = new PreguntaDAO();
 			ComentarioDAO comentarioDAO = new ComentarioDAO();
 			try {

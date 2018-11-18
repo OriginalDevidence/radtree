@@ -165,7 +165,7 @@ public class PreguntaDAO extends ContenidoDAO {
 		Connection connection = ConnectionFactory.getConnection();
         try {
 
-        	int idContenido = insertContenido(pregunta);
+        	Long idContenido = insertContenido(pregunta);
         	
         	if (idContenido > 0) {
             	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Pregunta VALUES (?, ?)");
@@ -412,15 +412,14 @@ public class PreguntaDAO extends ContenidoDAO {
         	if (elegirContestadas != null) {
         		String dentro = "SELECT DISTINCT idPregunta FROM Contesta NATURAL JOIN Respuesta";
         		if (elegirContestadas) {
-        			where += " AND idPregunta IN (" + dentro + ")";
+        			where += " AND idContenido IN (" + dentro + ")";
         		} else {
-        			where += " AND idPregunta NOT IN (" + dentro + ")";
+        			where += " AND idContenido NOT IN (" + dentro + ")";
         		}
         	}
         	if (busqueda != null && !busqueda.trim().isEmpty()) {
         		where += " AND enunciado LIKE '%" + busqueda + "%'";
         	}
-        	System.out.println(where);
 
     		Statement stmt = connection.createStatement();
         	ResultSet rs = stmt.executeQuery("SELECT * FROM Pregunta NATURAL JOIN Contenido " + where + " ORDER BY fechaRealizacion DESC");

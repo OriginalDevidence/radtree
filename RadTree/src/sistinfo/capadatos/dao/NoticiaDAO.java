@@ -126,7 +126,7 @@ public class NoticiaDAO extends ContenidoDAO {
 		Connection connection = ConnectionFactory.getConnection();
         try {
 
-        	int idContenido = insertContenido(noticia);
+        	Long idContenido = insertContenido(noticia);
         	
         	if (idContenido > 0) {
         		PreparedStatement stmt = connection.prepareStatement("INSERT INTO Noticia VALUES (?, ?, ?, ?)");

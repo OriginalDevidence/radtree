@@ -66,12 +66,19 @@
 								</button>
 							</div>
 						</div>
-						<div class="mt-20 row">
-							<div class="col-12 col-lg-8 offset-0 offset-lg-2 float-right">
-	                			<input type="checkbox" class="mt-5 mr-10" name="noContestadas" value="<c:out value="${param.noContestadas}"/>"/>
-	                			<label for="noContestadas"><i>Mostrar solo preguntas no contestadas</i></label>
-                			</div>
-                		</div>
+						<c:if test="${not empty sessionScope.usuario}">
+							<div class="mt-20 row">
+								<div class="col-12 col-lg-8 offset-0 offset-lg-2 float-right">
+		                			<c:if test="${param.noContestadas=='on'}">
+		                				<input type="checkbox" class="mt-5 mr-10" name="noContestadas" checked/>
+		                			</c:if>
+		                			<c:if test="${param.noContestadas!='on'}">
+		                				<input type="checkbox" class="mt-5 mr-10" name="noContestadas"/>
+		                			</c:if>
+		                			<label for="noContestadas"><i>Mostrar solo preguntas no contestadas</i></label>
+	                			</div>
+	                		</div>
+                		</c:if>
 					</form>
                 </div>
 				<div class="col-12 col-lg-8">

@@ -103,7 +103,7 @@ public class RetoDAO extends ContenidoDAO {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
-        	int idContenido = insertContenido(reto);
+        	Long idContenido = insertContenido(reto);
         	
         	if (idContenido > 0) {
             	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Reto VALUES (?, ?, ?)");
