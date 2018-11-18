@@ -43,6 +43,14 @@
 	</servlet-mapping>
 	
 	<servlet>
+	    <servlet-name>ListaPreguntas</servlet-name>
+	    <jsp-file>/listaDePreguntas.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaPreguntas</servlet-name>
+	    <url-pattern>/preguntas</url-pattern>
+	</servlet-mapping>
+	<servlet>
 	    <servlet-name>ListaRetos</servlet-name>
 	    <jsp-file>/listaDeRetos.jsp</jsp-file>
 	</servlet>
@@ -112,8 +120,8 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
-		<url-pattern>/registro</url-pattern>
-		<url-pattern>/login</url-pattern>
+		<url-pattern>/registrar</url-pattern>
+		<url-pattern>/iniciar-sesion</url-pattern>
 	</filter-mapping>
     <!-- ObtenerUsuarioPerfil: Obtiene un usuario para mostrar en el perfil -->
     <filter>
@@ -146,6 +154,9 @@
 		<url-pattern>/gestion-contenido/crear-noticia</url-pattern>
 		<url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
 		<url-pattern>/gestion-contenido/crear-reto</url-pattern>
+		<url-pattern>/gestion-contenido/editar-noticia</url-pattern>
+		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
+		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
 	</filter-mapping>
     <!-- UsuarioParticipante: Se asegura de que haya un usuario logueado y que sea administrador -->
     <filter>
@@ -156,7 +167,16 @@
 		<filter-name>UsuarioAdministrador</filter-name>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
-    <!-- ListaRetos: Genera una lista con los últimos retos -->
+    <!-- ListaUltimasPreguntas: Genera una lista con las últimas preguntas -->
+    <filter>
+		<filter-name>ListaUltimasPreguntas</filter-name>
+		<filter-class>sistinfo.filters.contenido.ListaPreguntasFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ListaUltimasPreguntas</filter-name>
+		<url-pattern>/preguntas</url-pattern>
+	</filter-mapping>
+    <!-- ListaUltimosRetos: Genera una lista con los últimos retos -->
     <filter>
 		<filter-name>ListaUltimosRetos</filter-name>
 		<filter-class>sistinfo.filters.contenido.ListaRetosFilter</filter-class>

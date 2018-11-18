@@ -50,7 +50,7 @@
 		<div class="col-md-12 col-lg-8 sided-70">
 			<h4 class="p-title mt-20"><b>Deja un comentario</b></h4>
 			<c:if test="${empty sessionScope.usuario}">
-				<p class="mb-20"><a class="link-brdr-btm-primary color-primary" href="${pageContext.request.contextPath}/inicio-sesion">Inicia sesión</a> para comentar.</p>
+				<p class="mb-20"><a class="link-brdr-btm-primary color-primary" href="${pageContext.request.contextPath}/iniciar-sesion">Inicia sesión</a> para comentar.</p>
 			</c:if>
 			<c:if test="${not empty sessionScope.usuario}">
 				<h5 class="mb-20">Comentando como <b><c:out value="${sessionScope.usuario.alias}"/></b></h5>

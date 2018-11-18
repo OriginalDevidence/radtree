@@ -12,7 +12,7 @@ import sistinfo.excepciones.ErrorInternoException;
 public class RetoDAO extends ContenidoDAO {
 	
 	/**
-	 * B�squeda de reto por su identificador interno.
+	 * Búsqueda de reto por su identificador interno.
 	 * @param id
 	 * @return El reto si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
@@ -40,8 +40,9 @@ public class RetoDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * B�squeda de retos que contienen search en su nombre titulo o cuerpo, por orden de creaci�n (m�s recientes primero).
+	 * Búsqueda de hasta num retos validados que contienen search en su título o cuerpo, ordenados por su fecha de realización
 	 * @param search
+	 * @param num
 	 * @return Lista con todas los retos
 	 * @throws ErrorInternoException 
 	 */
@@ -50,7 +51,7 @@ public class RetoDAO extends ContenidoDAO {
 		LinkedList<RetoVO> listReto = new LinkedList<RetoVO>();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE titulo LIKE ? OR cuerpo LIKE ? ORDER BY fechaRealizacion DESC");
+        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE estado='VALIDADO' AND titulo LIKE ? OR cuerpo LIKE ? ORDER BY fechaRealizacion DESC");
         	stmt.setString(1, "%" + search + "%");
         	stmt.setString(2, "%" + search + "%");
             ResultSet rs = stmt.executeQuery();
@@ -68,9 +69,9 @@ public class RetoDAO extends ContenidoDAO {
 	}
 	
 	/**
-	 * B�squeda de hasta los �ltimos num retos seg�n su fecha de realizaci�n.
+	 * Búsqueda de hasta los últimos num retos validados ordenados por su fecha de realización
 	 * @param num
-	 * @return Lista de hasta num retos ordenados por fecha de realizaci�n
+	 * @return Lista de hasta num retos ordenados por fecha de realización
 	 * @throws ErrorInternoException 
 	 */
 	public List<RetoVO> getRetosUltimos(int num) throws ErrorInternoException {
@@ -79,7 +80,7 @@ public class RetoDAO extends ContenidoDAO {
         try {
         	
         	Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Reto NATURAL JOIN Contenido ORDER BY fechaRealizacion DESC");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Reto NATURAL JOIN Contenido WHERE estado='VALIDADO' ORDER BY fechaRealizacion DESC");
             while (rs.next() && listReto.size() < num) {
             	RetoVO reto = extractRetoFromResultSet(rs);
             	listReto.add(reto);
