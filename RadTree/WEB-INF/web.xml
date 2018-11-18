@@ -96,6 +96,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+	    <servlet-name>CreacionPregunta</servlet-name>
+	    <jsp-file>/crearPregunta.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>CreacionPregunta</servlet-name>
+	    <url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 	    <servlet-name>ColaValidacion</servlet-name>
 	    <jsp-file>/colaValidacion.jsp</jsp-file>
 	</servlet>
@@ -277,15 +286,16 @@
 	    <servlet-name>CrearNoticia</servlet-name>
 		<url-pattern>/CrearNoticia.do</url-pattern>
 	</servlet-mapping>
+	
     <servlet>
-        <display-name>CrearPregunta Name</display-name>
         <servlet-name>CrearPregunta</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.CrearPreguntaServlet</servlet-class>
 	</servlet>
     <servlet-mapping>
 	    <servlet-name>CrearPregunta</servlet-name>
-		<url-pattern>/CrearPregunta.do</url-pattern>
+		<url-pattern>/gestion-contenido/crear-pregunta/crear</url-pattern>
 	</servlet-mapping>
+	
     <servlet>
         <servlet-name>CrearReto</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.CrearRetoServlet</servlet-class>
@@ -294,6 +304,7 @@
 	    <servlet-name>CrearReto</servlet-name>
 		<url-pattern>/CrearReto.do</url-pattern>
 	</servlet-mapping>
+	
     <servlet>
         <servlet-name>EnviarComentario</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.EnviarComentarioServlet</servlet-class>

@@ -4,7 +4,6 @@
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="sistinfo.util.CookieManager"%>
-
 	
 <%
 	if (request.getAttribute("errores") instanceof HashMap) {
@@ -39,9 +38,9 @@
 	rel="stylesheet">
 
 <!-- Stylesheets -->
-<link href="plugin-frameworks/bootstrap.css" rel="stylesheet">
-<link href="fonts/ionicons.css" rel="stylesheet">
-<link href="common/styles.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 
 </head>
 <body>
@@ -70,7 +69,7 @@
 					<h3 class="mb-30">
 						<b>Crear pregunta</b>
 					</h3>
-					<form name="crearPregunta" action="CrearPregunta.do" method="post">
+					<form name="crearPregunta" action="${pageContext.request.contextPath}/gestion-contenido/crear-pregunta/crear" method="post">
 
 						<div
 							class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
@@ -89,8 +88,8 @@
 								<c:set var = "respuestasTotales" scope = "request" value = "${2}"/>
 							</c:if>
 
-							<input type="hidden" name="respuestasTotales" value = "${respuestasTotales}"/>
 
+							<input type="hidden" name="respuestasTotales" value = "${respuestasTotales}"/>
 
 							<c:forEach var = "i" begin = "1" end = "${respuestasTotales}">
         						
@@ -100,10 +99,10 @@
 										name="res<c:out value = "${i}"/>" placeholder="Respuesta <c:out value = "${i}"/>" />
 								</div>
 								<div class="col-2">
-									<input class="mt-30" type="checkbox" name="correcta" />
+									<input class="mt-30" type="checkbox" name="correcta"/>
 								</div>
 							</c:forEach>
-
+							
 
 
 							<div class="pl-50 pl-sm-25 col-12">
