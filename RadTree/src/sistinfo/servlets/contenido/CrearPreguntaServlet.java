@@ -1,16 +1,12 @@
 package sistinfo.servlets.contenido;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,72 +15,86 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.vo.PreguntaVO;
 import sistinfo.capadatos.vo.RespuestaVO;
 import sistinfo.capadatos.vo.UsuarioVO;
-import sistinfo.capadatos.vo.ContenidoVO.Estado;
-import sistinfo.excepciones.UsuarioYaExistenteException;
-import sistinfo.util.CookieManager;
-import sistinfo.util.PBKDF2Hash;
+
 import sistinfo.capadatos.dao.PreguntaDAO;
-import sistinfo.capadatos.dao.UsuarioDAO;
+
 
 @SuppressWarnings("serial")
 public class CrearPreguntaServlet extends HttpServlet {
+	public static final int MAX_RESPUESTAS = 10;
+	public static final int MIN_RESPUESTAS = 2;
+	
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		doPost(request, response);
 	}
 
-	// Runs on a thread whenever there is HTTP GET request
 	// Take 2 arguments, corresponding to HTTP request and response
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		request.setAttribute("respuestas", new Integer(5));
+		
+		Map<String, String> erroresArriba = new HashMap<String, String>();
+		
+		int respuestasTotales;
 
 		// Comprobamos el botón pulsado.
 		String button = request.getParameter("button");
-
-		if ("annadirRespuesta".equals(button)) {
-
-			int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
-			if (respuestasTotales < 10) {
-				respuestasTotales += 1;
-			}
-			
-			request.setAttribute("respuestasTotales", new Long(respuestasTotales));
-			request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
-
-		} else if ("quitarRespuesta".equals(button)) {
-			int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
-			if (respuestasTotales > 2) {
-				respuestasTotales -= 1;
-			}
-			request.setAttribute("respuestasTotales", new Long(respuestasTotales));
-			request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
-
-		} else if ("crearPregunta".equals(button)){
-			Map<String, String> errores = new HashMap<String, String>();
-			Map<String, String> erroresArriba = new HashMap<String, String>();
-			PreguntaVO pregunta = extractPreguntaFromHttpRequest(request, errores);
-			List<RespuestaVO> listaRespuestas = extractRespuestaListFromHttpRequest(request, errores, erroresArriba, 1);
-
-			if (pregunta != null && listaRespuestas != null) {
-				try {
-					PreguntaDAO PreguntaDAO = new PreguntaDAO();
-					PreguntaDAO.insertPregunta(pregunta, listaRespuestas);
-
-					response.sendRedirect(request.getContextPath() + "/gestion-contenido");
-
-				} catch (Exception e) {
-					response.sendRedirect(request.getContextPath() + "/error-interno");
+		if(button == null) {
+			response.sendRedirect(request.getContextPath() + "/gestion-contenido/crear-pregunta");
+			return;
+		}
+		switch (button) {
+	        case "annadirRespuesta":
+	        	respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
+				if (respuestasTotales < MAX_RESPUESTAS) {
+					respuestasTotales += 1;
 				}
-			} else {
-				request.setAttribute("errores", errores);
-				request.setAttribute("erroresArriba", erroresArriba);
+				else {
+					erroresArriba.put("errorArriba", "El máximo de respuestas permitido es " + MAX_RESPUESTAS + ".");
+					request.setAttribute("erroresArriba", erroresArriba);
+				}
+				request.setAttribute("respuestasTotales", new Long(respuestasTotales));
 				request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
-			}
-			
-		} else {
-			request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
+				break;
+				
+	        case "quitarRespuesta":
+				respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
+				if (respuestasTotales > MIN_RESPUESTAS) {
+					respuestasTotales -= 1;
+				}
+				else {
+					erroresArriba.put("errorArriba", "El mínimo de respuestas permitido es " + MIN_RESPUESTAS + ".");
+					request.setAttribute("erroresArriba", erroresArriba);
+				}
+				request.setAttribute("respuestasTotales", new Long(respuestasTotales));
+				request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
+				break;
+	
+	        case "crearPregunta":
+				Map<String, String> errores = new HashMap<String, String>();
+				PreguntaVO pregunta = extractPreguntaFromHttpRequest(request, errores);
+				List<RespuestaVO> listaRespuestas = extractRespuestaListFromHttpRequest(request, errores, erroresArriba, 1);
+	
+				if (pregunta != null && listaRespuestas != null) {
+					try {
+						PreguntaDAO PreguntaDAO = new PreguntaDAO();
+						PreguntaDAO.insertPregunta(pregunta, listaRespuestas);
+	
+						response.sendRedirect(request.getContextPath() + "/gestion-contenido");
+	
+					} catch (Exception e) {
+						response.sendRedirect(request.getContextPath() + "/error-interno");
+					}
+				} else {
+					request.setAttribute("errores", errores);
+					request.setAttribute("erroresArriba", erroresArriba);
+					request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
+				}
+				break;
+				
+	        default:
+				request.getRequestDispatcher("/gestion-contenido/crear-pregunta").forward(request, response);
 		}
 
 	}
@@ -95,7 +105,7 @@ public class CrearPreguntaServlet extends HttpServlet {
 	 * 
 	 * @param request
 	 * @param errors
-	 * @return pregunta si se ha extraido correctamente, o null
+	 * @return pregunta si se ha extraido correctamente, o null en el caso contrario
 	 */
 	public PreguntaVO extractPreguntaFromHttpRequest(HttpServletRequest request, Map<String, String> errors) {
 		
@@ -123,50 +133,71 @@ public class CrearPreguntaServlet extends HttpServlet {
 		return null;
 	}
 	
+	/**
+	 * Obtiene los datos de un Pregunta dado un HttpServletRequest y escribe los
+	 * errores en errors y upErrors
+	 * 
+	 * @param request
+	 * @param errors
+	 * @param  upErrors
+	 * @return pregunta si se ha extraido correctamente, o null
+	 */
 	public List<RespuestaVO> extractRespuestaListFromHttpRequest(HttpServletRequest request, Map<String, String> errors, Map<String, String> upErrors, long idPregunta) {
 		
-		// Comprobar que el usuario está logueado
+		// Comprobar que el usuario está logueado por seguridad.
     	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
     	if (usuario == null) {
     		errors.put("idAutor", "Debes haber iniciado sesión para someter una pregunta.");
     		return null;
-    	} else {
+    	} 
+    	
+    	else {
     		int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
+    		
+    		if(respuestasTotales < MIN_RESPUESTAS || respuestasTotales > MAX_RESPUESTAS) {
+    			errors.put("idAutor", "El número de respuestas introducido es menor o mayor del límite (2, 10).");
+        		return null;
+    		}
     		
     		boolean datosCorrectos = true;
     		boolean unaRespuestaCorrecta = false;
-    		//Comprobamos que todas
+    		
+    		String enunciado;
+    		String esCorrecta;
+    		
+    		//Comprobamos que todas las respuestas que se van a introducir tienen enunciado.
     		for(int i = 1; i <= respuestasTotales; i++) {
-    			String enunciado = request.getParameter("res" + i);
+    			enunciado = request.getParameter("res" + i);
     			if (enunciado == null || enunciado.trim().isEmpty()) {
     				datosCorrectos = false;
     				errors.put("respuesta" + i, "Debes introducir un enunciado para todas las respuestas.");
     			}
-    			String esCorrecta = request.getParameter("correcta" + i);
-
+    			
+    			esCorrecta = request.getParameter("correcta" + i);
     			if (esCorrecta != null) {
     				unaRespuestaCorrecta = true;
     			} 
     		}
     		
+    		//Si ninguna de las respuestas ha sido marcada como correcta.
     		if(!unaRespuestaCorrecta) {
-    			upErrors.put("unaRespuestaCorrecta", "Debes introducir al menos una respuesta correcta.");
+    			upErrors.put("errorArriba", "Debes introducir al menos una respuesta correcta.");
     			datosCorrectos = false;
     		}
 	
 			if (datosCorrectos) {
 				List<RespuestaVO> listaRespuestas = new LinkedList<RespuestaVO>();
 				boolean correcta = false;
+				
 				for(int i = 1; i <= respuestasTotales; i++) {
-	    			String enunciado = request.getParameter("res" + i);
-	    			String esCorrecta = request.getParameter("correcta" + i);
+	    			enunciado = request.getParameter("res" + i);
+	    			esCorrecta = request.getParameter("correcta" + i);
 	    			if (esCorrecta != null) {
 	    				correcta = true;
 	    			} else {
 	    				correcta = false;
 	    			}
 	    			RespuestaVO res = new RespuestaVO(idPregunta, enunciado, correcta);
-					
 					listaRespuestas.add(res);
 	    		}
 				

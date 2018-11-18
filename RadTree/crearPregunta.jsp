@@ -58,9 +58,9 @@
 							<c:if test="${not empty requestScope.erroresArriba}">
 								<div class="col-10 offset-1 mb-30 alert alert-danger">
 									<ul>
-										<c:forEach items="${requestScope.erroresArriba}" var="unaRespuestaCorrecta">
+										<c:forEach items="${requestScope.erroresArriba}" var="errorArriba">
 										    <li><i class="ml-10 ion-close color-red"></i>
-											<c:out value="${requestScope.erroresArriba.get('unaRespuestaCorrecta')}"/></li>
+											<c:out value="${requestScope.erroresArriba.get('errorArriba')}"/></li>
 										</c:forEach>
 									</ul>
 								</div>
