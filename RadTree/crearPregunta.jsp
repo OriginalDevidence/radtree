@@ -101,7 +101,9 @@
 									</c:if>
 									
 									<input type="text"
-										name="res<c:out value = "${i}"/>" placeholder="Respuesta <c:out value = "${i}"/>" />
+										name="res<c:out value = "${i}"/>" placeholder="Respuesta <c:out value = "${i}"/>" 
+										<c:set var="resN">res${i}</c:set>
+										value="<c:out value="${param[resN]}"/>" />
 								</div>
 							
 								<div class="col-2">
