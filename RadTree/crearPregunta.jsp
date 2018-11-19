@@ -24,9 +24,10 @@
 <link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
+<link rel="icon" type="image/jpg" href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
 </head>
 
-<body>
+<body onload="location.href='#elemento-salto';">
 	<%@ include file="WEB-INF/header.jsp"%>
 
 	<section class="ptb-0">
@@ -90,8 +91,12 @@
 
 							<c:forEach var = "i" begin = "1" end = "${respuestasTotales}">
         						
-
-								<div class="pl-50 pl-sm-25 col-10">
+							
+								<div 
+								<c:if test = "${(respuestasTotales - 3) == i}">
+									id="elemento-salto"
+								</c:if>
+								class="pl-50 pl-sm-25 col-10">
 									<label for="res<c:out value = "${i}"/>">Respuesta <c:out value = "${i}"/></label> 
 									
 									<c:if test="${not empty requestScope.errores.get('respuesta' += i)}">
@@ -113,7 +118,7 @@
 							
 							<div class="pl-50 pl-sm-25 col-12">
 								<button class="plr-10 btn-b-md btn-fill-primary" type="submit"
-									name="button" value="annadirRespuesta">
+									name="button" value="annadirRespuesta" > 
 									<i class="ion-plus-round"></i>
 								</button>
 								<button class="plr-10 btn-b-md btn-fill-primary" type="submit"

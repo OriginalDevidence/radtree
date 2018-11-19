@@ -17,6 +17,7 @@
 	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
+	<link rel="icon" type="image/jpg" href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
 </head>
 <body>
 	
