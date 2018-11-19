@@ -30,16 +30,16 @@
 						<div class="mb-20">
 							<form name="noticiaUltima1" action="${pageContext.request.contextPath}/noticias/ver" method="post">
 								<input type="hidden" name="id" value="<c:out value="${requestScope.ultima1.idContenido}"/>"/>
-								<button type="submit" class="color-white font-11 text-left"><b><c:out value="${requestScope.ultima1.titulo}"/></b></button>
-								<h6 class="mt-10"><c:out value="${requestScope.ultima1.fechaRealizacion}"/></h6>
+								<button type="submit" class="color-white font-11 font-sans text-left"><b><c:out value="${requestScope.ultima1.titulo}"/></b></button>
+								<h6 class="mt-10 font-sans"><c:out value="${requestScope.ultima1.fechaRealizacion}"/></h6>
 							</form>
 						</div>
 						<div class="brdr-ash-1 opacty-2 mr-30"></div>
 						<div class="mt-20">
 							<form name="noticiaUltima2" action="${pageContext.request.contextPath}/noticias/ver" method="post">
 								<input type="hidden" name="id" value="<c:out value="${requestScope.ultima2.idContenido}"/>"/>
-								<button type="submit" class="color-white font-11 text-left"><b><c:out value="${requestScope.ultima2.titulo}"/></b></button>
-								<h6 class="mt-10"><c:out value="${requestScope.ultima2.fechaRealizacion}"/></h6>
+								<button type="submit" class="color-white font-11 font-sans text-left"><b><c:out value="${requestScope.ultima2.titulo}"/></b></button>
+								<h6 class="mt-10 font-sans"><c:out value="${requestScope.ultima2.fechaRealizacion}"/></h6>
 							</form>
 						</div>
 					</div><!-- mb-30 -->
@@ -51,16 +51,16 @@
 						<div class="mb-20">
 							<form name="noticiaPopular1" action="${pageContext.request.contextPath}/noticias/ver" method="post">
 								<input type="hidden" name="id" value="<c:out value="${requestScope.popular1.idContenido}"/>"/>
-								<button type="submit" class="color-white font-11 text-left"><b><c:out value="${requestScope.popular1.titulo}"/></b></button>
-								<h6 class="mt-10"><c:out value="${requestScope.popular1.fechaRealizacion}"/></h6>
+								<button type="submit" class="color-white font-11 font-sans text-left"><b><c:out value="${requestScope.popular1.titulo}"/></b></button>
+								<h6 class="mt-10 font-sans"><c:out value="${requestScope.popular1.fechaRealizacion}"/></h6>
 							</form>
 						</div>
 						<div class="brdr-ash-1 opacty-2 mr-30"></div>
 						<div class="mt-20">
 							<form name="noticiaPopular2" action="${pageContext.request.contextPath}/noticias/ver" method="post">
 								<input type="hidden" name="id" value="<c:out value="${requestScope.popular2.idContenido}"/>"/>
-								<button type="submit" class="color-white font-11 text-left"><b><c:out value="${requestScope.popular2.titulo}"/></b></button>
-								<h6 class="mt-10"><c:out value="${requestScope.popular2.fechaRealizacion}"/></h6>
+								<button type="submit" class="color-white font-11 font-sans text-left"><b><c:out value="${requestScope.popular2.titulo}"/></b></button>
+								<h6 class="mt-10 font-sans"><c:out value="${requestScope.popular2.fechaRealizacion}"/></h6>
 							</form>
 						</div>
 					</div><!-- mb-30 -->

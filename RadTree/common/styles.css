@@ -38,7 +38,7 @@ body{ font-size: 14px; font-family: 'Encode Sans Expanded', sans-serif; width: 1
 	-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; word-wrap: break-word; 
 	overflow-x: hidden; color: #333; }
 
-h1, h2, h3, h4, h5, h6, p, a, ul, span, li, img, inpot, button{ margin: 0; padding: 0; }
+h1, h2, h3, h4, h5, h6, p, a, ul, span, li, img, input, button{ margin: 0; padding: 0; }
 
 h1,h2,h3,h4,h5,h6{ line-height: 1.5; font-weight: inherit; }
 
@@ -317,6 +317,8 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 
 /* FONTS */
+
+.font-sans { font-family: 'Encode Sans Expanded'; }
 
 .font-7 { font-size: .7em; }
 .font-75{ font-size: .75em; }

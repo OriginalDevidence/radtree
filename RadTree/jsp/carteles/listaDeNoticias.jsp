@@ -44,8 +44,7 @@
 				<!-- Barra de búsqueda -->
 				<div class="col-12 col-md-8 offset-0 offset-md-2 mb-50">
 					<form name="busqueda" action="${pageContext.request.contextPath}/noticias" method="post">
-						<div
-							class="row form-block form-plr-15 form-h-45 form-brdr-lite-white">
+						<div class="row form-block form-plr-15 form-h-45 form-brdr-lite-white">
 
 							<c:if test="${empty param.busqueda}">
 								<div class="col-9 col-md-10">
@@ -69,52 +68,39 @@
 
 							<div class="col-3 col-md-2">
 								<button class="w-100 btn-fill-primary" type="submit">
-									<i class="ion-search"></i></a>
+									<i class="ion-search"></i>
 								</button>
 							</div>
 						</div>
 					</form>
 				</div>
-				<!-- NOTICIAS: Una div de este estilo por noticia -->
-				<div class="col-12 col-md-6 mb-30 mb-sm-10">
-					<div class="h-300x">
-						<c:if test="${not empty requestScope.noticias}">
-							<ul class="lista-titulos">
-								<c:forEach items="${requestScope.noticias}" var="reto">
-									<a class="pos-relative h-100 dplay-block"
-										href="51_noticia.html">
-										<div class="img-bg bg-2 bg-grad-layer-6"></div>
-
-										<div class="abs-blr color-white p-20 bg-sm-color-7">
-											<h4 class="mb-10 mb-sm-5">
-												<b><c:out value="${noticia.titulo}" /></b>
-											</h4>
-											<ul class="list-li-mr-20">
-												<li>${noticia.fechaRealizacion}</li>
-												<li><i
-													class="color-primary mr-5 font-12 ion-chatbubbles"></i> <c:out
-														value="${reto.numComentarios}" /> <c:if
-														test="${reto.numComentarios == 1}">
-                           comentario
-                        </c:if> <c:if test="${reto.numComentarios != 1}">
-                           comentarios
-                        </c:if>
-											</ul>
-										</div>
-										<!--abs-blr -->
-									</a>
-									<!-- pos-relative -->
-								</c:forEach>
-							</ul>
-						</c:if>
-						<c:if test="${empty requestScope.noticias}">
-							<p>
-								<i>Parece que no hay nada por aquí...</i>
-							</p>
-						</c:if>
-					</div>
-				</div>
-
+				<c:if test="${not empty requestScope.noticias}">
+					<c:forEach items="${requestScope.noticias}" var="noticia">
+					
+						<div class="col-12 col-md-6 mb-30 mb-sm-10">
+							<div class="h-300x">
+								<div class="pos-relative h-100 dplay-block">
+									<form name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+										<input type="hidden" name="id" value="<c:out value="${noticia.idContenido}"/>"/>
+										<button type="submit">
+											<div class="img-bg bg-2 bg-grad-layer-6"></div>
+											
+											<div class="abs-blr color-white p-20 bg-sm-color-7">
+												<h4 class="mb-10 mb-sm-5 font-12 text-left font-sans"><b><c:out value="${noticia.titulo}"/></b></h4>
+												<ul class="list-li-mr-20 float-left">
+													<li class="font-11 font-sans"><c:out value="${noticia.fechaRealizacion}"/></li>
+													<li class="font-11 font-sans"><i class="color-primary mr-5 font-11 ion-ios-bolt"></i><c:out value="${noticia.numVisitas}"/></li>
+													<li class="font-11 font-sans"><i class="color-primary mr-5 font-11 ion-chatbubbles"></i><c:out value="${noticia.numComentarios}"/></li>
+												</ul>
+											</div>
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						
+					</c:forEach>
+				</c:if>
 
 			</div>
 			<!-- container -->
