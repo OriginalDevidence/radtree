@@ -53,7 +53,7 @@ public class CargarRetoFilter implements Filter {
 			}
 			if (idContenido != null && idContenido > 0L) {
 				// Atributos para los comentarios
-				request.setAttribute("redirect", "retos/ver");
+				request.setAttribute("urlContenido", "retos");
 				request.setAttribute("id", idContenido);
 				// Cargar el reto con ese ID y el usuario autor
 				RetoDAO retoDAO = new RetoDAO();

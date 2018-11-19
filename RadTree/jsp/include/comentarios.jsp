@@ -57,7 +57,7 @@
 				<h5 id="respondiendo" class="mb-20"></h5>
 				<form
 					class="form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50"
-					name="enviarComentario" action="${pageContext.request.contextPath}/retos/comentar" method="post">
+					name="enviarComentario" action="${pageContext.request.contextPath}/<c:out value="${requestScope.urlContenido}"/>/comentar" method="post">
 					<textarea class="ptb-10" name="cuerpo" maxlength=300 required
 						placeholder="Deja un comentario..." rows=3></textarea>
 					<input type="hidden" name="id" value="<c:out value="${requestScope.id}"/>"/>

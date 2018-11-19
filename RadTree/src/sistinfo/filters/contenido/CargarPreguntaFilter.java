@@ -55,7 +55,7 @@ public class CargarPreguntaFilter implements Filter {
 			}
 			if (idContenido != null && idContenido > 0L) {
 				// Atributos para los comentarios
-				request.setAttribute("redirect", "preguntas/ver");
+				request.setAttribute("urlContenido", "preguntas");
 				request.setAttribute("id", idContenido);
 				// Cargar el pregunta con ese ID y el usuario autor
 				PreguntaDAO preguntaDAO = new PreguntaDAO();

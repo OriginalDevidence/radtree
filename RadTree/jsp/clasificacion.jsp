@@ -60,7 +60,7 @@
 										<form name="perfil" action="${pageContext.request.contextPath}/perfil" method="post">
 											<input type="hidden" name="alias" value="<c:out value='${row.alias}'/>"/>
 											<button class="color-primary" type="submit">
-												<c:out value="${row.alias}"/>
+												<b><c:out value="${row.alias}"/></b>
 											</button>
 										</form>
 									</td>
