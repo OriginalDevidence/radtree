@@ -299,14 +299,14 @@ public class PreguntaDAO extends ContenidoDAO {
             double numRespuestas = (double) rsPregunta.getRow();
             rsPregunta.first();
             
-            // Insertar, para cada pregunta, la respuesta del usuario e ir almacenando la puntuaci�n
+            // Insertar, para cada pregunta, la respuesta del usuario e ir almacenando la puntuación
             double puntuacion = 0.0;
             while (rsPregunta.next()) {
             	long idRespuesta = rsPregunta.getLong("idRespuesta");
             	if (contesta.containsKey(idRespuesta)) {
-            		// Sumar la puntuaci�n
+            		// Sumar la puntuación
             		if (contesta.get(idRespuesta) == rsPregunta.getBoolean("correcta")) {
-                		puntuacion += 10.0 / numRespuestas;	/* TODO: mejorar el sistema de puntuacion como se dijo */
+                		puntuacion += 10.0 / numRespuestas;
             		}
             		
             		// Insertar la contestacion en la BDD
@@ -331,7 +331,7 @@ public class PreguntaDAO extends ContenidoDAO {
             } 
             stmtPregunta.close();
             
-            // Actualizar la puntuaci�n del usuario
+            // Actualizar la puntuación del usuario
             PreparedStatement stmtUsuario = connection.prepareStatement("UPDATE Usuario SET puntuacion=puntuacion+?");
             stmtUsuario.setDouble(1, puntuacion);
             int resultUsuario = stmtUsuario.executeUpdate();

@@ -81,14 +81,14 @@
                 		</c:if>
 					</form>
                 </div>
-				<div class="col-12 col-lg-8">
+				<div class="col-12">
 					<c:if test="${not empty requestScope.preguntas}">
                     	<ul class="lista-titulos">
 							<c:forEach items="${requestScope.preguntas}" var="pregunta">
 		                        <li><form name="reto" action="preguntas/ver" method="post">
 		                        	<input type="hidden" name="id" value="<c:out value="${pregunta.idContenido}"/>"/>
 			                        <button type="submit">
-			                            <span><c:out value="${pregunta.enunciado}"/></span>
+			                            <span><c:out value="${pregunta.enunciado}"/></span><br>
 			                            <span class="titulo-desc">
 			                                <i class="ml-10 mr-5 color-primary ion-ios-bolt"></i>
 			                                <c:out value="${pregunta.numVisitas}"/>

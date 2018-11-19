@@ -43,7 +43,7 @@
 					<p>Puedes obtener puntos respondiendo a las <a class="link-brdr-btm-primary color-primary" href="${pageContext.request.contextPath}/preguntas">preguntas</a> de la web.
 					Los usuarios que hayan conseguido más puntos aparecerán aquí.</p>
 				</div>
-				<div class="col-12 col-md-8 offset-md-2">
+				<div class="col-12 col-lg-8 offset-lg-2">
 					<div class="oflow-auto">
 						<table class="w-100 clasificacion mt-30">
 							<tr class="bg-primary">

@@ -69,7 +69,7 @@
 						</div>
 					</form>
 				</div>
-				<div class="col-12 col-lg-8">
+				<div class="col-12">
 					<c:if test="${not empty requestScope.retos}">
                     	<ul class="lista-titulos">
 							<c:forEach items="${requestScope.retos}" var="reto">
@@ -94,7 +94,7 @@
 			                                <c:if test="${reto.numComentarios != 1}">
 			                                	 comentarios
 			                                </c:if>
-			                            </span><br>
+			                            </span>
 			                        </button>
 		                        </form></li>
 							</c:forEach>
