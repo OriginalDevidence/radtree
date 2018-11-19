@@ -91,8 +91,6 @@ public class EditarUsuarioServlet extends HttpServlet {
         String apellidos = request.getParameter("apellidos");
         String email = request.getParameter("email");
         
-        // TODO usar FormatChecker
-        
         boolean datosCorrectos = true;
         /* ALIAS */
         if (alias == null || alias.trim().isEmpty()) {

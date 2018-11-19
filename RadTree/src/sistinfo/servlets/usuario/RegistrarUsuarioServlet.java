@@ -92,8 +92,6 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String clave = request.getParameter("clave");
         String reclave = request.getParameter("reclave");
         
-        // TODO usar FormatChecker
-        
         boolean datosCorrectos = true;
         /* ALIAS */
         if (alias == null || alias.trim().isEmpty()) {
