@@ -52,7 +52,7 @@ public class PreguntaDAO extends ContenidoDAO {
 		List<PreguntaVO> preguntas = new ArrayList<PreguntaVO>();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Pregunta NATURAL JOIN Contenido WHERE estado != 'BORRADO' AND idAutor=?");
+        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Pregunta NATURAL JOIN Contenido WHERE idAutor=?");
         	stmt.setLong(1, idAutor);
             ResultSet rs = stmt.executeQuery();
             

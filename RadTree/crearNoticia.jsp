@@ -50,8 +50,7 @@
 								<label for="titulo">Título de la Noticia</label>
 								<c:if test="${not empty requestScope.errores.get('titulo')}">
 									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
-									<c:out value="${requestScope.errores.get('titulo')}"
-										escapeXml="false" />
+									<c:out value="${requestScope.errores.get('titulo')}"/>
 									</span>
 								</c:if>
 								<input class="brdr-grey" type="text" name="titulo"
@@ -62,25 +61,23 @@
 								<label for="cuerpo">Cuerpo</label>
 								<c:if test="${not empty requestScope.errores.get('cuerpo')}">
 									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
-									<c:out value="${requestScope.errores.get('cuerpo')}"
-										escapeXml="false" />
+									<c:out value="${requestScope.errores.get('cuerpo')}"/>
 									</span>
 								</c:if>
 								<textarea class="brdr-grey p-10" name="cuerpo"
-									rows=8><c:out value="${param.nacimiento}"/></textarea>
+									rows=8><c:out value="${param.cuerpo}"/></textarea>
 							</div>
 
 							<div class="col-sm-12">
 								<label for="url">URL de la fuente</label>
 								<c:if test="${not empty requestScope.errores.get('url')}">
 									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
-									<c:out value="${requestScope.errores.get('url')}"
-										escapeXml="false" />
+									<c:out value="${requestScope.errores.get('url')}"/>
 									</span>
 								</c:if>
 								<input class="brdr-grey" type="text" name="url"
 									placeholder="URL de la fuente"
-									value="<c:out value="${param.nombre}"/>" />
+									value="<c:out value="${param.url}"/>" />
 							</div>
 
 							<div class="col-sm-12">
@@ -91,6 +88,10 @@
 
 						<div class="row">
 							<div class="col-sm-12 mt-30">
+								<p class="mb-20"><i>
+									Recuerda que todos los contenidos deben ser aprobados previamente por un administrador antes de ser visibles para el público.
+									Este proceso puede tomar un tiempo, así que ten paciencia.
+								</i></p>
 								<button class="w-100 btn-fill-primary" type="submit">
 									<b>Enviar noticia</b>
 								</button>

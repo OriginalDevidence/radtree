@@ -73,67 +73,80 @@
 						</div>
 					</div>
 					<ul class="mtb-20">
-						<c:if test="${tipoContenido == 'noticia'}">
+						<c:if test="${requestScope.tipoContenido == 'noticia'}">
 							<c:set var="contenidos" value="${requestScope.noticias}"/>
 						</c:if>
-						<c:if test="${tipoContenido == 'pregunta'}">
+						<c:if test="${requestScope.tipoContenido == 'pregunta'}">
 							<c:set var="contenidos" value="${requestScope.preguntas}"/>
 						</c:if>
-						<c:if test="${tipoContenido == 'reto'}">
+						<c:if test="${requestScope.tipoContenido == 'reto'}">
 							<c:set var="contenidos" value="${requestScope.retos}"/>
 						</c:if>
-						<c:forEach items="${contenidos}" var="contenido" varStatus="loop">
-							<li class="w-100 mtb-10">
-								<ul>
-									<li><h4 class="mr-10">
-										<c:if test="${tipoContenido == 'noticia'}">
-											<b><c:out value="Noticia #"/><c:out value="${loop.index + 1}"/></b>
-										</c:if>
-											<c:if test="${tipoContenido == 'pregunta'}">
-										<b><c:out value="Pregunta #"/><c:out value="${loop.index + 1}"/></b>
+						<c:if test="${empty contenidos}">
+							<i>No has subido ningun contenido de este tipo todavía.</i>
+						</c:if>
+						<c:if test="${not empty contenidos}">
+							<c:forEach items="${contenidos}" var="contenido" varStatus="loop">
+								<li class="w-100 mtb-10">
+									<ul>
+										<li><h4 class="mr-10">
+											<c:if test="${contenido.estado == 'PENDIENTE'}">
+												<i class="color-red ion-alert-circled mr-5"></i><span class="color-red mr-10">No validado</span>
 											</c:if>
-										<c:if test="${tipoContenido == 'reto'}">
-											<b><c:out value="Reto #"/><c:out value="${loop.index + 1}"/></b>
+											<c:if test="${contenido.estado == 'BORRADO'}">
+												<i class="color-lite-black ion-trash-b mr-5"></i><span class="color-lite-black mr-10">Borrado</span>
+											</c:if>
+											<c:if test="${requestScope.tipoContenido == 'noticia'}">
+												<b><c:out value="Noticia #"/><c:out value="${loop.index + 1}"/></b>
+											</c:if>
+											<c:if test="${requestScope.tipoContenido == 'pregunta'}">
+												<b><c:out value="Pregunta #"/><c:out value="${loop.index + 1}"/></b>
+											</c:if>
+											<c:if test="${requestScope.tipoContenido == 'reto'}">
+												<b><c:out value="Reto #"/><c:out value="${loop.index + 1}"/></b>
+											</c:if>
+										</h4></li>
+										<c:if test="${contenido.estado == 'VALIDADO'}">
+											<li>
+												<form name="ver"
+													action="${pageContext.request.contextPath}/<c:out value="${requestScope.contenidoPathNameView}"/>/ver"
+													method="post">
+													<input type="hidden" name="id"
+														value="<c:out value="${contenido.idContenido}"/>" />
+													<button type="submit"
+														class="plr-10 btn-b-sm btn-fill-primary">
+														<i class="mr-5 ion-eye"></i>Ver
+													</button>
+												</form>
+											</li>
 										</c:if>
-									</h4></li>
-									<li>
-										<form name="ver"
-											action="${pageContext.request.contextPath}/<c:out value="${requestScope.contenidoPathNameView}"/>/ver"
-											method="post">
-											<input type="hidden" name="id"
-												value="<c:out value="${contenido.idContenido}"/>" />
-											<button type="submit"
-												class="plr-10 btn-b-sm btn-fill-primary">
-												<i class="mr-5 ion-eye"></i>Ver
-											</button>
-										</form>
-									</li>
-									<li>
-										<form name="editar"
-											action="${pageContext.request.contextPath}/gestion-contenido/editar-<c:out value="${requestScope.contenidoPathNameEdit}"/>"
-											method="post">
-											<input type="hidden" name="id"
-												value="<c:out value="${contenido.idContenido}"/>" />
-											<button type="submit"
-												class="plr-10 btn-b-sm btn-fill-primary">
-												<i class="mr-5 ion-edit"></i>Editar
-											</button>
-										</form>
-									</li>
-								</ul>
-								<p class="mt-10">
-									<c:if test="${tipoContenido == 'noticia'}">
-										<c:out value="${contenido.titulo}"/>
-									</c:if>
-									<c:if test="${tipoContenido == 'pregunta'}">
-										<c:out value="${contenido.enunciado}"/>
-									</c:if>
-									<c:if test="${tipoContenido == 'reto'}">
-										<c:out value="${contenido.titulo}"/>
-									</c:if>
-								</p>
-							</li>
-						</c:forEach>
+										<li>
+											<form name="editar"
+												action="${pageContext.request.contextPath}/gestion-contenido/editar-<c:out value="${requestScope.contenidoPathNameEdit}"/>"
+												method="post">
+												<input type="hidden" name="id"
+													value="<c:out value="${contenido.idContenido}"/>" />
+												<button type="submit"
+													class="plr-10 btn-b-sm btn-fill-primary">
+													<i class="mr-5 ion-edit"></i>Editar
+												</button>
+											</form>
+										</li>
+									</ul>
+									<p class="mt-10">
+										<c:if test="${tipoContenido == 'noticia'}">
+											<c:out value="${contenido.titulo}"/>
+										</c:if>
+										<c:if test="${tipoContenido == 'pregunta'}">
+											<c:out value="${contenido.enunciado}"/>
+										</c:if>
+										<c:if test="${tipoContenido == 'reto'}">
+											<c:out value="${contenido.titulo}"/>
+										</c:if>
+									</p>
+								</li>
+							</c:forEach>
+						</c:if>
 					</ul>
 					
 				</div>

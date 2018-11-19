@@ -15,6 +15,7 @@ import sistinfo.capadatos.vo.ContenidoVO.Estado;
 import sistinfo.capadatos.vo.RetoVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.capadatos.vo.UsuarioVO.TipoUsuario;
+import sistinfo.util.RequestExtractor;
 import sistinfo.capadatos.dao.RetoDAO;
 
 @SuppressWarnings("serial")
@@ -24,32 +25,52 @@ public class CrearRetoServlet extends HttpServlet {
         doPost(request, response);
     }
 
+	/**
+	 * Inserta o actualiza un reto en la base de datos si los datos introducidos son correctos o muestra los errores que hayan ocurrido
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
-    	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-    	if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
-    		// No hay un usuario con la sesión iniciada
-    		// o si lo hay es participante, no debería subir contenido
-    		response.sendRedirect("errorInterno.html");
-    	} else {
+		// Comprobar que hay un usuario válido
+		UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+		if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
+			response.sendRedirect(request.getContextPath() + "/iniciar-sesion");
+		} else {
 		
 			Map<String, String> errores = new HashMap<String, String>();
 			RetoVO reto = extractRetoFromHttpRequest(request, usuario.getIdUsuario(), errores);
 	
+			Long idContenido = RequestExtractor.getLong(request, "idContenido");
+			boolean editando = false;
+			if (idContenido != null) {
+				editando = true;
+			}
+			
 			if (reto != null) {
 				RetoDAO retoDAO = new RetoDAO();
 				try {
-					retoDAO.insertReto(reto);
-					response.sendRedirect("gestionarContenido.jsp");
+					// Intentar insertarlo o actualizarlo y ver si ha salido bien
+					if (editando) {
+						reto.setIdContenido(idContenido);
+						if (retoDAO.updateReto(reto)) {
+							response.sendRedirect(request.getContextPath() + "/gestion-contenido");
+						} else {
+							response.sendRedirect(request.getContextPath() + "/error-interno");
+						}
+					} else {
+						if (retoDAO.insertReto(reto)) {
+							response.sendRedirect(request.getContextPath() + "/gestion-contenido");
+						} else {
+							response.sendRedirect(request.getContextPath() + "/error-interno");
+						}
+					}
 				} catch (Exception e) {
-					response.sendRedirect("errorInterno.html");
+					response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
 			} else {
-				RequestDispatcher req = request.getRequestDispatcher("crearReto.jsp");
+				RequestDispatcher req = request.getRequestDispatcher(editando ? "/gestion-contenido/crear-reto" : "/gestion-contenido/editar-reto");
 				request.setAttribute("errores", errores);
 				req.include(request, response);
 			}
@@ -84,8 +105,8 @@ public class CrearRetoServlet extends HttpServlet {
 		}
 
 		if (datosCorrectos) {
-			Date fechaActual = new Date(new java.util.Date().getTime());
 			// visitas iniciales = 0L
+			Date fechaActual = new Date(new java.util.Date().getTime());
 			return new RetoVO(idUsuario, 0L, fechaActual, Estado.PENDIENTE, titulo, cuerpo);
 		} else {
 			return null;

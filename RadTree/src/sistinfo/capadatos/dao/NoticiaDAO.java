@@ -51,7 +51,7 @@ public class NoticiaDAO extends ContenidoDAO {
 		List<NoticiaVO> noticias = new ArrayList<NoticiaVO>();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Noticia NATURAL JOIN Contenido WHERE estado != 'BORRADO' AND idAutor=?");
+        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Noticia NATURAL JOIN Contenido WHERE idAutor=?");
         	stmt.setLong(1, idAutor);
             ResultSet rs = stmt.executeQuery();
             
@@ -75,7 +75,7 @@ public class NoticiaDAO extends ContenidoDAO {
 	 * @return Lista con todas las noticias
 	 * @throws ErrorInternoException 
 	 */
-	public List<NoticiaVO> getNoticiaBySearch(String search) throws ErrorInternoException {
+	public List<NoticiaVO> getNoticiasBySearch(String search, int num) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
 		List<NoticiaVO> listNoticia = new ArrayList<NoticiaVO>();
         try {
@@ -86,7 +86,7 @@ public class NoticiaDAO extends ContenidoDAO {
         	stmt.setString(3, "%" + search + "%");
             ResultSet rs = stmt.executeQuery();
             
-            while (rs.next()) {
+            while (rs.next() && listNoticia.size() < num) {
             	NoticiaVO noticia = extractNoticiaFromResultSet(rs);
             	listNoticia.add(noticia);
             }

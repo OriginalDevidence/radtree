@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title><c:out value="${requestScope.reto.titulo}"/> - RadTree</title>
-	<meta name="description" content="Descripción">
+	<meta name="description" content="Uno de los retos planteados por los usuarios de RadTree">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 
 	<!-- Font -->
@@ -34,6 +34,10 @@
 
 	<section>
 		<div class="container">
+
+			<c:if test="${requestScope.reto == null or requestScope.reto.estado != 'VALIDADO'}">
+				<c:redirect url="${pageContext.request.contextPath}/retos"/>
+			</c:if>
 
 			<div class="row">
 				<div class="col-md-12 col-lg-8">

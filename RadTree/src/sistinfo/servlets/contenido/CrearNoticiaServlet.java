@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.capadatos.vo.ContenidoVO.Estado;
+import sistinfo.capadatos.vo.UsuarioVO.TipoUsuario;
 import sistinfo.util.FormatChecker;
+import sistinfo.util.RequestExtractor;
 import sistinfo.capadatos.vo.NoticiaVO;
+import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.capadatos.dao.NoticiaDAO;
 
 @SuppressWarnings("serial")
@@ -24,29 +27,56 @@ public class CrearNoticiaServlet extends HttpServlet {
 	}
 
 	/**
-	 * Inserta una noticia en la base de datos si los datos introducidos son correctos o muestra los errores que hayan ocurrido
+	 * Inserta o actualiza una noticia en la base de datos si los datos introducidos son correctos o muestra los errores que hayan ocurrido
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
-		Map<String, String> errores = new HashMap<String, String>();
-		NoticiaVO noticia = extractNoticiaFromHttpRequest(request, errores);
-
-		/* TODO comprobar usuario autor */
-		if (noticia != null) {
-			NoticiaDAO noticiaDAO = new NoticiaDAO();
-			try {
-				noticiaDAO.insertNoticia(noticia);
-				response.sendRedirect("gestionarContenido.jsp");
-			} catch (Exception e) {
-				response.sendRedirect("errorInterno.html");
-			}
+		// Comprobar que hay un usuario válido
+		UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+		if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
+			response.sendRedirect(request.getContextPath() + "/iniciar-sesion");
 		} else {
-			RequestDispatcher req = request.getRequestDispatcher("crearNoticia.jsp");
-			request.setAttribute("errores", errores);
-			req.include(request, response);
+			
+			Map<String, String> errores = new HashMap<String, String>();
+			NoticiaVO noticia = extractNoticiaFromHttpRequest(request, usuario.getIdUsuario(), errores);
+
+			Long idContenido = RequestExtractor.getLong(request, "idContenido");
+			boolean editando = false;
+			if (idContenido != null) {
+				editando = true;
+			}
+			
+			if (noticia != null) {
+				NoticiaDAO noticiaDAO = new NoticiaDAO();
+				try {
+					// Intentar insertarlo o actualizarlo y ver si ha salido bien
+					if (editando) {
+						noticia.setIdContenido(idContenido);
+						if (noticiaDAO.updateNoticia(noticia)) {
+							response.sendRedirect(request.getContextPath() + "/gestion-contenido");
+						} else {
+							response.sendRedirect(request.getContextPath() + "/error-interno");
+						}
+					} else {
+						// Intentar insertarlo y ver si ha salido bien
+						if (noticiaDAO.insertNoticia(noticia)) {
+							response.sendRedirect(request.getContextPath() + "/gestion-contenido");
+						} else {
+							response.sendRedirect(request.getContextPath() + "/error-interno");
+						}
+					}
+				} catch (Exception e) {
+					response.sendRedirect(request.getContextPath() + "/error-interno");
+				}
+			} else {
+				RequestDispatcher req = request.getRequestDispatcher(editando ? "/gestion-contenido/editar-noticia" : "/gestion-contenido/crear-noticia");
+				request.setAttribute("errores", errores);
+				req.forward(request, response);
+			}
+		
 		}
 		
 	}
@@ -54,15 +84,13 @@ public class CrearNoticiaServlet extends HttpServlet {
 	/**
      * Obtiene los datos de una noticia dado un HttpServletRequest y escribe los errores en errors
      * @param request
+     * @param idAutor
      * @param errors
      * @return La noticia si ha sido extraida correctamente, o null en caso contrario
      */
-	public NoticiaVO extractNoticiaFromHttpRequest(HttpServletRequest request, Map<String, String> errors) {
+	public NoticiaVO extractNoticiaFromHttpRequest(HttpServletRequest request, Long idAutor, Map<String, String> errors) {
 
-        //TODO: Como obtener la idAutor mirar DUDA
-        long idAutor = 1L;
-        Date fechaRealizacion = new Date(0L); // TODO fecha actual
-
+        // Datos del campo
         String titulo = request.getParameter("titulo");
         String cuerpo = request.getParameter("cuerpo");
         String url = request.getParameter("url");
@@ -88,7 +116,9 @@ public class CrearNoticiaServlet extends HttpServlet {
 		}
 
         if (datosCorrectos) {
-        	return new NoticiaVO(idAutor, 0L, fechaRealizacion, Estado.PENDIENTE, titulo, cuerpo, url);
+			// visitas iniciales = 0L
+			Date fechaActual = new Date(new java.util.Date().getTime());
+        	return new NoticiaVO(idAutor, 0L, fechaActual, Estado.PENDIENTE, titulo, cuerpo, url);
         } else {
             return null;
         }

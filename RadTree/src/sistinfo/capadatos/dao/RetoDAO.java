@@ -51,7 +51,7 @@ public class RetoDAO extends ContenidoDAO {
 		List<RetoVO> retos = new ArrayList<RetoVO>();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE estado != 'BORRADO' AND idAutor=?");
+        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE idAutor=?");
         	stmt.setLong(1, idAutor);
             ResultSet rs = stmt.executeQuery();
             

@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
-
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -11,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>Crear reto - RadTree</title>
-	<meta name="description" content="Página de perfil de usuario">
+	<meta name="description" content="Formulario para la creación de retos">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 
 	<!-- Font -->
@@ -21,7 +18,6 @@
 	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
-
 </head>
 <body>
 
@@ -53,8 +49,7 @@
 								<label for="titulo">Título del reto</label>
 								<c:if test="${not empty requestScope.errores.get('titulo')}">
 									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
-									<c:out value="${requestScope.errores.get('titulo')}"
-										escapeXml="false" />
+									<c:out value="${requestScope.errores.get('titulo')}"/>
 									</span>
 								</c:if>
 								<input type="text" name="titulo" placeholder="Título"
@@ -65,8 +60,7 @@
 								<label for="cuerpo">Planteamiento del reto</label>
 								<c:if test="${not empty requestScope.errores.get('cuerpo')}">
 									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
-									<c:out value="${requestScope.errores.get('cuerpo')}"
-										escapeXml="false" />
+									<c:out value="${requestScope.errores.get('cuerpo')}"/>
 									</span>
 								</c:if>
 								<textarea class="p-10" name="cuerpo" rows=4><c:out value="${param.cuerpo}"/></textarea>
