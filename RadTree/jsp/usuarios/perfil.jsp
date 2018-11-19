@@ -77,12 +77,25 @@
 						</div>
 						
 						<c:if test="${requestScope.usuario.alias == sessionScope.usuario.alias}">
-							<div class="col-sm-12 mtb-20">
+							<div class="col-12 mtb-20">
 								<a class="color-primary link-brdr-btm-primary" href="${pageContext.request.contextPath}/perfil/editar"><b>Editar datos del perfil</b></a>
 							</div>
 							
-							<div class="col-sm-12 mb-20">
+							<div class="col-12 mb-20">
 								<a class="color-primary link-brdr-btm-primary" href="${pageContext.request.contextPath}/perfil/cerrar-sesion"><b>Cerrar sesión</b></a>
+							</div>
+						</c:if>
+						<c:if test="${requestScope.usuario.alias != sessionScope.usuario.alias and requestScope.usuario.tipoUsuario != 'ADMINISTRADOR' and sessionScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
+							<div class="col-sm-12 mtb-20">
+								<form name="cambiarTipoUsuario" action="${pageContext.request.contextPath}/perfil/cambiar-tipo" method="post">
+									<input type="hidden" name="alias" value="<c:out value="${requestScope.usuario.alias}"/>"/>
+									<c:if test="${requestScope.usuario.tipoUsuario == 'PARTICIPANTE'}">
+										<button name="tipoUsuario" value="CREADOR" class="plr-15 btn-brdr-primary"><b>Convertir en usuario creador de contenido</b></button>
+									</c:if>
+									<c:if test="${requestScope.usuario.tipoUsuario == 'CREADOR'}">
+										<button name="tipoUsuario" value="PARTICIPANTE" class="plr-15 btn-brdr-red"><b>Convertir en usuario participante</b></button>
+									</c:if>
+								</form>
 							</div>
 						</c:if>
 					</div>

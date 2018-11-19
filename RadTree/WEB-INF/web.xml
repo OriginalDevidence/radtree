@@ -492,6 +492,15 @@
         <url-pattern>/perfil/eliminar</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CambiarTipoUsuario</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.CambiarTipoUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CambiarTipoUsuario</servlet-name>
+        <url-pattern>/perfil/cambiar-tipo</url-pattern>
+    </servlet-mapping>
+
     <!-- ============ Servlets Contenido ============ -->
     <servlet>
         <servlet-name>EnviarComentario</servlet-name>
