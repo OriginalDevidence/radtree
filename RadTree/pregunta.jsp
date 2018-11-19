@@ -48,16 +48,18 @@
 
 					<form class="pregunta" name="enviarPregunta" action="TODO.do" method="post">
 					
+						<c:set var = "i" value = "${1}"/>
 						<c:forEach items="${requestScope.respuestas}" var="respuesta">
 							<div class="row mt-10">
 								<div class="col-2 col-sm-1">
-									<input type="radio" name="correcta"/>
+									<input type="checkbox" name="correcta<c:out value="${i}"/>"/>
 								</div>
 	
 								<div class="col-10 col-sm-11">
 									<p><c:out value="${respuesta.enunciado}"/></p>
 								</div>
 							</div>
+							<c:set var = "i" value = "${i + 1}"/>
 						</c:forEach>
 						
 					</form>
