@@ -21,7 +21,7 @@
 </head>
 <body>
 	
-	<%@ include file="WEB-INF/header.jsp" %>
+	<%@ include file="include/header.jsp" %>
 	
 	<div class="container">
 
@@ -144,7 +144,7 @@
 		</div><!-- container -->
 	</section>
 	
-	<%@ include file="WEB-INF/footer.jsp" %>
+	<%@ include file="include/footer.jsp" %>
 	
 	<!-- SCIPTS -->
 	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>

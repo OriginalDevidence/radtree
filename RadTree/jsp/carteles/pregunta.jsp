@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title><c:out value="${requestScope.pregunta.enunciado}"/> - RadTree</title>
-	<meta name="description" content="Uno de los retos planteados por los usuarios de RadTree">
+	<meta name="description" content="Una de las preguntas hechas por los usuarios de RadTree">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 
 	<!-- Font -->
@@ -22,14 +22,14 @@
 </head>
 <body>
 
-	<%@ include file="WEB-INF/header.jsp" %>
+	<%@ include file="/jsp/include/header.jsp" %>
 
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
 			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10" href="${pageContext.request.contextPath}/preguntas">Preguntas<i class="mlr-10 ion-chevron-right"></i></a>
-			<a class="mt-10 color-ash" href=""><c:out value="${requestScope.pregunta.enunciado}"/></a>
+			<a class="mt-10 color-ash" href="#"><c:out value="${requestScope.pregunta.enunciado}"/></a>
 		</div><!-- container -->
 	</section>
 
@@ -82,20 +82,18 @@
 
 		</div><!-- container -->
 
-
 		<!-- COMENTARIOS -->
-		<%@ include file="WEB-INF/comentarios.jsp" %>
+		<%@ include file="/jsp/include/comentarios.jsp" %>
 
 	</section>
 
-
-	<%@ include file="WEB-INF/footer.jsp" %>
+	<%@ include file="/jsp/include/footer.jsp" %>
 
 	<!-- SCRIPTS -->
-	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
-	<script src="plugin-frameworks/tether.min.js"></script>
-	<script src="plugin-frameworks/bootstrap.js"></script>
-	<script src="common/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/common/scripts.js"></script>
 
 </body>
 </html>

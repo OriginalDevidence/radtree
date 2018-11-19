@@ -18,15 +18,16 @@
 	<link href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
+	<link rel="icon" type="image/jpg" href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
 </head>
 <body>
 
-	<%@ include file="WEB-INF/header.jsp" %>
+	<%@ include file="/jsp/include/header.jsp" %>
 	
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="."><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Perfil de <c:out value="${requestScope.usuario.alias}"/></a>
 		</div><!-- container -->
 	</section>
@@ -92,7 +93,7 @@
 		</div><!-- container -->
 	</section>
 
-	<%@ include file="WEB-INF/footer.jsp" %>
+	<%@ include file="/jsp/include/footer.jsp" %>
 	
 	<!-- SCRIPTS -->
 	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>

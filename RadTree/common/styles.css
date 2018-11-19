@@ -305,6 +305,7 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 .float-left{ float: left!important; }
 .float-right{ float: right!important; }
 
+.text-left{ text-align: left; }
 .text-center{ text-align: center; }
 .text-justify{ text-align: justify; }
 

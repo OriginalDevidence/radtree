@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Crear pregunta</title>
+<title>Crear pregunta - RadTree</title>
 <meta name="description"
 	content="Formulario para la creación de preguntas">
 <meta name="author"
@@ -28,7 +28,7 @@
 </head>
 
 <body onload="location.href='#elemento-salto';">
-	<%@ include file="WEB-INF/header.jsp"%>
+	<%@ include file="/jsp/include/header.jsp"%>
 
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
@@ -154,7 +154,7 @@
 	</section>
 
 
-	<%@ include file="WEB-INF/footer.jsp"%>
+	<%@ include file="/jsp/include/footer.jsp"%>
 
 	<!-- SCRIPTS -->
 	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>

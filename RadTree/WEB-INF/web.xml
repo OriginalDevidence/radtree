@@ -9,7 +9,7 @@
 	<!-- === Usuarios === -->
 	<servlet>
 	    <servlet-name>Registro</servlet-name>
-	    <jsp-file>/registro.jsp</jsp-file>
+	    <jsp-file>/jsp/usuarios/registro.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Registro</servlet-name>
@@ -18,7 +18,7 @@
 
 	<servlet>
 	    <servlet-name>InicioSesion</servlet-name>
-	    <jsp-file>/inicioSesion.jsp</jsp-file>
+	    <jsp-file>/jsp/usuarios/inicioSesion.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>InicioSesion</servlet-name>
@@ -26,7 +26,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>Perfil</servlet-name>
-	    <jsp-file>/perfil.jsp</jsp-file>
+	    <jsp-file>/jsp/usuarios/perfil.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Perfil</servlet-name>
@@ -34,7 +34,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>EditarPerfil</servlet-name>
-	    <jsp-file>/editarPerfil.jsp</jsp-file>
+	    <jsp-file>/jsp/usuarios/editarPerfil.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>EditarPerfil</servlet-name>
@@ -43,7 +43,7 @@
 	<!-- === Contenido === -->
 	<servlet>
 	    <servlet-name>ListaNoticias</servlet-name>
-	    <jsp-file>/listaDeNoticias.jsp</jsp-file>
+	    <jsp-file>/jsp/carteles/listaDeNoticias.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>ListaNoticias</servlet-name>
@@ -51,7 +51,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>Noticia</servlet-name>
-	    <jsp-file>/noticia.jsp</jsp-file>
+	    <jsp-file>/jsp/carteles/noticia.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Noticia</servlet-name>
@@ -59,7 +59,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>ListaPreguntas</servlet-name>
-	    <jsp-file>/listaDePreguntas.jsp</jsp-file>
+	    <jsp-file>/jsp/carteles/listaDePreguntas.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>ListaPreguntas</servlet-name>
@@ -67,7 +67,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>Pregunta</servlet-name>
-	    <jsp-file>/pregunta.jsp</jsp-file>
+	    <jsp-file>/jsp/carteles/pregunta.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Pregunta</servlet-name>
@@ -75,7 +75,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>ListaRetos</servlet-name>
-	    <jsp-file>/listaDeRetos.jsp</jsp-file>
+	    <jsp-file>/jsp/carteles/listaDeRetos.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>ListaRetos</servlet-name>
@@ -83,7 +83,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>Reto</servlet-name>
-	    <jsp-file>/reto.jsp</jsp-file>
+	    <jsp-file>/jsp/carteles/reto.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Reto</servlet-name>
@@ -91,25 +91,33 @@
 	</servlet-mapping>
 	<!-- === Varios === -->
 	<servlet>
-	    <servlet-name>QuienesSomos</servlet-name>
-	    <jsp-file>/quienesSomos.jsp</jsp-file>
+	    <servlet-name>Usuarios</servlet-name>
+	    <jsp-file>/jsp/usuarios.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
-	    <servlet-name>QuienesSomos</servlet-name>
-	    <url-pattern>/quienes-somos</url-pattern>
+	    <servlet-name>Usuarios</servlet-name>
+	    <url-pattern>/usuarios</url-pattern>
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>Clasificacion</servlet-name>
-	    <jsp-file>/clasificacion.jsp</jsp-file>
+	    <jsp-file>/jsp/clasificacion.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Clasificacion</servlet-name>
 	    <url-pattern>/clasificacion</url-pattern>
 	</servlet-mapping>
+	<servlet>
+	    <servlet-name>QuienesSomos</servlet-name>
+	    <jsp-file>/jsp/quienesSomos.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>QuienesSomos</servlet-name>
+	    <url-pattern>/quienes-somos</url-pattern>
+	</servlet-mapping>
 	<!-- === Gestión contenido === -->
 	<servlet>
 	    <servlet-name>GestionContenido</servlet-name>
-	    <jsp-file>/gestionContenido.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion-contenido/gestionContenido.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>GestionContenido</servlet-name>
@@ -117,7 +125,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>ColaValidacion</servlet-name>
-	    <jsp-file>/colaValidacion.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion-contenido/colaValidacion.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>ColaValidacion</servlet-name>
@@ -125,7 +133,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>CreacionNoticia</servlet-name>
-	    <jsp-file>/crearNoticia.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion-contenido/crearNoticia.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>CreacionNoticia</servlet-name>
@@ -133,7 +141,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>CreacionPregunta</servlet-name>
-	    <jsp-file>/crearPregunta.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion-contenido/crearPregunta.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>CreacionPregunta</servlet-name>
@@ -141,7 +149,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>CreacionReto</servlet-name>
-	    <jsp-file>/crearReto.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion-contenido/crearReto.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>CreacionReto</servlet-name>
@@ -149,7 +157,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>EdicionNoticia</servlet-name>
-	    <jsp-file>/editarNoticia.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion-contenido/editarNoticia.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>EdicionNoticia</servlet-name>
@@ -157,7 +165,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>EdicionPregunta</servlet-name>
-	    <jsp-file>/editarPregunta.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion-contenido/editarPregunta.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>EdicionPregunta</servlet-name>
@@ -165,7 +173,7 @@
 	</servlet-mapping>
 	<servlet>
 	    <servlet-name>EdicionReto</servlet-name>
-	    <jsp-file>/editarReto.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion-contenido/editarReto.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>EdicionReto</servlet-name>
@@ -174,7 +182,7 @@
 	<!-- === Error interno === -->
 	<servlet>
 	    <servlet-name>ErrorInterno</servlet-name>
-	    <jsp-file>/errorInterno.html</jsp-file>
+	    <jsp-file>/jsp/errorInterno.html</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>ErrorInterno</servlet-name>
@@ -487,6 +495,6 @@
 	</servlet-mapping>
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
-        <welcome-file>/index.jsp</welcome-file>
+        <welcome-file>/jsp/index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
