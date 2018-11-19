@@ -48,9 +48,8 @@
 								</div>
 							</c:if>
 							<c:if test="${not empty param.busqueda}">
-								<!-- TODO funcionalidad del boton de borrar búsqueda -->
 								<div class="col-2">
-									<button class="w-100 btn-fill-primary" type="submit">
+									<button class="w-100 btn-fill-primary" name="busqueda" value="" type="submit">
 										<i class="ion-close"></i>
 									</button>
 								</div>
@@ -74,7 +73,7 @@
 					<c:if test="${not empty requestScope.retos}">
                     	<ul class="lista-titulos">
 							<c:forEach items="${requestScope.retos}" var="reto">
-		                        <li><form name="reto" action="retos/ver" method="post">
+		                        <li><form name="reto" action="${pageContext.request.contextPath}/retos/ver" method="post">
 		                        	<input type="hidden" name="id" value="<c:out value="${reto.idContenido}"/>"/>
 			                        <button type="submit">
 			                            <span><c:out value="${reto.titulo}"/></span><br>

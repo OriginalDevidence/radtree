@@ -100,6 +100,38 @@ public class UsuarioDAO {
 	}
 	
 	/**
+	 * Búsqueda de hasta num usuarios por un string de búsqueda (alias, nombre, apellidos, email)
+	 * @param search
+	 * @param num
+	 * @return Lista de usuarios que cumplen con las condiciones nombradas
+	 * @throws ErrorInternoException 
+	 */
+	public List<UsuarioVO> getUsuariosBySearch(String search, int num) throws ErrorInternoException {
+		Connection connection = ConnectionFactory.getConnection();
+		List<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
+        try {
+        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE alias LIKE ? OR nombre LIKE ? OR apellidos LIKE ? OR email LIKE ?");
+        	stmt.setString(1, "%" + search + "%");
+        	stmt.setString(2, "%" + search + "%");
+        	stmt.setString(3, "%" + search + "%");
+        	stmt.setString(4, "%" + search + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next() && usuarios.size() < num) {
+            	UsuarioVO usuario = extractUsuarioFromResultSet(rs);
+            	usuarios.add(usuario);
+            }
+
+        	stmt.close();
+        	connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return usuarios;
+	}
+	
+	/**
 	 * Login de usuario por su alias y password.
 	 * @param alias
 	 * @param passwordHash

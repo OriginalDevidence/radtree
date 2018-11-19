@@ -229,6 +229,7 @@
 		<url-pattern>/preguntas/ver</url-pattern>
 		<url-pattern>/retos</url-pattern>
 		<url-pattern>/retos/ver</url-pattern>
+		<url-pattern>/usuarios</url-pattern>
 		<url-pattern>/quienes-somos</url-pattern>
 		<url-pattern>/clasificacion</url-pattern>
 		<url-pattern>/gestion-contenido</url-pattern>
@@ -299,6 +300,16 @@
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
 
+    <!-- BusquedaUsuarios: Genera una lista con usuarios según un parámetro de búsqueda -->
+    <filter>
+		<filter-name>BusquedaUsuarios</filter-name>
+		<filter-class>sistinfo.filters.usuario.BusquedaUsuariosFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>BusquedaUsuarios</filter-name>
+		<url-pattern>/usuarios</url-pattern>
+	</filter-mapping>
+
     <!-- IncrementarVisitas: Incrementa en 1 las visitas a un contenido -->
     <filter>
 		<filter-name>IncrementarVisitas</filter-name>
@@ -344,7 +355,7 @@
 		<url-pattern>/preguntas</url-pattern>
 	</filter-mapping>
 
-    <!-- CargarPregunta: Carga una pregunta y sus respuestas según el parámetro de ID pasado
+	<!-- CargarPregunta: Carga una pregunta según el parámetro de ID pasado -->
     <filter>
 		<filter-name>CargarPregunta</filter-name>
 		<filter-class>sistinfo.filters.contenido.CargarPreguntaFilter</filter-class>
@@ -356,7 +367,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
--->
+	
     <!-- ListaUltimosRetos: Genera una lista con los últimos retos -->
     <filter>
 		<filter-name>ListaUltimosRetos</filter-name>
@@ -376,19 +387,6 @@
 		<filter-name>CargarReto</filter-name>
 		<url-pattern>/retos/ver</url-pattern>
 		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-
-	<!-- CargarPregunta: Carga una pregunta según el parámetro de ID pasado -->
-    <filter>
-		<filter-name>CargarPregunta</filter-name>
-		<filter-class>sistinfo.filters.contenido.CargarPreguntaFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CargarPregunta</filter-name>
-		<url-pattern>/preguntas/ver</url-pattern>
-		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>

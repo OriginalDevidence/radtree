@@ -38,7 +38,7 @@
 			<div class="row">
                 <!-- Barra de búsqueda -->
 				<div class="col-12 col-md-8 offset-0 offset-md-2 mb-50">
-					<form name="busqueda" action="retos" method="post">
+					<form name="busqueda" action="${pageContext.request.contextPath}/usuarios" method="post">
 						<div class="row form-block form-plr-15 form-h-45 form-brdr-lite-white">
 							
 							<c:if test="${empty param.busqueda}">
@@ -48,9 +48,8 @@
 								</div>
 							</c:if>
 							<c:if test="${not empty param.busqueda}">
-								<!-- TODO funcionalidad del boton de borrar búsqueda -->
 								<div class="col-2">
-									<button class="w-100 btn-fill-primary" type="submit">
+									<button class="w-100 btn-fill-primary" name="busqueda" value="" type="submit">
 										<i class="ion-close"></i>
 									</button>
 								</div>
@@ -70,41 +69,39 @@
 						</div>
 					</form>
 				</div>
-				<div class="col-12">
-					<c:if test="${not empty requestScope.retos}">
-                    	<ul class="lista-titulos">
-							<c:forEach items="${requestScope.retos}" var="reto">
-		                        <li><form name="reto" action="retos/ver" method="post">
-		                        	<input type="hidden" name="id" value="<c:out value="${reto.idContenido}"/>"/>
-			                        <button type="submit">
-			                            <span><c:out value="${reto.titulo}"/></span><br>
-			                            <span class="titulo-desc">
-			                                <i class="mr-5 color-primary ion-ios-bolt"></i>
-			                                <c:out value="${reto.numVisitas}"/>
-			                                <c:if test="${reto.numVisitas == 1}">
-			                                	 visita
-			                                </c:if>
-			                                <c:if test="${reto.numVisitas != 1}">
-			                                	 visitas
-			                                </c:if>
-			                                <i class="ml-10 mr-5 color-primary ion-chatbubbles"></i>
-			                                <c:out value="${reto.numComentarios}"/>
-			                                <c:if test="${reto.numComentarios == 1}">
-			                                	 comentario
-			                                </c:if>
-			                                <c:if test="${reto.numComentarios != 1}">
-			                                	 comentarios
-			                                </c:if>
-			                            </span>
-			                        </button>
-		                        </form></li>
-							</c:forEach>
-                   		</ul>
-                   	</c:if>
-					<c:if test="${empty requestScope.retos}">
-						<p><i>Parece que no hay nada por aquí...</i></p>
-					</c:if>
-                </div>
+				<c:if test="${empty param.busqueda}">
+					<p>Debes introducir algo en la barra de búsqueda primero.</p>
+				</c:if>
+				<c:if test="${not empty param.busqueda and empty requestScope.usuarios}">
+					<p><i>No se han encontrado usuarios con esa búsqueda. Prueba a hacer algún cambio.</i></p>
+				</c:if>
+				<c:if test="${not empty param.busqueda and not empty requestScope.usuarios}">
+					<div class="col-12 col-lg-8 offset-lg-2">
+						<div class="oflow-auto">
+							<table class="w-100 clasificacion mt-30">
+								<tr class="bg-primary">
+									<th>Alias</th>
+									<th>Nombre</th>
+									<th>Apellidos</th>
+								</tr>
+								<c:forEach items="${requestScope.usuarios}" var="usuario">
+									<tr>
+										<td>
+											<form name="perfil" action="${pageContext.request.contextPath}/perfil" method="post">
+												<input type="hidden" name="alias" value="<c:out value='${usuario.alias}'/>"/>
+												<button class="color-primary" type="submit">
+													<b><c:out value="${usuario.alias}"/></b>
+												</button>
+											</form>
+										</td>
+										<td><c:out value="${usuario.nombre}"/></td>
+										<td><c:out value="${usuario.apellidos}"/></td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+					</div>
+				</c:if>
             </div>
 
 		</div><!-- container -->

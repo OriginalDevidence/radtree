@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!--  TODO -->
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
@@ -42,7 +43,7 @@
 			<div class="row">
 				<!-- Barra de búsqueda -->
 				<div class="col-12 col-md-8 offset-0 offset-md-2 mb-50">
-					<form name="busqueda" action="noticias" method="post">
+					<form name="busqueda" action="${pageContext.request.contextPath}/noticias" method="post">
 						<div
 							class="row form-block form-plr-15 form-h-45 form-brdr-lite-white">
 
@@ -54,9 +55,8 @@
 							</c:if>
 
 							<c:if test="${not empty param.busqueda}">
-								<!-- TODO funcionalidad del boton de borrar búsqueda -->
 								<div class="col-2">
-									<button class="w-100 btn-fill-primary" type="submit">
+									<button class="w-100 btn-fill-primary" name="busqueda" value="" type="submit">
 										<i class="ion-close"></i>
 									</button>
 								</div>
