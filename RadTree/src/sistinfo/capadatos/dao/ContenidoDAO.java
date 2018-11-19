@@ -11,6 +11,27 @@ import sistinfo.excepciones.ErrorInternoException;
 public class ContenidoDAO {
 	
 	/**
+	 * Incrementa en uno las visitas a un contenido
+	 * @param id ID del contenido a actualizar
+	 * @throws ErrorInternoException 
+	 */
+	public void incrementNumVisitas(Long idContenido) throws ErrorInternoException {
+		Connection connection = ConnectionFactory.getConnection();
+        try {
+        	
+        	PreparedStatement stmt = connection.prepareStatement("UPDATE Contenido SET numVisitas = numVisitas + 1 WHERE idContenido = ?");
+        	stmt.setLong(1, idContenido);
+        	stmt.executeUpdate();
+        	
+        	stmt.close();
+			connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+	}
+	
+	/**
 	 * Obtiene el número de contenidos que están en la cola de validación (estado = PENDIENTE)
 	 * @return Número de elementos de la cola de validación
 	 * @throws ErrorInternoException 

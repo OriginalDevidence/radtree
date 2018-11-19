@@ -78,7 +78,15 @@
 			                        <button type="submit">
 			                            <span><c:out value="${reto.titulo}"/></span><br>
 			                            <span class="titulo-desc">
-			                                <i class="mr-5 color-primary ion-chatbubbles"></i>
+			                                <i class="mr-5 color-primary ion-ios-bolt"></i>
+			                                <c:out value="${reto.numVisitas}"/>
+			                                <c:if test="${reto.numVisitas == 1}">
+			                                	 visita
+			                                </c:if>
+			                                <c:if test="${reto.numVisitas != 1}">
+			                                	 visitas
+			                                </c:if>
+			                                <i class="ml-10 mr-5 color-primary ion-chatbubbles"></i>
 			                                <c:out value="${reto.numComentarios}"/>
 			                                <c:if test="${reto.numComentarios == 1}">
 			                                	 comentario

@@ -90,7 +90,15 @@
 			                        <button type="submit">
 			                            <span><c:out value="${pregunta.enunciado}"/></span>
 			                            <span class="titulo-desc">
-			                                <i class="mr-5 color-primary ion-ios-bolt"></i>
+			                                <i class="ml-10 mr-5 color-primary ion-ios-bolt"></i>
+			                                <c:out value="${pregunta.numVisitas}"/>
+			                                <c:if test="${pregunta.numVisitas == 1}">
+			                                	 visita
+			                               	</c:if>
+			                               	<c:if test="${pregunta.numVisitas != 1}">
+			                                	 visitas
+			                               	</c:if>
+			                                <i class="ml-10 mr-5 color-primary ion-ios-lightbulb"></i>
 			                                <c:out value="${pregunta.vecesContestada}"/>
 			                                <c:if test="${pregunta.vecesContestada == 1}">
 			                                	 vez respondida

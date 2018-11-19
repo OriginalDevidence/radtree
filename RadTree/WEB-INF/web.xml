@@ -235,6 +235,17 @@
 		<filter-name>UsuarioAdministrador</filter-name>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
+    <!-- IncrementarVisitas: Incrementa en 1 las visitas a un contenido -->
+    <filter>
+		<filter-name>IncrementarVisitas</filter-name>
+		<filter-class>sistinfo.filters.contenido.IncrementarVisitasFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>IncrementarVisitas</filter-name>
+		<url-pattern>/noticias/ver</url-pattern>
+		<url-pattern>/preguntas/ver</url-pattern>
+		<url-pattern>/retos/ver</url-pattern>
+	</filter-mapping>
     <!-- ListaUltimasNoticias: Genera una lista con las últimas noticias -->
     <filter>
 		<filter-name>ListaUltimasNoticias</filter-name>
