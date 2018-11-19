@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <footer class="bg-191 color-ccc">
 	<div class="container">
@@ -27,13 +28,19 @@
 					<div class="mb-30">
 						<h5 class="color-primary mb-20"><b>ÚLTIMAS NOTICIAS</b></h5>
 						<div class="mb-20">
-							<a class="color-white" href="51_noticia.html"><b>Secondary forests have short lifespans</b></a>
-							<h6 class="mt-10">Jan 25, 2018</h6>
+							<form name="noticiaUltima1" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+								<input type="hidden" name="id" value="<c:out value="${requestScope.ultima1.idContenido}"/>"/>
+								<button type="submit" class="color-white font-11"><b><c:out value="${requestScope.ultima1.titulo}"/></b></button>
+								<h6 class="mt-10"><c:out value="${requestScope.ultima1.fechaRealizacion}"/></h6>
+							</form>
 						</div>
 						<div class="brdr-ash-1 opacty-2 mr-30"></div>
 						<div class="mt-20">
-							<a class="color-white" href="51_noticia.html"><b>Feeding 10 billion people by 2050 within planetary limits may be achievable</b></a>
-							<h6 class="mt-10">Jan 25, 2018</h6>
+							<form name="noticiaUltima2" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+								<input type="hidden" name="id" value="<c:out value="${requestScope.ultima2.idContenido}"/>"/>
+								<button type="submit" class="color-white font-11"><b><c:out value="${requestScope.ultima2.titulo}"/></b></button>
+								<h6 class="mt-10"><c:out value="${requestScope.ultima2.fechaRealizacion}"/></h6>
+							</form>
 						</div>
 					</div><!-- mb-30 -->
 				</div><!-- col-md-4 -->
@@ -42,13 +49,19 @@
 					<div class="mb-30">
 						<h5 class="color-primary mb-20"><b>NOTICIAS MÁS POPULARES</b></h5>
 						<div class="mb-20">
-							<a class="color-white" href="51_noticia.html"><b>Feeding 10 billion people by 2050 within planetary limits may be achievable</b></a>
-							<h6 class="mt-10">Jan 25, 2018</h6>
+							<form name="noticiaPopular1" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+								<input type="hidden" name="id" value="<c:out value="${requestScope.popular1.idContenido}"/>"/>
+								<button type="submit" class="color-white font-11"><b><c:out value="${requestScope.popular1.titulo}"/></b></button>
+								<h6 class="mt-10"><c:out value="${requestScope.popular1.fechaRealizacion}"/></h6>
+							</form>
 						</div>
 						<div class="brdr-ash-1 opacty-2 mr-30"></div>
 						<div class="mt-20">
-							<a class="color-white" href="51_noticia.html"><b>Secondary forests have short lifespans</b></a>
-							<h6 class="mt-10">Jan 25, 2018</h6>
+							<form name="noticiaPopular2" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+								<input type="hidden" name="id" value="<c:out value="${requestScope.popular2.idContenido}"/>"/>
+								<button type="submit" class="color-white font-11"><b><c:out value="${requestScope.popular2.titulo}"/></b></button>
+								<h6 class="mt-10"><c:out value="${requestScope.popular2.fechaRealizacion}"/></h6>
+							</form>
 						</div>
 					</div><!-- mb-30 -->
 				</div><!-- col-md-4 -->

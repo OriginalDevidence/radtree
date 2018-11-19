@@ -47,12 +47,14 @@
 					<div class="oflow-auto">
 						<table class="w-100 clasificacion mt-30">
 							<tr class="bg-primary">
+								<th>Posición</th>
 								<th>Usuario</th>
 								<th>Preguntas contestadas</th>
 								<th>Puntuación</th>
 							</tr>
-							<c:forEach items="${requestScope.clasificacion}" var="row">
+							<c:forEach items="${requestScope.clasificacion}" var="row" varStatus="loop">
 								<tr>
+									<td><c:out value="${loop.index + 1}"/></td>
 									<td>
 										<form name="perfil" action="${pageContext.request.contextPath}/perfil" method="post">
 											<input type="hidden" name="alias" value="<c:out value='${row.alias}'/>"/>
