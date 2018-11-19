@@ -20,9 +20,12 @@ public class ValidarContenidoServlet extends HttpServlet {
         doPost(request, response);
     }
 
+    /**
+     * Cambiar el estado de un contenido a VALIDADO o BORRADO según la decisión tomada y volver a la cola de validación
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        request.setCharacterEncoding("UTF-8"); // TODO
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         // Comprobar usuario administrador

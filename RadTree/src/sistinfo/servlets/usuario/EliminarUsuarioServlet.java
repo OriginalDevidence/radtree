@@ -18,6 +18,9 @@ public class EliminarUsuarioServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	/**
+	 * Eliminar el usuario que ha iniciado sesión, invalidar su sesión y redirigirlo a la página de inicio
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		// Comprobar que el usuario está logueado

@@ -14,6 +14,9 @@ public class CerrarSesionServlet extends HttpServlet {
         doPost(request, response);
     }
     
+    /**
+     * Invalidar la sesión y volver al index
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	request.getSession().invalidate();
     	response.sendRedirect(request.getContextPath());

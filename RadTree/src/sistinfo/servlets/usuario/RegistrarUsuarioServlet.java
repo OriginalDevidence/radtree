@@ -30,12 +30,12 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	/**
+	 * Inserta un usuario en el sistema si los datos obtenidos son correctos o informa de los
+	 * errores con dos atributos diferentes: errores (mapa) y erroresArriba (lista parte superior)
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		/*
-		 * TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding
-		 * todo el rato
-		 */
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 

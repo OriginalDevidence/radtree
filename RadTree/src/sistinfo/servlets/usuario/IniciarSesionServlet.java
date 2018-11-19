@@ -20,9 +20,11 @@ public class IniciarSesionServlet extends HttpServlet {
         doPost(request, response);
     }
     
+    /**
+     * Inicio de sesión, comprueba los credenciales e informa de si ha habido error (sin especificar el tipo)
+     */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         

@@ -25,12 +25,12 @@ public class EditarUsuarioServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	/**
+	 * Edita los datos de un usuario ya registrado en el sistema según los datos pasados por la request
+	 * También informa de los errores mediante el atributo errores (mapa)
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		/*
-		 * TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding
-		 * todo el rato
-		 */
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
@@ -39,13 +39,6 @@ public class EditarUsuarioServlet extends HttpServlet {
     	if (usuario == null) {
     		response.sendRedirect(request.getContextPath() + "/error-interno");
     	} else {
-    		
-			/*
-			 * TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding
-			 * todo el rato
-			 */
-			request.setCharacterEncoding("UTF-8");
-			response.setCharacterEncoding("UTF-8");
 	
 			Map<String, String> errores = new HashMap<String, String>();
 			UsuarioVO usuarioEditado = extractUsuarioFromHttpRequest(request, errores, usuario);
