@@ -16,6 +16,7 @@
 	    <url-pattern>/registrar</url-pattern>
 	</servlet-mapping>
 
+
 	<servlet>
 	    <servlet-name>InicioSesion</servlet-name>
 	    <jsp-file>/jsp/usuarios/inicioSesion.jsp</jsp-file>
@@ -24,6 +25,7 @@
 	    <servlet-name>InicioSesion</servlet-name>
 	    <url-pattern>/iniciar-sesion</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>Perfil</servlet-name>
 	    <jsp-file>/jsp/usuarios/perfil.jsp</jsp-file>
@@ -32,6 +34,7 @@
 	    <servlet-name>Perfil</servlet-name>
 	    <url-pattern>/perfil</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>EditarPerfil</servlet-name>
 	    <jsp-file>/jsp/usuarios/editarPerfil.jsp</jsp-file>
@@ -40,6 +43,7 @@
 	    <servlet-name>EditarPerfil</servlet-name>
 	    <url-pattern>/perfil/editar</url-pattern>
 	</servlet-mapping>
+
 	<!-- === Contenido === -->
 	<servlet>
 	    <servlet-name>ListaNoticias</servlet-name>
@@ -49,6 +53,7 @@
 	    <servlet-name>ListaNoticias</servlet-name>
 	    <url-pattern>/noticias</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>Noticia</servlet-name>
 	    <jsp-file>/jsp/carteles/noticia.jsp</jsp-file>
@@ -57,6 +62,7 @@
 	    <servlet-name>Noticia</servlet-name>
 	    <url-pattern>/noticias/ver</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>ListaPreguntas</servlet-name>
 	    <jsp-file>/jsp/carteles/listaDePreguntas.jsp</jsp-file>
@@ -65,6 +71,7 @@
 	    <servlet-name>ListaPreguntas</servlet-name>
 	    <url-pattern>/preguntas</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>Pregunta</servlet-name>
 	    <jsp-file>/jsp/carteles/pregunta.jsp</jsp-file>
@@ -73,6 +80,7 @@
 	    <servlet-name>Pregunta</servlet-name>
 	    <url-pattern>/preguntas/ver</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>ListaRetos</servlet-name>
 	    <jsp-file>/jsp/carteles/listaDeRetos.jsp</jsp-file>
@@ -81,6 +89,7 @@
 	    <servlet-name>ListaRetos</servlet-name>
 	    <url-pattern>/retos</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>Reto</servlet-name>
 	    <jsp-file>/jsp/carteles/reto.jsp</jsp-file>
@@ -89,6 +98,7 @@
 	    <servlet-name>Reto</servlet-name>
 	    <url-pattern>/retos/ver</url-pattern>
 	</servlet-mapping>
+
 	<!-- === Varios === -->
 	<servlet>
 	    <servlet-name>Usuarios</servlet-name>
@@ -98,6 +108,7 @@
 	    <servlet-name>Usuarios</servlet-name>
 	    <url-pattern>/usuarios</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>Clasificacion</servlet-name>
 	    <jsp-file>/jsp/clasificacion.jsp</jsp-file>
@@ -106,6 +117,7 @@
 	    <servlet-name>Clasificacion</servlet-name>
 	    <url-pattern>/clasificacion</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>QuienesSomos</servlet-name>
 	    <jsp-file>/jsp/quienesSomos.jsp</jsp-file>
@@ -114,6 +126,7 @@
 	    <servlet-name>QuienesSomos</servlet-name>
 	    <url-pattern>/quienes-somos</url-pattern>
 	</servlet-mapping>
+
 	<!-- === Gestión contenido === -->
 	<servlet>
 	    <servlet-name>GestionContenido</servlet-name>
@@ -123,6 +136,7 @@
 	    <servlet-name>GestionContenido</servlet-name>
 	    <url-pattern>/gestion-contenido</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>ColaValidacion</servlet-name>
 	    <jsp-file>/jsp/gestion-contenido/colaValidacion.jsp</jsp-file>
@@ -131,6 +145,7 @@
 	    <servlet-name>ColaValidacion</servlet-name>
 	    <url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>CreacionNoticia</servlet-name>
 	    <jsp-file>/jsp/gestion-contenido/crearNoticia.jsp</jsp-file>
@@ -139,6 +154,7 @@
 	    <servlet-name>CreacionNoticia</servlet-name>
 	    <url-pattern>/gestion-contenido/crear-noticia</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>CreacionPregunta</servlet-name>
 	    <jsp-file>/jsp/gestion-contenido/crearPregunta.jsp</jsp-file>
@@ -147,6 +163,7 @@
 	    <servlet-name>CreacionPregunta</servlet-name>
 	    <url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>CreacionReto</servlet-name>
 	    <jsp-file>/jsp/gestion-contenido/crearReto.jsp</jsp-file>
@@ -155,6 +172,7 @@
 	    <servlet-name>CreacionReto</servlet-name>
 	    <url-pattern>/gestion-contenido/crear-reto</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>EdicionNoticia</servlet-name>
 	    <jsp-file>/jsp/gestion-contenido/editarNoticia.jsp</jsp-file>
@@ -163,6 +181,7 @@
 	    <servlet-name>EdicionNoticia</servlet-name>
 	    <url-pattern>/gestion-contenido/editar-noticia</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>EdicionPregunta</servlet-name>
 	    <jsp-file>/jsp/gestion-contenido/editarPregunta.jsp</jsp-file>
@@ -171,6 +190,7 @@
 	    <servlet-name>EdicionPregunta</servlet-name>
 	    <url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
 	</servlet-mapping>
+
 	<servlet>
 	    <servlet-name>EdicionReto</servlet-name>
 	    <jsp-file>/jsp/gestion-contenido/editarReto.jsp</jsp-file>
@@ -179,6 +199,7 @@
 	    <servlet-name>EdicionReto</servlet-name>
 	    <url-pattern>/gestion-contenido/editar-reto</url-pattern>
 	</servlet-mapping>
+
 	<!-- === Error interno === -->
 	<servlet>
 	    <servlet-name>ErrorInterno</servlet-name>
@@ -188,6 +209,7 @@
 	    <servlet-name>ErrorInterno</servlet-name>
 	    <url-pattern>/error-interno</url-pattern>
 	</servlet-mapping>
+
     <!-- ================ Filtros ================ -->
     <!-- NoticiasFooter: Cargar las noticias para mostrar en el footer -->
     <filter>
@@ -217,6 +239,7 @@
 		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
 		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
 	</filter-mapping>
+
     <!-- RedirectPerfilUsuarioLogueado: Para evitar que un usuario logueado acceda a páginas de usuarios no registrados -->
     <filter>
 		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
@@ -227,6 +250,7 @@
 		<url-pattern>/registrar</url-pattern>
 		<url-pattern>/iniciar-sesion</url-pattern>
 	</filter-mapping>
+
     <!-- ObtenerUsuarioPerfil: Obtiene un usuario para mostrar en el perfil -->
     <filter>
 		<filter-name>ObtenerUsuarioPerfil</filter-name>
@@ -238,6 +262,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+
     <!-- UsuarioParticipante: Se asegura de que haya un usuario logueado -->
     <filter>
 		<filter-name>UsuarioParticipante</filter-name>
@@ -247,6 +272,7 @@
 		<filter-name>UsuarioParticipante</filter-name>
 		<url-pattern>/perfil/editar</url-pattern>
 	</filter-mapping>
+
     <!-- UsuarioCreador: Se asegura de que haya un usuario logueado y que sea creador o administador -->
     <filter>
 		<filter-name>UsuarioCreador</filter-name>
@@ -262,6 +288,7 @@
 		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
 		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
 	</filter-mapping>
+
     <!-- UsuarioParticipante: Se asegura de que haya un usuario logueado y que sea administrador -->
     <filter>
 		<filter-name>UsuarioAdministrador</filter-name>
@@ -271,6 +298,7 @@
 		<filter-name>UsuarioAdministrador</filter-name>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
+
     <!-- IncrementarVisitas: Incrementa en 1 las visitas a un contenido -->
     <filter>
 		<filter-name>IncrementarVisitas</filter-name>
@@ -282,6 +310,7 @@
 		<url-pattern>/preguntas/ver</url-pattern>
 		<url-pattern>/retos/ver</url-pattern>
 	</filter-mapping>
+
     <!-- ListaUltimasNoticias: Genera una lista con las últimas noticias -->
     <filter>
 		<filter-name>ListaUltimasNoticias</filter-name>
@@ -291,6 +320,7 @@
 		<filter-name>ListaUltimasNoticias</filter-name>
 		<url-pattern>/noticias</url-pattern>
 	</filter-mapping>
+
     <!-- CargarNoticia: Carga una noticia según el parámetro de ID pasado -->
     <filter>
 		<filter-name>CargarNoticia</filter-name>
@@ -303,6 +333,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+
     <!-- ListaUltimasPreguntas: Genera una lista con las últimas preguntas -->
     <filter>
 		<filter-name>ListaUltimasPreguntas</filter-name>
@@ -312,6 +343,7 @@
 		<filter-name>ListaUltimasPreguntas</filter-name>
 		<url-pattern>/preguntas</url-pattern>
 	</filter-mapping>
+
     <!-- CargarPregunta: Carga una pregunta y sus respuestas según el parámetro de ID pasado
     <filter>
 		<filter-name>CargarPregunta</filter-name>
@@ -323,7 +355,8 @@
 		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>-->
+	</filter-mapping>
+-->
     <!-- ListaUltimosRetos: Genera una lista con los últimos retos -->
     <filter>
 		<filter-name>ListaUltimosRetos</filter-name>
@@ -333,6 +366,7 @@
 		<filter-name>ListaUltimosRetos</filter-name>
 		<url-pattern>/retos</url-pattern>
 	</filter-mapping>
+
     <!-- CargarReto: Carga un reto según el parámetro de ID pasado -->
     <filter>
 		<filter-name>CargarReto</filter-name>
@@ -345,6 +379,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+
 	<!-- CargarPregunta: Carga una pregunta según el parámetro de ID pasado -->
     <filter>
 		<filter-name>CargarPregunta</filter-name>
@@ -357,6 +392,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+
     <!-- CargarComentarios: Carga los comentarios de un contenido -->
     <filter>
 		<filter-name>CargarComentarios</filter-name>
@@ -370,6 +406,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+
     <!-- GenerarClasificacion: Devuelve la clasificacion de usuarios por puntos -->
     <filter>
 		<filter-name>GenerarClasificacion</filter-name>
@@ -379,6 +416,7 @@
 		<filter-name>GenerarClasificacion</filter-name>
 		<url-pattern>/clasificacion</url-pattern>
 	</filter-mapping>
+
     <!-- NumeroColaValidacion: Devuelve los elementos de la cola de validacion -->
     <filter>
 		<filter-name>NumeroColaValidacion</filter-name>
@@ -389,6 +427,7 @@
 		<url-pattern>/gestion-contenido</url-pattern>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
+
     <!-- ListarMiContenido: Devuelve una lista con el contenido no borrado subido por el usuario -->
     <filter>
 		<filter-name>ListarMiContenido</filter-name>
@@ -398,6 +437,7 @@
 		<filter-name>ListarMiContenido</filter-name>
 		<url-pattern>/gestion-contenido</url-pattern>
 	</filter-mapping>
+
     <!-- ElementoColaValidacion: Devuelve los elementos de la cola de validacion -->
     <filter>
 		<filter-name>ElementoColaValidacion</filter-name>
@@ -407,6 +447,7 @@
 		<filter-name>ElementoColaValidacion</filter-name>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
+
     <!-- ================ Servlets usuario ================ -->
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
@@ -416,6 +457,7 @@
         <servlet-name>RegistrarUsuario</servlet-name>
         <url-pattern>/registrar/registro</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>IniciarSesion</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.IniciarSesionServlet</servlet-class>
@@ -424,6 +466,7 @@
         <servlet-name>IniciarSesion</servlet-name>
         <url-pattern>/iniciar-sesion/inicio</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>CerrarSesion</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.CerrarSesionServlet</servlet-class>
@@ -432,6 +475,7 @@
         <servlet-name>CerrarSesion</servlet-name>
         <url-pattern>/perfil/cerrar-sesion</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EditarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.EditarUsuarioServlet</servlet-class>
@@ -440,6 +484,7 @@
         <servlet-name>EditarUsuario</servlet-name>
         <url-pattern>/perfil/editar-usuario</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>EliminarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.EliminarUsuarioServlet</servlet-class>
@@ -448,6 +493,7 @@
         <servlet-name>EliminarUsuario</servlet-name>
         <url-pattern>/perfil/eliminar</url-pattern>
     </servlet-mapping>
+
     <!-- ============ Servlets Contenido ============ -->
     <servlet>
         <servlet-name>EnviarComentario</servlet-name>
@@ -459,6 +505,16 @@
 		<url-pattern>/preguntas/comentar</url-pattern>
 		<url-pattern>/retos/comentar</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+        <servlet-name>ContestarPregunta</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.ContestarPreguntaServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>ContestarPregunta</servlet-name>
+		<url-pattern>/preguntas/contestar</url-pattern>
+	</servlet-mapping>
+
     <servlet>
         <servlet-name>CrearNoticia</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.CrearNoticiaServlet</servlet-class>
@@ -468,6 +524,7 @@
 		<url-pattern>/gestion-contenido/crear-noticia/crear</url-pattern>
 		<url-pattern>/gestion-contenido/editar-noticia/editar</url-pattern>
 	</servlet-mapping>
+
     <servlet>
         <servlet-name>CrearPregunta</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.CrearPreguntaServlet</servlet-class>
@@ -476,6 +533,7 @@
 	    <servlet-name>CrearPregunta</servlet-name>
 		<url-pattern>/gestion-contenido/crear-pregunta/crear</url-pattern>
 	</servlet-mapping>
+
     <servlet>
         <servlet-name>CrearReto</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.CrearRetoServlet</servlet-class>
@@ -485,6 +543,7 @@
 		<url-pattern>/gestion-contenido/crear-reto/crear</url-pattern>
 		<url-pattern>/gestion-contenido/editar-reto/editar</url-pattern>
 	</servlet-mapping>
+
     <servlet>
         <servlet-name>ValidarContenido</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.ValidarContenidoServlet</servlet-class>
@@ -493,6 +552,7 @@
 	    <servlet-name>ValidarContenido</servlet-name>
 		<url-pattern>/gestion-contenido/cola-validacion/validar</url-pattern>
 	</servlet-mapping>
+
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
         <welcome-file>/jsp/index.jsp</welcome-file>

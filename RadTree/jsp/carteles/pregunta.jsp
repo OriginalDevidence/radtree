@@ -46,7 +46,7 @@
 					<h3 class="mb-10"><b><c:out value="${requestScope.pregunta.enunciado}"/></b></h3>
 					<p class="mb-30"><i><c:out value="${requestScope.autorCompleto}"/></i></p>
 
-					<form class="pregunta" name="enviarPregunta" action="TODO.do" method="post">
+					<form class="pregunta" name="enviarPregunta" action="" method="post">
 					
 						<c:set var = "i" value = "${1}"/>
 						<c:forEach items="${requestScope.respuestas}" var="respuesta">
