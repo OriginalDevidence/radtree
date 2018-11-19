@@ -283,7 +283,7 @@
 		<filter-name>ListaUltimasNoticias</filter-name>
 		<url-pattern>/noticias</url-pattern>
 	</filter-mapping>
-    <!-- CargarNoticia: Carga un reto según el parámetro de ID pasado -->
+    <!-- CargarNoticia: Carga una noticia según el parámetro de ID pasado -->
     <filter>
 		<filter-name>CargarNoticia</filter-name>
 		<filter-class>sistinfo.filters.contenido.CargarNoticiaFilter</filter-class>
@@ -334,6 +334,18 @@
 		<filter-name>CargarReto</filter-name>
 		<url-pattern>/retos/ver</url-pattern>
 		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<!-- CargarPregunta: Carga una pregunta según el parámetro de ID pasado -->
+    <filter>
+		<filter-name>CargarPregunta</filter-name>
+		<filter-class>sistinfo.filters.contenido.CargarPreguntaFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CargarPregunta</filter-name>
+		<url-pattern>/preguntas/ver</url-pattern>
+		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
