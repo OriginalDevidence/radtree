@@ -22,10 +22,12 @@ public class UsuarioCreadorFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Redirige a la página de inicio de sesión a los usuarios no logueados o que no sean administradores o creadores
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		

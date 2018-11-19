@@ -24,16 +24,20 @@ public class GenerarClasificacionFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Obtiene los datos de los 10 primeros usuarios de la clasificación y los incluye en la request, en el atributo clasificacion
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		
 		if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
 			HttpServletRequest request = (HttpServletRequest)servletRequest;
 			HttpServletResponse response = (HttpServletResponse)servletResponse;
+			
+			// Obtener datos clasificación
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 			try {
 				List<ClasificacionVO> clasificacion = usuarioDAO.getClasificacion(10);

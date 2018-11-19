@@ -3,6 +3,10 @@ package sistinfo.capadatos.vo;
 @SuppressWarnings("serial")
 public class ClasificacionVO implements java.io.Serializable{
 	
+	/**
+	 * Datos para la clasificación de usuarios
+	 */
+	
 	private String alias;	
 	private Long preguntasContestadas;
 	private Long puntuacion;

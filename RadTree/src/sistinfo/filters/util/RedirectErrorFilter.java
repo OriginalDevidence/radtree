@@ -18,10 +18,12 @@ public class RedirectErrorFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Redirigir forzadamente a la página de error interno
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		

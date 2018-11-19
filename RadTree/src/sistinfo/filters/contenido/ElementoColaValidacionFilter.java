@@ -33,10 +33,15 @@ public class ElementoColaValidacionFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Obtiene datos del contenido a visualizar en la cola de validación actualmente
+	 * Almacena los datos comunes a los 3 tipos (noticia, pregunta, reto) en el atributo contenido
+	 * y los datos especificos a cada tipo en un atributo igual al nombre de su tipo
+	 * También guarda información sobre su autor en los atributos alias y autorCompleto
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		

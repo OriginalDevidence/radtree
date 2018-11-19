@@ -59,16 +59,15 @@ public class ComentarioDAO {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Comentario VALUES (NULL, ?, ?, ?, ?, ?, ?)");
+        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Comentario VALUES (NULL, ?, ?, ?, ?, ?)");
         	stmt.setLong(1, comentario.getIdAutor());
         	stmt.setLong(2, comentario.getIdContenido());
         	stmt.setString(3, comentario.getCuerpo());
-        	stmt.setLong(4, comentario.getNumLikes()); // numLikes
-        	stmt.setDate(5, comentario.getFecha()); // fecha
+        	stmt.setDate(4, comentario.getFecha());
         	if (comentario.getRespuestaDe() == null) {
-            	stmt.setNull(6, java.sql.Types.BIGINT);
+            	stmt.setNull(5, java.sql.Types.BIGINT);
         	} else {
-            	stmt.setLong(6, comentario.getRespuestaDe());
+            	stmt.setLong(5, comentario.getRespuestaDe());
         	}
         	int result = stmt.executeUpdate();
             
@@ -95,14 +94,13 @@ public class ComentarioDAO {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("UPDATE Comentario SET idAutor=?, idContenido=?, cuerpo=?, numLikes=?, fecha=?, respuestaDe=? WHERE idComentario=?");
+        	PreparedStatement stmt = connection.prepareStatement("UPDATE Comentario SET idAutor=?, idContenido=?, cuerpo=?, fecha=?, respuestaDe=? WHERE idComentario=?");
         	stmt.setLong(1, comentario.getIdAutor());
         	stmt.setLong(2, comentario.getIdContenido());
         	stmt.setString(3, comentario.getCuerpo());
-        	stmt.setLong(4, comentario.getNumLikes());
-        	stmt.setDate(5, comentario.getFecha());
-        	stmt.setLong(6, comentario.getRespuestaDe());
-        	stmt.setLong(7, comentario.getIdComentario());
+        	stmt.setDate(4, comentario.getFecha());
+        	stmt.setLong(5, comentario.getRespuestaDe());
+        	stmt.setLong(6, comentario.getIdComentario());
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
@@ -201,7 +199,6 @@ public class ComentarioDAO {
          	rs.getLong("idAutor"),
          	rs.getLong("idContenido"),
          	rs.getString("cuerpo"),
-         	rs.getInt("numLikes"),
          	rs.getDate("fecha"),
          	rs.getLong("respuestaDe"),
          	rs.getString("autor")

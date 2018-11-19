@@ -22,10 +22,12 @@ public class NumeroColaValidacionFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Coloca en la request el número de elementos que hay en la cola de validación, en un atributo "numInValidacion"
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		

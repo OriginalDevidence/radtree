@@ -25,27 +25,32 @@ public class ListaRetosFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Obtiene los datos de los retos validados del sistema e incluirlo en el atributo retos
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		
 		if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
 			HttpServletRequest request = (HttpServletRequest)servletRequest;
 			HttpServletResponse response = (HttpServletResponse)servletResponse;
-			
+
+			// Barra de búsqueda: string a buscar
 			String busqueda = request.getParameter("busqueda");
 			RetoDAO retoDAO = new RetoDAO();
 			ComentarioDAO comentarioDAO = new ComentarioDAO();
 			try {
+				// Según la barra de busqueda obtener las preguntas con unas caracteristicas u otras
 				List<RetoVO> retos;
 				if (busqueda == null || busqueda.trim().isEmpty()) {
 					retos = retoDAO.getRetosUltimos(10);
 				} else {
 					retos = retoDAO.getRetosBySearch(busqueda, 10);
 				}
+				// Añadir información especial e incluirlo en la request
 				retos = comentarioDAO.addNumComentariosToContenido(retos);
 				request.setAttribute("retos", retos);
 			} catch (ErrorInternoException e) {

@@ -23,15 +23,18 @@ public class CrearNoticiaServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	/**
+	 * Inserta una noticia en la base de datos si los datos introducidos son correctos o muestra los errores que hayan ocurrido
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
 		Map<String, String> errores = new HashMap<String, String>();
 		NoticiaVO noticia = extractNoticiaFromHttpRequest(request, errores);
 
+		/* TODO comprobar usuario autor */
 		if (noticia != null) {
 			NoticiaDAO noticiaDAO = new NoticiaDAO();
 			try {

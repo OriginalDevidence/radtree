@@ -8,7 +8,6 @@ public class ComentarioVO implements java.io.Serializable {
 	private Long idAutor;
 	private Long idContenido;
 	private String cuerpo;
-	private Integer numLikes;
 	private Date fecha;
 	private Long respuestaDe;
 	
@@ -16,12 +15,11 @@ public class ComentarioVO implements java.io.Serializable {
 	private String autor;
 	private String autorPadre;
 	
-	public ComentarioVO(Long idAutor, Long idContenido, String cuerpo, Integer numLikes, Date fecha,
+	public ComentarioVO(Long idAutor, Long idContenido, String cuerpo, Date fecha,
 			Long respuestaDe) {
 		this.idAutor = idAutor;
 		this.idContenido = idContenido;
 		this.cuerpo = cuerpo;
-		this.numLikes = numLikes;
 		this.fecha = fecha;
 		this.respuestaDe = respuestaDe;
 
@@ -29,26 +27,24 @@ public class ComentarioVO implements java.io.Serializable {
 		this.autorPadre = null;
 	}
 	
-	public ComentarioVO(Long idComentario, Long idAutor, Long idContenido, String cuerpo, Integer numLikes, Date fecha,
+	public ComentarioVO(Long idComentario, Long idAutor, Long idContenido, String cuerpo, Date fecha,
 			Long respuestaDe) {
 		this.idComentario = idComentario;
 		this.idAutor = idAutor;
 		this.idContenido = idContenido;
 		this.cuerpo = cuerpo;
-		this.numLikes = numLikes;
 		this.fecha = fecha;
 		this.respuestaDe = respuestaDe;
 		this.autor = null;
 		this.autorPadre = null;
 	}
 	
-	public ComentarioVO(Long idComentario, Long idAutor, Long idContenido, String cuerpo, Integer numLikes, Date fecha,
+	public ComentarioVO(Long idComentario, Long idAutor, Long idContenido, String cuerpo, Date fecha,
 			 Long respuestaDe, String nombreAutor) {
 		this.idComentario = idComentario;
 		this.idAutor = idAutor;
 		this.idContenido = idContenido;
 		this.cuerpo = cuerpo;
-		this.numLikes = numLikes;
 		this.fecha = fecha;
 		this.respuestaDe = respuestaDe;
 		this.autor = nombreAutor;
@@ -78,12 +74,6 @@ public class ComentarioVO implements java.io.Serializable {
 	}
 	public void setCuerpo(String cuerpo) {
 		this.cuerpo = cuerpo;
-	}
-	public Integer getNumLikes() {
-		return numLikes;
-	}
-	public void setNumLikes(Integer numLikes) {
-		this.numLikes = numLikes;
 	}
 	public Date getFecha() {
 		return fecha;

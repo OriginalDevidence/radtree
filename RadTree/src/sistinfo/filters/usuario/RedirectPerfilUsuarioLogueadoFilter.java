@@ -21,16 +21,19 @@ public class RedirectPerfilUsuarioLogueadoFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Redirige a la página de su perfil a los usuarios que hayan iniciado sesión
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		
 		if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
 			HttpServletRequest request = (HttpServletRequest)servletRequest;
 			HttpServletResponse response = (HttpServletResponse)servletResponse;
+			
 			UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 			if (usuario != null) {
 				// Forward a la página de perfil con el usuario

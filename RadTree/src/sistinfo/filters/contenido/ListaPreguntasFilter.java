@@ -26,10 +26,12 @@ public class ListaPreguntasFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Obtiene los datos de las preguntas validadas del sistema e incluirlo en el atributo preguntas
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		
@@ -37,6 +39,7 @@ public class ListaPreguntasFilter implements Filter {
 			HttpServletRequest request = (HttpServletRequest)servletRequest;
 			HttpServletResponse response = (HttpServletResponse)servletResponse;
 			
+			// Barra de búsqueda: string a buscar y filtrar por preguntas no contestadas o no
 			String busqueda = request.getParameter("busqueda");
 			String noContestadasString = request.getParameter("noContestadas");
 			boolean noContestadas = noContestadasString != null && request.getSession().getAttribute("usuario") != null && noContestadasString.equals("on");
@@ -44,6 +47,7 @@ public class ListaPreguntasFilter implements Filter {
 			PreguntaDAO preguntaDAO = new PreguntaDAO();
 			ComentarioDAO comentarioDAO = new ComentarioDAO();
 			try {
+				// Según la barra de busqueda obtener las preguntas con unas caracteristicas u otras
 				List<PreguntaVO> preguntas;
 				if (busqueda == null || busqueda.trim().isEmpty()) {
 					if (noContestadas) {
@@ -58,12 +62,13 @@ public class ListaPreguntasFilter implements Filter {
 						preguntas = preguntaDAO.getPreguntasBySearch(busqueda, 10);
 					}
 				}
+				// Añadir información especial e incluirlo en la request
 				preguntas = comentarioDAO.addNumComentariosToContenido(preguntas);
 				preguntas = preguntaDAO.addVecesContestadaToPregunta(preguntas);
 				request.setAttribute("preguntas", preguntas);
 			} catch (ErrorInternoException e) {
 				e.printStackTrace();
-				response.sendRedirect("error-interno");
+				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
 			filterChain.doFilter(request, response);
 		}

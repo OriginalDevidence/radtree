@@ -27,10 +27,14 @@ public class CargarRetoFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Carga los datos de un reto y lo almacena en el atributo reto,
+	 * además almacena información sobre su autor en los atributos autorAlias y autorCompleto.
+	 * También guarda información sobre el redirect y el id de contenido (necesario para los comentarios)
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
         

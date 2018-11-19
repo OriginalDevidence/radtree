@@ -12,18 +12,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sistinfo.capadatos.dao.ContenidoDAO;
 import sistinfo.capadatos.dao.NoticiaDAO;
 import sistinfo.capadatos.dao.PreguntaDAO;
 import sistinfo.capadatos.dao.RetoDAO;
-import sistinfo.capadatos.dao.UsuarioDAO;
 import sistinfo.capadatos.vo.NoticiaVO;
 import sistinfo.capadatos.vo.PreguntaVO;
-import sistinfo.capadatos.vo.RespuestaVO;
 import sistinfo.capadatos.vo.RetoVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
-import sistinfo.util.RequestExtractor;
 
 public class ListarMiContenidoFilter implements Filter {
 
@@ -33,10 +29,12 @@ public class ListarMiContenidoFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Obtiene los datos del contenido subido por el usuario de un tipo concreto (parametro tipoContenido por POST) y mostrarlo
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		
@@ -70,6 +68,7 @@ public class ListarMiContenidoFilter implements Filter {
 					} catch (ErrorInternoException e) {
 						response.sendRedirect(request.getContextPath() + "/error-interno");
 					}
+					
 				} else if (contentType.equals("pregunta")) {
 					request.setAttribute("contenidoPathNameView", "preguntas");
 					request.setAttribute("contenidoPathNameEdit", "pregunta");
@@ -80,6 +79,7 @@ public class ListarMiContenidoFilter implements Filter {
 					} catch (ErrorInternoException e) {
 						response.sendRedirect(request.getContextPath() + "/error-interno");
 					}
+					
 				} else if (contentType.equals("reto")) {
 					request.setAttribute("contenidoPathNameView", "retos");
 					request.setAttribute("contenidoPathNameEdit", "reto");
@@ -90,6 +90,10 @@ public class ListarMiContenidoFilter implements Filter {
 					} catch (ErrorInternoException e) {
 						response.sendRedirect(request.getContextPath() + "/error-interno");
 					}
+					
+				} else {
+					// No sabemos qué tipo de contenido mostrar
+					response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
 			}
 			

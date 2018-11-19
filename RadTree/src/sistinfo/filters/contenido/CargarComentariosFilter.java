@@ -29,10 +29,14 @@ public class CargarComentariosFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Cargar los comentarios correspondientes a un contenido con un ID
+	 * Coloca en la request los comentarios en el atributo commentarios (en una lista ordenada por fecha realización y respuestas)
+	 * y también un mapa que indica dónde esta alojada la foto de perfil de cada ID usuario en el atributo profileImages
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
         

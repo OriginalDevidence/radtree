@@ -24,10 +24,13 @@ public class ObtenerUsuarioPerfilFilter implements Filter {
 		this.filterConfig = filterConfig;
 	}
 
+	/**
+	 * Obtener los datos de un usuario ya sea por el alias pasado por parámetro, o si no se ha recibido un alias
+	 * por el usuario que esté logueado actualmente
+	 */
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		
-    	/* TODO buscar una forma mejor para hacer esto sin tener que cambiar el encoding todo el rato */
 		servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
 		

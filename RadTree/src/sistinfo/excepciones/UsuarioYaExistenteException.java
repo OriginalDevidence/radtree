@@ -1,5 +1,8 @@
 package sistinfo.excepciones;
 
+/**
+ * No se puede insertar/actualizar el usuario en la base de datos ya que hay problemas con los campos únicos (alias, email)
+ */
 @SuppressWarnings("serial")
 public class UsuarioYaExistenteException extends Exception {
   boolean aliasExistente;
