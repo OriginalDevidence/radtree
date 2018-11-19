@@ -11,9 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sistinfo.capadatos.dao.RetoDAO;
+import sistinfo.capadatos.dao.PreguntaDAO;
 import sistinfo.capadatos.dao.UsuarioDAO;
-import sistinfo.capadatos.vo.RetoVO;
+import sistinfo.capadatos.vo.PreguntaVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.util.RequestExtractor;
@@ -27,7 +27,7 @@ public class CargarPreguntaFilter implements Filter {
 	}
 
 	/**
-	 * Carga los datos de un reto y lo almacena en el atributo reto,
+	 * Carga los datos de un pregunta y lo almacena en el atributo pregunta,
 	 * además almacena información sobre su autor en los atributos autorAlias y autorCompleto.
 	 * También guarda información sobre el redirect y el id de contenido (necesario para los comentarios)
 	 */
@@ -47,28 +47,28 @@ public class CargarPreguntaFilter implements Filter {
 				// Buscar en atributos (despues de postear comentario) en lugar de parametros
 				idContenido = (Long)request.getAttribute("id");
 				if (idContenido == null || idContenido <= 0L) {
-					// No sabemos qué reto mostrar
-					response.sendRedirect(request.getContextPath() + "/retos");
+					// No sabemos qué pregunta mostrar
+					response.sendRedirect(request.getContextPath() + "/preguntas");
 				}
 			}
 			if (idContenido != null && idContenido > 0L) {
 				// Atributos para los comentarios
-				request.setAttribute("redirect", "retos/ver");
+				request.setAttribute("redirect", "preguntas/ver");
 				request.setAttribute("id", idContenido);
-				// Cargar el reto con ese ID y el usuario autor
-				RetoDAO retoDAO = new RetoDAO();
+				// Cargar el pregunta con ese ID y el usuario autor
+				PreguntaDAO preguntaDAO = new PreguntaDAO();
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				try {
-					RetoVO reto = retoDAO.getRetoById(idContenido);
-					if (reto == null) {
+					PreguntaVO pregunta = preguntaDAO.getPreguntaById(idContenido);
+					if (pregunta == null) {
 						// El contenido no existe (o no debería ser mostrado)
-			            response.sendRedirect(request.getContextPath() + "/retos");
+			            response.sendRedirect(request.getContextPath() + "/preguntas");
 					} else {
-						UsuarioVO usuario = usuarioDAO.getUsuarioById(reto.getIdAutor());
+						UsuarioVO usuario = usuarioDAO.getUsuarioById(pregunta.getIdAutor());
 						if (usuario == null) {
 				            response.sendRedirect(request.getContextPath() + "/error-interno");
 						} else {
-							request.setAttribute("reto", reto);
+							request.setAttribute("pregunta", pregunta);
 							request.setAttribute("autorAlias", usuario.getAlias());
 							request.setAttribute("autorCompleto", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
 						}
