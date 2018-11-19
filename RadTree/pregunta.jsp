@@ -44,7 +44,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h3 class="mb-10"><b><c:out value="${requestScope.pregunta.enunciado}"/></b></h3>
-					<p class="mb-30"><i><c:out value="${requestScope.pregunta.enunciado}"/></i></p>
+					<p class="mb-30"><i><c:out value="${requestScope.autorCompleto}"/></i></p>
 
 					<form class="pregunta" name="enviarPregunta" action="TODO.do" method="post">
 					

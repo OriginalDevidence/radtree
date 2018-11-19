@@ -1,6 +1,7 @@
 package sistinfo.filters.contenido;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.dao.PreguntaDAO;
 import sistinfo.capadatos.dao.UsuarioDAO;
 import sistinfo.capadatos.vo.PreguntaVO;
+import sistinfo.capadatos.vo.RespuestaVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.util.RequestExtractor;
@@ -72,6 +74,11 @@ public class CargarPreguntaFilter implements Filter {
 							request.setAttribute("autorAlias", usuario.getAlias());
 							request.setAttribute("autorCompleto", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
 						}
+						// Según la barra de busqueda obtener las preguntas con unas caracteristicas u otras
+						List<RespuestaVO> respuestas;
+						respuestas = preguntaDAO.getRespuestasByPregunta(pregunta.getIdContenido());
+						
+						request.setAttribute("respuestas", respuestas);
 					}
 				} catch (ErrorInternoException e) {
 		            response.sendRedirect(request.getContextPath() + "/error-interno");

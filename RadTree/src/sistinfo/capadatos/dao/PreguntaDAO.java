@@ -174,7 +174,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return La respuesta si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public List<RespuestaVO> getRespuestasByPregunta(Long idPregunta) {
+	public List<RespuestaVO> getRespuestasByPregunta(Long idPregunta) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
 		List<RespuestaVO> listRespuesta = new ArrayList<RespuestaVO>();
         try {
