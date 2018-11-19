@@ -124,7 +124,7 @@
 						</div><!-- col-sm-6 -->
 
 					</div>
-					<a class="dplay-block btn-brdr-primary mt-30 mb-md-50" href="20_quienesSomos.html"><b>Haz click aquí para saber más sobre nosotros</b></a>
+					<a class="dplay-block btn-brdr-primary mt-30 mb-md-50" href="${pageContext.request.contextPath}/quienes-somos"><b>Haz click aquí para saber más sobre nosotros</b></a>
 				</div><!-- col-md-9 -->
 				
 				<div class="d-none d-md-block d-lg-none col-md-3"></div>
