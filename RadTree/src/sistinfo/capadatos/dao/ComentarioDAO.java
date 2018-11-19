@@ -154,7 +154,7 @@ public class ComentarioDAO {
         List<ComentarioVO> comentarios = new ArrayList<ComentarioVO>();
         try {
         	
-        	PreparedStatement stmt = connection.prepareStatement("SELECT idComentario, idAutor, idContenido, cuerpo, numLikes, fecha, respuestaDe, alias \'autor\'"
+        	PreparedStatement stmt = connection.prepareStatement("SELECT idComentario, idAutor, idContenido, cuerpo, fecha, respuestaDe, alias \'autor\'"
 	    			+ " FROM Comentario C"
 	    			+ " INNER JOIN Usuario U ON C.idAutor = U.idUsuario"
 	    			+ " WHERE idContenido = ? AND respuestaDe" + (respuestaDe == null ? " IS NULL" : "= ?")
