@@ -36,7 +36,7 @@ public class UsuarioCreadorFilter implements Filter {
 			// Comprobar si ya hay un usuario como atributo
 			UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 			if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
-				response.sendRedirect("inicio-sesion");
+				response.sendRedirect(request.getContextPath() + "/iniciar-sesion");
 			}
 			filterChain.doFilter(request, response);
 		}

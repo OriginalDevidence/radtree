@@ -49,51 +49,53 @@ public class ElementoColaValidacionFilter implements Filter {
 			try {
 				// Obtener ID elemento a mostrar
 				List<Long> idsValidacion = contenidoDAO.getContenidosInColaValidacion();
-				if (elemento == null || elemento < 1 || elemento > idsValidacion.size()) {
-					elemento = 1;
-				}
-				request.setAttribute("elemento", elemento);
-				
-				// Datos del contenido y de su usuario creador
-				Long id = idsValidacion.get(elemento - 1);
-				
-				// Intentar extraer una noticia, reto o pregunta de el
-				NoticiaDAO noticiaDAO = new NoticiaDAO();
-				NoticiaVO noticia = noticiaDAO.getNoticiaById(id);
-				Long idAutor = null;
-				if (noticia != null) {
-					idAutor = noticia.getIdAutor();
-					request.setAttribute("contenido", noticia);
-					request.setAttribute("noticia", noticia);
-				} else {
-					RetoDAO retoDAO = new RetoDAO();
-					RetoVO reto = retoDAO.getRetoById(id);
-					if (reto != null) {
-						idAutor = reto.getIdAutor();
-						request.setAttribute("contenido", reto);
-						request.setAttribute("reto", reto);
+				if (idsValidacion.size() > 0) {
+					if (elemento == null || elemento < 1 || elemento > idsValidacion.size()) {
+						elemento = 1;
+					}
+					request.setAttribute("elemento", elemento);
+					
+					// Datos del contenido y de su usuario creador
+					Long id = idsValidacion.get(elemento - 1);
+					
+					// Intentar extraer una noticia, reto o pregunta de el
+					NoticiaDAO noticiaDAO = new NoticiaDAO();
+					NoticiaVO noticia = noticiaDAO.getNoticiaById(id);
+					Long idAutor = null;
+					if (noticia != null) {
+						idAutor = noticia.getIdAutor();
+						request.setAttribute("contenido", noticia);
+						request.setAttribute("noticia", noticia);
 					} else {
-						PreguntaDAO preguntaDAO = new PreguntaDAO();
-						PreguntaVO pregunta = preguntaDAO.getPreguntaById(id);
-						if (pregunta != null) {
-							idAutor = pregunta.getIdAutor();
-							request.setAttribute("contenido", pregunta);
-							request.setAttribute("pregunta", pregunta);
-							List<RespuestaVO> respuestas = preguntaDAO.getRespuestasByPregunta(id);
-							request.setAttribute("respuestas", respuestas);
+						RetoDAO retoDAO = new RetoDAO();
+						RetoVO reto = retoDAO.getRetoById(id);
+						if (reto != null) {
+							idAutor = reto.getIdAutor();
+							request.setAttribute("contenido", reto);
+							request.setAttribute("reto", reto);
+						} else {
+							PreguntaDAO preguntaDAO = new PreguntaDAO();
+							PreguntaVO pregunta = preguntaDAO.getPreguntaById(id);
+							if (pregunta != null) {
+								idAutor = pregunta.getIdAutor();
+								request.setAttribute("contenido", pregunta);
+								request.setAttribute("pregunta", pregunta);
+								List<RespuestaVO> respuestas = preguntaDAO.getRespuestasByPregunta(id);
+								request.setAttribute("respuestas", respuestas);
+							}
 						}
 					}
-				}
-				
-				// Datos del autor
-				if (idAutor == null) {
-					// El contenido a mostrar no es ni noticia, reto ni pregunta
-					response.sendRedirect(request.getContextPath() + "/error-interno");
-				} else {
-					UsuarioDAO usuarioDAO = new UsuarioDAO();
-					UsuarioVO usuario = usuarioDAO.getUsuarioById(idAutor);
-					request.setAttribute("alias", usuario.getAlias());
-					request.setAttribute("autorCompleto", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
+					
+					// Datos del autor
+					if (idAutor == null) {
+						// El contenido a mostrar no es ni noticia, reto ni pregunta
+						response.sendRedirect(request.getContextPath() + "/error-interno");
+					} else {
+						UsuarioDAO usuarioDAO = new UsuarioDAO();
+						UsuarioVO usuario = usuarioDAO.getUsuarioById(idAutor);
+						request.setAttribute("alias", usuario.getAlias());
+						request.setAttribute("autorCompleto", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
+					}
 				}
 			} catch (ErrorInternoException e) {
 				response.sendRedirect(request.getContextPath() + "/error-interno");

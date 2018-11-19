@@ -34,9 +34,7 @@ public class RedirectPerfilUsuarioLogueadoFilter implements Filter {
 			UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 			if (usuario != null) {
 				// Forward a la página de perfil con el usuario
-				request.setAttribute("usuario", usuario);
-				System.out.println("usuario encontrado en la sesion");
-				response.sendRedirect("perfil?alias=" + usuario.getAlias());
+				response.sendRedirect(request.getContextPath() + "/perfil");
 			}
 			filterChain.doFilter(servletRequest, servletResponse);
 		}

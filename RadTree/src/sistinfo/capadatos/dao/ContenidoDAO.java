@@ -5,6 +5,7 @@ import java.util.List;
 
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ContenidoVO;
+import sistinfo.capadatos.vo.ContenidoVO.Estado;
 import sistinfo.excepciones.ErrorInternoException;
 
 public class ContenidoDAO {
@@ -27,6 +28,8 @@ public class ContenidoDAO {
         		}
         	}
         	
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -50,7 +53,9 @@ public class ContenidoDAO {
         	while (rs.next()) {
         		contenidos.add(rs.getLong(1));
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -64,7 +69,7 @@ public class ContenidoDAO {
 	 * @param nuevoEstado
 	 * @return true si la actualización ha sido correcta, false en caso contrario
 	 */
-	public boolean updateEstado(Long id, ContenidoVO.Estado nuevoEstado) {
+	public boolean updateEstado(Long id, Estado nuevoEstado) {
 		Connection connection = ConnectionFactory.getConnection();
         try {
         	
@@ -76,7 +81,9 @@ public class ContenidoDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -108,7 +115,9 @@ public class ContenidoDAO {
             		return cont;
             	}
             }
-            
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -119,7 +128,7 @@ public class ContenidoDAO {
 	/**
 	 * Inserta un contenido en la base de datos
 	 * @param contenido
-	 * @return El idContenido del contenido reci�n insertado (mayor que 0 si es correcto, menor o igual si ha salido mal)
+	 * @return El idContenido del contenido recién insertado (mayor que 0 si es correcto, diferente o null si algo ha salido mal)
 	 * @throws ErrorInternoException 
 	 */
 	protected Long insertContenido(ContenidoVO contenido) throws ErrorInternoException {
@@ -141,7 +150,9 @@ public class ContenidoDAO {
         			return rs.getLong(1);
         		}
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -170,7 +181,9 @@ public class ContenidoDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -195,7 +208,9 @@ public class ContenidoDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();

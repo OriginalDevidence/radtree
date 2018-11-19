@@ -28,8 +28,10 @@ public class ComentarioDAO {
 	            if (rs.last() && rs.getRow() == 1) {
 	            	contenido.setNumComentarios(rs.getLong(1));
 	            }
+	            stmt.close();
 			}
 			
+			connection.close();
 		} catch (SQLException ex) {
 	        ex.printStackTrace();
 	        throw new ErrorInternoException();
@@ -48,7 +50,7 @@ public class ComentarioDAO {
 	}
 	
 	/**
-	 * Inserta un comentario en la base de datos, con valor 0 en numLikes y la fecha actual en fecha.
+	 * Inserta un comentario en la base de datos
 	 * @param comentario
 	 * @return true si la inserción ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
@@ -74,6 +76,8 @@ public class ComentarioDAO {
         		return true;
         	}
         	
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -104,7 +108,9 @@ public class ComentarioDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -129,7 +135,9 @@ public class ComentarioDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -171,7 +179,9 @@ public class ComentarioDAO {
 	        	}
 	        	comentarios.addAll(hijos);
             }
-            
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();

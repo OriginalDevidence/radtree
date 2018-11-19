@@ -263,6 +263,15 @@
 		<url-pattern>/gestion-contenido</url-pattern>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
+    <!-- ListarMiContenido: Devuelve una lista con el contenido no borrado subido por el usuario -->
+    <filter>
+		<filter-name>ListarMiContenido</filter-name>
+		<filter-class>sistinfo.filters.contenido.ListarMiContenidoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ListarMiContenido</filter-name>
+		<url-pattern>/gestion-contenido</url-pattern>
+	</filter-mapping>
     <!-- ElementoColaValidacion: Devuelve los elementos de la cola de validacion -->
     <filter>
 		<filter-name>ElementoColaValidacion</filter-name>
@@ -339,6 +348,15 @@
     <servlet-mapping>
 	    <servlet-name>CrearReto</servlet-name>
 		<url-pattern>/gestion-contenido/crear-reto/crear</url-pattern>
+	</servlet-mapping>
+	
+    <servlet>
+        <servlet-name>ValidarContenido</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.ValidarContenidoServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>ValidarContenido</servlet-name>
+		<url-pattern>/gestion-contenido/cola-validacion/validar</url-pattern>
 	</servlet-mapping>
 
     <servlet>

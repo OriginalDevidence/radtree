@@ -72,11 +72,25 @@
 							</c:if>
 						</ul>
 					</div>
-					<div class="col-6 col-md-2">
-						<button class="w-100 btn-b-sm btn-fill-primary plr-10"><i class="mr-5 ion-checkmark"></i>Aprobar</button>
-					</div>
-					<div class="col-6 col-md-2">	
-						<button class="w-100 btn-b-sm btn-fill-primary plr-10"><i class="mr-5 ion-close"></i>Denegar</button>
+					<div class="col-12 col-md-4">
+						<form name="validacion" action="${pageContext.request.contextPath}/gestion-contenido/cola-validacion/validar" method="post">
+							<div class="row">
+								<input type="hidden" name="idContenido"
+									value="${requestScope.contenido.idContenido}" />
+								<div class="col-6">
+									<button type="submit" name="accion" value="aprobar"
+										class="w-100 btn-b-sm btn-fill-primary plr-10">
+										<i class="mr-5 ion-checkmark"></i>Aprobar
+									</button>
+								</div>
+								<div class="col-6">
+									<button type="submit" name="accion" value="denegar"
+										class="w-100 btn-b-sm btn-fill-primary plr-10">
+										<i class="mr-5 ion-close"></i>Denegar
+									</button>
+								</div>
+							</div>
+						</form>
 					</div>
 					
 					<div class="mt-20 col-12">
@@ -98,12 +112,23 @@
 							</p>
 						</c:if>
 						<c:if test="${not empty requestScope.reto}">
-							<h4 class="p-title mr-15"><b>Noticia: *titulo*</b></h4>
-							<p class="mt-10">*descripcion de la noticia*</p>
+							<h4 class="p-title mr-15"><b><span class="color-primary">Reto:</span> <c:out value="${requestScope.reto.titulo}"/></b></h4>
+							<p class="mt-10 text-justify"><c:out value="${requestScope.reto.cuerpo}"/></p>
 						</c:if>
 						<c:if test="${not empty requestScope.pregunta}">
-							<h4 class="mr-15"><b>Noticia: *titulo*</b></h4>
-							<p class="mt-10">*descripcion de la noticia*</p>
+							<h4 class="p-title mr-15"><b><span class="color-primary">Pregunta:</span> <c:out value="${requestScope.pregunta.enunciado}"/></b></h4>
+							<p class="mtb-10 text-justify"><b>Respuestas:</b></p>
+							<c:forEach items="${requestScope.respuestas}" var="respuesta">
+								<p>
+									<c:if test="${respuesta.correcta}">
+										<i class="ion-checkmark color-primary"></i>
+									</c:if>
+									<c:if test="${not respuesta.correcta}">
+										<i class="ion-close color-red"></i>
+									</c:if>
+									<c:out value="${respuesta.enunciado}"/>
+								</p>
+							</c:forEach>
 						</c:if>
 					</div>
 				</c:if>

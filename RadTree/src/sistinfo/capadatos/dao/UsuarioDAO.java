@@ -13,7 +13,10 @@ import sistinfo.excepciones.ErrorInternoException;
 public class UsuarioDAO {
 	
 	/**
-	 * TODO
+	 * Obtiene una lista de los num primeros usuarios de la clasificación, con información de alias, preguntas contestadas y puntuación
+	 * @param num Número de usuarios a mostrar
+	 * @return Lista con los datos de la clasificación
+	 * @throws ErrorInternoException
 	 */
 	public List<ClasificacionVO> getClasificacion(int num) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
@@ -29,7 +32,9 @@ public class UsuarioDAO {
 					rs.getLong("puntuacion")
 				));
 			}
-			
+
+        	stmt.close();
+        	connection.close();
 		} catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -49,13 +54,15 @@ public class UsuarioDAO {
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE idUsuario=?");
         	stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
-            
+
             if (rs.last()) {
             	if (rs.getRow() == 1) {
                     return extractUsuarioFromResultSet(rs);
             	}
             }
-            
+
+        	stmt.close();
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -76,13 +83,15 @@ public class UsuarioDAO {
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE alias=?");
         	stmt.setString(1, alias);
             ResultSet rs = stmt.executeQuery();
-            
+
             if (rs.last()) {
             	if (rs.getRow() == 1) {
                     return extractUsuarioFromResultSet(rs);
             	}
             }
-            
+
+        	stmt.close();
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -114,7 +123,9 @@ public class UsuarioDAO {
                     }
             	}
             }
-            
+
+        	stmt.close();
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -146,7 +157,9 @@ public class UsuarioDAO {
                     }
             	}
             }
-            
+
+        	stmt.close();
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -179,7 +192,7 @@ public class UsuarioDAO {
             	stmt.setString(7, usuario.getTipoUsuario().toString());
             	stmt.setDouble(8, usuario.getPuntuacion());
             	int result = stmt.executeUpdate();
-                
+
             	if (result == 1) {
             		// Devolver el ID del usuario insertado
             		ResultSet rs = stmt.getGeneratedKeys();
@@ -187,9 +200,11 @@ public class UsuarioDAO {
             			return rs.getLong(1);
             		}
             	}
-            	
+
+            	stmt.close();
     		}
-        	
+
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -221,11 +236,14 @@ public class UsuarioDAO {
 		    	stmt.setString(7, usuario.getTipoUsuario().toString());
 		    	stmt.setDouble(8, usuario.getPuntuacion());
 		    	stmt.setLong(9, usuario.getIdUsuario());
-		
-		    	return stmt.executeUpdate() == 1;
-		    	
+
+		    	int result = stmt.executeUpdate();
+	        	stmt.close();
+		    	return result == 1;
+
     		}
-        	
+
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -246,11 +264,13 @@ public class UsuarioDAO {
         	PreparedStatement stmt = connection.prepareStatement("DELETE FROM Usuario WHERE idUsuario=?");
         	stmt.setLong(1, id);
         	int result = stmt.executeUpdate();
-            
+
+        	stmt.close();
         	if (result == 1) {
         		return true;
         	}
         	
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -316,7 +336,9 @@ public class UsuarioDAO {
         	if (aliasExistente || emailExistente) {
         		throw new UsuarioYaExistenteException(aliasExistente, emailExistente);
         	}
-            
+
+        	stmt.close();
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();

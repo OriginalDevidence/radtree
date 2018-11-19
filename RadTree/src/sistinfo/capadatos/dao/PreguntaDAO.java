@@ -14,7 +14,10 @@ import sistinfo.excepciones.PreguntaYaRespondidaException;
 public class PreguntaDAO extends ContenidoDAO {
 	
 	/**
-	 * TODO
+	 * Añade a una lista de preguntas el número de veces que ha sido contestada cada una en su atributo vecesContestada
+	 * @param preguntas
+	 * @return La lista de preguntas actualizada
+	 * @throws ErrorInternoException
 	 */
 	public List<PreguntaVO> addVecesContestadaToPregunta(List<PreguntaVO> preguntas) throws ErrorInternoException {
 		Connection connection = ConnectionFactory.getConnection();
@@ -27,8 +30,39 @@ public class PreguntaDAO extends ContenidoDAO {
 	            if (rs.last() && rs.getRow() == 1) {
 	            	pregunta.setVecesContestada(rs.getLong(1));
 	            }
+	        	stmt.close();
         	}
+
+        	connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return preguntas;
+	}
+	
+	/**
+	 * Búsqueda de preguntas por el identificador de su autor
+	 * @param idAutor
+	 * @return Lista de preguntas de ese autor
+	 * @throws ErrorInternoException 
+	 */
+	public List<PreguntaVO> getPreguntasByAutor(Long idAutor) throws ErrorInternoException {
+		Connection connection = ConnectionFactory.getConnection();
+		List<PreguntaVO> preguntas = new ArrayList<PreguntaVO>();
+        try {
+        	
+        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Pregunta NATURAL JOIN Contenido WHERE estado != 'BORRADO' AND idAutor=?");
+        	stmt.setLong(1, idAutor);
+            ResultSet rs = stmt.executeQuery();
             
+            while (rs.next()) {
+            	PreguntaVO pregunta = extractPreguntaFromResultSet(rs);
+            	preguntas.add(pregunta);
+            }
+
+        	stmt.close();
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -56,7 +90,9 @@ public class PreguntaDAO extends ContenidoDAO {
             		return pregunta;
             	}
             }
-            
+
+        	stmt.close();
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -82,7 +118,9 @@ public class PreguntaDAO extends ContenidoDAO {
             	RespuestaVO respuesta = extractRespuestaFromResultSet(rs);
                 return respuesta;
             }
-            
+
+        	stmt.close();
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -148,7 +186,9 @@ public class PreguntaDAO extends ContenidoDAO {
             	RespuestaVO respuesta = extractRespuestaFromResultSet(rs);
             	listRespuesta.add(respuesta);
             }
-            
+
+        	stmt.close();
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -179,7 +219,7 @@ public class PreguntaDAO extends ContenidoDAO {
                     	stmt = connection.prepareStatement("INSERT INTO Respuesta VALUES (NULL, ?, ?, ?)");
                     	stmt.setLong(1, idContenido);
                     	stmt.setString(2, respuestas.get(i).getEnunciado());
-                    	stmt.setBoolean(3, respuestas.get(i).isCorrecta());
+                    	stmt.setBoolean(3, respuestas.get(i).getCorrecta());
                     	i++;
                     	if (stmt.executeUpdate() != 1) {
                     		return false;
@@ -188,8 +228,10 @@ public class PreguntaDAO extends ContenidoDAO {
             		return true;
             	}
             	
+            	stmt.close();
         	}
-        	
+
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -210,13 +252,15 @@ public class PreguntaDAO extends ContenidoDAO {
         	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Respuesta VALUES (NULL, ?, ?, ?)");
         	stmt.setLong(1, respuesta.getIdPregunta());
         	stmt.setString(2, respuesta.getEnunciado());
-        	stmt.setBoolean(3, respuesta.isCorrecta());
+        	stmt.setBoolean(3, respuesta.getCorrecta());
         	int result = stmt.executeUpdate();
-        	
+
+        	stmt.close();
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -245,7 +289,8 @@ public class PreguntaDAO extends ContenidoDAO {
             if (rsPreUsuario.getRow() != 1) {
             	throw new ErrorInternoException(); // no existia un usuario con ese id
             }
-        	
+            stmtPreUsuario.close();
+            
         	// Buscar todas las respuestas de la pregunta
         	PreparedStatement stmtPregunta = connection.prepareStatement("SELECT idRespuesta, correcta FROM Respuesta WHERE idPregunta=?");
         	stmtPregunta.setLong(1, idPregunta);
@@ -284,16 +329,18 @@ public class PreguntaDAO extends ContenidoDAO {
             		throw new ErrorInternoException(); // no ha contestado a una respuesta de la pregunta
             	}
             } 
+            stmtPregunta.close();
             
             // Actualizar la puntuaci�n del usuario
             PreparedStatement stmtUsuario = connection.prepareStatement("UPDATE Usuario SET puntuacion=puntuacion+?");
             stmtUsuario.setDouble(1, puntuacion);
             int resultUsuario = stmtUsuario.executeUpdate();
-            
+
+            stmtUsuario.close();
             if (resultUsuario == 1) {
             	return true;
             }
-            
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -325,7 +372,9 @@ public class PreguntaDAO extends ContenidoDAO {
         	if (result == 1) {
         		return false;
         	}
-        	
+
+        	stmt.close();
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -345,14 +394,16 @@ public class PreguntaDAO extends ContenidoDAO {
         	
         	PreparedStatement stmt = connection.prepareStatement("UPDATE Respuesta SET enunciado=?, correcta=? WHERE idRespuesta=?");
         	stmt.setString(1, respuesta.getEnunciado());
-        	stmt.setBoolean(2, respuesta.isCorrecta());
+        	stmt.setBoolean(2, respuesta.getCorrecta());
         	stmt.setLong(3, respuesta.getIdRespuesta());
         	int result = stmt.executeUpdate();
-        	
+
+        	stmt.close();
         	if (result == 1) {
         		return true;
         	}
-        	
+
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -387,7 +438,9 @@ public class PreguntaDAO extends ContenidoDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -428,7 +481,9 @@ public class PreguntaDAO extends ContenidoDAO {
             	PreguntaVO pregunta = extractPreguntaFromResultSet(rs);
             	listPregunta.add(pregunta);
             }
-            
+
+        	stmt.close();
+            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -466,7 +521,7 @@ public class PreguntaDAO extends ContenidoDAO {
          	rs.getLong("idRespuesta"),
          	rs.getLong("idPregunta"),
          	rs.getString("enunciado"),
-         	rs.getBoolean("coorecta")
+         	rs.getBoolean("correcta")
          );
          return respuesta;
 	}

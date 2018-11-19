@@ -39,7 +39,7 @@ public class RespuestaVO implements java.io.Serializable {
 	public void setEnunciado(String enunciado) {
 		this.enunciado = enunciado;
 	}
-	public Boolean isCorrecta() {
+	public Boolean getCorrecta() {
 		return correcta;
 	}
 	public void setCorrecta(Boolean correcta) {
