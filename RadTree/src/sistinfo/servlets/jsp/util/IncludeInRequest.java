@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.capadatos.dao.ComentarioDAO;
+import sistinfo.capadatos.dao.ContenidoDAO;
 import sistinfo.capadatos.dao.NoticiaDAO;
 import sistinfo.capadatos.dao.PreguntaDAO;
 import sistinfo.capadatos.dao.RetoDAO;
@@ -24,6 +25,161 @@ import sistinfo.util.ProfilePictureManager;
 import sistinfo.util.RequestExtractor;
 
 public class IncludeInRequest {
+	
+	/**
+     * TODO
+     */
+	public static boolean includeNumInValidacion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ContenidoDAO contenidoDAO = new ContenidoDAO();
+		try {
+			int numColaValidacion = contenidoDAO.getNumContenidosInColaValidacion();
+			request.setAttribute("numInValidacion", numColaValidacion);
+			return true;
+		} catch (ErrorInternoException e) {
+			e.printStackTrace();
+			response.sendRedirect(request.getContextPath() + "/error-interno");
+			return false;
+		}
+	}
+	
+	/**
+     * TODO
+     */
+	public static boolean includeMiContenido(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		// Comprobar que hay un usuario y obtener su ID, no hace falta comprobar su tipo ya que se hace en otro filter
+		UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+		if (usuario == null) {
+			response.sendRedirect(request.getContextPath() + "/iniciar-sesion");
+			return false;
+		} else {
+			Long idUsuario = usuario.getIdUsuario();
+		
+			// Ver qué tipo de contenido cargar
+			String contentType = request.getParameter("tipoContenido");
+			if (contentType == null || (!contentType.equals("noticia") && !contentType.equals("pregunta") && !contentType.equals("reto"))) {
+				// Default
+				contentType = "noticia";
+			}
+			request.setAttribute("tipoContenido", contentType);
+			
+			// Cargar el contenido de ese tipo y colocarlo en la request
+			if (contentType.equals("noticia")) {
+				request.setAttribute("contenidoPathNameView", "noticias");
+				request.setAttribute("contenidoPathNameEdit", "noticia");
+				NoticiaDAO noticiaDAO = new NoticiaDAO();
+				try {
+					List<NoticiaVO> noticias = noticiaDAO.getNoticiasByAutor(idUsuario);
+					request.setAttribute("noticias", noticias);
+					return true;
+				} catch (ErrorInternoException e) {
+					response.sendRedirect(request.getContextPath() + "/error-interno");
+					return false;
+				}
+				
+			} else if (contentType.equals("pregunta")) {
+				request.setAttribute("contenidoPathNameView", "preguntas");
+				request.setAttribute("contenidoPathNameEdit", "pregunta");
+				PreguntaDAO preguntaDAO = new PreguntaDAO();
+				try {
+					List<PreguntaVO> preguntas = preguntaDAO.getPreguntasByAutor(idUsuario);
+					request.setAttribute("preguntas", preguntas);
+					return true;
+				} catch (ErrorInternoException e) {
+					response.sendRedirect(request.getContextPath() + "/error-interno");
+					return false;
+				}
+				
+			} else if (contentType.equals("reto")) {
+				request.setAttribute("contenidoPathNameView", "retos");
+				request.setAttribute("contenidoPathNameEdit", "reto");
+				RetoDAO retoDAO = new RetoDAO();
+				try {
+					List<RetoVO> retos = retoDAO.getRetosByAutor(idUsuario);
+					request.setAttribute("retos", retos);
+					return true;
+				} catch (ErrorInternoException e) {
+					response.sendRedirect(request.getContextPath() + "/error-interno");
+					return false;
+				}
+				
+			} else {
+				// No sabemos qué tipo de contenido mostrar
+				response.sendRedirect(request.getContextPath() + "/error-interno");
+				return false;
+			}
+		}
+		
+	}
+	
+	/**
+     * TODO
+     */
+	public static boolean includeElementoColaValidacion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		Integer elemento = RequestExtractor.getInteger(request, "elemento");
+		ContenidoDAO contenidoDAO = new ContenidoDAO();
+		try {
+			// Obtener ID elemento a mostrar
+			List<Long> idsValidacion = contenidoDAO.getContenidosInColaValidacion();
+			if (idsValidacion.size() == 0) {
+				return true;
+			} else {
+				if (elemento == null || elemento < 1 || elemento > idsValidacion.size()) {
+					elemento = 1;
+				}
+				request.setAttribute("elemento", elemento);
+				
+				// Datos del contenido y de su usuario creador
+				Long id = idsValidacion.get(elemento - 1);
+				
+				// Intentar extraer una noticia, reto o pregunta de el
+				NoticiaDAO noticiaDAO = new NoticiaDAO();
+				NoticiaVO noticia = noticiaDAO.getNoticiaById(id);
+				Long idAutor = null;
+				if (noticia != null) {
+					idAutor = noticia.getIdAutor();
+					request.setAttribute("contenido", noticia);
+					request.setAttribute("noticia", noticia);
+				} else {
+					RetoDAO retoDAO = new RetoDAO();
+					RetoVO reto = retoDAO.getRetoById(id);
+					if (reto != null) {
+						idAutor = reto.getIdAutor();
+						request.setAttribute("contenido", reto);
+						request.setAttribute("reto", reto);
+					} else {
+						PreguntaDAO preguntaDAO = new PreguntaDAO();
+						PreguntaVO pregunta = preguntaDAO.getPreguntaById(id);
+						if (pregunta != null) {
+							idAutor = pregunta.getIdAutor();
+							request.setAttribute("contenido", pregunta);
+							request.setAttribute("pregunta", pregunta);
+							List<RespuestaVO> respuestas = preguntaDAO.getRespuestasByPregunta(id);
+							request.setAttribute("respuestas", respuestas);
+						}
+					}
+				}
+				
+				// Datos del autor
+				if (idAutor == null) {
+					// El contenido a mostrar no es ni noticia, reto ni pregunta
+					response.sendRedirect(request.getContextPath() + "/error-interno");
+					return false;
+				} else {
+					UsuarioDAO usuarioDAO = new UsuarioDAO();
+					UsuarioVO usuario = usuarioDAO.getUsuarioById(idAutor);
+					request.setAttribute("alias", usuario.getAlias());
+					request.setAttribute("autorCompleto", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
+					return true;
+				}
+			}
+		} catch (ErrorInternoException e) {
+			response.sendRedirect(request.getContextPath() + "/error-interno");
+			return false;
+		}
+		
+	}
 	
 	/**
      * Incluye en la request el usuario pasado por el parametro alias, en el atributo usuario (UsuarioVO)

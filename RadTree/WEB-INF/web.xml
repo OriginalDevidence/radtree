@@ -5,59 +5,11 @@
     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <description>Proyecto medioambiental de la Universidad de Zaragoza</description>
     <display-name>RadTree</display-name>
-	<!-- ================ Mapeo JSP =============== -->
-	<!-- === Gestión contenido === -->
-	<servlet>
-	    <servlet-name>GestionContenido</servlet-name>
-	    <jsp-file>/jsp/gestion/gestionContenido.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>GestionContenido</servlet-name>
-	    <url-pattern>/gestion-contenido</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>ColaValidacion</servlet-name>
-	    <jsp-file>/jsp/gestion/colaValidacion.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>ColaValidacion</servlet-name>
-	    <url-pattern>/gestion-contenido/cola-validacion</url-pattern>
-	</servlet-mapping>
-
-    <!-- ========== Servlets correspondientes a JSP ========== -->
+    
+	<!-- =============================================================================== -->
+	<!-- ================================ FILTERS ===================================== -->
+	<!-- =============================================================================== -->
 	
-    <!-- NoticiasFooter: Cargar las noticias para mostrar en el footer -->
-    <!-- Otra opción es hacer que todos los servlets incluyan en su request los datos -->
-    <filter>
-		<filter-name>NoticiasFooter</filter-name>
-		<filter-class>sistinfo.filters.contenido.NoticiasFooterFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>NoticiasFooter</filter-name>
-		<url-pattern></url-pattern>
-		<url-pattern>/registrar</url-pattern>
-		<url-pattern>/iniciar-sesion</url-pattern>
-		<url-pattern>/perfil</url-pattern>
-		<url-pattern>/perfil/editar</url-pattern>
-		<url-pattern>/noticias</url-pattern>
-		<url-pattern>/noticias/ver</url-pattern>
-		<url-pattern>/preguntas</url-pattern>
-		<url-pattern>/preguntas/ver</url-pattern>
-		<url-pattern>/retos</url-pattern>
-		<url-pattern>/retos/ver</url-pattern>
-		<url-pattern>/usuarios</url-pattern>
-		<url-pattern>/quienes-somos</url-pattern>
-		<url-pattern>/clasificacion</url-pattern>
-		<url-pattern>/gestion-contenido</url-pattern>
-		<url-pattern>/gestion-contenido/crear-noticia</url-pattern>
-		<url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
-		<url-pattern>/gestion-contenido/crear-reto</url-pattern>
-		<url-pattern>/gestion-contenido/editar-noticia</url-pattern>
-		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
-		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
-	</filter-mapping>
-
     <!-- RedirectPerfilUsuarioLogueado: Para evitar que un usuario logueado acceda a páginas de usuarios no registrados -->
     <filter>
 		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
@@ -103,6 +55,37 @@
 	<filter-mapping>
 		<filter-name>UsuarioAdministrador</filter-name>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
+	</filter-mapping>
+	
+    <!-- NoticiasFooter: Cargar las noticias para mostrar en el footer -->
+    <!-- Otra opción es hacer que todos los servlets incluyan en su request los datos -->
+    <filter>
+		<filter-name>NoticiasFooter</filter-name>
+		<filter-class>sistinfo.filters.contenido.NoticiasFooterFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>NoticiasFooter</filter-name>
+		<url-pattern></url-pattern>
+		<url-pattern>/registrar</url-pattern>
+		<url-pattern>/iniciar-sesion</url-pattern>
+		<url-pattern>/perfil</url-pattern>
+		<url-pattern>/perfil/editar</url-pattern>
+		<url-pattern>/noticias</url-pattern>
+		<url-pattern>/noticias/ver</url-pattern>
+		<url-pattern>/preguntas</url-pattern>
+		<url-pattern>/preguntas/ver</url-pattern>
+		<url-pattern>/retos</url-pattern>
+		<url-pattern>/retos/ver</url-pattern>
+		<url-pattern>/usuarios</url-pattern>
+		<url-pattern>/quienes-somos</url-pattern>
+		<url-pattern>/clasificacion</url-pattern>
+		<url-pattern>/gestion-contenido</url-pattern>
+		<url-pattern>/gestion-contenido/crear-noticia</url-pattern>
+		<url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
+		<url-pattern>/gestion-contenido/crear-reto</url-pattern>
+		<url-pattern>/gestion-contenido/editar-noticia</url-pattern>
+		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
+		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
 	</filter-mapping>
 	
 	<!-- =============================================================================== -->
@@ -211,36 +194,25 @@
 
 	<!-- ============================ GESTIÓN CONTENIDO ===================================== -->
 	
-    <!-- NumeroColaValidacion: Devuelve los elementos de la cola de validacion -->
-    <filter>
-		<filter-name>NumeroColaValidacion</filter-name>
-		<filter-class>sistinfo.filters.contenido.NumeroColaValidacionFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>NumeroColaValidacion</filter-name>
-		<url-pattern>/gestion-contenido</url-pattern>
-		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
-	</filter-mapping>
+	<!-- TODO: Formulario para la creación de noticias -->
+	<servlet>
+	    <servlet-name>GestionContenido</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.GestionContenidoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>GestionContenido</servlet-name>
+	    <url-pattern>/gestion-contenido</url-pattern>
+	</servlet-mapping>
 
-    <!-- ListarMiContenido: Devuelve una lista con el contenido no borrado subido por el usuario -->
-    <filter>
-		<filter-name>ListarMiContenido</filter-name>
-		<filter-class>sistinfo.filters.contenido.ListarMiContenidoFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ListarMiContenido</filter-name>
-		<url-pattern>/gestion-contenido</url-pattern>
-	</filter-mapping>
-
-    <!-- ElementoColaValidacion: Devuelve los elementos de la cola de validacion -->
-    <filter>
-		<filter-name>ElementoColaValidacion</filter-name>
-		<filter-class>sistinfo.filters.contenido.ElementoColaValidacionFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ElementoColaValidacion</filter-name>
-		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
-	</filter-mapping>
+	<!-- TODO: Formulario para la creación de noticias -->
+	<servlet>
+	    <servlet-name>ColaValidacion</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.ColaValidacionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ColaValidacion</servlet-name>
+	    <url-pattern>/gestion-contenido/cola-validacion</url-pattern>
+	</servlet-mapping>
 	
 	<!-- CrearNoticia: Formulario para la creación de noticias -->
 	<servlet>
