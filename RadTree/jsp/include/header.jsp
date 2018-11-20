@@ -7,9 +7,9 @@
 			<div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
 			
 				<ul class="float-left list-a-plr-10 list-a-plr-sm-5 list-a-ptb-10 list-a-ptb-sm-5">
-					<li><a class="pl-0 pl-sm-10" href="#"><i class="ion-social-facebook"></i></a></li>
-					<li><a href="#"><i class="ion-social-twitter"></i></a></li>
-					<li><a href="#"><i class="ion-social-instagram"></i></a></li>
+					<li><a class="pl-0 pl-sm-10" href="https://es-es.facebook.com/unizar.es/"><i class="ion-social-facebook"></i></a></li>
+					<li><a href="https://twitter.com/unizar"><i class="ion-social-twitter"></i></a></li>
+					<li><a href="https://www.instagram.com/explore/tags/unizar/top/"><i class="ion-social-instagram"></i></a></li>
 				</ul>
 
 				<%-- El usuario NO ha iniciado sesion --%>
