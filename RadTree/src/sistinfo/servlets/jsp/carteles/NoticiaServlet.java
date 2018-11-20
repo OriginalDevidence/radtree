@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.servlets.jsp.util.IncludeInRequest;
+import sistinfo.servlets.jsp.util.IncrementarVisitas;
 
 @SuppressWarnings("serial")
 public class NoticiaServlet extends HttpServlet {
@@ -33,7 +34,9 @@ public class NoticiaServlet extends HttpServlet {
     	response.setCharacterEncoding("UTF-8");
     	RequestDispatcher req = request.getRequestDispatcher("/jsp/carteles/noticia.jsp");
     
-    	if (IncludeInRequest.includeNoticia(request, response) && IncludeInRequest.includeComentarios(request, response)) {
+    	if (IncludeInRequest.includeNoticia(request, response)
+    			&& IncludeInRequest.includeComentarios(request, response)
+    			&& IncrementarVisitas.incrementarVisitasContenido(request, response)) {
 			req.forward(request, response);
 		}
 			

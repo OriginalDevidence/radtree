@@ -1,4 +1,4 @@
-package sistinfo.servlets.jsp.carteles;
+package sistinfo.servlets.jsp.usuarios;
 
 import java.io.IOException;
 
@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.servlets.jsp.util.IncludeInRequest;
-import sistinfo.servlets.jsp.util.IncrementarVisitas;
 
 @SuppressWarnings("serial")
-public class RetoServlet extends HttpServlet {
+public class PerfilServlet extends HttpServlet {
 
     /**
      * Redirect a doPost de la misma clase
@@ -21,21 +20,17 @@ public class RetoServlet extends HttpServlet {
     }
 
     /**
-     * Cargar el contenido del reto con id recibido por parámetro (id),
-     * almacena su información en un atributo reto (RetoVO) y lo muestra
-     * según reto.jsp
+     * Cargar el contenido del usuario obtenido por alias o el que ha iniciado sesión y lo muestra según perfil.jsp
      * 
-     * Recibe un parámetro id (Long) que indica el ID del contenido a mostrar
+     * Recibe un parámetro alias opcional (String) del usuario a mostrar
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	
-    	if (IncludeInRequest.includeReto(request, response)
-    			&& IncludeInRequest.includeComentarios(request, response)
-    			&& IncrementarVisitas.incrementarVisitasContenido(request, response)) {
-    		request.getRequestDispatcher("/jsp/carteles/reto.jsp").forward(request, response);
+    	if (IncludeInRequest.includeUsuario(request, response)) {
+    		request.getRequestDispatcher("/jsp/usuarios/perfil.jsp").forward(request, response);
     	}
 	}
 

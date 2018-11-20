@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import sistinfo.servlets.jsp.util.IncludeInRequest;
+import sistinfo.servlets.jsp.util.IncrementarVisitas;
 
 @SuppressWarnings("serial")
 public class PreguntaServlet extends HttpServlet {
@@ -32,7 +33,9 @@ public class PreguntaServlet extends HttpServlet {
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	
-    	if (IncludeInRequest.includePregunta(request, response) && IncludeInRequest.includeComentarios(request, response)) {
+    	if (IncludeInRequest.includePregunta(request, response)
+    			&& IncludeInRequest.includeComentarios(request, response)
+    			&& IncrementarVisitas.incrementarVisitasContenido(request, response)) {
     		request.getRequestDispatcher("/jsp/carteles/pregunta.jsp").forward(request, response);
     	}
 	}

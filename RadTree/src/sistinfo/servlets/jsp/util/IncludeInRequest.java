@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,11 +26,60 @@ import sistinfo.util.RequestExtractor;
 public class IncludeInRequest {
 	
 	/**
+     * Incluye en la request el usuario pasado por el parametro alias, en el atributo usuario (UsuarioVO)
+     * Si no hay ningún usuario con el alias pasado, incluye el usuario que se encuentra en la sesión (si hay)
+     * 
+     * Recibe un parámetro alias de usuario
+     */
+	public static boolean includeUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		// Comprobar si ya hay un usuario como atributo
+		if (request.getAttribute("usuario") == null) {
+			
+			// Si no, buscar el usuario pasado como parámetro
+			String alias = (String)request.getParameter("alias");
+			if (alias != null && !alias.trim().isEmpty()) {
+				// Mostrar el usuario pasado por la request
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				try {
+					UsuarioVO usuario = usuarioDAO.getUsuarioByAlias(alias);
+					if (usuario == null) {
+			            response.sendRedirect(request.getContextPath() + "/error-interno");
+						return false;
+					} else {
+						request.setAttribute("usuario", usuario);
+						return true;
+					}
+				} catch (ErrorInternoException e) {
+		            response.sendRedirect(request.getContextPath() + "/error-interno");
+					return false;
+				}
+				
+			// Si no hay alias en parámetro y hay un usuario logueado, mostrar ese usuario
+			} else if (request.getSession().getAttribute("usuario") != null) {
+				// No ha pasado ningun parámetro por request, mostrar su perfil por defecto
+				UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+				request.setAttribute("usuario", usuario);
+				
+				return true;
+
+			// No sabemos qué usuario mostrar
+			} else {
+		        response.sendRedirect(request.getContextPath() + "/error-interno");
+				return false;
+			}
+		} else {
+			return true;
+		}
+				
+	}
+	
+	/**
      * Incluye en la request la noticia pasada por el parámetro ID, en el atributo noticia (NoticiaVO)
      * 
      * Recibe un parámetro ID de noticia
      */
-    public static boolean includeNoticia(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public static boolean includeNoticia(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
@@ -93,7 +141,7 @@ public class IncludeInRequest {
      * TODO incluye más cosas
      * Recibe un parámetro ID de pregunta
      */
-    public static boolean includePregunta(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public static boolean includePregunta(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
 		// Encontrar un ID de contenido
 		Long idContenido = RequestExtractor.getLong(request, "id");
@@ -178,7 +226,7 @@ public class IncludeInRequest {
      * TODO todos los return
      * Recibe un parámetro ID de reto
      */
-    public static boolean includeReto(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public static boolean includeReto(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		// Encontrar un ID de contenido
 		Long idContenido = RequestExtractor.getLong(request, "id");
@@ -232,7 +280,7 @@ public class IncludeInRequest {
      * 
      * Recibe un parámetro ID para mostrar los comentarios de ese contenido
      */
-    public static boolean includeComentarios(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public static boolean includeComentarios(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");

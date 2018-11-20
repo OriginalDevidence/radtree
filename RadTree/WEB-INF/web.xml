@@ -6,43 +6,6 @@
     <description>Proyecto medioambiental de la Universidad de Zaragoza</description>
     <display-name>RadTree</display-name>
 	<!-- ================ Mapeo JSP =============== -->
-	<!-- === Usuarios === -->
-	<servlet>
-	    <servlet-name>Registro</servlet-name>
-	    <jsp-file>/jsp/usuarios/registro.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Registro</servlet-name>
-	    <url-pattern>/registrar</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>InicioSesion</servlet-name>
-	    <jsp-file>/jsp/usuarios/inicioSesion.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>InicioSesion</servlet-name>
-	    <url-pattern>/iniciar-sesion</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>Perfil</servlet-name>
-	    <jsp-file>/jsp/usuarios/perfil.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Perfil</servlet-name>
-	    <url-pattern>/perfil</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>EditarPerfil</servlet-name>
-	    <jsp-file>/jsp/usuarios/editarPerfil.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>EditarPerfil</servlet-name>
-	    <url-pattern>/perfil/editar</url-pattern>
-	</servlet-mapping>
-
 	<!-- === Gestión contenido === -->
 	<servlet>
 	    <servlet-name>GestionContenido</servlet-name>
@@ -62,26 +25,7 @@
 	    <url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</servlet-mapping>
 
-	<!-- === Error interno === -->
-	<servlet>
-	    <servlet-name>ErrorInterno</servlet-name>
-	    <jsp-file>/jsp/errorInterno.html</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>ErrorInterno</servlet-name>
-	    <url-pattern>/error-interno</url-pattern>
-	</servlet-mapping>
-
     <!-- ========== Servlets correspondientes a JSP ========== -->
-    <!-- ContenidoIndex: Carga el contenido necesario para mostrar en la página del index -->
-    <servlet>
-		<servlet-name>Index</servlet-name>
-		<servlet-class>sistinfo.servlets.jsp.IndexServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Index</servlet-name>
-		<url-pattern></url-pattern>
-	</servlet-mapping>
 	
     <!-- NoticiasFooter: Cargar las noticias para mostrar en el footer -->
     <!-- Otra opción es hacer que todos los servlets incluyan en su request los datos -->
@@ -125,18 +69,6 @@
 		<url-pattern>/iniciar-sesion</url-pattern>
 	</filter-mapping>
 
-    <!-- ObtenerUsuarioPerfil: Obtiene un usuario para mostrar en el perfil -->
-    <filter>
-		<filter-name>ObtenerUsuarioPerfil</filter-name>
-		<filter-class>sistinfo.filters.usuario.ObtenerUsuarioPerfilFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ObtenerUsuarioPerfil</filter-name>
-		<url-pattern>/perfil</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-
     <!-- UsuarioParticipante: Se asegura de que haya un usuario logueado -->
     <filter>
 		<filter-name>UsuarioParticipante</filter-name>
@@ -172,23 +104,52 @@
 		<filter-name>UsuarioAdministrador</filter-name>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
-
-    <!-- IncrementarVisitas: Incrementa en 1 las visitas a un contenido -->
-    <!-- <filter>
-		<filter-name>IncrementarVisitas</filter-name>
-		<filter-class>sistinfo.filters.contenido.IncrementarVisitasFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>IncrementarVisitas</filter-name>
-		<url-pattern>/noticias/ver</url-pattern>
-		<url-pattern>/preguntas/ver</url-pattern>
-		<url-pattern>/retos/ver</url-pattern>
-	</filter-mapping> -->
 	
-	<!-- ListaNoticias: Listar las noticias del sistema -->
+	<!-- =============================================================================== -->
+	<!-- ================================ SERVLETS ===================================== -->
+	<!-- =============================================================================== -->
+
+	<!-- ================================ USUARIOS ===================================== -->
+
+	<servlet>
+	    <servlet-name>Registro</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.usuarios.RegistroServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Registro</servlet-name>
+	    <url-pattern>/registrar</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>InicioSesion</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.usuarios.InicioSesionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>InicioSesion</servlet-name>
+	    <url-pattern>/iniciar-sesion</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+	    <servlet-name>Perfil</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.usuarios.PerfilServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Perfil</servlet-name>
+	    <url-pattern>/perfil</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+	    <servlet-name>EditarPerfil</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.usuarios.EditarPerfilServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EditarPerfil</servlet-name>
+	    <url-pattern>/perfil/editar</url-pattern>
+	</servlet-mapping>
 
 	<!-- ================================ CARTELES ===================================== -->
 	
+	<!-- ListaNoticias: Listar las noticias del sistema -->
 	<servlet>
 	    <servlet-name>ListaNoticias</servlet-name>
 		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDeNoticiasServlet</servlet-class>
@@ -196,6 +157,16 @@
 	<servlet-mapping>
 	    <servlet-name>ListaNoticias</servlet-name>
 	    <url-pattern>/noticias</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Noticia: Mostrar una noticia -->
+	<servlet>
+	    <servlet-name>Noticia</servlet-name>
+	    <servlet-class>sistinfo.servlets.jsp.carteles.NoticiaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Noticia</servlet-name>
+	    <url-pattern>/noticias/ver</url-pattern>
 	</servlet-mapping>
 	
 	<!-- ListaPreguntas: Listar las preguntas del sistema -->
@@ -208,26 +179,6 @@
 	    <url-pattern>/preguntas</url-pattern>
 	</servlet-mapping>
 	
-	<!-- ListaRetos: Listar los retos del sistema -->
-	<servlet>
-	    <servlet-name>ListaRetos</servlet-name>
-		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDeRetosServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>ListaRetos</servlet-name>
-	    <url-pattern>/retos</url-pattern>
-	</servlet-mapping>
-	
-	<!-- Noticia: Mostrar una noticia -->
-	<servlet>
-	    <servlet-name>Noticia</servlet-name>
-	    <servlet-class>sistinfo.servlets.jsp.carteles.NoticiaServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Noticia</servlet-name>
-	    <url-pattern>/noticias/ver</url-pattern>
-	</servlet-mapping>
-
 	<!-- Pregunta: Mostrar una pregunta -->
 	<servlet>
 	    <servlet-name>Pregunta</servlet-name>
@@ -236,6 +187,16 @@
 	<servlet-mapping>
 	    <servlet-name>Pregunta</servlet-name>
 	    <url-pattern>/preguntas/ver</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ListaRetos: Listar los retos del sistema -->
+	<servlet>
+	    <servlet-name>ListaRetos</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDeRetosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaRetos</servlet-name>
+	    <url-pattern>/retos</url-pattern>
 	</servlet-mapping>
 
 	<!-- Reto: Mostrar un reto -->
@@ -246,38 +207,6 @@
 	<servlet-mapping>
 	    <servlet-name>Reto</servlet-name>
 	    <url-pattern>/retos/ver</url-pattern>
-	</servlet-mapping>
-	
-	<!-- ================================= VARIOS ===================================== -->
-	
-    <!-- QuienesSomos: Muestra la página de quienes somos (evita acceso directo al jsp) -->
-    <servlet>
-		<servlet-name>QuienesSomos</servlet-name>
-		<servlet-class>sistinfo.servlets.jsp.QuienesSomosServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>QuienesSomos</servlet-name>
-		<url-pattern>/quienes-somos</url-pattern>
-	</servlet-mapping>
-	
-	<!-- Usuarios: Formulario de búsqueda de usuarios, muestra usuarios según el parámetro busqueda  -->
-	<servlet>
-	    <servlet-name>Usuarios</servlet-name>
-		<servlet-class>sistinfo.servlets.jsp.UsuariosServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Usuarios</servlet-name>
-	    <url-pattern>/usuarios</url-pattern>
-	</servlet-mapping>
-
-    <!-- Clasificacion: Devuelve la clasificacion de usuarios por puntos -->
-    <servlet>
-		<servlet-name>Clasificacion</servlet-name>
-		<servlet-class>sistinfo.servlets.jsp.ClasificacionServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Clasificacion</servlet-name>
-		<url-pattern>/clasificacion</url-pattern>
 	</servlet-mapping>
 
 	<!-- ============================ GESTIÓN CONTENIDO ===================================== -->
@@ -373,8 +302,62 @@
 	    <url-pattern>/gestion-contenido/editar-reto</url-pattern>
 	</servlet-mapping>
 	
+	<!-- ================================= VARIOS ===================================== -->
+	
+    <!-- Index: Página principal -->
+    <servlet>
+		<servlet-name>Index</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.IndexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Index</servlet-name>
+		<url-pattern></url-pattern>
+	</servlet-mapping>
+	
+    <!-- QuienesSomos: Muestra la página de quienes somos (evita acceso directo al jsp) -->
+    <servlet>
+		<servlet-name>QuienesSomos</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.QuienesSomosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QuienesSomos</servlet-name>
+		<url-pattern>/quienes-somos</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Usuarios: Formulario de búsqueda de usuarios, muestra usuarios según el parámetro busqueda  -->
+	<servlet>
+	    <servlet-name>Usuarios</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.UsuariosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Usuarios</servlet-name>
+	    <url-pattern>/usuarios</url-pattern>
+	</servlet-mapping>
 
-    <!-- ================ Servlets usuario ================ -->
+    <!-- Clasificacion: Devuelve la clasificacion de usuarios por puntos -->
+    <servlet>
+		<servlet-name>Clasificacion</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.ClasificacionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Clasificacion</servlet-name>
+		<url-pattern>/clasificacion</url-pattern>
+	</servlet-mapping>
+
+	<!-- === Error interno === -->
+	<servlet>
+	    <servlet-name>ErrorInterno</servlet-name>
+	    <jsp-file>/jsp/errorInterno.html</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ErrorInterno</servlet-name>
+	    <url-pattern>/error-interno</url-pattern>
+	</servlet-mapping>
+	
+	
+
+    <!-- ================ SERVLETS USUARIO ================ -->
+    <!-- TODO comentar una linea -->
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.RegistrarUsuarioServlet</servlet-class>
@@ -429,7 +412,19 @@
         <url-pattern>/perfil/cambiar-tipo</url-pattern>
     </servlet-mapping>
 
-    <!-- ============ Servlets Contenido ============ -->
+    <!-- ============ SERVLETS CONTENIDO ============ -->
+    
+    <!-- ContestarPregunta: Inserta una contestación a una pregunta -->
+	<servlet>
+        <servlet-name>ContestarPregunta</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.ContestarPreguntaServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>ContestarPregunta</servlet-name>
+		<url-pattern>/preguntas/contestar</url-pattern>
+	</servlet-mapping>
+    
+    <!-- EnviarComentario: Inserta un comentario en el sistema -->
     <servlet>
         <servlet-name>EnviarComentario</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.EnviarComentarioServlet</servlet-class>
@@ -440,16 +435,7 @@
 		<url-pattern>/preguntas/comentar</url-pattern>
 		<url-pattern>/retos/comentar</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-        <servlet-name>ContestarPregunta</servlet-name>
-        <servlet-class>sistinfo.servlets.contenido.ContestarPreguntaServlet</servlet-class>
-	</servlet>
-    <servlet-mapping>
-	    <servlet-name>ContestarPregunta</servlet-name>
-		<url-pattern>/preguntas/contestar</url-pattern>
-	</servlet-mapping>
-
+    <!-- EdicionReto: Crea o modifica una noticia -->
     <servlet>
         <servlet-name>EdicionNoticia</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.EdicionNoticiaServlet</servlet-class>
@@ -460,6 +446,7 @@
 		<url-pattern>/gestion-contenido/editar-noticia/editar</url-pattern>
 	</servlet-mapping>
 
+    <!-- EdicionReto: Crea o modifica una pregunta -->
     <servlet>
         <servlet-name>EdicionPregunta</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.EdicionPreguntaServlet</servlet-class>
@@ -470,6 +457,7 @@
 		<url-pattern>/gestion-contenido/editar-pregunta/editar</url-pattern>
 	</servlet-mapping>
 
+    <!-- EdicionReto: Crea o modifica un reto -->
     <servlet>
         <servlet-name>EdicionReto</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.EdicionRetoServlet</servlet-class>
@@ -480,6 +468,7 @@
 		<url-pattern>/gestion-contenido/editar-reto/editar</url-pattern>
 	</servlet-mapping>
 
+    <!-- ValidarContenido: Cambia el estado de un contenido a VALIDADO o BORRADO dependiendo de la decisión del administrador -->
     <servlet>
         <servlet-name>ValidarContenido</servlet-name>
         <servlet-class>sistinfo.servlets.contenido.ValidarContenidoServlet</servlet-class>
@@ -501,7 +490,7 @@
 		<url-pattern>/retos/borrar</url-pattern>
 	</servlet-mapping>
 
-    <!-- ============ Welcome page ========= -->
+    <!-- ========================= WELCOME PAGE ========================= -->
     <welcome-file-list>
         <welcome-file></welcome-file>
     </welcome-file-list>
