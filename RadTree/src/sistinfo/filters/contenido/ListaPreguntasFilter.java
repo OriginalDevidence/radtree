@@ -43,7 +43,10 @@ public class ListaPreguntasFilter implements Filter {
 			String busqueda = request.getParameter("busqueda");
 			String noContestadasString = request.getParameter("noContestadas");
 			boolean noContestadas = noContestadasString != null && request.getSession().getAttribute("usuario") != null && noContestadasString.equals("on");
-			Long idUsuario = ((UsuarioVO)request.getSession().getAttribute("usuario")).getIdUsuario();
+			Long idUsuario = null;
+			if (noContestadas) {
+				idUsuario = ((UsuarioVO)request.getSession().getAttribute("usuario")).getIdUsuario();
+			}
 			PreguntaDAO preguntaDAO = new PreguntaDAO();
 			ComentarioDAO comentarioDAO = new ComentarioDAO();
 			try {
@@ -51,26 +54,27 @@ public class ListaPreguntasFilter implements Filter {
 				List<PreguntaVO> preguntas;
 				if (busqueda == null || busqueda.trim().isEmpty()) {
 					if (noContestadas) {
-						preguntas = preguntaDAO.getPreguntasUltimasContestadas(false, idUsuario, 10);
+						preguntas = preguntaDAO.getPreguntasUltimasContestadas(false, idUsuario, 30);
 					} else {
-						preguntas = preguntaDAO.getPreguntasUltimas(10);
+						preguntas = preguntaDAO.getPreguntasUltimas(30);
 					}
 				} else {
 					if (noContestadas) {
-						preguntas = preguntaDAO.getPreguntasBySearchContestadas(busqueda, false, idUsuario, 10);
+						preguntas = preguntaDAO.getPreguntasBySearchContestadas(busqueda, false, idUsuario, 30);
 					} else {
-						preguntas = preguntaDAO.getPreguntasBySearch(busqueda, 10);
+						preguntas = preguntaDAO.getPreguntasBySearch(busqueda, 30);
 					}
 				}
 				// Añadir información especial e incluirlo en la request
 				preguntas = comentarioDAO.addNumComentariosToContenido(preguntas);
 				preguntas = preguntaDAO.addVecesContestadaToPregunta(preguntas);
 				request.setAttribute("preguntas", preguntas);
+				filterChain.doFilter(request, response);
 			} catch (ErrorInternoException e) {
-				e.printStackTrace();
 				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

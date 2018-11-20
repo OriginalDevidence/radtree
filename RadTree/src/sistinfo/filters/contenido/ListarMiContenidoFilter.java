@@ -65,6 +65,7 @@ public class ListarMiContenidoFilter implements Filter {
 					try {
 						List<NoticiaVO> noticias = noticiaDAO.getNoticiasByAutor(idUsuario);
 						request.setAttribute("noticias", noticias);
+						filterChain.doFilter(request, response);
 					} catch (ErrorInternoException e) {
 						response.sendRedirect(request.getContextPath() + "/error-interno");
 					}
@@ -76,6 +77,7 @@ public class ListarMiContenidoFilter implements Filter {
 					try {
 						List<PreguntaVO> preguntas = preguntaDAO.getPreguntasByAutor(idUsuario);
 						request.setAttribute("preguntas", preguntas);
+						filterChain.doFilter(request, response);
 					} catch (ErrorInternoException e) {
 						response.sendRedirect(request.getContextPath() + "/error-interno");
 					}
@@ -87,6 +89,7 @@ public class ListarMiContenidoFilter implements Filter {
 					try {
 						List<RetoVO> retos = retoDAO.getRetosByAutor(idUsuario);
 						request.setAttribute("retos", retos);
+						filterChain.doFilter(request, response);
 					} catch (ErrorInternoException e) {
 						response.sendRedirect(request.getContextPath() + "/error-interno");
 					}
@@ -97,7 +100,8 @@ public class ListarMiContenidoFilter implements Filter {
 				}
 			}
 			
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

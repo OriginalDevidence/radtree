@@ -73,11 +73,13 @@ public class CargarNoticiaFilter implements Filter {
 							request.setAttribute("autorCompleto", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
 						}
 					}
+					filterChain.doFilter(request, response);
 				} catch (ErrorInternoException e) {
 		            response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

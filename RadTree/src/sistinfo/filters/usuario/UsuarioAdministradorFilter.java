@@ -39,8 +39,11 @@ public class UsuarioAdministradorFilter implements Filter {
 			UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 			if (usuario == null || usuario.getTipoUsuario() != TipoUsuario.ADMINISTRADOR) {
 				response.sendRedirect(request.getContextPath() + "/iniciar-sesion");
+			} else {
+				filterChain.doFilter(request, response);
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

@@ -38,8 +38,11 @@ public class UsuarioParticipanteFilter implements Filter {
 			UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 			if (usuario == null) {
 				response.sendRedirect(request.getContextPath() + "/iniciar-sesion");
+			} else {
+				filterChain.doFilter(request, response);
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

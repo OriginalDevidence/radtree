@@ -38,7 +38,10 @@ public class RedirectPerfilUsuarioLogueadoFilter implements Filter {
 			if (usuario != null) {
 				// Forward a la página de perfil con el usuario
 				response.sendRedirect(request.getContextPath() + "/perfil");
+			} else {
+				filterChain.doFilter(request, response);
 			}
+		} else {
 			filterChain.doFilter(servletRequest, servletResponse);
 		}
 

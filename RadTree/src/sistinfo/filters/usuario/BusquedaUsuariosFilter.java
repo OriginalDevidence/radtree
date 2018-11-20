@@ -51,6 +51,8 @@ public class BusquedaUsuariosFilter implements Filter {
 			} else {
 				filterChain.doFilter(request, response);
 			}
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

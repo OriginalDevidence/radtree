@@ -53,11 +53,12 @@ public class ListaNoticiasFilter implements Filter {
 				// Añadir información especial e incluirlo en la request
 				noticias = comentarioDAO.addNumComentariosToContenido(noticias);
 				request.setAttribute("noticias", noticias);
+				filterChain.doFilter(request, response);
 			} catch (ErrorInternoException e) {
-				e.printStackTrace();
 				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

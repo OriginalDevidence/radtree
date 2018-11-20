@@ -39,11 +39,13 @@ public class NumeroColaValidacionFilter implements Filter {
 			try {
 				int numColaValidacion = contenidoDAO.getNumContenidosInColaValidacion();
 				request.setAttribute("numInValidacion", numColaValidacion);
+				filterChain.doFilter(request, response);
 			} catch (ErrorInternoException e) {
 				e.printStackTrace();
 				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

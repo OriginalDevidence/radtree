@@ -66,11 +66,15 @@ public class CargarComentariosFilter implements Filter {
 						}
 					}
 					request.setAttribute("profileImages", profileImages);
+					filterChain.doFilter(request, response);
 				} catch (ErrorInternoException e) {
 					response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
+			} else {
+				filterChain.doFilter(request, response);
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

@@ -42,10 +42,12 @@ public class GenerarClasificacionFilter implements Filter {
 			try {
 				List<ClasificacionVO> clasificacion = usuarioDAO.getClasificacion(10);
 				request.setAttribute("clasificacion", clasificacion);
+				filterChain.doFilter(request, response);
 			} catch (ErrorInternoException e) {
 				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

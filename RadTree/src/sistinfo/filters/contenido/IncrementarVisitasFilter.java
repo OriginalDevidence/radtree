@@ -42,11 +42,15 @@ public class IncrementarVisitasFilter implements Filter {
 				ContenidoDAO contenidoDAO = new ContenidoDAO();
 				try {
 					contenidoDAO.incrementNumVisitas(idContenido);
+					filterChain.doFilter(request, response);
 				} catch (ErrorInternoException e) {
 					response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
+			} else {
+				filterChain.doFilter(request, response);
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

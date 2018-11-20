@@ -54,7 +54,9 @@ public class ElementoColaValidacionFilter implements Filter {
 			try {
 				// Obtener ID elemento a mostrar
 				List<Long> idsValidacion = contenidoDAO.getContenidosInColaValidacion();
-				if (idsValidacion.size() > 0) {
+				if (idsValidacion.size() == 0) {
+					filterChain.doFilter(request, response);
+				} else {
 					if (elemento == null || elemento < 1 || elemento > idsValidacion.size()) {
 						elemento = 1;
 					}
@@ -100,14 +102,15 @@ public class ElementoColaValidacionFilter implements Filter {
 						UsuarioVO usuario = usuarioDAO.getUsuarioById(idAutor);
 						request.setAttribute("alias", usuario.getAlias());
 						request.setAttribute("autorCompleto", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
+						filterChain.doFilter(request, response);
 					}
 				}
 			} catch (ErrorInternoException e) {
 				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
 			
-			
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

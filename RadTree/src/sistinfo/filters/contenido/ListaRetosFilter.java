@@ -53,11 +53,12 @@ public class ListaRetosFilter implements Filter {
 				// Añadir información especial e incluirlo en la request
 				retos = comentarioDAO.addNumComentariosToContenido(retos);
 				request.setAttribute("retos", retos);
+				filterChain.doFilter(request, response);
 			} catch (ErrorInternoException e) {
-				e.printStackTrace();
-				response.sendRedirect("error-interno");
+				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
-			filterChain.doFilter(request, response);
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

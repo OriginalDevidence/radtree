@@ -60,6 +60,8 @@ public class NoticiasFooterFilter implements Filter {
 				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
 			
+		} else {
+			filterChain.doFilter(servletRequest, servletResponse);
 		}
 	}
 

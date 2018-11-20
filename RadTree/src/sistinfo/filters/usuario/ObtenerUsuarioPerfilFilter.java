@@ -54,6 +54,7 @@ public class ObtenerUsuarioPerfilFilter implements Filter {
 							RequestDispatcher req = request.getRequestDispatcher("/perfil");
 							request.setAttribute("usuario", usuario);
 							req.forward(request, response);
+							filterChain.doFilter(request, response);
 						}
 					} catch (ErrorInternoException e) {
 			            response.sendRedirect(request.getContextPath() + "/error-interno");
@@ -66,13 +67,15 @@ public class ObtenerUsuarioPerfilFilter implements Filter {
 					RequestDispatcher req = request.getRequestDispatcher("/perfil");
 					request.setAttribute("usuario", usuario);
 					req.forward(request, response);
+					filterChain.doFilter(request, response);
 
 				// No sabemos qué usuario mostrar
 				} else {
 			        response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
+			} else {
+				filterChain.doFilter(servletRequest, servletResponse);
 			}
-			filterChain.doFilter(request, response);
 		}
 	}
 
