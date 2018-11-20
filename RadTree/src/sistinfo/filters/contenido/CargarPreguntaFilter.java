@@ -81,13 +81,21 @@ public class CargarPreguntaFilter implements Filter {
 						
 						request.setAttribute("respuestas", respuestas);
 						
-						UsuarioVO usuarioRegistrado = (UsuarioVO)request.getSession().getAttribute("usuario");
-						boolean contestada = preguntaDAO.preguntasContestadas(usuarioRegistrado.getIdUsuario(),pregunta.getIdContenido());
-						request.setAttribute("contestada", contestada);
+						UsuarioVO usuarioRegistradoVO = (UsuarioVO)request.getSession().getAttribute("usuario");
 						
-						if(contestada) {
+						boolean usuarioRegistrado = false;
+						boolean contestada = true;
+						if(usuarioRegistradoVO != null) {
+							contestada = preguntaDAO.preguntasContestadas(usuarioRegistradoVO.getIdUsuario(),pregunta.getIdContenido());
+							request.setAttribute("contestada", contestada);
+							usuarioRegistrado = true;
+						}
+						else {
+							request.setAttribute("usuarioNoReg", true);
+						}
+						if(contestada && usuarioRegistrado) {
 							List<Boolean> repuestasDelUsuario;
-							repuestasDelUsuario = preguntaDAO.getContestacionesAPregunta(usuarioRegistrado.getIdUsuario(),pregunta.getIdContenido());
+							repuestasDelUsuario = preguntaDAO.getContestacionesAPregunta(usuarioRegistradoVO.getIdUsuario(),pregunta.getIdContenido());
 							
 							int index = 0;
 							for(RespuestaVO resp : respuestas) {
