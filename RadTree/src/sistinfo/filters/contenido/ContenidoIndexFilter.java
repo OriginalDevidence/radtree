@@ -68,12 +68,12 @@ public class ContenidoIndexFilter implements Filter {
 				List<PreguntaVO> preguntas = preguntaDAO.getPreguntasUltimas(5);
 				int randMaxPreguntas = preguntas.size() > 5 ? 5 : preguntas.size();
 				PreguntaVO elegida = preguntas.get(new Random().nextInt(randMaxPreguntas));
-				request.setAttribute("pregunta", elegida);
+				request.setAttribute("indexPregunta", elegida);
 				
 				// Cargar un reto aleatorio entre los últimos
 				List<RetoVO> retos = retoDAO.getRetosUltimos(5);
 				int randMaxRetos = retos.size() > 5 ? 5 : retos.size();
-				request.setAttribute("reto", retos.get(new Random().nextInt(randMaxRetos)));
+				request.setAttribute("indexReto", retos.get(new Random().nextInt(randMaxRetos)));
 
 				filterChain.doFilter(servletRequest, servletResponse);
 			} catch (ErrorInternoException e) {

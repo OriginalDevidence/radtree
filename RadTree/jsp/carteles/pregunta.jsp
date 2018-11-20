@@ -4,32 +4,32 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title><c:out value="${requestScope.pregunta.enunciado}" /> -
-	RadTree</title>
-<meta name="description"
-	content="Una de las preguntas hechas por los usuarios de RadTree">
-<meta name="author"
-	content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
-
-<!-- Font -->
-<link
-	href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700"
-	rel="stylesheet">
-
-<!-- Stylesheets -->
-<link
-	href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css"
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/fonts/ionicons.css"
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/common/styles.css"
-	rel="stylesheet">
-<link rel="icon" type="image/jpg"
-	href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title><c:out value="${requestScope.pregunta.enunciado}" /> -
+		RadTree</title>
+	<meta name="description"
+		content="Una de las preguntas hechas por los usuarios de RadTree">
+	<meta name="author"
+		content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
+	
+	<!-- Font -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700"
+		rel="stylesheet">
+	
+	<!-- Stylesheets -->
+	<link
+		href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css"
+		rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css"
+		rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css"
+		rel="stylesheet">
+	<link rel="icon" type="image/jpg"
+		href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
 </head>
 <body>
 
@@ -48,120 +48,123 @@
 		<!-- container -->
 	</section>
 
-
 	<section>
 		<div class="container">
 
-			<form class="pregunta" name="contestarPregunta"
-				action="${pageContext.request.contextPath}/preguntas/contestar"
-				method="post">
-
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-12 col-lg-8">
 						<h3 class="mb-10">
 							<b><c:out value="${requestScope.pregunta.enunciado}" /></b>
 						</h3>
-						<p class="mb-30">
-							<i><c:out value="${requestScope.autorCompleto}" /></i>
-						</p>
+						
+						<form name="perfilAutor" action="${pageContext.request.contextPath}/perfil" method="post">
+	                    	<input type="hidden" name="alias" value="<c:out value='${requestScope.autorAlias}'/>"/>
+	                    	<p><i><b>Autor: </b>
+		                   		<button class="link-brdr-btm-primary color-primary mb-15" type="submit"><c:out value='${requestScope.autorCompleto}'/></button>
+							</i></p>
+	                    </form>
+	                    
+						<c:if test="${not empty requestScope.errorArriba}">
+							<i class="mtb-10 ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+							<c:out value="${requestScope.errorArriba}"/>
+							</span>
+						</c:if>
 
-						<c:set var="cuenta" value="${0}" />
-						<input type="hidden" name="idPregunta"
-							value="${requestScope.pregunta.idContenido}" />
-						<c:forEach items="${requestScope.respuestas}" var="respuesta">
-							<c:set var="cuenta" value="${cuenta + 1}" />
+						<form class="pregunta" name="contestarPregunta"
+							action="${pageContext.request.contextPath}/preguntas/contestar"
+							method="post">
 
-							<div class="row mt-10">
-								<div class="col-2 col-sm-1 ">
-									<c:if test="${not requestScope.usuarioNoReg}">
-										<c:if test="${not requestScope.contestada}">
-											<input type="checkbox"
-												name="resCorrecta<c:out value="${cuenta}"/>" />
-										</c:if>
-									</c:if>
-
-
-									<input type="hidden"
-										name="idRespuesta<c:out value="${cuenta}"/>"
-										value="${respuesta.idRespuesta}" />
-								</div>
-
-								<!-- Señalar las respuestas del usuario que estén mal-->
-								<c:set var="resN">respCorrecta${cuenta}</c:set>
-								<div
-									class="col-10 col-sm-10
-									<c:if test="${requestScope.contestada}">
-										<c:if test="${not requestScope[resN]}">
-											alert alert-danger
-										</c:if>
-										<c:if test="${requestScope[resN]}">
-											alert alert-success
-										</c:if>
-									</c:if>
-								">
-									<!-- Señalar las respuestas correctas de la pregunta-->
-									<p>
+							<input type="hidden" name="id" value="${requestScope.pregunta.idContenido}" />
+							
+							<!-- Respuestas -->
+							<c:forEach items="${requestScope.respuestas}" var="respuesta" varStatus="loop">
+							
+								<c:set var="resN">res${loop.index + 1}</c:set>
+								<c:set var="resCorrectaN">resCorrecta${loop.index + 1}</c:set>
+								<c:set var="idRespuestaN">idRespuesta${loop.index + 1}</c:set>
+	
+								<div class="row mt-15 mt-sm-10">
+									<%-- Número de respuesta para usuarios no registrados,
+										 checkboxes para usuarios registrados sin contestar
+										 y ticks verdes / cruces rojas para usuarios registrados que hayan contestado --%>
+									<div class="col-2 col-md-1">
 										<c:if test="${requestScope.usuarioNoReg}">
-											<i class="ion-ios-circle-filled color-primary mr-10"></i>
+											<span class="float-right"><b><c:out value="${loop.index + 1}"/>)</b></span>
 										</c:if>
-										<c:if test="${requestScope.contestada}">
+										<c:if test="${not requestScope.usuarioNoReg and not requestScope.contestada}">
+											<input class="float-right" type="checkbox"
+												name="<c:out value="${resCorrectaN}"/>" />
+											<input type="hidden"
+												name="<c:out value="${idRespuestaN}"/>"
+												value="${respuesta.idRespuesta}" />
+										</c:if>
+										<c:if test="${not requestsScope.usuarioNoReg and requestScope.contestada}">
 											<c:if test="${respuesta.correcta}">
-												<i class="ion-checkmark color-primary mr-10"></i>
+												<i class="float-right lh-40 pt-5 ion-checkmark color-primary mr-10"></i>
 											</c:if>
 											<c:if test="${not respuesta.correcta}">
-												<i class="ion-close color-red mr-10"></i>
+												<i class="float-right lh-40 pt-5 ion-close color-red mr-10"></i>
 											</c:if>
 										</c:if>
-										<c:out value="${respuesta.enunciado}" />
+									</div>
+	
+									<!-- Señalar las respuestas del usuario que estén mal-->
+									<div class="col-9 col-md-10
+										<c:if test="${not requestsScope.usuarioNoReg and requestScope.contestada}">
+											<c:if test="${not requestScope[resCorrectaN]}">
+												alert alert-danger
+											</c:if>
+											<c:if test="${requestScope[resCorrectaN]}">
+												alert alert-success
+											</c:if>
+										</c:if>">
+										<!-- Señalar las respuestas correctas de la pregunta-->
+										<p><c:out value="${respuesta.enunciado}" /></p>
+									</div>
+								</div>
+	
+							</c:forEach>
+							
+							<c:if test="${requestScope.usuarioNoReg}">
+								<div class="row mt-20 mt-sm-40">
+									<p class="mb-30">
+										<i>¿Quieres saber la respuesta?
+											<a class="link-brdr-btm-primary color-primary" href="${pageContext.request.contextPath}/iniciar-sesion">Inicia sesión</a>
+											para responder</i>
 									</p>
 								</div>
-							</div>
-
-						</c:forEach>
-						<input type="hidden" name="respuestasTotales" value="${cuenta}" />
+							</c:if>
+							<c:if test="${not requestScope.usuarioNoReg and not requestScope.contestada}">
+								<div class="row mt-20 mt-sm-40">
+									<div class="col-12 col-md-6">
+										<button class="mb-10 w-100 btn-fill-primary font-sans"
+											type="submit">
+											<b>Validar pregunta</b>
+										</button>
+									</div>
+									<div class="col-12 col-md-6">
+										<a class="mb-10 w-100 btn-fill-grey"
+											href="${pageContext.request.contextPath}/preguntas">
+											<b>No responder y pasar</b>
+										</a>
+									</div>
+								</div>
+							</c:if>
+							
+						</form>
 
 					</div>
+					
+					<c:if test="${sessionScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
+						<div class="col-12 col-lg-4">
+							<form name="borrarContenido" action="${pageContext.request.contextPath}/preguntas/borrar" method="post">
+								<input type="hidden" name="id" value="<c:out value="${requestScope.pregunta.idContenido}"/>"/>
+								<input type="hidden" name="redirect" value="preguntas"/>
+								<button class="mt-md-30 w-100 btn-brdr-red" type="submit"><i class="ion-trash-b mr-10"></i><b>Borrar contenido</b></button>
+							</form>
+						</div>
+					</c:if>
 				</div>
-
-				<c:if test="${not requestScope.usuarioNoReg}">
-
-					<div class="row mt-20 mt-sm-40">
-						<c:if test="${not requestScope.contestada}">
-							<div class="col-12 col-md-4">
-								<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-primary"
-									type="submit" name="button" value="validarRespuesta">
-									<b>Validar pregunta</b>
-								</button>
-							</div>
-							<div class="col-12 col-md-4">
-								<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-grey"
-									type="submit">
-									<b>No responder y pasar</b>
-								</button>
-							</div>
-						</c:if>
-						<c:if test="${requestScope.contestada}">
-							<div class="col-12 col-md-4">
-								<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-primary"
-									type="submit">
-									<b>Seguir Contestando</b>
-								</button>
-							</div>
-						</c:if>
-					</div>
-				</c:if>
-				<c:if test="${requestScope.usuarioNoReg}">
-				<div class="row mt-20 mt-sm-40">
-				</div>
-					<div class="row mt-20 mt-sm-40">
-					<p class="mb-30">
-						<i>¿Quieres saber la respuesta? ¡REGISTRATE!</i>
-					</p>
-					</div>
-				</c:if>
-
-			</form>
-
 
 		</div>
 		<!-- container -->

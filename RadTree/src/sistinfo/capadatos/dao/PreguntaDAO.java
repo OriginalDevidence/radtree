@@ -2,6 +2,7 @@ package sistinfo.capadatos.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,74 @@ public class PreguntaDAO extends ContenidoDAO {
 			throw new ErrorInternoException();
 		}
 		return preguntas;
+	}
+	
+
+	/**
+	 * Comprueba si un usuario ha respondido a una pregunta en concreto
+	 * 
+	 * @param idUsuario  Usuario que ha respondido a la pregunta
+	 * @param idPregunta Pregunta ha comprobar si el usuario ha respondido.
+	 * @return Booleano con valor true si el usuario ha respondido a la pregunta,
+	 *         false en caso contrario.
+	 * @throws ErrorInternoException
+	 */
+	public boolean haContestadoAPregunta(Long idUsuario, Long idPregunta) throws ErrorInternoException {
+		Long idPreguntaEncontrada = null;
+
+		try {
+			Connection connection = ConnectionFactory.getConnection();
+
+			PreparedStatement stmt = connection.prepareStatement("SELECT DISTINCT idPregunta FROM Contesta NATURAL JOIN Respuesta WHERE idUsuario = ? AND idPregunta = ?");
+			stmt.setLong(1, idUsuario);
+			stmt.setLong(2, idPregunta);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.last() && rs.getRow() == 1) {
+				idPreguntaEncontrada = rs.getLong("idPregunta");
+			}
+
+			stmt.close();
+			connection.close();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new ErrorInternoException();
+		}
+
+		return idPreguntaEncontrada == idPregunta;
+	}
+
+	/**
+	 * Devuelve un mapa con las respuestas que un usuario ha dado a una pregunta en concreto
+	 * @param idUsuario Usuario que ha respondido a la pregunta
+	 * @param idPregunta Pregunta a comprobar
+	 * @return Un mapa Long -> Boolean que relaciona ID respuesta con contestación dada, o null si no había respondido
+	 * @throws ErrorInternoException
+	 */
+	public Map<Long, Boolean> getContestacionesAPregunta(Long idUsuario, Long idPregunta) throws ErrorInternoException {
+		Map<Long, Boolean> mapaRespuestas = null;
+		try {
+			Connection connection = ConnectionFactory.getConnection();
+
+			PreparedStatement stmt = connection.prepareStatement("SELECT idRespuesta, respuesta FROM Contesta NATURAL JOIN Respuesta WHERE idUsuario = ? AND idPregunta = ?");
+			stmt.setLong(1, idUsuario);
+			stmt.setLong(2, idPregunta);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				mapaRespuestas = new HashMap<Long, Boolean>();
+				do {
+					mapaRespuestas.put(rs.getLong("idRespuesta"), rs.getBoolean("respuesta"));
+				} while (rs.next());
+			}
+
+			stmt.close();
+			connection.close();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new ErrorInternoException();
+		}
+
+		return mapaRespuestas;
 	}
 
 	/**
@@ -534,68 +603,6 @@ public class PreguntaDAO extends ContenidoDAO {
 			throw new ErrorInternoException();
 		}
 		return listPregunta;
-	}
-
-	/**
-	 * Búsqueda de hasta las últimas num preguntas según su fecha de realización y
-	 * según si ha respondido el usuario
-	 * 
-	 * @param idUsuario  Si busqueda es diferente de null, idUsuario que ha
-	 *                   respondido a esas preguntas.
-	 * @param idPregunta Pregunta ha comprobar si el usuarioha respondido.
-	 * @return Booleano con valor true si el usuario ha respondido a la pregunta,
-	 *         false en caso contrario.
-	 * @throws ErrorInternoException
-	 */
-	public boolean preguntasContestadas(Long idUsuario, Long idPregunta) throws ErrorInternoException, SQLException {
-		Long dentro = null;
-
-		try {
-			Connection connection = ConnectionFactory.getConnection();
-
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt
-					.executeQuery("SELECT idPregunta FROM Contesta NATURAL JOIN Respuesta WHERE idUsuario = '"
-							+ idUsuario + "' AND idPregunta = '" + idPregunta + "'");
-			if (rs.next()) {
-				dentro = rs.getLong("idPregunta");
-			}
-
-			stmt.close();
-			connection.close();
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw new ErrorInternoException();
-		}
-
-		return dentro != null;
-	}
-
-	public List<Boolean> getContestacionesAPregunta(Long idUsuario, Long idPregunta)
-			throws ErrorInternoException, SQLException {
-		List<Boolean> dentro = new ArrayList<Boolean>();
-
-		try {
-			Connection connection = ConnectionFactory.getConnection();
-
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(
-					"SELECT idPregunta, idRespuesta, respuesta FROM Contesta NATURAL JOIN Respuesta WHERE idUsuario = '"
-							+ idUsuario + "' AND idPregunta = '" + idPregunta + "' ORDER BY idRespuesta");
-			while (rs.next()) {
-				dentro.add(rs.getBoolean("respuesta"));
-			}
-
-			stmt.close();
-			connection.close();
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw new ErrorInternoException();
-		}
-
-		return dentro;
 	}
 
 	/**

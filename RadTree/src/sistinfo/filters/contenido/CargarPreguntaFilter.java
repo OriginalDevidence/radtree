@@ -1,8 +1,8 @@
 package sistinfo.filters.contenido;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -62,54 +62,55 @@ public class CargarPreguntaFilter implements Filter {
 				PreguntaDAO preguntaDAO = new PreguntaDAO();
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				try {
+					
 					PreguntaVO pregunta = preguntaDAO.getPreguntaById(idContenido);
 					if (pregunta == null) {
 						// El contenido no existe (o no debería ser mostrado)
 			            response.sendRedirect(request.getContextPath() + "/preguntas");
 					} else {
-						UsuarioVO usuario = usuarioDAO.getUsuarioById(pregunta.getIdAutor());
-						if (usuario == null) {
+						// Obtener la lista de respuestas a la pregunta y el autor
+						List<RespuestaVO> respuestas = preguntaDAO.getRespuestasByPregunta(pregunta.getIdContenido());
+						request.setAttribute("respuestas", respuestas);
+						UsuarioVO usuarioAutor = usuarioDAO.getUsuarioById(pregunta.getIdAutor());
+						if (usuarioAutor == null) {
 				            response.sendRedirect(request.getContextPath() + "/error-interno");
 						} else {
+							// Insertar datos del autor
 							request.setAttribute("pregunta", pregunta);
-							request.setAttribute("autorAlias", usuario.getAlias());
-							request.setAttribute("autorCompleto", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
-						}
-						// Según la barra de busqueda obtener las preguntas con unas caracteristicas u otras
-						List<RespuestaVO> respuestas;
-						respuestas = preguntaDAO.getRespuestasByPregunta(pregunta.getIdContenido());
+							request.setAttribute("autorAlias", usuarioAutor.getAlias());
+							request.setAttribute("autorCompleto", usuarioAutor.getNombre() + " " + usuarioAutor.getApellidos() + " (" + usuarioAutor.getAlias() + ")");
 						
-						request.setAttribute("respuestas", respuestas);
-						
-						UsuarioVO usuarioRegistradoVO = (UsuarioVO)request.getSession().getAttribute("usuario");
-						
-						boolean usuarioRegistrado = false;
-						boolean contestada = true;
-						if(usuarioRegistradoVO != null) {
-							contestada = preguntaDAO.preguntasContestadas(usuarioRegistradoVO.getIdUsuario(),pregunta.getIdContenido());
-							request.setAttribute("contestada", contestada);
-							usuarioRegistrado = true;
-						}
-						else {
-							request.setAttribute("usuarioNoReg", true);
-						}
-						if(contestada && usuarioRegistrado) {
-							List<Boolean> repuestasDelUsuario;
-							repuestasDelUsuario = preguntaDAO.getContestacionesAPregunta(usuarioRegistradoVO.getIdUsuario(),pregunta.getIdContenido());
-							
-							int index = 0;
-							for(RespuestaVO resp : respuestas) {
-								request.setAttribute("respCorrecta" + (index + 1), resp.getCorrecta() == repuestasDelUsuario.get(index));
-								index++;
+							// Comprobar si el usuario ha respondido ya a la pregunta
+							UsuarioVO usuarioSesion = (UsuarioVO)request.getSession().getAttribute("usuario");
+							boolean contestada = false;
+							if(usuarioSesion != null) {
+								// Marcar si está contestada o no
+								contestada = preguntaDAO.haContestadoAPregunta(usuarioSesion.getIdUsuario(),pregunta.getIdContenido());
+								request.setAttribute("contestada", contestada);
+								request.setAttribute("usuarioNoReg", false);
 							}
+							else {
+								// Usuario no registrado
+								request.setAttribute("usuarioNoReg", true);
+							}
+							
+							// Si la ha contestado, obtener la información sobre sus respuestas
+							if(usuarioSesion != null && contestada) {
+								Map<Long, Boolean> repuestasDelUsuario = preguntaDAO.getContestacionesAPregunta(usuarioSesion.getIdUsuario(), idContenido);
+								
+								int index = 1;
+								for(RespuestaVO respuesta : respuestas) {
+									request.setAttribute("resCorrecta" + index, respuesta.getCorrecta() == repuestasDelUsuario.get(respuesta.getIdRespuesta()));
+									index++;
+								}
+							}
+
+							filterChain.doFilter(request, response);
 						}
-						
 					}
-					filterChain.doFilter(request, response);
 				} catch (ErrorInternoException e) {
-		            response.sendRedirect(request.getContextPath() + "/error-interno");
-				} catch (SQLException e) {
 					e.printStackTrace();
+		            response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
 			}
 		} else {

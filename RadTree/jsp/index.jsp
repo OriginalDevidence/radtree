@@ -115,17 +115,17 @@
 				<div class="pl-5 pl-sm-0 pt-0 pt-sm-20 float-left float-sm-none pos-relative w-100 w-sm-100 h-100 h-sm-100">
 					<div class="p-20 p-sm-10">
 						<h4 class="p-title mb-20"><b>Pregunta del día</b></h4>
-						<h5 class="mb-5"><c:out value="${requestScope.pregunta.enunciado}"/></h5>
+						<h5 class="mb-5"><c:out value="${requestScope.indexPregunta.enunciado}"/></h5>
 						<form name="verPregunta" action="${pageContext.request.contextPath}/preguntas/ver" method="post">
-							<input type="hidden" name="id" value="<c:out value="${pregunta.idContenido}"/>"/>
+							<input type="hidden" name="id" value="<c:out value="${requestScope.indexPregunta.idContenido}"/>"/>
 							<button type="submit" class="mt-15 color-primary link-brdr-btm-primary"><b>Responder a la pregunta</b></button>
 						</form>
 						<hr class="mtb-25">
 						<h4 class="p-title mb-20"><b>Reto del día</b></h4>
-						<h5 class="mb-10"><b><c:out value="${requestScope.reto.titulo}"/></b></h5>
-						<p><c:out value="${requestScope.reto.cuerpo}"/></p>
+						<h5 class="mb-10"><b><c:out value="${requestScope.indexReto.titulo}"/></b></h5>
+						<p><c:out value="${requestScope.indexReto.cuerpo}"/></p>
 						<form name="verReto" action="${pageContext.request.contextPath}/retos/ver" method="post">
-							<input type="hidden" name="id" value="<c:out value="${reto.idContenido}"/>"/>
+							<input type="hidden" name="id" value="<c:out value="${requestScope.indexReto.idContenido}"/>"/>
 							<button type="submit" class="mt-15 color-primary link-brdr-btm-primary"><b>Ver el reto</b></button>
 						</form>
 					</div>
