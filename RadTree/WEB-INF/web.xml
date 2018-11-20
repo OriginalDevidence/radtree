@@ -98,25 +98,6 @@
 	    <url-pattern>/retos/ver</url-pattern>
 	</servlet-mapping>
 
-	<!-- === Varios === -->
-	<servlet>
-	    <servlet-name>Usuarios</servlet-name>
-	    <jsp-file>/jsp/usuarios.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Usuarios</servlet-name>
-	    <url-pattern>/usuarios</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>QuienesSomos</servlet-name>
-	    <jsp-file>/jsp/quienesSomos.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>QuienesSomos</servlet-name>
-	    <url-pattern>/quienes-somos</url-pattern>
-	</servlet-mapping>
-
 	<!-- === Gestión contenido === -->
 	<servlet>
 	    <servlet-name>GestionContenido</servlet-name>
@@ -300,16 +281,6 @@
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
 
-    <!-- BusquedaUsuarios: Genera una lista con usuarios según un parámetro de búsqueda -->
-    <filter>
-		<filter-name>BusquedaUsuarios</filter-name>
-		<filter-class>sistinfo.filters.usuario.BusquedaUsuariosFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>BusquedaUsuarios</filter-name>
-		<url-pattern>/usuarios</url-pattern>
-	</filter-mapping>
-
     <!-- IncrementarVisitas: Incrementa en 1 las visitas a un contenido -->
     <filter>
 		<filter-name>IncrementarVisitas</filter-name>
@@ -407,6 +378,26 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+	
+    <!-- QuienesSomos: Muestra la página de quienes somos (evita acceso directo al jsp) -->
+    <servlet>
+		<servlet-name>QuienesSomos</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.QuienesSomosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QuienesSomos</servlet-name>
+		<url-pattern>/quienes-somos</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Usuarios: Formulario de búsqueda de usuarios, muestra usuarios según el parámetro busqueda  -->
+	<servlet>
+	    <servlet-name>Usuarios</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.UsuariosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Usuarios</servlet-name>
+	    <url-pattern>/usuarios</url-pattern>
+	</servlet-mapping>
 
     <!-- Clasificacion: Devuelve la clasificacion de usuarios por puntos -->
     <servlet>
