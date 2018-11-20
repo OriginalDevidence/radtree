@@ -332,8 +332,9 @@ public class PreguntaDAO extends ContenidoDAO {
             stmtPregunta.close();
             
             // Actualizar la puntuación del usuario
-            PreparedStatement stmtUsuario = connection.prepareStatement("UPDATE Usuario SET puntuacion=puntuacion+?");
+            PreparedStatement stmtUsuario = connection.prepareStatement("UPDATE Usuario SET puntuacion=puntuacion+? WHERE idUsuario=?");
             stmtUsuario.setDouble(1, puntuacion);
+            stmtUsuario.setDouble(2, idUsuario);
             int resultUsuario = stmtUsuario.executeUpdate();
 
             stmtUsuario.close();
