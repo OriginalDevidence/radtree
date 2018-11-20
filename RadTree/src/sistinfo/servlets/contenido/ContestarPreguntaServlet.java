@@ -42,9 +42,10 @@ public class ContestarPreguntaServlet extends HttpServlet {
 				try {
 					PreguntaDAO preguntaDAO = new PreguntaDAO();
 
-		    		UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-		    		
-					preguntaDAO.insertContestacion(Long.parseLong(request.getParameter("idPregunta"), 10), usuario.getIdUsuario(), listaRespuestas);
+					UsuarioVO usuario = (UsuarioVO) request.getSession().getAttribute("usuario");
+
+					preguntaDAO.insertContestacion(usuario.getIdUsuario(),
+							Long.parseLong(request.getParameter("idPregunta"), 10), listaRespuestas);
 
 					response.sendRedirect(request.getContextPath() + "/preguntas");
 
@@ -55,11 +56,11 @@ public class ContestarPreguntaServlet extends HttpServlet {
 				request.setAttribute("erroresArriba", erroresArriba);
 				request.getRequestDispatcher("/preguntas/ver").forward(request, response);
 			}
-			
+
 			break;
 
 		case "pasarOtraPregunta":
-			
+
 			break;
 
 		default:
@@ -76,58 +77,60 @@ public class ContestarPreguntaServlet extends HttpServlet {
 	 * @param upErrors
 	 * @return pregunta si se ha extraido correctamente, o null
 	 */
-	public Map<Long, Boolean> extractRespuestaListFromHttpRequest(HttpServletRequest request, Map<String, String> upErrors) {
+	public Map<Long, Boolean> extractRespuestaListFromHttpRequest(HttpServletRequest request,
+			Map<String, String> upErrors) {
 
 		// Comprobar que el usuario está logueado por seguridad.
-    	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
-    	if (usuario == null) {
-    		upErrors.put("idAutor", "Debes haber iniciado sesión para someter una pregunta.");
-    		return null;
-    	} 
-    	
-    	else {
-    		int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
-    		
-    		boolean datosCorrectos = true;
-    		boolean unaRespuestaCorrecta = false;
-    	
-    		String esCorrecta;
-    		
-    		//Comprobamos que todas las respuestas que se van a introducir tienen enunciado.
-    		for(int i = 1; i <= respuestasTotales; i++) {
-    			esCorrecta = request.getParameter("resCorrecta" + i);
-    			if (esCorrecta != null) {
-    				unaRespuestaCorrecta = true;
-    			}
-    		}
-    		
-    		//Si ninguna de las respuestas ha sido marcada como correcta.
-    		if(!unaRespuestaCorrecta) {
-    			upErrors.put("errorArriba", "Debes introducir al menos una respuesta correcta.");
-    		}
-	
+		UsuarioVO usuario = (UsuarioVO) request.getSession().getAttribute("usuario");
+		if (usuario == null) {
+			upErrors.put("idAutor", "Debes haber iniciado sesión para someter una pregunta.");
+
+			return null;
+		}
+
+		else {
+
+			int respuestasTotales = Integer.parseInt(request.getParameter("respuestasTotales"));
+
+			boolean datosCorrectos = true;
+			boolean unaRespuestaCorrecta = false;
+
+			String esCorrecta;
+
+			// Comprobamos que todas las respuestas que se van a introducir tienen
+			// enunciado.
+			for (int i = 1; i <= respuestasTotales; i++) {
+				esCorrecta = request.getParameter("resCorrecta" + i);
+				if (esCorrecta != null) {
+					unaRespuestaCorrecta = true;
+				}
+			}
+
+			// Si ninguna de las respuestas ha sido marcada como correcta.
+			if (!unaRespuestaCorrecta) {
+				upErrors.put("errorArriba", "Debes introducir al menos una respuesta correcta.");
+			}
+
 			if (datosCorrectos) {
-				
+
 				boolean correcta = false;
 				long idRespuesta;
 				Map<Long, Boolean> listaRespuestas = new HashMap<Long, Boolean>();
-				
 
-				for(int i = 1; i <= respuestasTotales; i++) {
-	    			esCorrecta = request.getParameter("resCorrecta" + i);
-	    			idRespuesta = Long.parseLong(request.getParameter("idRespuesta" + i), 10);
-	    			if (esCorrecta != null) {
-	    				correcta = true;
-	    			} else {
-	    				correcta = false;
-	    			}
+				for (int i = 1; i <= respuestasTotales; i++) {
+					esCorrecta = request.getParameter("resCorrecta" + i);
+					idRespuesta = Long.parseLong(request.getParameter("idRespuesta" + i), 10);
+					if (esCorrecta != null) {
+						correcta = true;
+					} else {
+						correcta = false;
+					}
+					listaRespuestas.put(idRespuesta, correcta);
+				}
 
-	    			listaRespuestas.put(idRespuesta, correcta);
-	    		}
-				
 				return listaRespuestas;
 			}
-    	}
+		}
 		return null;
 	}
 
