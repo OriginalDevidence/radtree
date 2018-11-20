@@ -20,7 +20,10 @@ public class GestionContenidoServlet extends HttpServlet {
     }
 
     /**
-     * TODO
+     * Carga el contenido del tipo especificado del usuario y lo muestra en una lista según gestionContenido.jsp
+     * También recibe el número de elementos en la cola de validación.
+     * 
+     * Recibe 1 parámetro tipo de contenido a mostrar (noticia, pregunta o reto)
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		

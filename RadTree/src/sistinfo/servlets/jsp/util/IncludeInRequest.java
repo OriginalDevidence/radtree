@@ -27,7 +27,8 @@ import sistinfo.util.RequestExtractor;
 public class IncludeInRequest {
 	
 	/**
-     * TODO
+     * Incluye en la request el número de elementos que existen en la cola de validación (estado pendiente)
+     * @return true si se ha incluido correctamente, false si ha habido algún error y por tanto es necesario un redirect
      */
 	public static boolean includeNumInValidacion(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		ContenidoDAO contenidoDAO = new ContenidoDAO();
@@ -43,7 +44,8 @@ public class IncludeInRequest {
 	}
 	
 	/**
-     * TODO
+	 * Incluye en la request el contenido del tipo especificado en el parametro tipoContenido creado por el usuario logueado
+     * @return true si se ha incluido correctamente, false si ha habido algún error y por tanto es necesario un redirect
      */
 	public static boolean includeMiContenido(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -113,7 +115,8 @@ public class IncludeInRequest {
 	}
 	
 	/**
-     * TODO
+     * Devuelve los datos del elemento número "elemento" de la cola de validación bien en el atributo noticia, pregunta o reto.
+     * @return true si se ha incluido correctamente, false si ha habido algún error y por tanto es necesario un redirect
      */
 	public static boolean includeElementoColaValidacion(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -186,6 +189,7 @@ public class IncludeInRequest {
      * Si no hay ningún usuario con el alias pasado, incluye el usuario que se encuentra en la sesión (si hay)
      * 
      * Recibe un parámetro alias de usuario
+     * @return true si se ha incluido correctamente, false si ha habido algún error y por tanto es necesario un redirect
      */
 	public static boolean includeUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -232,8 +236,10 @@ public class IncludeInRequest {
 	
 	/**
      * Incluye en la request la noticia pasada por el parámetro ID, en el atributo noticia (NoticiaVO)
+     * También incluye datos que tienen que ver con la carga de comentarios (urlContenido, id)
      * 
      * Recibe un parámetro ID de noticia
+     * @return true si se ha incluido correctamente, false si ha habido algún error y por tanto es necesario un redirect
      */
     public static boolean includeNoticia(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -294,8 +300,11 @@ public class IncludeInRequest {
     
 	/**
      * Incluye en la request la pregunta pasada por el parámetro ID, en el atributo pregunta (PreguntaVO)
-     * TODO incluye más cosas
+     * También incluye datos que tienen que ver con la carga de comentarios (urlContenido, id)
+     * Finalmente se incluyen datos sobre las respuestas de la pregunta, si hay usuario registrado, si ha contestado a la pregunta y qué respuestas ha dado
+     * 
      * Recibe un parámetro ID de pregunta
+     * @return true si se ha incluido correctamente, false si ha habido algún error y por tanto es necesario un redirect
      */
     public static boolean includePregunta(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
@@ -379,8 +388,10 @@ public class IncludeInRequest {
 
 	/**
      * Incluye en la request el reto pasada por el parámetro ID, en el atributo reto (RetoVO)
-     * TODO todos los return
+     * También incluye datos que tienen que ver con la carga de comentarios (urlContenido, id)
+     * 
      * Recibe un parámetro ID de reto
+     * @return true si se ha incluido correctamente, false si ha habido algún error y por tanto es necesario un redirect
      */
     public static boolean includeReto(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -435,6 +446,7 @@ public class IncludeInRequest {
      * en una lista de ComentarioVO, junto con un mapa que relaciona ID de usuario con localización de foto de perfil
      * 
      * Recibe un parámetro ID para mostrar los comentarios de ese contenido
+     * @return true si se ha incluido correctamente, false si ha habido algún error y por tanto es necesario un redirect
      */
     public static boolean includeComentarios(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		

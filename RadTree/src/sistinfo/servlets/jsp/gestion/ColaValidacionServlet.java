@@ -20,7 +20,10 @@ public class ColaValidacionServlet extends HttpServlet {
     }
 
     /**
-     * TODO
+     * Cargar el contenido de la cola de validación, recibe el número de contenido a mostrar
+     * (si es inváldio muestra el primero) y lo muestra según colaValidacion.jsp
+     * 
+     * Recibe 1 parámetro número (index) del contenido a mostrar en la cola de validación
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		

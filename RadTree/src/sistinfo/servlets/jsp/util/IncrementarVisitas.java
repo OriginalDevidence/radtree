@@ -14,7 +14,7 @@ public class IncrementarVisitas {
 	/**
 	 * Incrementa en 1 las visitas del contenido con ID pasado por parámetro
 	 * 
-	 * TODO return
+     * @return true si se ha incluido correctamente, false si ha habido algún error y por tanto es necesario un redirect
 	 */
 	public static boolean incrementarVisitasContenido(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// Encontrar un ID de contenido
