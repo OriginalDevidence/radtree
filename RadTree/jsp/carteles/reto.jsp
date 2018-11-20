@@ -55,6 +55,16 @@
 						</i></p>
                     </form>
                 </div>
+			
+				<c:if test="${sessionScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
+					<div class="col-md-12 col-lg-4">
+						<form name="borrarContenido" action="${pageContext.request.contextPath}/retos/borrar" method="post">
+							<input type="hidden" name="id" value="<c:out value="${requestScope.reto.idContenido}"/>"/>
+							<input type="hidden" name="redirect" value="retos"/>
+							<button class="mt-md-30 w-100 btn-brdr-red" type="submit"><i class="ion-trash-b mr-10"></i><b>Borrar contenido</b></button>
+						</form>
+					</div>
+				</c:if>
 			</div>
 
 		</div><!-- container -->

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+    <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-    http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <description>Proyecto medioambiental de la Universidad de Zaragoza</description>
     <display-name>RadTree</display-name>
 	<!-- ================ Mapeo JSP =============== -->
@@ -15,7 +15,6 @@
 	    <servlet-name>Registro</servlet-name>
 	    <url-pattern>/registrar</url-pattern>
 	</servlet-mapping>
-
 
 	<servlet>
 	    <servlet-name>InicioSesion</servlet-name>
@@ -211,6 +210,16 @@
 	</servlet-mapping>
 
     <!-- ================ Filtros ================ -->
+    <!-- ContenidoIndex: Carga el contenido necesario para mostrar en la página del index -->
+    <filter>
+		<filter-name>ContenidoIndex</filter-name>
+		<filter-class>sistinfo.filters.contenido.ContenidoIndexFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ContenidoIndex</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+	
     <!-- NoticiasFooter: Cargar las noticias para mostrar en el footer -->
     <filter>
 		<filter-name>NoticiasFooter</filter-name>
@@ -218,7 +227,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>NoticiasFooter</filter-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>*</url-pattern>
 		<url-pattern>/registrar</url-pattern>
 		<url-pattern>/iniciar-sesion</url-pattern>
 		<url-pattern>/perfil</url-pattern>
@@ -562,6 +571,18 @@
     <servlet-mapping>
 	    <servlet-name>ValidarContenido</servlet-name>
 		<url-pattern>/gestion-contenido/cola-validacion/validar</url-pattern>
+	</servlet-mapping>
+	
+    <!-- BorrarContenido: Cambia el estado de un contenido a BORRADO -->
+    <servlet>
+	    <servlet-name>BorrarContenido</servlet-name>
+		<servlet-class>sistinfo.servlets.contenido.BorrarContenidoServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>BorrarContenido</servlet-name>
+		<url-pattern>/noticias/borrar</url-pattern>
+		<url-pattern>/preguntas/borrar</url-pattern>
+		<url-pattern>/retos/borrar</url-pattern>
 	</servlet-mapping>
 
     <!-- ============ Welcome page ========= -->

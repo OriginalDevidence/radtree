@@ -90,10 +90,10 @@
 								<form name="cambiarTipoUsuario" action="${pageContext.request.contextPath}/perfil/cambiar-tipo" method="post">
 									<input type="hidden" name="alias" value="<c:out value="${requestScope.usuario.alias}"/>"/>
 									<c:if test="${requestScope.usuario.tipoUsuario == 'PARTICIPANTE'}">
-										<button name="tipoUsuario" value="CREADOR" class="plr-15 btn-brdr-primary"><b>Convertir en usuario creador de contenido</b></button>
+										<button name="tipoUsuario" value="CREADOR" class="plr-15 btn-brdr-primary"><i class="ion-settings mr-10"></i><b>Convertir en usuario creador de contenido</b></button>
 									</c:if>
 									<c:if test="${requestScope.usuario.tipoUsuario == 'CREADOR'}">
-										<button name="tipoUsuario" value="PARTICIPANTE" class="plr-15 btn-brdr-red"><b>Convertir en usuario participante</b></button>
+										<button name="tipoUsuario" value="PARTICIPANTE" class="plr-15 btn-brdr-red"><i class="ion-settings mr-10"></i><b>Convertir en usuario participante</b></button>
 									</c:if>
 								</form>
 							</div>

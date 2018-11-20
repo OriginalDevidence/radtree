@@ -61,6 +61,13 @@
 
 				<div class="col-md-12 col-lg-4 mt-20">
 					<img src="${requestScope.noticia.urlImagen}" alt="Imagen de la noticia" />
+					<c:if test="${sessionScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
+						<form name="borrarContenido" action="${pageContext.request.contextPath}/noticias/borrar" method="post">
+							<input type="hidden" name="id" value="<c:out value="${requestScope.noticia.idContenido}"/>"/>
+							<input type="hidden" name="redirect" value="noticias"/>
+							<button class="mt-30 w-100 btn-brdr-red" type="submit"><i class="ion-trash-b mr-10"></i><b>Borrar contenido</b></button>
+						</form>
+					</c:if>
 				</div>
 			</div>
 

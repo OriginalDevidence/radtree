@@ -85,10 +85,10 @@
 											<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${noticia.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
 											
 											<div class="abs-blr color-white p-20 bg-sm-color-7">
-												<h4 class="mb-10 mb-sm-5 font-12 text-left font-sans"><b><c:out value="${noticia.titulo}"/></b></h4>
+												<h4 class="mb-10 mb-sm-5 font-14 text-left font-sans"><b><c:out value="${noticia.titulo}"/></b></h4>
 												<ul class="list-li-mr-20">
-													<li class="float-left font-11 font-sans"><c:out value="${noticia.fechaRealizacion}"/></li>
-													<li class="float-left font-11 font-sans">
+													<li class="text-left float-left font-11 font-sans mt-5"><c:out value="${noticia.fechaRealizacion}"/></li>
+													<li class="text-left float-left font-11 font-sans">
 														<i class="color-primary mr-5 font-11 ion-ios-bolt"></i>
 														<c:out value="${noticia.numVisitas}"/>
 						                                <c:if test="${noticia.numVisitas == 1}">
@@ -98,7 +98,7 @@
 						                                	 visitas
 						                                </c:if>
 													</li>
-													<li class="float-left font-11 font-sans">
+													<li class="text-left float-left font-11 font-sans">
 														<i class="color-primary mr-5 font-11 ion-chatbubbles"></i>
 														<c:out value="${noticia.numComentarios}"/>
 						                                <c:if test="${noticia.numComentarios == 1}">
