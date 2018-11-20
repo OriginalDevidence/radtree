@@ -130,10 +130,10 @@ public class RetoDAO extends ContenidoDAO {
 	/**
 	 * Inserta un reto en la base de datos.
 	 * @param reto
-	 * @return true si la inserción ha sido correcta, false en caso contrario
+	 * @return ID de contenido si la inserción ha sido correcta, -1 si no
 	 * @throws ErrorInternoException
 	 */
-	public boolean insertReto(RetoVO reto) throws ErrorInternoException {
+	public Long insertReto(RetoVO reto) throws ErrorInternoException {
         try {
     		Connection connection = ConnectionFactory.getConnection();
         	
@@ -148,7 +148,7 @@ public class RetoDAO extends ContenidoDAO {
 
             	stmt.close();
             	if (result == 1) {
-            		return true;
+            		return idContenido;
             	}
         	}
 
@@ -157,7 +157,7 @@ public class RetoDAO extends ContenidoDAO {
             ex.printStackTrace();
             throw new ErrorInternoException();
         }
-        return false;
+        return -1L;
 	}
 	
 	/**

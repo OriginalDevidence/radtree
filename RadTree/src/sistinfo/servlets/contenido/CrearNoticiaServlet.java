@@ -43,7 +43,7 @@ public class CrearNoticiaServlet extends HttpServlet {
 			Map<String, String> errores = new HashMap<String, String>();
 			NoticiaVO noticia = extractNoticiaFromHttpRequest(request, usuario.getIdUsuario(), errores);
 
-			Long idContenido = RequestExtractor.getLong(request, "idContenido");
+			Long idContenido = RequestExtractor.getLong(request, "id");
 			boolean editando = false;
 			if (idContenido != null) {
 				editando = true;
@@ -62,7 +62,8 @@ public class CrearNoticiaServlet extends HttpServlet {
 						}
 					} else {
 						// Intentar insertarlo y ver si ha salido bien
-						if (noticiaDAO.insertNoticia(noticia)) {
+						Long idNoticia = noticiaDAO.insertNoticia(noticia);
+						if (idNoticia >= 0L) {
 							response.sendRedirect(request.getContextPath() + "/gestion-contenido");
 						} else {
 							response.sendRedirect(request.getContextPath() + "/error-interno");

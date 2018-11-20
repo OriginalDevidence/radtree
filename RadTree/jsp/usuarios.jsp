@@ -39,7 +39,7 @@
                 <!-- Barra de búsqueda -->
 				<div class="col-12 col-md-8 offset-0 offset-md-2 mb-50">
 					<form name="busqueda" action="${pageContext.request.contextPath}/usuarios" method="post">
-						<div class="row form-block form-plr-15 form-h-45 form-brdr-lite-white">
+						<div class="row form-block form-plr-15 form-h-45 form-brdr-lite-white mb-30">
 							
 							<c:if test="${empty param.busqueda}">
 								<div class="col-9 col-md-10">
@@ -68,40 +68,40 @@
 							
 						</div>
 					</form>
-				</div>
-				<c:if test="${empty param.busqueda}">
-					<p>Debes introducir algo en la barra de búsqueda primero.</p>
-				</c:if>
-				<c:if test="${not empty param.busqueda and empty requestScope.usuarios}">
-					<p><i>No se han encontrado usuarios con esa búsqueda. Prueba a hacer algún cambio.</i></p>
-				</c:if>
-				<c:if test="${not empty param.busqueda and not empty requestScope.usuarios}">
-					<div class="col-12 col-lg-8 offset-lg-2">
-						<div class="oflow-auto">
-							<table class="w-100 clasificacion mt-30">
-								<tr class="bg-primary">
-									<th>Alias</th>
-									<th>Nombre</th>
-									<th>Apellidos</th>
-								</tr>
-								<c:forEach items="${requestScope.usuarios}" var="usuario">
-									<tr>
-										<td>
-											<form name="perfil" action="${pageContext.request.contextPath}/perfil" method="post">
-												<input type="hidden" name="alias" value="<c:out value='${usuario.alias}'/>"/>
-												<button class="color-primary" type="submit">
-													<b><c:out value="${usuario.alias}"/></b>
-												</button>
-											</form>
-										</td>
-										<td><c:out value="${usuario.nombre}"/></td>
-										<td><c:out value="${usuario.apellidos}"/></td>
+					<c:if test="${empty param.busqueda}">
+						<p>Debes introducir algo en la barra de búsqueda primero.</p>
+					</c:if>
+					<c:if test="${not empty param.busqueda and empty requestScope.usuarios}">
+						<p><i>No se han encontrado usuarios con esa búsqueda. Prueba a hacer algún cambio.</i></p>
+					</c:if>
+					<c:if test="${not empty param.busqueda and not empty requestScope.usuarios}">
+						<div class="col-12 col-lg-8 offset-lg-2">
+							<div class="oflow-auto">
+								<table class="w-100 clasificacion mt-30">
+									<tr class="bg-primary">
+										<th>Alias</th>
+										<th>Nombre</th>
+										<th>Apellidos</th>
 									</tr>
-								</c:forEach>
-							</table>
+									<c:forEach items="${requestScope.usuarios}" var="usuario">
+										<tr>
+											<td>
+												<form name="perfil" action="${pageContext.request.contextPath}/perfil" method="post">
+													<input type="hidden" name="alias" value="<c:out value='${usuario.alias}'/>"/>
+													<button class="color-primary" type="submit">
+														<b><c:out value="${usuario.alias}"/></b>
+													</button>
+												</form>
+											</td>
+											<td><c:out value="${usuario.nombre}"/></td>
+											<td><c:out value="${usuario.apellidos}"/></td>
+										</tr>
+									</c:forEach>
+								</table>
+							</div>
 						</div>
-					</div>
-				</c:if>
+					</c:if>
+				</div>
             </div>
 
 		</div><!-- container -->

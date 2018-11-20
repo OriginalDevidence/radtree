@@ -157,10 +157,10 @@ public class NoticiaDAO extends ContenidoDAO {
 	/**
 	 * Inserta una noticia en la base de datos.
 	 * @param noticia
-	 * @return true si la inserción ha sido correcta, false en caso contrario
+	 * @return ID de contenido si la inserción ha sido correcta, -1 si no
 	 * @throws ErrorInternoException
 	 */
-	public boolean insertNoticia(NoticiaVO noticia) throws ErrorInternoException {
+	public Long insertNoticia(NoticiaVO noticia) throws ErrorInternoException {
         try {
     		Connection connection = ConnectionFactory.getConnection();
 
@@ -175,7 +175,7 @@ public class NoticiaDAO extends ContenidoDAO {
             	int result = stmt.executeUpdate();
             	
             	if (result == 1) {
-            		return true;
+            		return idContenido;
             	}
             	stmt.close();
         	}
@@ -185,7 +185,7 @@ public class NoticiaDAO extends ContenidoDAO {
             ex.printStackTrace();
             throw new ErrorInternoException();
         }
-        return false;
+        return -1L;
 	}
 	
 	/**

@@ -42,7 +42,7 @@ public class CrearRetoServlet extends HttpServlet {
 			Map<String, String> errores = new HashMap<String, String>();
 			RetoVO reto = extractRetoFromHttpRequest(request, usuario.getIdUsuario(), errores);
 	
-			Long idContenido = RequestExtractor.getLong(request, "idContenido");
+			Long idContenido = RequestExtractor.getLong(request, "id");
 			boolean editando = false;
 			if (idContenido != null) {
 				editando = true;
@@ -60,7 +60,7 @@ public class CrearRetoServlet extends HttpServlet {
 							response.sendRedirect(request.getContextPath() + "/error-interno");
 						}
 					} else {
-						if (retoDAO.insertReto(reto)) {
+						if (retoDAO.insertReto(reto) >= 0L) {
 							response.sendRedirect(request.getContextPath() + "/gestion-contenido");
 						} else {
 							response.sendRedirect(request.getContextPath() + "/error-interno");
@@ -70,7 +70,7 @@ public class CrearRetoServlet extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
 			} else {
-				RequestDispatcher req = request.getRequestDispatcher(editando ? "/gestion-contenido/crear-reto" : "/gestion-contenido/editar-reto");
+				RequestDispatcher req = request.getRequestDispatcher(editando ? "/gestion-contenido/editar-reto" : "/gestion-contenido/crear-reto");
 				request.setAttribute("errores", errores);
 				req.include(request, response);
 			}

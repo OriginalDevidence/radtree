@@ -8,6 +8,8 @@ public class NoticiaVO extends ContenidoVO {
 	private String cuerpo;
 	private String url;
 	
+	private String urlImagen;
+	
 	public NoticiaVO(Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado,
 			String titulo, String cuerpo, String url) {
 		super(idAutor, numVisitas, fechaRealizacion, estado);
@@ -22,6 +24,15 @@ public class NoticiaVO extends ContenidoVO {
 		this.titulo = titulo;
 		this.cuerpo = cuerpo;
 		this.url = url;
+	}
+	
+	public NoticiaVO(Long idContenido, Long idAutor, Long numVisitas, Date fechaRealizacion, Estado estado,
+			String titulo, String cuerpo, String url, String urlImagen) {
+		super(idContenido, idAutor, numVisitas, fechaRealizacion, estado);
+		this.titulo = titulo;
+		this.cuerpo = cuerpo;
+		this.url = url;
+		this.urlImagen = urlImagen;
 	}
 	
 	public String getTitulo() {
@@ -41,6 +52,12 @@ public class NoticiaVO extends ContenidoVO {
 	}
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
 	}
 	
 }

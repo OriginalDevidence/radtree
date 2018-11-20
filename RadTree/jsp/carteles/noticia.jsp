@@ -49,7 +49,7 @@
 
 					<p class="mb-20">
 						<b>URL de la fuente: </b>
-						<a class="link-brdr-btm-primary color-primary" href="<c:out value="${requestScope.noticia.url}"/>"><c:out value="${requestScope.noticia.url}"/></a>
+						<a class="link-brdr-btm-primary color-primary aja" href="<c:out value="${requestScope.noticia.url}"/>"><c:out value="${requestScope.noticia.url}"/></a>
 					</p>
 					<form name="perfilAutor" action="${pageContext.request.contextPath}/perfil" method="post">
                     	<input type="hidden" name="alias" value="<c:out value='${requestScope.autorAlias}'/>"/>
@@ -59,8 +59,8 @@
                     </form>
 				</div>
 
-				<div class="col-md-12 col-lg-4">
-					<img src="images/Eco-1_900x600.jpg" alt="Imagen de la noticia" />
+				<div class="col-md-12 col-lg-4 mt-20">
+					<img src="${requestScope.noticia.urlImagen}" alt="Imagen de la noticia" />
 				</div>
 			</div>
 

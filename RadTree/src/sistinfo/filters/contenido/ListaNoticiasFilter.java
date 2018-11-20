@@ -46,11 +46,21 @@ public class ListaNoticiasFilter implements Filter {
 				// Según la barra de busqueda obtener las preguntas con unas caracteristicas u otras
 				List<NoticiaVO> noticias;
 				if (busqueda == null || busqueda.trim().isEmpty()) {
-					noticias = noticiaDAO.getNoticiasUltimas(10);
+					noticias = noticiaDAO.getNoticiasUltimas(30);
 				} else {
-					noticias = noticiaDAO.getNoticiasBySearch(busqueda, 10);
+					noticias = noticiaDAO.getNoticiasBySearch(busqueda, 30);
 				}
 				// Añadir información especial e incluirlo en la request
+				// URL imagen
+				for (NoticiaVO noticia : noticias) {
+					String path = "images/noticias/" + noticia.getIdContenido() + ".jpg";
+					if (request.getSession().getServletContext().getResource(path) != null) {
+						noticia.setUrlImagen(request.getContextPath() + "/" + path);
+					} else {
+						noticia.setUrlImagen(request.getContextPath() + "/images/noticias/default.jpg");
+					}
+				}
+				// Num comentarios
 				noticias = comentarioDAO.addNumComentariosToContenido(noticias);
 				request.setAttribute("noticias", noticias);
 				filterChain.doFilter(request, response);

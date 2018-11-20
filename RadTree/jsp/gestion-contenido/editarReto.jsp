@@ -41,7 +41,7 @@
 					<h3 class="mb-30"><b>Editar reto</b></h3>
 					<form name="editarReto" action="${pageContext.request.contextPath}/gestion-contenido/editar-reto/editar" method="post">
 				
-						<input type="hidden" name="idContenido" value="<c:out value="${requestScope.reto.idContenido}"/>"/>
+						<input type="hidden" name="id" value="<c:out value="${requestScope.reto.idContenido}"/>"/>
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white">
 
@@ -62,7 +62,7 @@
 									<c:out value="${requestScope.errores.get('cuerpo')}"/>
 									</span>
 								</c:if>
-								<textarea class="p-10" name="cuerpo"><c:out value="${requestScope.reto.cuerpo}"/></textarea>
+								<textarea class="p-10" name="cuerpo" rows=4><c:out value="${requestScope.reto.cuerpo}"/></textarea>
 							</div>
 
 						</div>

@@ -7,6 +7,11 @@ public class RespuestaVO implements java.io.Serializable {
 	private Long idPregunta;
 	private String enunciado;
 	private Boolean correcta;
+
+	public RespuestaVO(String enunciado, Boolean correcta) {
+		this.enunciado = enunciado;
+		this.correcta = correcta;
+	}
 	
 	public RespuestaVO(Long idPregunta, String enunciado, Boolean correcta) {
 		this.idPregunta = idPregunta;
