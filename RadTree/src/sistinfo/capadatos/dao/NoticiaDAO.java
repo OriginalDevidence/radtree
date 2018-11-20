@@ -17,9 +17,9 @@ public class NoticiaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public NoticiaVO getNoticiaById(long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
-        	
+    		Connection connection = ConnectionFactory.getConnection();
+    		
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Noticia NATURAL JOIN Contenido WHERE idContenido=?");
         	stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -47,9 +47,9 @@ public class NoticiaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<NoticiaVO> getNoticiasByAutor(Long idAutor) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<NoticiaVO> noticias = new ArrayList<NoticiaVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Noticia NATURAL JOIN Contenido WHERE idAutor=?");
         	stmt.setLong(1, idAutor);
@@ -76,9 +76,9 @@ public class NoticiaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<NoticiaVO> getNoticiasBySearch(String search, int num) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<NoticiaVO> listNoticia = new ArrayList<NoticiaVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Noticia NATURAL JOIN Contenido WHERE estado='VALIDADO' AND titulo LIKE ? OR cuerpo LIKE ? OR url LIKE ? ORDER BY fechaRealizacion DESC");
         	stmt.setString(1, "%" + search + "%");
@@ -107,9 +107,9 @@ public class NoticiaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<NoticiaVO> getNoticiasUltimas(int num) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<NoticiaVO> listNoticia = new ArrayList<NoticiaVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Noticia NATURAL JOIN Contenido WHERE estado = 'VALIDADO' ORDER BY fechaRealizacion DESC");
@@ -134,9 +134,9 @@ public class NoticiaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<NoticiaVO> getNoticiasPopulares(int num) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<NoticiaVO> listNoticia = new ArrayList<NoticiaVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Noticia NATURAL JOIN Contenido WHERE estado='VALIDADO' ORDER BY numVisitas DESC");
@@ -161,8 +161,8 @@ public class NoticiaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException
 	 */
 	public boolean insertNoticia(NoticiaVO noticia) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
 
         	Long idContenido = insertContenido(noticia);
         	
@@ -195,8 +195,8 @@ public class NoticiaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updateNoticia(NoticiaVO noticia) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	boolean resultContenido = updateContenido(noticia);
         	

@@ -16,8 +16,8 @@ public class ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public void incrementNumVisitas(Long idContenido) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("UPDATE Contenido SET numVisitas = numVisitas + 1 WHERE idContenido = ?");
         	stmt.setLong(1, idContenido);
@@ -37,8 +37,8 @@ public class ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public int getNumContenidosInColaValidacion() throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	Statement stmt = connection.createStatement();
         	ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Contenido WHERE estado='PENDIENTE'");
@@ -64,9 +64,9 @@ public class ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<Long> getContenidosInColaValidacion() throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<Long> contenidos = new ArrayList<Long>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	Statement stmt = connection.createStatement();
         	ResultSet rs = stmt.executeQuery("SELECT idContenido FROM Contenido WHERE estado='PENDIENTE'");
@@ -91,8 +91,8 @@ public class ContenidoDAO {
 	 * @return true si la actualización ha sido correcta, false en caso contrario
 	 */
 	public boolean updateEstado(Long id, Estado nuevoEstado) {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("UPDATE Contenido SET estado=? WHERE idContenido=?");
         	stmt.setString(1, nuevoEstado.toString());
@@ -118,8 +118,9 @@ public class ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	protected ContenidoVO getContenidoById(long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
+    		
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Contenido WHERE idContenido=?");
         	stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -153,8 +154,8 @@ public class ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	protected Long insertContenido(ContenidoVO contenido) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Contenido VALUES (NULL, ?, ?, ?, ?)",
 																	Statement.RETURN_GENERATED_KEYS);
@@ -188,8 +189,8 @@ public class ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	protected boolean updateContenido(ContenidoVO contenido) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("UPDATE Contenido SET idAutor=?, numVisitas=?, fechaRealizacion=?, estado=? WHERE idContenido=?");
         	stmt.setLong(1, contenido.getIdAutor());
@@ -219,8 +220,8 @@ public class ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	protected boolean deleteContenido(long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("DELETE FROM Contenido WHERE idContenido=?");
         	stmt.setLong(1, id);

@@ -20,8 +20,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException
 	 */
 	public List<PreguntaVO> addVecesContestadaToPregunta(List<PreguntaVO> preguntas) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
 
         	for (PreguntaVO pregunta : preguntas) {
         		PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(DISTINCT idUsuario) FROM Contesta NATURAL JOIN Respuesta WHERE idPregunta=?");
@@ -48,9 +48,9 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<PreguntaVO> getPreguntasByAutor(Long idAutor) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<PreguntaVO> preguntas = new ArrayList<PreguntaVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Pregunta NATURAL JOIN Contenido WHERE idAutor=?");
         	stmt.setLong(1, idAutor);
@@ -77,8 +77,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public PreguntaVO getPreguntaById(Long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Pregunta NATURAL JOIN Contenido WHERE idContenido=?");
         	stmt.setLong(1, id);
@@ -107,8 +107,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public RespuestaVO getRespuestaById(Long id) {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Respuesta WHERE idRespuesta=?");
         	stmt.setLong(1, id);
@@ -175,9 +175,9 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<RespuestaVO> getRespuestasByPregunta(Long idPregunta) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<RespuestaVO> listRespuesta = new ArrayList<RespuestaVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Respuesta WHERE idPregunta=?");
         	stmt.setLong(1, idPregunta);
@@ -202,8 +202,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException
 	 */
 	public boolean insertPregunta(PreguntaVO pregunta, List<RespuestaVO> respuestas) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
 
         	Long idContenido = insertContenido(pregunta);
         	
@@ -246,8 +246,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean insertRespuesta(RespuestaVO respuesta) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Respuesta VALUES (NULL, ?, ?, ?)");
         	stmt.setLong(1, respuesta.getIdPregunta());
@@ -278,8 +278,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException
 	 */
 	public boolean insertContestacion(Long idUsuario, Long idPregunta, Map<Long, Boolean> contesta) throws PreguntaYaRespondidaException, ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	// Comprobar que existe un usuario con idUsuario
         	PreparedStatement stmtPreUsuario = connection.prepareStatement("SELECT idUsuario FROM Usuario where idUsuario=?");
@@ -355,8 +355,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updatePregunta(PreguntaVO pregunta) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	boolean resultContenido = updateContenido(pregunta);
         	
@@ -389,8 +389,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updateRespuesta(RespuestaVO respuesta) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("UPDATE Respuesta SET enunciado=?, correcta=? WHERE idRespuesta=?");
         	stmt.setString(1, respuesta.getEnunciado());
@@ -428,8 +428,8 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException
 	 */
 	public boolean deleteRespuesta(Long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("DELETE FROM Respuesta WHERE idRespuesta=?");
         	stmt.setLong(1, id);
@@ -458,9 +458,9 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	private List<PreguntaVO> getPreguntasUltimasHelper(int num, Boolean elegirContestadas, Long idUsuario, String busqueda) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<PreguntaVO> listPregunta = new ArrayList<PreguntaVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	String where = "WHERE estado='VALIDADO'";
         	if (elegirContestadas != null) {

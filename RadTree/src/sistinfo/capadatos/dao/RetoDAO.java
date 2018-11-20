@@ -17,8 +17,8 @@ public class RetoDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public RetoVO getRetoById(long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE idContenido=?");
         	stmt.setLong(1, id);
@@ -47,9 +47,9 @@ public class RetoDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<RetoVO> getRetosByAutor(Long idAutor) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<RetoVO> retos = new ArrayList<RetoVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE idAutor=?");
         	stmt.setLong(1, idAutor);
@@ -77,9 +77,9 @@ public class RetoDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<RetoVO> getRetosBySearch(String search, int num) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<RetoVO> listReto = new ArrayList<RetoVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE estado='VALIDADO' AND titulo LIKE ? OR cuerpo LIKE ? ORDER BY fechaRealizacion DESC");
         	stmt.setString(1, "%" + search + "%");
@@ -107,9 +107,9 @@ public class RetoDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<RetoVO> getRetosUltimos(int num) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<RetoVO> listReto = new ArrayList<RetoVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Reto NATURAL JOIN Contenido WHERE estado='VALIDADO' ORDER BY fechaRealizacion DESC");
@@ -134,8 +134,8 @@ public class RetoDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException
 	 */
 	public boolean insertReto(RetoVO reto) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	Long idContenido = insertContenido(reto);
         	
@@ -167,8 +167,8 @@ public class RetoDAO extends ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updateReto(RetoVO reto) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	boolean resultContenido = updateContenido(reto);
         	

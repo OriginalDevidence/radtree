@@ -18,8 +18,8 @@ public class ComentarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public <T extends ContenidoVO> List<T> addNumComentariosToContenido(List<T> contenidos) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		try {
+			Connection connection = ConnectionFactory.getConnection();
 			
 			for (T contenido : contenidos) {
 				PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM Comentario WHERE idContenido=?");
@@ -56,8 +56,8 @@ public class ComentarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean insertComentario(ComentarioVO comentario) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Comentario VALUES (NULL, ?, ?, ?, ?, ?)");
         	stmt.setLong(1, comentario.getIdAutor());
@@ -91,8 +91,8 @@ public class ComentarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updateComentario(ComentarioVO comentario) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("UPDATE Comentario SET idAutor=?, idContenido=?, cuerpo=?, fecha=?, respuestaDe=? WHERE idComentario=?");
         	stmt.setLong(1, comentario.getIdAutor());
@@ -123,8 +123,8 @@ public class ComentarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean deleteComentario(long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("DELETE FROM Comentario WHERE idComentario=?");
         	stmt.setLong(1, id);
@@ -150,9 +150,9 @@ public class ComentarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	private List<ComentarioVO> getComentariosFromContenido(Long idContenido, Long respuestaDe) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         List<ComentarioVO> comentarios = new ArrayList<ComentarioVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("SELECT idComentario, idAutor, idContenido, cuerpo, fecha, respuestaDe, alias \'autor\'"
 	    			+ " FROM Comentario C"

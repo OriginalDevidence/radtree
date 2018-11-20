@@ -11,7 +11,7 @@ public class ConnectionFactory {
 	static Connection conn = null;
 
    	/* Conectar a la base de datos */
-	public static Connection getConnection() {
+	public static Connection getConnection() throws SQLException {
 		Properties properties = new Properties();
 		Connection conn = null;
 		try {
@@ -24,8 +24,10 @@ public class ConnectionFactory {
 				);
 		} catch (SQLException se) {
 			se.printStackTrace();
+			throw new SQLException();
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new SQLException();
 		}
 		return conn;
 	}

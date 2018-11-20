@@ -19,9 +19,9 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException
 	 */
 	public List<ClasificacionVO> getClasificacion(int num) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<ClasificacionVO> clasificacion = new ArrayList<ClasificacionVO>();
 		try {
+			Connection connection = ConnectionFactory.getConnection();
 			
 			Statement stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT U.idUsuario, alias, puntuacion, COUNT(DISTINCT idPregunta) 'contestadas' FROM Contesta C NATURAL JOIN Respuesta RIGHT OUTER JOIN Usuario U ON U.idUsuario = C.idUsuario GROUP BY U.idUsuario ORDER BY puntuacion DESC, contestadas ASC, alias ASC");
@@ -49,8 +49,9 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public UsuarioVO getUsuarioById(Long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
+    		
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE idUsuario=?");
         	stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -78,8 +79,9 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public UsuarioVO getUsuarioByAlias(String alias) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
+    		
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE alias=?");
         	stmt.setString(1, alias);
             ResultSet rs = stmt.executeQuery();
@@ -107,9 +109,10 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public List<UsuarioVO> getUsuariosBySearch(String search, int num) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
 		List<UsuarioVO> usuarios = new ArrayList<UsuarioVO>();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
+    		
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE alias LIKE ? OR nombre LIKE ? OR apellidos LIKE ? OR email LIKE ?");
         	stmt.setString(1, "%" + search + "%");
         	stmt.setString(2, "%" + search + "%");
@@ -139,8 +142,9 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public UsuarioVO getUsuarioByLoginAlias(String alias, String passwordHash) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
+    		
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE alias=?");
         	stmt.setString(1, alias);
             ResultSet rs = stmt.executeQuery();
@@ -173,8 +177,9 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public UsuarioVO getUsuarioByLoginEmail(String email, String passwordHash) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
+    		
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE email=?");
         	stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
@@ -207,8 +212,8 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public Long insertUsuario(UsuarioVO usuario) throws UsuarioYaExistenteException, ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	// Comprobar que no exista alguien con ese alias o email ya
     		if (checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail())) {
@@ -252,8 +257,8 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updateUsuario(UsuarioVO usuario, boolean cambiaAlias, boolean cambiaEmail) throws UsuarioYaExistenteException, ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	// Comprobar que no exista alguien con ese alias o email ya
     		if (checkAliasYEmailExistente(cambiaAlias ? usuario.getAlias() : "$", cambiaEmail ? usuario.getEmail() : "$")) {
@@ -290,9 +295,9 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean deleteUsuario(Long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
-        	
+    		Connection connection = ConnectionFactory.getConnection();
+    		
         	PreparedStatement stmt = connection.prepareStatement("DELETE FROM Usuario WHERE idUsuario=?");
         	stmt.setLong(1, id);
         	int result = stmt.executeUpdate();
@@ -350,8 +355,8 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException
 	 */
 	private boolean checkAliasYEmailExistente(String alias, String email) throws UsuarioYaExistenteException, ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	// Comprobación de alias
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usuario WHERE alias=?");
