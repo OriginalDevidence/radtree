@@ -27,9 +27,13 @@ public class ClasificacionServlet extends HttpServlet {
      * Cargar el contenido de la clasificación: una lista de elementos de tipo ClasificacionVO
      * ordenadas por posición que contienen información sobre el alias, preguntas contestadas y puntuación
      * de los mejores usuarios del sistema, y mostrarlo por clasificacion.jsp
+     * 
+     * No recibe parámetros
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
     	RequestDispatcher req = request.getRequestDispatcher("/jsp/clasificacion.jsp");
 		
 		// Obtener datos clasificación

@@ -27,9 +27,13 @@ public class UsuariosServlet extends HttpServlet {
      * Cargar el contenido de la lista de usuarios: coloca en la request una lista de
      * UsuarioVO correspondiente a los usuarios encontrados por el parámetro búsqueda (si no existe
      * este parámetro, no muestra ningún usuario)
+     * 
+     * Recibe un parámetro búsqueda (string) que filtra a los usuarios para mostarlos (si no existe, no muestra nada)
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
     	RequestDispatcher req = request.getRequestDispatcher("/jsp/usuarios.jsp");
 		
 		// Comprobar si ya hay un usuario como atributo

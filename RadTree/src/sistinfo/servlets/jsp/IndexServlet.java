@@ -34,9 +34,13 @@ public class IndexServlet extends HttpServlet {
      * Cargar el contenido del index: 3 noticias, 1 pregunta, 1 reto
      * en los atributos indexNoticia{1-3}, indexPregunta, indexReto
      * y mostrarlo según index.jsp
+     * 
+     * No recibe parámetros
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
     	RequestDispatcher req = request.getRequestDispatcher("/jsp/index.jsp");
     	
 		ComentarioDAO comentarioDAO = new ComentarioDAO();

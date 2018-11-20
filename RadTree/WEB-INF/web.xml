@@ -44,14 +44,6 @@
 	</servlet-mapping>
 
 	<!-- === Contenido === -->
-	<servlet>
-	    <servlet-name>ListaNoticias</servlet-name>
-	    <jsp-file>/jsp/carteles/listaDeNoticias.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>ListaNoticias</servlet-name>
-	    <url-pattern>/noticias</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 	    <servlet-name>Noticia</servlet-name>
@@ -63,30 +55,12 @@
 	</servlet-mapping>
 
 	<servlet>
-	    <servlet-name>ListaPreguntas</servlet-name>
-	    <jsp-file>/jsp/carteles/listaDePreguntas.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>ListaPreguntas</servlet-name>
-	    <url-pattern>/preguntas</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
 	    <servlet-name>Pregunta</servlet-name>
 	    <jsp-file>/jsp/carteles/pregunta.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>Pregunta</servlet-name>
 	    <url-pattern>/preguntas/ver</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>ListaRetos</servlet-name>
-	    <jsp-file>/jsp/carteles/listaDeRetos.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>ListaRetos</servlet-name>
-	    <url-pattern>/retos</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -199,7 +173,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>NoticiasFooter</filter-name>
-		<url-pattern>*</url-pattern>
+		<url-pattern>/</url-pattern>
 		<url-pattern>/registrar</url-pattern>
 		<url-pattern>/iniciar-sesion</url-pattern>
 		<url-pattern>/perfil</url-pattern>
@@ -293,16 +267,6 @@
 		<url-pattern>/retos/ver</url-pattern>
 	</filter-mapping>
 
-    <!-- ListaUltimasNoticias: Genera una lista con las últimas noticias -->
-    <filter>
-		<filter-name>ListaUltimasNoticias</filter-name>
-		<filter-class>sistinfo.filters.contenido.ListaNoticiasFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ListaUltimasNoticias</filter-name>
-		<url-pattern>/noticias</url-pattern>
-	</filter-mapping>
-
     <!-- CargarNoticia: Carga una noticia según el parámetro de ID pasado -->
     <filter>
 		<filter-name>CargarNoticia</filter-name>
@@ -316,17 +280,7 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
-
-    <!-- ListaUltimasPreguntas: Genera una lista con las últimas preguntas -->
-    <filter>
-		<filter-name>ListaUltimasPreguntas</filter-name>
-		<filter-class>sistinfo.filters.contenido.ListaPreguntasFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ListaUltimasPreguntas</filter-name>
-		<url-pattern>/preguntas</url-pattern>
-	</filter-mapping>
-
+	
 	<!-- CargarPregunta: Carga una pregunta según el parámetro de ID pasado -->
     <filter>
 		<filter-name>CargarPregunta</filter-name>
@@ -339,16 +293,6 @@
 		<url-pattern>/gestion-contenido/editar-pregunta/editar</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-	
-    <!-- ListaUltimosRetos: Genera una lista con los últimos retos -->
-    <filter>
-		<filter-name>ListaUltimosRetos</filter-name>
-		<filter-class>sistinfo.filters.contenido.ListaRetosFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ListaUltimosRetos</filter-name>
-		<url-pattern>/retos</url-pattern>
 	</filter-mapping>
 
     <!-- CargarReto: Carga un reto según el parámetro de ID pasado -->
@@ -378,6 +322,36 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+	
+	<!-- ListaNoticias: Listar las noticias del sistema -->
+	<servlet>
+	    <servlet-name>ListaNoticias</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDeNoticiasServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaNoticias</servlet-name>
+	    <url-pattern>/noticias</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ListaPreguntas: Listar las preguntas del sistema -->
+	<servlet>
+	    <servlet-name>ListaPreguntas</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDePreguntasServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaPreguntas</servlet-name>
+	    <url-pattern>/preguntas</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ListaRetos: Listar los retos del sistema -->
+	<servlet>
+	    <servlet-name>ListaRetos</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDeRetosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaRetos</servlet-name>
+	    <url-pattern>/retos</url-pattern>
+	</servlet-mapping>
 	
     <!-- QuienesSomos: Muestra la página de quienes somos (evita acceso directo al jsp) -->
     <servlet>
