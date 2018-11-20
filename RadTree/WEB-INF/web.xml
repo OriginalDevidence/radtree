@@ -209,16 +209,16 @@
 	    <url-pattern>/error-interno</url-pattern>
 	</servlet-mapping>
 
-    <!-- ================ Filtros ================ -->
+    <!-- ========== Servlets correspondientes a JSP ========== -->
     <!-- ContenidoIndex: Carga el contenido necesario para mostrar en la página del index -->
-    <filter>
-		<filter-name>ContenidoIndex</filter-name>
-		<filter-class>sistinfo.filters.contenido.ContenidoIndexFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ContenidoIndex</filter-name>
-		<url-pattern>*</url-pattern>
-	</filter-mapping>
+    <servlet>
+		<servlet-name>Index</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.IndexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Index</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 	
     <!-- NoticiasFooter: Cargar las noticias para mostrar en el footer -->
     <filter>
@@ -587,6 +587,6 @@
 
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
-        <welcome-file>/jsp/index.jsp</welcome-file>
+        <welcome-file>/</welcome-file>
     </welcome-file-list>
 </web-app>
