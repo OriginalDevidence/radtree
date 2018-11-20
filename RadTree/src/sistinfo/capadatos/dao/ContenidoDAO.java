@@ -1,22 +1,98 @@
 package sistinfo.capadatos.dao;
 import java.sql.*;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
-import sistinfo.capadatos.excepciones.ErrorInternoException;
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ContenidoVO;
+import sistinfo.capadatos.vo.ContenidoVO.Estado;
+import sistinfo.excepciones.ErrorInternoException;
 
-public abstract class ContenidoDAO {
+public class ContenidoDAO {
 	
 	/**
-	 * Cambia el estado de un contenido seg鷑 su id.
+	 * Incrementa en uno las visitas a un contenido
+	 * @param id ID del contenido a actualizar
+	 * @throws ErrorInternoException 
+	 */
+	public void incrementNumVisitas(Long idContenido) throws ErrorInternoException {
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+        	PreparedStatement stmt = connection.prepareStatement("UPDATE Contenido SET numVisitas = numVisitas + 1 WHERE idContenido = ?");
+        	stmt.setLong(1, idContenido);
+        	stmt.executeUpdate();
+        	
+        	stmt.close();
+			connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+	}
+	
+	/**
+	 * Obtiene el n煤mero de contenidos que est谩n en la cola de validaci贸n (estado = PENDIENTE)
+	 * @return N煤mero de elementos de la cola de validaci贸n
+	 * @throws ErrorInternoException 
+	 */
+	public int getNumContenidosInColaValidacion() throws ErrorInternoException {
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+        	Statement stmt = connection.createStatement();
+        	ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Contenido WHERE estado='PENDIENTE'");
+            
+        	if (rs.last()) {
+        		if (rs.getRow() == 1) {
+        			return rs.getInt(1);
+        		}
+        	}
+        	
+        	stmt.close();
+			connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return 0;
+	}
+	
+	/**
+	 * Obtiene una lista con los ID de contenidos que est谩n en la cola de validaci贸n (estado = PENDIENTE)
+	 * @return N煤mero de elementos de la cola de validaci贸n
+	 * @throws ErrorInternoException 
+	 */
+	public List<Long> getContenidosInColaValidacion() throws ErrorInternoException {
+		List<Long> contenidos = new ArrayList<Long>();
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+        	Statement stmt = connection.createStatement();
+        	ResultSet rs = stmt.executeQuery("SELECT idContenido FROM Contenido WHERE estado='PENDIENTE'");
+            
+        	while (rs.next()) {
+        		contenidos.add(rs.getLong(1));
+        	}
+
+        	stmt.close();
+			connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return contenidos;
+	}
+	
+	/**
+	 * Cambia el estado de un contenido seg煤n su id.
 	 * @param id
 	 * @param nuevoEstado
-	 * @return true si la actualizaci髇 ha sido correcta, false en caso contrario
+	 * @return true si la actualizaci贸n ha sido correcta, false en caso contrario
 	 */
-	public boolean updateEstado(long id, ContenidoVO.Estado nuevoEstado) {
-		Connection connection = ConnectionFactory.getConnection();
+	public boolean updateEstado(Long id, Estado nuevoEstado) {
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("UPDATE Contenido SET estado=? WHERE idContenido=?");
         	stmt.setString(1, nuevoEstado.toString());
@@ -26,7 +102,9 @@ public abstract class ContenidoDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -34,14 +112,15 @@ public abstract class ContenidoDAO {
 	}
 	
 	/**
-	 * B鷖queda de contenido por su identificador interno.
+	 * B煤squeda de contenido por su identificador interno.
 	 * @param id
 	 * @return El contenido si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	protected ContenidoVO getContenidoById(long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
+    		
         	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Contenido WHERE idContenido=?");
         	stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -58,7 +137,9 @@ public abstract class ContenidoDAO {
             		return cont;
             	}
             }
-            
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -67,39 +148,49 @@ public abstract class ContenidoDAO {
 	}
 	
 	/**
-	 * Inserta un contenido en la base de datos, con valor 0 en numVisitas, la fecha actual en fechaRealizacion, y "pendiente" en estado.
+	 * Inserta un contenido en la base de datos
 	 * @param contenido
-	 * @return El idContenido del contenido reci閚 insertado (mayor que 0 si es correcto, menor o igual si ha salido mal)
+	 * @return El idContenido del contenido reci茅n insertado (mayor que 0 si es correcto, diferente o null si algo ha salido mal)
 	 * @throws ErrorInternoException 
 	 */
-	protected int insertContenido(ContenidoVO contenido) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
+	protected Long insertContenido(ContenidoVO contenido) throws ErrorInternoException {
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
-        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Reto VALUES (NULL, ?, ?, ?, ?)");
+        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Contenido VALUES (NULL, ?, ?, ?, ?)",
+																	Statement.RETURN_GENERATED_KEYS);
         	stmt.setLong(1, contenido.getIdAutor());
-        	stmt.setLong(2, 0); // numVisitas
-        	stmt.setDate(3, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
-        	stmt.setString(4, "pendiente");
-        	int result = stmt.executeUpdate(stmt.toString(), Statement.RETURN_GENERATED_KEYS);
-            
-        	return result;
-        	
+        	stmt.setLong(2, contenido.getNumVisitas()); 
+        	stmt.setDate(3, contenido.getFechaRealizacion());
+        	stmt.setString(4, contenido.getEstado().toString());
+        	int result = stmt.executeUpdate();
+
+        	if (result == 1) {
+        		// Devolver el ID del usuario insertado
+        		ResultSet rs = stmt.getGeneratedKeys();
+        		if (rs != null && rs.last()) {
+        			return rs.getLong(1);
+        		}
+        	}
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
         }
+        return null;
 	}
 	
 	/**
 	 * Actualiza los datos de un contenido (asumiendo que ya existe un comentario con ese ID).
 	 * @param contenido
-	 * @return true si la actualizaci髇 ha sido correcta, false en caso contrario
+	 * @return true si la actualizaci贸n ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	protected boolean updateContenido(ContenidoVO contenido) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("UPDATE Contenido SET idAutor=?, numVisitas=?, fechaRealizacion=?, estado=? WHERE idContenido=?");
         	stmt.setLong(1, contenido.getIdAutor());
@@ -112,7 +203,9 @@ public abstract class ContenidoDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -127,8 +220,8 @@ public abstract class ContenidoDAO {
 	 * @throws ErrorInternoException 
 	 */
 	protected boolean deleteContenido(long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("DELETE FROM Contenido WHERE idContenido=?");
         	stmt.setLong(1, id);
@@ -137,7 +230,9 @@ public abstract class ContenidoDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();

@@ -38,7 +38,7 @@ body{ font-size: 14px; font-family: 'Encode Sans Expanded', sans-serif; width: 1
 	-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; word-wrap: break-word; 
 	overflow-x: hidden; color: #333; }
 
-h1, h2, h3, h4, h5, h6, p, a, ul, span, li, img, inpot, button{ margin: 0; padding: 0; }
+h1, h2, h3, h4, h5, h6, p, a, ul, span, li, img, input, button{ margin: 0; padding: 0; }
 
 h1,h2,h3,h4,h5,h6{ line-height: 1.5; font-weight: inherit; }
 
@@ -305,6 +305,7 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 .float-left{ float: left!important; }
 .float-right{ float: right!important; }
 
+.text-left{ text-align: left; }
 .text-center{ text-align: center; }
 .text-justify{ text-align: justify; }
 
@@ -316,6 +317,8 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 
 /* FONTS */
+
+.font-sans { font-family: 'Encode Sans Expanded'; }
 
 .font-7 { font-size: .7em; }
 .font-75{ font-size: .75em; }
@@ -337,7 +340,9 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 	.text-sm-center{ text-align: center; }
 	
+	.font-sm-12{ font-size: 1.2em; }
 	.font-sm-13{ font-size: 1.3em; }
+	.font-sm-14{ font-size: 1.4em; }
 }
 
 
@@ -369,13 +374,6 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 .img-bg{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 1; }
 
 .bg-map{ background: url(../images/map.png) no-repeat center; background-size: cover; }
-
-.bg-1{ background: url(../images/Eco-1_900x600.jpg) no-repeat center; background-size: cover; }
-.bg-2{ background: url(../images/eco_2_900x600.jpg) no-repeat center; background-size: cover; }
-.bg-3{ background: url(../images/eco_3_900x600.jpg) no-repeat center; background-size: cover; }
-.bg-4{ background: url(../images/Eco-1_900x600.jpg) no-repeat center; background-size: cover; }
-.bg-5{ background: url(../images/Eco-1_900x600.jpg) no-repeat center; background-size: cover; }
-.bg-6{ background: url(../images/Eco-1_900x600.jpg) no-repeat center; background-size: cover; }
 
 
 .bg-grad-layer-6:after{ content:''; position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: -1;
@@ -555,15 +553,14 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 /* LISTA DE TITULOS */
 
-.lista-titulos li{ width: 100%; border: solid #0cc300 1px; padding: 15px; margin-bottom: 10px; }
-.lista-titulos p{ font-size:1.5em; }
+.lista-titulos li{ margin: 5px 10px; width: auto!important; border: solid #0cc300 1px; float: left; }
+.lista-titulos button{ padding: 15px 25px; }
+.lista-titulos span{ float: left; text-align: left; font-size:1.5em; margin-bottom: 5px;}
 .lista-titulos .titulo-desc,
 .lista-titulos .titulo-extra{ font-size: 1.2em; }
-.lista-titulos .titulo-extra{ display:none; }
-.lista-titulos li:hover{ border: solid #000 1px; border-left: 6px solid green; background-color: #0cc300; }
-.lista-titulos li:hover p{ color:white; }
+.lista-titulos li:hover{ margin: 5px 6px 5px 10px; border: solid #000 1px; border-left: 5px solid green; background-color: #0cc300; }
+.lista-titulos li:hover span{ color:white; }
 .lista-titulos li:hover i{ color:white; }
-.lista-titulos li:hover .titulo-extra{ display:inline; }
 
 /* INDIVIDUAL STYLING */
 
@@ -641,8 +638,6 @@ section{ padding: 50px 0; }
 .h-900x { height: 900px!important; }
 
 .min-h-100x{ min-height: 100px!important; }
-
-
 
 /* RESPONSIVE */
 

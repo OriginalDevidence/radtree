@@ -1,92 +1,82 @@
 package sistinfo.capadatos.dao;
-import java.sql.*;
-import java.util.Calendar;
-import java.util.LinkedList;
 
-import sistinfo.capadatos.excepciones.ErrorInternoException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import sistinfo.capadatos.jdbc.ConnectionFactory;
 import sistinfo.capadatos.vo.ComentarioVO;
+import sistinfo.capadatos.vo.ContenidoVO;
+import sistinfo.excepciones.ErrorInternoException;
 
 public class ComentarioDAO {
-	
+
 	/**
-	 * B�squeda de comentario por su identificador interno.
-	 * @param id
-	 * @return El comentario si el id existe, null en caso contrario
-	 * @throws ErrorInternoException 
-	 */
-	public ComentarioVO getComentarioById(long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
-        try {
-        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Comentario WHERE idComentario=?");
-        	stmt.setLong(1, id);
-            ResultSet rs = stmt.executeQuery();
-            
-            if (rs.last()) {
-            	if (rs.getRow() == 1) {
-                    return extractComentarioFromResultSet(rs);
-            	}
-            }
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new ErrorInternoException();
-        }
-        return null;
-	}
-	
-	/**
-	 * B�squeda de comentarios por un identificador de contenido.
+	 * Añade a cada contenido de la lista el número de comentarios correspondientes a ese contenido
 	 * @param id
 	 * @return Lista de comentarios pertenecientes al contenido idContenido
 	 * @throws ErrorInternoException 
 	 */
-	public LinkedList<ComentarioVO> getComentariosFromContenido(long idContenido) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
-        LinkedList<ComentarioVO> comentarios = new LinkedList<ComentarioVO>();
-        try {
-        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Comentario WHERE idContenido=? ORDER BY fecha ASC");
-        	stmt.setLong(1, idContenido);
-            ResultSet rs = stmt.executeQuery();
-            
-            /* TODO: tener en cuenta las respuestas a los comentarios */
-            
-            do {
-            	ComentarioVO com = extractComentarioFromResultSet(rs);
-            	comentarios.add(com);
-            } while (rs.next());
-            
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            throw new ErrorInternoException();
-        }
-        return comentarios;
+	public <T extends ContenidoVO> List<T> addNumComentariosToContenido(List<T> contenidos) throws ErrorInternoException {
+		try {
+			Connection connection = ConnectionFactory.getConnection();
+			
+			for (T contenido : contenidos) {
+				PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM Comentario WHERE idContenido=?");
+	        	stmt.setLong(1, contenido.getIdContenido());
+	            ResultSet rs = stmt.executeQuery();
+	            if (rs.last() && rs.getRow() == 1) {
+	            	contenido.setNumComentarios(rs.getLong(1));
+	            }
+	            stmt.close();
+			}
+			
+			connection.close();
+		} catch (SQLException ex) {
+	        ex.printStackTrace();
+	        throw new ErrorInternoException();
+	    }
+	    return contenidos;
 	}
 	
 	/**
-	 * Inserta un comentario en la base de datos, con valor 0 en numLikes y la fecha actual en fecha.
+	 * Búsqueda de comentarios por un identificador de contenido.
+	 * @param id
+	 * @return Lista de comentarios pertenecientes al contenido idContenido
+	 * @throws ErrorInternoException 
+	 */
+	public List<ComentarioVO> getComentariosFromContenido(Long idContenido) throws ErrorInternoException {
+		return getComentariosFromContenido(idContenido, null);
+	}
+	
+	/**
+	 * Inserta un comentario en la base de datos
 	 * @param comentario
-	 * @return true si la inserci�n ha sido correcta, false en caso contrario
+	 * @return true si la inserción ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	public boolean insertComentario(ComentarioVO comentario) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
-        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Comentario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)");
+        	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Comentario VALUES (NULL, ?, ?, ?, ?, ?)");
         	stmt.setLong(1, comentario.getIdAutor());
         	stmt.setLong(2, comentario.getIdContenido());
         	stmt.setString(3, comentario.getCuerpo());
-        	stmt.setLong(4, 0); // numLikes
-        	stmt.setDate(5, new java.sql.Date(Calendar.getInstance().getTime().getTime())); // fecha
-        	stmt.setLong(6, comentario.getRespuestaDe());
+        	stmt.setDate(4, comentario.getFecha());
+        	if (comentario.getRespuestaDe() == null) {
+            	stmt.setNull(5, java.sql.Types.BIGINT);
+        	} else {
+            	stmt.setLong(5, comentario.getRespuestaDe());
+        	}
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
         		return true;
         	}
         	
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -97,27 +87,28 @@ public class ComentarioDAO {
 	/**
 	 * Actualiza los datos de un comentario (asumiendo que ya existe un comentario con ese ID).
 	 * @param comentario
-	 * @return true si la actualizaci�n ha sido correcta, false en caso contrario
+	 * @return true si la actualización ha sido correcta, false en caso contrario
 	 * @throws ErrorInternoException 
 	 */
 	public boolean updateComentario(ComentarioVO comentario) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
-        	PreparedStatement stmt = connection.prepareStatement("UPDATE Comentario SET idAutor=?, idContenido=?, cuerpo=?, numLikes=?, fecha=?, respuestaDe=? WHERE idComentario=?");
+        	PreparedStatement stmt = connection.prepareStatement("UPDATE Comentario SET idAutor=?, idContenido=?, cuerpo=?, fecha=?, respuestaDe=? WHERE idComentario=?");
         	stmt.setLong(1, comentario.getIdAutor());
         	stmt.setLong(2, comentario.getIdContenido());
         	stmt.setString(3, comentario.getCuerpo());
-        	stmt.setLong(4, comentario.getNumLikes());
-        	stmt.setDate(5, comentario.getFecha());
-        	stmt.setLong(6, comentario.getRespuestaDe());
-        	stmt.setLong(7, comentario.getIdComentario());
+        	stmt.setDate(4, comentario.getFecha());
+        	stmt.setLong(5, comentario.getRespuestaDe());
+        	stmt.setLong(6, comentario.getIdComentario());
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
@@ -132,8 +123,8 @@ public class ComentarioDAO {
 	 * @throws ErrorInternoException 
 	 */
 	public boolean deleteComentario(long id) throws ErrorInternoException {
-		Connection connection = ConnectionFactory.getConnection();
         try {
+    		Connection connection = ConnectionFactory.getConnection();
         	
         	PreparedStatement stmt = connection.prepareStatement("DELETE FROM Comentario WHERE idComentario=?");
         	stmt.setLong(1, id);
@@ -142,12 +133,58 @@ public class ComentarioDAO {
         	if (result == 1) {
         		return true;
         	}
-        	
+
+        	stmt.close();
+			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new ErrorInternoException();
         }
         return false;
+	}
+	
+	/**
+	 * Búsqueda de comentarios por un identificador de contenido y según a quién respondan
+	 * @param id
+	 * @return Lista de comentarios pertenecientes al contenido idContenido y respondiendo al comentario respuestaDe
+	 * @throws ErrorInternoException 
+	 */
+	private List<ComentarioVO> getComentariosFromContenido(Long idContenido, Long respuestaDe) throws ErrorInternoException {
+        List<ComentarioVO> comentarios = new ArrayList<ComentarioVO>();
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+        	PreparedStatement stmt = connection.prepareStatement("SELECT idComentario, idAutor, idContenido, cuerpo, fecha, respuestaDe, alias \'autor\'"
+	    			+ " FROM Comentario C"
+	    			+ " INNER JOIN Usuario U ON C.idAutor = U.idUsuario"
+	    			+ " WHERE idContenido = ? AND respuestaDe" + (respuestaDe == null ? " IS NULL" : "= ?")
+	    			+ " ORDER BY fecha ASC");
+        	stmt.setLong(1, idContenido);
+        	if (respuestaDe != null) {
+            	stmt.setLong(2, respuestaDe);
+        	}
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+            	// Añadir el comentario
+	        	ComentarioVO com = extractComentarioFromResultSet(rs);
+	        	comentarios.add(com);
+	        	List<ComentarioVO> hijos = getComentariosFromContenido(idContenido, com.getIdComentario());
+	        	for (ComentarioVO c : hijos) {
+	        		if (c.getAutorPadre() == null) {
+		        		c.setAutorPadre(com.getAutor());
+	        		}
+	        	}
+	        	comentarios.addAll(hijos);
+            }
+
+        	stmt.close();
+			connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return comentarios;
 	}
 	
 	/**
@@ -162,9 +199,9 @@ public class ComentarioDAO {
          	rs.getLong("idAutor"),
          	rs.getLong("idContenido"),
          	rs.getString("cuerpo"),
-         	rs.getInt("numLikes"),
          	rs.getDate("fecha"),
-         	rs.getLong("respuestaDe")
+         	rs.getLong("respuestaDe"),
+         	rs.getString("autor")
          );
          return user;
 	}

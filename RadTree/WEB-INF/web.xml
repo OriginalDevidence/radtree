@@ -5,18 +5,465 @@
     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <description>Proyecto medioambiental de la Universidad de Zaragoza</description>
     <display-name>RadTree</display-name>
-    <!-- ================ Servlets ================ -->
+    
+	<!-- =============================================================================== -->
+	<!-- ================================ FILTERS ===================================== -->
+	<!-- =============================================================================== -->
+	
+    <!-- RedirectPerfilUsuarioLogueado: Para evitar que un usuario logueado acceda a páginas de usuarios no registrados -->
+    <filter>
+		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
+		<filter-class>sistinfo.filters.usuario.RedirectPerfilUsuarioLogueadoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RedirectPerfilUsuarioLogueado</filter-name>
+		<url-pattern>/registrar</url-pattern>
+		<url-pattern>/iniciar-sesion</url-pattern>
+	</filter-mapping>
+
+    <!-- UsuarioParticipante: Se asegura de que haya un usuario logueado -->
+    <filter>
+		<filter-name>UsuarioParticipante</filter-name>
+		<filter-class>sistinfo.filters.usuario.UsuarioParticipanteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UsuarioParticipante</filter-name>
+		<url-pattern>/perfil/editar</url-pattern>
+	</filter-mapping>
+
+    <!-- UsuarioCreador: Se asegura de que haya un usuario logueado y que sea creador o administador -->
+    <filter>
+		<filter-name>UsuarioCreador</filter-name>
+		<filter-class>sistinfo.filters.usuario.UsuarioCreadorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UsuarioCreador</filter-name>
+		<url-pattern>/gestion-contenido</url-pattern>
+		<url-pattern>/gestion-contenido/crear-noticia</url-pattern>
+		<url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
+		<url-pattern>/gestion-contenido/crear-reto</url-pattern>
+		<url-pattern>/gestion-contenido/editar-noticia</url-pattern>
+		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
+		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
+	</filter-mapping>
+
+    <!-- UsuarioParticipante: Se asegura de que haya un usuario logueado y que sea administrador -->
+    <filter>
+		<filter-name>UsuarioAdministrador</filter-name>
+		<filter-class>sistinfo.filters.usuario.UsuarioAdministradorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UsuarioAdministrador</filter-name>
+		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
+	</filter-mapping>
+	
+    <!-- NoticiasFooter: Cargar las noticias para mostrar en el footer -->
+    <!-- Otra opción es hacer que todos los servlets incluyan en su request los datos -->
+    <filter>
+		<filter-name>NoticiasFooter</filter-name>
+		<filter-class>sistinfo.filters.contenido.NoticiasFooterFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>NoticiasFooter</filter-name>
+		<url-pattern>/</url-pattern>
+		<url-pattern>/registrar</url-pattern>
+		<url-pattern>/iniciar-sesion</url-pattern>
+		<url-pattern>/perfil</url-pattern>
+		<url-pattern>/perfil/editar</url-pattern>
+		<url-pattern>/noticias</url-pattern>
+		<url-pattern>/noticias/ver</url-pattern>
+		<url-pattern>/preguntas</url-pattern>
+		<url-pattern>/preguntas/ver</url-pattern>
+		<url-pattern>/retos</url-pattern>
+		<url-pattern>/retos/ver</url-pattern>
+		<url-pattern>/usuarios</url-pattern>
+		<url-pattern>/quienes-somos</url-pattern>
+		<url-pattern>/clasificacion</url-pattern>
+		<url-pattern>/gestion-contenido</url-pattern>
+		<url-pattern>/gestion-contenido/crear-noticia</url-pattern>
+		<url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
+		<url-pattern>/gestion-contenido/crear-reto</url-pattern>
+		<url-pattern>/gestion-contenido/editar-noticia</url-pattern>
+		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
+		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
+	</filter-mapping>
+	
+	<!-- =============================================================================== -->
+	<!-- ================================ SERVLETS ===================================== -->
+	<!-- =============================================================================== -->
+
+	<!-- ================================ USUARIOS ===================================== -->
+
+	<servlet>
+	    <servlet-name>Registro</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.usuarios.RegistroServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Registro</servlet-name>
+	    <url-pattern>/registrar</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>InicioSesion</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.usuarios.InicioSesionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>InicioSesion</servlet-name>
+	    <url-pattern>/iniciar-sesion</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+	    <servlet-name>Perfil</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.usuarios.PerfilServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Perfil</servlet-name>
+	    <url-pattern>/perfil</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+	    <servlet-name>EditarPerfil</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.usuarios.EditarPerfilServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EditarPerfil</servlet-name>
+	    <url-pattern>/perfil/editar</url-pattern>
+	</servlet-mapping>
+
+	<!-- ================================ CARTELES ===================================== -->
+	
+	<!-- ListaNoticias: Listar las noticias del sistema -->
+	<servlet>
+	    <servlet-name>ListaNoticias</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDeNoticiasServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaNoticias</servlet-name>
+	    <url-pattern>/noticias</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Noticia: Mostrar una noticia -->
+	<servlet>
+	    <servlet-name>Noticia</servlet-name>
+	    <servlet-class>sistinfo.servlets.jsp.carteles.NoticiaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Noticia</servlet-name>
+	    <url-pattern>/noticias/ver</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ListaPreguntas: Listar las preguntas del sistema -->
+	<servlet>
+	    <servlet-name>ListaPreguntas</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDePreguntasServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaPreguntas</servlet-name>
+	    <url-pattern>/preguntas</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Pregunta: Mostrar una pregunta -->
+	<servlet>
+	    <servlet-name>Pregunta</servlet-name>
+	    <servlet-class>sistinfo.servlets.jsp.carteles.PreguntaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Pregunta</servlet-name>
+	    <url-pattern>/preguntas/ver</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ListaRetos: Listar los retos del sistema -->
+	<servlet>
+	    <servlet-name>ListaRetos</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDeRetosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ListaRetos</servlet-name>
+	    <url-pattern>/retos</url-pattern>
+	</servlet-mapping>
+
+	<!-- Reto: Mostrar un reto -->
+	<servlet>
+	    <servlet-name>Reto</servlet-name>
+	    <servlet-class>sistinfo.servlets.jsp.carteles.RetoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Reto</servlet-name>
+	    <url-pattern>/retos/ver</url-pattern>
+	</servlet-mapping>
+
+	<!-- ============================ GESTIÓN CONTENIDO ===================================== -->
+	
+	<!-- TODO: Formulario para la creación de noticias -->
+	<servlet>
+	    <servlet-name>GestionContenido</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.GestionContenidoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>GestionContenido</servlet-name>
+	    <url-pattern>/gestion-contenido</url-pattern>
+	</servlet-mapping>
+
+	<!-- TODO: Formulario para la creación de noticias -->
+	<servlet>
+	    <servlet-name>ColaValidacion</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.ColaValidacionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ColaValidacion</servlet-name>
+	    <url-pattern>/gestion-contenido/cola-validacion</url-pattern>
+	</servlet-mapping>
+	
+	<!-- CrearNoticia: Formulario para la creación de noticias -->
+	<servlet>
+	    <servlet-name>CrearNoticia</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.CrearNoticiaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>CrearNoticia</servlet-name>
+	    <url-pattern>/gestion-contenido/crear-noticia</url-pattern>
+	</servlet-mapping>
+
+	<!-- EditarNoticia: Formulario para la edición de noticias -->
+	<servlet>
+	    <servlet-name>EditarNoticia</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.EditarNoticiaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EditarNoticia</servlet-name>
+	    <url-pattern>/gestion-contenido/editar-noticia</url-pattern>
+	</servlet-mapping>
+
+	<!-- CrearPregunta: Formulario para la creación de preguntas -->
+	<servlet>
+	    <servlet-name>CrearPregunta</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.CrearPreguntaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>CrearPregunta</servlet-name>
+	    <url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
+	</servlet-mapping>
+
+	<!-- EditarPregunta: Formulario para la edición de preguntas -->
+	<servlet>
+	    <servlet-name>EditarPregunta</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.EditarPreguntaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EditarPregunta</servlet-name>
+	    <url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
+	</servlet-mapping>
+
+	<!-- CrearReto: Formulario para la creación de retos -->
+	<servlet>
+	    <servlet-name>CrearReto</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.CrearRetoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>CrearReto</servlet-name>
+	    <url-pattern>/gestion-contenido/crear-reto</url-pattern>
+	</servlet-mapping>
+
+	<!-- EditarReto: Formulario para la edición de retos -->
+	<servlet>
+	    <servlet-name>EditarReto</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.EditarRetoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EditarReto</servlet-name>
+	    <url-pattern>/gestion-contenido/editar-reto</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ================================= VARIOS ===================================== -->
+	
+    <!-- Index: Página principal -->
     <servlet>
-        <servlet-name>Registro</servlet-name>
-        <servlet-class>sistinfo.servlets.RegistroServlet</servlet-class>
+		<servlet-name>Index</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.IndexServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Index</servlet-name>
+		<url-pattern></url-pattern>
+	</servlet-mapping>
+	
+    <!-- QuienesSomos: Muestra la página de quienes somos (evita acceso directo al jsp) -->
+    <servlet>
+		<servlet-name>QuienesSomos</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.QuienesSomosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QuienesSomos</servlet-name>
+		<url-pattern>/quienes-somos</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Usuarios: Formulario de búsqueda de usuarios, muestra usuarios según el parámetro busqueda  -->
+	<servlet>
+	    <servlet-name>Usuarios</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.UsuariosServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Usuarios</servlet-name>
+	    <url-pattern>/usuarios</url-pattern>
+	</servlet-mapping>
+
+    <!-- Clasificacion: Devuelve la clasificacion de usuarios por puntos -->
+    <servlet>
+		<servlet-name>Clasificacion</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.ClasificacionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Clasificacion</servlet-name>
+		<url-pattern>/clasificacion</url-pattern>
+	</servlet-mapping>
+
+	<!-- === Error interno === -->
+	<servlet>
+	    <servlet-name>ErrorInterno</servlet-name>
+	    <jsp-file>/jsp/errorInterno.html</jsp-file>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>ErrorInterno</servlet-name>
+	    <url-pattern>/error-interno</url-pattern>
+	</servlet-mapping>
+	
+	
+
+    <!-- ================ SERVLETS USUARIO ================ -->
+    <!-- TODO comentar una linea -->
+    <servlet>
+        <servlet-name>RegistrarUsuario</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.RegistrarUsuarioServlet</servlet-class>
     </servlet>
-    <!-- ============ Servlets Mapping======= -->
     <servlet-mapping>
-        <servlet-name>Registro</servlet-name>
-        <url-pattern>/RegistrarUsuario</url-pattern>
+        <servlet-name>RegistrarUsuario</servlet-name>
+        <url-pattern>/registrar/registro</url-pattern>
     </servlet-mapping>
-    <!-- ============ Welcome page ========= -->
+
+    <servlet>
+        <servlet-name>IniciarSesion</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.IniciarSesionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>IniciarSesion</servlet-name>
+        <url-pattern>/iniciar-sesion/inicio</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CerrarSesion</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.CerrarSesionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CerrarSesion</servlet-name>
+        <url-pattern>/perfil/cerrar-sesion</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditarUsuario</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.EditarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditarUsuario</servlet-name>
+        <url-pattern>/perfil/editar-usuario</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EliminarUsuario</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.EliminarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EliminarUsuario</servlet-name>
+        <url-pattern>/perfil/eliminar</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CambiarTipoUsuario</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.CambiarTipoUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CambiarTipoUsuario</servlet-name>
+        <url-pattern>/perfil/cambiar-tipo</url-pattern>
+    </servlet-mapping>
+
+    <!-- ============ SERVLETS CONTENIDO ============ -->
+    
+    <!-- ContestarPregunta: Inserta una contestación a una pregunta -->
+	<servlet>
+        <servlet-name>ContestarPregunta</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.ContestarPreguntaServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>ContestarPregunta</servlet-name>
+		<url-pattern>/preguntas/contestar</url-pattern>
+	</servlet-mapping>
+    
+    <!-- EnviarComentario: Inserta un comentario en el sistema -->
+    <servlet>
+        <servlet-name>EnviarComentario</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EnviarComentarioServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+        <servlet-name>EnviarComentario</servlet-name>
+		<url-pattern>/noticias/comentar</url-pattern>
+		<url-pattern>/preguntas/comentar</url-pattern>
+		<url-pattern>/retos/comentar</url-pattern>
+	</servlet-mapping>
+    <!-- EdicionReto: Crea o modifica una noticia -->
+    <servlet>
+        <servlet-name>EdicionNoticia</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EdicionNoticiaServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>EdicionNoticia</servlet-name>
+		<url-pattern>/gestion-contenido/crear-noticia/crear</url-pattern>
+		<url-pattern>/gestion-contenido/editar-noticia/editar</url-pattern>
+	</servlet-mapping>
+
+    <!-- EdicionReto: Crea o modifica una pregunta -->
+    <servlet>
+        <servlet-name>EdicionPregunta</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EdicionPreguntaServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>EdicionPregunta</servlet-name>
+		<url-pattern>/gestion-contenido/crear-pregunta/crear</url-pattern>
+		<url-pattern>/gestion-contenido/editar-pregunta/editar</url-pattern>
+	</servlet-mapping>
+
+    <!-- EdicionReto: Crea o modifica un reto -->
+    <servlet>
+        <servlet-name>EdicionReto</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EdicionRetoServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>EdicionReto</servlet-name>
+		<url-pattern>/gestion-contenido/crear-reto/crear</url-pattern>
+		<url-pattern>/gestion-contenido/editar-reto/editar</url-pattern>
+	</servlet-mapping>
+
+    <!-- ValidarContenido: Cambia el estado de un contenido a VALIDADO o BORRADO dependiendo de la decisión del administrador -->
+    <servlet>
+        <servlet-name>ValidarContenido</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.ValidarContenidoServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>ValidarContenido</servlet-name>
+		<url-pattern>/gestion-contenido/cola-validacion/validar</url-pattern>
+	</servlet-mapping>
+	
+    <!-- BorrarContenido: Cambia el estado de un contenido a BORRADO -->
+    <servlet>
+	    <servlet-name>BorrarContenido</servlet-name>
+		<servlet-class>sistinfo.servlets.contenido.BorrarContenidoServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>BorrarContenido</servlet-name>
+		<url-pattern>/noticias/borrar</url-pattern>
+		<url-pattern>/preguntas/borrar</url-pattern>
+		<url-pattern>/retos/borrar</url-pattern>
+	</servlet-mapping>
+
+    <!-- ========================= WELCOME PAGE ========================= -->
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file></welcome-file>
     </welcome-file-list>
 </web-app>

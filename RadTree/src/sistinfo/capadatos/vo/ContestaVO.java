@@ -3,37 +3,37 @@ package sistinfo.capadatos.vo;
 @SuppressWarnings("serial")
 public class ContestaVO implements java.io.Serializable{
 	
-	private long idUsuario;	
-	private long idRespuesta;
-	private boolean respuesta;
+	private Long idUsuario;	
+	private Long idRespuesta;
+	private Boolean respuesta;
 	
-	public ContestaVO(long idUsuario, long idRespuesta, boolean respuesta) {
+	public ContestaVO(Long idUsuario, Long idRespuesta, Boolean respuesta) {
 		this.idUsuario = idUsuario;
 		this.idRespuesta = idRespuesta;
 		this.respuesta = respuesta;
 	}
 	
-	public long getIdUsuario() {
+	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
-	public void setIdUsuario(long idUsuario) {
+	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
-	public long getIdRespuesta() {
+	public Long getIdRespuesta() {
 		return idRespuesta;
 	}
 
-	public void setIdRespuesta(long idRespuesta) {
+	public void setIdRespuesta(Long idRespuesta) {
 		this.idRespuesta = idRespuesta;
 	}
 
-	public boolean getRespuesta() {
+	public Boolean getRespuesta() {
 		return respuesta;
 	}
 
-	public void setRespuesta(boolean respuesta) {
+	public void setRespuesta(Boolean respuesta) {
 		this.respuesta = respuesta;
 	}
 

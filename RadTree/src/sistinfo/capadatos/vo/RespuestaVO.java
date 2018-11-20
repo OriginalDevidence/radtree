@@ -3,34 +3,39 @@ package sistinfo.capadatos.vo;
 @SuppressWarnings("serial")
 public class RespuestaVO implements java.io.Serializable {
 	
-	private long idRespuesta;	
-	private long idPregunta;
+	private Long idRespuesta;	
+	private Long idPregunta;
 	private String enunciado;
-	private boolean correcta;
+	private Boolean correcta;
+
+	public RespuestaVO(String enunciado, Boolean correcta) {
+		this.enunciado = enunciado;
+		this.correcta = correcta;
+	}
 	
-	public RespuestaVO(long idPregunta, String enunciado, boolean correcta) {
+	public RespuestaVO(Long idPregunta, String enunciado, Boolean correcta) {
 		this.idPregunta = idPregunta;
 		this.enunciado = enunciado;
 		this.correcta = correcta;
 	}
 	
-	public RespuestaVO(long idRespuesta, long idPregunta, String enunciado, boolean correcta) {
+	public RespuestaVO(Long idRespuesta, Long idPregunta, String enunciado, Boolean correcta) {
 		this.idRespuesta = idRespuesta;
 		this.idPregunta = idPregunta;
 		this.enunciado = enunciado;
 		this.correcta = correcta;
 	}
 	
-	public long getIdRespuesta() {
+	public Long getIdRespuesta() {
 		return idRespuesta;
 	}
-	public void setIdRespuesta(long idRespuesta) {
+	public void setIdRespuesta(Long idRespuesta) {
 		this.idRespuesta = idRespuesta;
 	}
-	public long getIdPregunta() {
+	public Long getIdPregunta() {
 		return idPregunta;
 	}
-	public void setIdPregunta(long idPregunta) {
+	public void setIdPregunta(Long idPregunta) {
 		this.idPregunta = idPregunta;
 	}
 	public String getEnunciado() {
@@ -39,10 +44,10 @@ public class RespuestaVO implements java.io.Serializable {
 	public void setEnunciado(String enunciado) {
 		this.enunciado = enunciado;
 	}
-	public boolean isCorrecta() {
+	public Boolean getCorrecta() {
 		return correcta;
 	}
-	public void setCorrecta(boolean correcta) {
+	public void setCorrecta(Boolean correcta) {
 		this.correcta = correcta;
 	}
 	

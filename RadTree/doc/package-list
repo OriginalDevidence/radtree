@@ -1,0 +1,14 @@
+sistinfo.capadatos.dao
+sistinfo.capadatos.jdbc
+sistinfo.capadatos.vo
+sistinfo.excepciones
+sistinfo.filters.contenido
+sistinfo.filters.usuario
+sistinfo.servlets.contenido
+sistinfo.servlets.jsp
+sistinfo.servlets.jsp.carteles
+sistinfo.servlets.jsp.gestion
+sistinfo.servlets.jsp.usuarios
+sistinfo.servlets.jsp.util
+sistinfo.servlets.usuario
+sistinfo.util
