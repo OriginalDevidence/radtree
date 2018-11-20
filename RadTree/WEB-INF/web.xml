@@ -65,7 +65,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>NoticiasFooter</filter-name>
-		<url-pattern></url-pattern>
+		<url-pattern>/</url-pattern>
 		<url-pattern>/registrar</url-pattern>
 		<url-pattern>/iniciar-sesion</url-pattern>
 		<url-pattern>/perfil</url-pattern>
