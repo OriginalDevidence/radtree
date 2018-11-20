@@ -1,6 +1,7 @@
 package sistinfo.capadatos.dao;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -490,6 +491,61 @@ public class PreguntaDAO extends ContenidoDAO {
             throw new ErrorInternoException();
         }
         return listPregunta;
+	}
+	
+	
+	/**
+	 * Búsqueda de hasta las últimas num preguntas según su fecha de realización y según si ha respondido el usuario
+	 * @param idUsuario Si busqueda es diferente de null, idUsuario que ha respondido a esas preguntas.
+	 * @param idPregunta Pregunta ha comprobar si el usuarioha respondido.
+	 * @return Booleano con valor true si el usuario ha respondido a la pregunta, false en caso contrario.
+	 * @throws ErrorInternoException 
+	 */
+	public boolean preguntasContestadas(Long idUsuario, Long idPregunta) throws ErrorInternoException, SQLException {      
+		Long dentro = null;
+		
+		try {
+			Connection connection = ConnectionFactory.getConnection();
+						
+			Statement stmt = connection.createStatement();
+        	ResultSet rs = stmt.executeQuery("SELECT idPregunta FROM Contesta NATURAL JOIN Respuesta WHERE idUsuario = '" + idUsuario + "' AND idPregunta = '" + idPregunta + "'");
+        	if(rs.next()) {
+        		dentro = rs.getLong("idPregunta");
+        	}
+
+        	stmt.close();
+            connection.close();
+            
+		} catch (SQLException ex) {
+	        ex.printStackTrace();
+	        throw new ErrorInternoException();
+	    } 		
+		
+        return dentro != null;
+	}
+	
+	
+	public List<Boolean> getContestacionesAPregunta(Long idUsuario, Long idPregunta) throws ErrorInternoException, SQLException {      
+		List<Boolean> dentro = new ArrayList<Boolean>();
+		
+		try {
+			Connection connection = ConnectionFactory.getConnection();
+						
+			Statement stmt = connection.createStatement();
+        	ResultSet rs = stmt.executeQuery("SELECT idPregunta, idRespuesta, respuesta FROM Contesta NATURAL JOIN Respuesta WHERE idUsuario = '" + idUsuario + "' AND idPregunta = '" + idPregunta + "' ORDER BY idRespuesta");
+        	while(rs.next()) {
+        		dentro.add(rs.getBoolean("respuesta"));
+        	}
+
+        	stmt.close();
+            connection.close();
+            
+		} catch (SQLException ex) {
+	        ex.printStackTrace();
+	        throw new ErrorInternoException();
+	    } 		
+		
+        return dentro;
 	}
 	
 	/**

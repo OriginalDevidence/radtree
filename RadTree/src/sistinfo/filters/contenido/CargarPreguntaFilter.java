@@ -1,6 +1,7 @@
 package sistinfo.filters.contenido;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.Filter;
@@ -79,10 +80,28 @@ public class CargarPreguntaFilter implements Filter {
 						respuestas = preguntaDAO.getRespuestasByPregunta(pregunta.getIdContenido());
 						
 						request.setAttribute("respuestas", respuestas);
+						
+						UsuarioVO usuarioRegistrado = (UsuarioVO)request.getSession().getAttribute("usuario");
+						boolean contestada = preguntaDAO.preguntasContestadas(usuarioRegistrado.getIdUsuario(),pregunta.getIdContenido());
+						request.setAttribute("contestada", contestada);
+						
+						if(contestada) {
+							List<Boolean> repuestasDelUsuario;
+							repuestasDelUsuario = preguntaDAO.getContestacionesAPregunta(usuarioRegistrado.getIdUsuario(),pregunta.getIdContenido());
+							
+							int index = 0;
+							for(RespuestaVO resp : respuestas) {
+								request.setAttribute("respCorrecta" + (index + 1), resp.getCorrecta() == repuestasDelUsuario.get(index));
+								index++;
+							}
+						}
+						
 					}
 					filterChain.doFilter(request, response);
 				} catch (ErrorInternoException e) {
 		            response.sendRedirect(request.getContextPath() + "/error-interno");
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
 			}
 		} else {

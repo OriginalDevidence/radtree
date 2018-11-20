@@ -40,39 +40,73 @@
 			<form class="pregunta" name="contestarPregunta" action="${pageContext.request.contextPath}/preguntas/contestar" method="post">
 			
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12" >
 					<h3 class="mb-10"><b><c:out value="${requestScope.pregunta.enunciado}"/></b></h3>
 					<p class="mb-30"><i><c:out value="${requestScope.autorCompleto}"/></i></p>
 					
-						<c:set var = "cuenta" value = "${1}"/>
+						<c:set var = "cuenta" value = "${0}"/>
 						<input type="hidden" name="idPregunta" value="${requestScope.pregunta.idContenido}"/>
 						<c:forEach items="${requestScope.respuestas}" var="respuesta">
+							<c:set var = "cuenta" value = "${cuenta + 1}"/>	
+							
 							<div class="row mt-10">
-								<div class="col-2 col-sm-1">
-									<input type="checkbox" name="resCorrecta<c:out value="${cuenta}"/>"/>
+								<div class="col-2 col-sm-1 ">
+									<c:if test="${requestScope.contestada == false}">
+										<input type="checkbox" name="resCorrecta<c:out value="${cuenta}"/>"/>
+									</c:if>
+									
 									<input type="hidden" name="idRespuesta<c:out value="${cuenta}"/>" value="${respuesta.idRespuesta}"/>
 								</div>
-	
-								<div class="col-10 col-sm-11">
-									<p><c:out value="${respuesta.enunciado}"/></p>
+								
+								<!-- Señalar las respuestas del usuario que estén mal-->
+								<c:set var="resN">respCorrecta${cuenta}</c:set>
+								<div class="col-10 col-sm-10
+									<c:if test="${requestScope.contestada}">
+										<c:if test="${not requestScope[resN]}">
+											alert alert-danger
+										</c:if>
+										<c:if test="${requestScope[resN]}">
+											alert alert-success
+										</c:if>
+									</c:if>
+								">
+								<!-- Señalar las respuestas correctas de la pregunta-->
+									<p>
+									<c:if test="${requestScope.contestada}">
+										<c:if test="${respuesta.correcta}">
+											<i class="ion-checkmark color-primary mr-10"></i>
+										</c:if>
+										<c:if test="${not respuesta.correcta}">
+											<i class="ion-close color-red mr-10"></i>
+										</c:if>
+									</c:if>
+									<c:out value="${respuesta.enunciado}"/>
+									</p>
 								</div>
 							</div>
-							<c:set var = "cuenta" value = "${cuenta + 1}"/>
+							
 						</c:forEach>
-						<input type="hidden" name="respuestasTotales" value="${cuenta - 1}"/>
+						<input type="hidden" name="respuestasTotales" value="${cuenta}"/>
 					
 				</div>
             </div>
             
 			<div class="row mt-20 mt-sm-40">
-				<div class="col-12 col-md-4">
-					<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-primary" type="submit"
-						name="button" value="validarRespuesta"><b>Validar pregunta</b>
-					</button>
-				</div>
-				<div class="col-12 col-md-4">
-					<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-grey" type="submit"><b>No responder y pasar</b></button>
-				</div>
+				<c:if test="${not requestScope.contestada}">
+					<div class="col-12 col-md-4">
+						<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-primary" type="submit"
+							name="button" value="validarRespuesta"><b>Validar pregunta</b>
+						</button>
+					</div>
+					<div class="col-12 col-md-4">
+						<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-grey" type="submit"><b>No responder y pasar</b></button>
+					</div>
+				</c:if>
+				<c:if test="${requestScope.contestada}">
+					<div class="col-12 col-md-4">
+						<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-primary" type="submit"><b>Seguir Contestando</b></button>
+					</div>
+				</c:if>
 			</div>
 
 			<div class="row">
