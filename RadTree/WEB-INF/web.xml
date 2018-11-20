@@ -109,15 +109,6 @@
 	</servlet-mapping>
 
 	<servlet>
-	    <servlet-name>Clasificacion</servlet-name>
-	    <jsp-file>/jsp/clasificacion.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Clasificacion</servlet-name>
-	    <url-pattern>/clasificacion</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
 	    <servlet-name>QuienesSomos</servlet-name>
 	    <jsp-file>/jsp/quienesSomos.jsp</jsp-file>
 	</servlet>
@@ -417,15 +408,15 @@
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 
-    <!-- GenerarClasificacion: Devuelve la clasificacion de usuarios por puntos -->
-    <filter>
-		<filter-name>GenerarClasificacion</filter-name>
-		<filter-class>sistinfo.filters.usuario.GenerarClasificacionFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>GenerarClasificacion</filter-name>
+    <!-- Clasificacion: Devuelve la clasificacion de usuarios por puntos -->
+    <servlet>
+		<servlet-name>Clasificacion</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.ClasificacionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Clasificacion</servlet-name>
 		<url-pattern>/clasificacion</url-pattern>
-	</filter-mapping>
+	</servlet-mapping>
 
     <!-- NumeroColaValidacion: Devuelve los elementos de la cola de validacion -->
     <filter>
