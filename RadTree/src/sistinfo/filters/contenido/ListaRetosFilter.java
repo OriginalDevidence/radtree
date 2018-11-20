@@ -46,9 +46,9 @@ public class ListaRetosFilter implements Filter {
 				// Según la barra de busqueda obtener las preguntas con unas caracteristicas u otras
 				List<RetoVO> retos;
 				if (busqueda == null || busqueda.trim().isEmpty()) {
-					retos = retoDAO.getRetosUltimos(10);
+					retos = retoDAO.getRetosUltimos(30);
 				} else {
-					retos = retoDAO.getRetosBySearch(busqueda, 10);
+					retos = retoDAO.getRetosBySearch(busqueda, 30);
 				}
 				// Añadir información especial e incluirlo en la request
 				retos = comentarioDAO.addNumComentariosToContenido(retos);

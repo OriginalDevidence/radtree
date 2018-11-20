@@ -68,6 +68,12 @@ public class CargarNoticiaFilter implements Filter {
 						if (usuario == null) {
 				            response.sendRedirect(request.getContextPath() + "/error-interno");
 						} else {
+							String path = "images/noticias/" + noticia.getIdContenido() + ".jpg";
+							if (request.getSession().getServletContext().getResource(path) != null) {
+								noticia.setUrlImagen(request.getContextPath() + "/" + path);
+							} else {
+								noticia.setUrlImagen(request.getContextPath() + "/images/noticias/default.jpg");
+							}
 							request.setAttribute("noticia", noticia);
 							request.setAttribute("autorAlias", usuario.getAlias());
 							request.setAttribute("autorCompleto", usuario.getNombre() + " " + usuario.getApellidos() + " (" + usuario.getAlias() + ")");
