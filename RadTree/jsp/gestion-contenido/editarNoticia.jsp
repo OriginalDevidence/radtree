@@ -45,11 +45,17 @@
 					<h3 class="mb-30"><b>Editar noticia</b></h3>
 					<form name="editarNoticia" action="${pageContext.request.contextPath}/gestion-contenido/editar-noticia/editar" method="post">
 
-						<input type="hidden" name="idContenido" value="<c:out value="${requestScope.noticia.idContenido}"/>"/>
+						<input type="hidden" name="id" value="<c:out value="${requestScope.noticia.idContenido}"/>"/>
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20">
 							<div class="col-sm-12">
-								<label for="titulo">Título de la Noticia</label> <input
+								<label for="titulo">Título de la Noticia</label>
+								<c:if test="${not empty requestScope.errores.get('titulo')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('titulo')}"/>
+									</span>
+								</c:if>
+								<input
 									class="brdr-grey" type="text" name="titulo"
 									placeholder="Título"
 									value="<c:out value="${requestScope.noticia.titulo}"/>" />
@@ -57,12 +63,23 @@
 
 							<div class="col-sm-12">
 								<label for="cuerpo">Cuerpo</label>
+								<c:if test="${not empty requestScope.errores.get('cuerpo')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('cuerpo')}"/>
+									</span>
+								</c:if>
 								<textarea class="brdr-grey p-10" name="cuerpo"
 									rows=8><c:out value="${requestScope.noticia.cuerpo}" /></textarea>
 							</div>
 
 							<div class="col-sm-12">
-								<label for="url">URL de la fuente</label> <input
+								<label for="url">URL de la fuente</label>
+								<c:if test="${not empty requestScope.errores.get('url')}">
+									<i class="ml-10 ion-close color-red"></i><span class="pl-5 font-10 color-red">
+									<c:out value="${requestScope.errores.get('url')}"/>
+									</span>
+								</c:if>
+								<input
 									class="brdr-grey" type="text" name="url"
 									placeholder="URL de la fuente"
 									value="<c:out value="${requestScope.noticia.url}"/>" />

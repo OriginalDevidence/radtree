@@ -88,8 +88,26 @@
 												<h4 class="mb-10 mb-sm-5 font-12 text-left font-sans"><b><c:out value="${noticia.titulo}"/></b></h4>
 												<ul class="list-li-mr-20 float-left">
 													<li class="font-11 font-sans"><c:out value="${noticia.fechaRealizacion}"/></li>
-													<li class="font-11 font-sans"><i class="color-primary mr-5 font-11 ion-ios-bolt"></i><c:out value="${noticia.numVisitas}"/></li>
-													<li class="font-11 font-sans"><i class="color-primary mr-5 font-11 ion-chatbubbles"></i><c:out value="${noticia.numComentarios}"/></li>
+													<li class="font-11 font-sans">
+														<i class="color-primary mr-5 font-11 ion-ios-bolt"></i>
+														<c:out value="${noticia.numVisitas}"/>
+						                                <c:if test="${noticia.numVisitas == 1}">
+						                                	 visita
+						                                </c:if>
+						                                <c:if test="${noticia.numVisitas != 1}">
+						                                	 visitas
+						                                </c:if>
+													</li>
+													<li class="font-11 font-sans">
+														<i class="color-primary mr-5 font-11 ion-chatbubbles"></i>
+														<c:out value="${noticia.numComentarios}"/>
+						                                <c:if test="${noticia.numComentarios == 1}">
+						                                	 comentario
+						                                </c:if>
+						                                <c:if test="${noticia.numComentarios != 1}">
+						                                	 comentarios
+						                                </c:if>
+													</li>
 												</ul>
 											</div>
 										</button>

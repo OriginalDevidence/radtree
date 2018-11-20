@@ -43,7 +43,7 @@ public class CrearNoticiaServlet extends HttpServlet {
 			Map<String, String> errores = new HashMap<String, String>();
 			NoticiaVO noticia = extractNoticiaFromHttpRequest(request, usuario.getIdUsuario(), errores);
 
-			Long idContenido = RequestExtractor.getLong(request, "idContenido");
+			Long idContenido = RequestExtractor.getLong(request, "id");
 			boolean editando = false;
 			if (idContenido != null) {
 				editando = true;

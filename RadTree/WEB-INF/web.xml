@@ -341,6 +341,7 @@
 		<filter-name>CargarNoticia</filter-name>
 		<url-pattern>/noticias/ver</url-pattern>
 		<url-pattern>/gestion-contenido/editar-noticia</url-pattern>
+		<url-pattern>/gestion-contenido/editar-noticia/editar</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
@@ -364,6 +365,7 @@
 		<filter-name>CargarPregunta</filter-name>
 		<url-pattern>/preguntas/ver</url-pattern>
 		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
+		<url-pattern>/gestion-contenido/editar-pregunta/editar</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
@@ -387,6 +389,7 @@
 		<filter-name>CargarReto</filter-name>
 		<url-pattern>/retos/ver</url-pattern>
 		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
+		<url-pattern>/gestion-contenido/editar-reto/editar</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
@@ -539,6 +542,7 @@
     <servlet-mapping>
 	    <servlet-name>CrearPregunta</servlet-name>
 		<url-pattern>/gestion-contenido/crear-pregunta/crear</url-pattern>
+		<url-pattern>/gestion-contenido/editar-pregunta/editar</url-pattern>
 	</servlet-mapping>
 
     <servlet>
