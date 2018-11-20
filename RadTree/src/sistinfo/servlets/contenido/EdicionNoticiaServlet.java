@@ -20,7 +20,7 @@ import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.capadatos.dao.NoticiaDAO;
 
 @SuppressWarnings("serial")
-public class CrearNoticiaServlet extends HttpServlet {
+public class EdicionNoticiaServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		doPost(request, response);

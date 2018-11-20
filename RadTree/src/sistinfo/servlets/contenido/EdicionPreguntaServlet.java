@@ -21,7 +21,7 @@ import sistinfo.capadatos.dao.PreguntaDAO;
 
 
 @SuppressWarnings("serial")
-public class CrearPreguntaServlet extends HttpServlet {
+public class EdicionPreguntaServlet extends HttpServlet {
 	public static final int MAX_RESPUESTAS = 10;
 	public static final int MIN_RESPUESTAS = 2;
 	

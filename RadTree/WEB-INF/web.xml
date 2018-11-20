@@ -43,39 +43,10 @@
 	    <url-pattern>/perfil/editar</url-pattern>
 	</servlet-mapping>
 
-	<!-- === Contenido === -->
-
-	<servlet>
-	    <servlet-name>Noticia</servlet-name>
-	    <jsp-file>/jsp/carteles/noticia.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Noticia</servlet-name>
-	    <url-pattern>/noticias/ver</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>Pregunta</servlet-name>
-	    <jsp-file>/jsp/carteles/pregunta.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Pregunta</servlet-name>
-	    <url-pattern>/preguntas/ver</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>Reto</servlet-name>
-	    <jsp-file>/jsp/carteles/reto.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>Reto</servlet-name>
-	    <url-pattern>/retos/ver</url-pattern>
-	</servlet-mapping>
-
 	<!-- === Gestión contenido === -->
 	<servlet>
 	    <servlet-name>GestionContenido</servlet-name>
-	    <jsp-file>/jsp/gestion-contenido/gestionContenido.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion/gestionContenido.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>GestionContenido</servlet-name>
@@ -84,65 +55,11 @@
 
 	<servlet>
 	    <servlet-name>ColaValidacion</servlet-name>
-	    <jsp-file>/jsp/gestion-contenido/colaValidacion.jsp</jsp-file>
+	    <jsp-file>/jsp/gestion/colaValidacion.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 	    <servlet-name>ColaValidacion</servlet-name>
 	    <url-pattern>/gestion-contenido/cola-validacion</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>CreacionNoticia</servlet-name>
-	    <jsp-file>/jsp/gestion-contenido/crearNoticia.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>CreacionNoticia</servlet-name>
-	    <url-pattern>/gestion-contenido/crear-noticia</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>CreacionPregunta</servlet-name>
-	    <jsp-file>/jsp/gestion-contenido/crearPregunta.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>CreacionPregunta</servlet-name>
-	    <url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>CreacionReto</servlet-name>
-	    <jsp-file>/jsp/gestion-contenido/crearReto.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>CreacionReto</servlet-name>
-	    <url-pattern>/gestion-contenido/crear-reto</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>EdicionNoticia</servlet-name>
-	    <jsp-file>/jsp/gestion-contenido/editarNoticia.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>EdicionNoticia</servlet-name>
-	    <url-pattern>/gestion-contenido/editar-noticia</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>EdicionPregunta</servlet-name>
-	    <jsp-file>/jsp/gestion-contenido/editarPregunta.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>EdicionPregunta</servlet-name>
-	    <url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-	    <servlet-name>EdicionReto</servlet-name>
-	    <jsp-file>/jsp/gestion-contenido/editarReto.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>EdicionReto</servlet-name>
-	    <url-pattern>/gestion-contenido/editar-reto</url-pattern>
 	</servlet-mapping>
 
 	<!-- === Error interno === -->
@@ -163,17 +80,18 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Index</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern></url-pattern>
 	</servlet-mapping>
 	
     <!-- NoticiasFooter: Cargar las noticias para mostrar en el footer -->
+    <!-- Otra opción es hacer que todos los servlets incluyan en su request los datos -->
     <filter>
 		<filter-name>NoticiasFooter</filter-name>
 		<filter-class>sistinfo.filters.contenido.NoticiasFooterFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>NoticiasFooter</filter-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern></url-pattern>
 		<url-pattern>/registrar</url-pattern>
 		<url-pattern>/iniciar-sesion</url-pattern>
 		<url-pattern>/perfil</url-pattern>
@@ -256,7 +174,7 @@
 	</filter-mapping>
 
     <!-- IncrementarVisitas: Incrementa en 1 las visitas a un contenido -->
-    <filter>
+    <!-- <filter>
 		<filter-name>IncrementarVisitas</filter-name>
 		<filter-class>sistinfo.filters.contenido.IncrementarVisitasFilter</filter-class>
 	</filter>
@@ -265,65 +183,12 @@
 		<url-pattern>/noticias/ver</url-pattern>
 		<url-pattern>/preguntas/ver</url-pattern>
 		<url-pattern>/retos/ver</url-pattern>
-	</filter-mapping>
-
-    <!-- CargarNoticia: Carga una noticia según el parámetro de ID pasado -->
-    <filter>
-		<filter-name>CargarNoticia</filter-name>
-		<filter-class>sistinfo.filters.contenido.CargarNoticiaFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CargarNoticia</filter-name>
-		<url-pattern>/noticias/ver</url-pattern>
-		<url-pattern>/gestion-contenido/editar-noticia</url-pattern>
-		<url-pattern>/gestion-contenido/editar-noticia/editar</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-	
-	<!-- CargarPregunta: Carga una pregunta según el parámetro de ID pasado -->
-    <filter>
-		<filter-name>CargarPregunta</filter-name>
-		<filter-class>sistinfo.filters.contenido.CargarPreguntaFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CargarPregunta</filter-name>
-		<url-pattern>/preguntas/ver</url-pattern>
-		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
-		<url-pattern>/gestion-contenido/editar-pregunta/editar</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-
-    <!-- CargarReto: Carga un reto según el parámetro de ID pasado -->
-    <filter>
-		<filter-name>CargarReto</filter-name>
-		<filter-class>sistinfo.filters.contenido.CargarRetoFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CargarReto</filter-name>
-		<url-pattern>/retos/ver</url-pattern>
-		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
-		<url-pattern>/gestion-contenido/editar-reto/editar</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
-
-    <!-- CargarComentarios: Carga los comentarios de un contenido -->
-    <filter>
-		<filter-name>CargarComentarios</filter-name>
-		<filter-class>sistinfo.filters.contenido.CargarComentariosFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CargarComentarios</filter-name>
-		<url-pattern>/noticias/ver</url-pattern>
-		<url-pattern>/preguntas/ver</url-pattern>
-		<url-pattern>/retos/ver</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-	</filter-mapping>
+	</filter-mapping> -->
 	
 	<!-- ListaNoticias: Listar las noticias del sistema -->
+
+	<!-- ================================ CARTELES ===================================== -->
+	
 	<servlet>
 	    <servlet-name>ListaNoticias</servlet-name>
 		<servlet-class>sistinfo.servlets.jsp.carteles.ListaDeNoticiasServlet</servlet-class>
@@ -352,6 +217,38 @@
 	    <servlet-name>ListaRetos</servlet-name>
 	    <url-pattern>/retos</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Noticia: Mostrar una noticia -->
+	<servlet>
+	    <servlet-name>Noticia</servlet-name>
+	    <servlet-class>sistinfo.servlets.jsp.carteles.NoticiaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Noticia</servlet-name>
+	    <url-pattern>/noticias/ver</url-pattern>
+	</servlet-mapping>
+
+	<!-- Pregunta: Mostrar una pregunta -->
+	<servlet>
+	    <servlet-name>Pregunta</servlet-name>
+	    <servlet-class>sistinfo.servlets.jsp.carteles.PreguntaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Pregunta</servlet-name>
+	    <url-pattern>/preguntas/ver</url-pattern>
+	</servlet-mapping>
+
+	<!-- Reto: Mostrar un reto -->
+	<servlet>
+	    <servlet-name>Reto</servlet-name>
+	    <servlet-class>sistinfo.servlets.jsp.carteles.RetoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>Reto</servlet-name>
+	    <url-pattern>/retos/ver</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ================================= VARIOS ===================================== -->
 	
     <!-- QuienesSomos: Muestra la página de quienes somos (evita acceso directo al jsp) -->
     <servlet>
@@ -383,6 +280,8 @@
 		<url-pattern>/clasificacion</url-pattern>
 	</servlet-mapping>
 
+	<!-- ============================ GESTIÓN CONTENIDO ===================================== -->
+	
     <!-- NumeroColaValidacion: Devuelve los elementos de la cola de validacion -->
     <filter>
 		<filter-name>NumeroColaValidacion</filter-name>
@@ -413,6 +312,67 @@
 		<filter-name>ElementoColaValidacion</filter-name>
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
+	
+	<!-- CrearNoticia: Formulario para la creación de noticias -->
+	<servlet>
+	    <servlet-name>CrearNoticia</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.CrearNoticiaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>CrearNoticia</servlet-name>
+	    <url-pattern>/gestion-contenido/crear-noticia</url-pattern>
+	</servlet-mapping>
+
+	<!-- EditarNoticia: Formulario para la edición de noticias -->
+	<servlet>
+	    <servlet-name>EditarNoticia</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.EditarNoticiaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EditarNoticia</servlet-name>
+	    <url-pattern>/gestion-contenido/editar-noticia</url-pattern>
+	</servlet-mapping>
+
+	<!-- CrearPregunta: Formulario para la creación de preguntas -->
+	<servlet>
+	    <servlet-name>CrearPregunta</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.CrearPreguntaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>CrearPregunta</servlet-name>
+	    <url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
+	</servlet-mapping>
+
+	<!-- EditarPregunta: Formulario para la edición de preguntas -->
+	<servlet>
+	    <servlet-name>EditarPregunta</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.EditarPreguntaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EditarPregunta</servlet-name>
+	    <url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
+	</servlet-mapping>
+
+	<!-- CrearReto: Formulario para la creación de retos -->
+	<servlet>
+	    <servlet-name>CrearReto</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.CrearRetoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>CrearReto</servlet-name>
+	    <url-pattern>/gestion-contenido/crear-reto</url-pattern>
+	</servlet-mapping>
+
+	<!-- EditarReto: Formulario para la edición de retos -->
+	<servlet>
+	    <servlet-name>EditarReto</servlet-name>
+		<servlet-class>sistinfo.servlets.jsp.gestion.EditarRetoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>EditarReto</servlet-name>
+	    <url-pattern>/gestion-contenido/editar-reto</url-pattern>
+	</servlet-mapping>
+	
 
     <!-- ================ Servlets usuario ================ -->
     <servlet>
@@ -491,31 +451,31 @@
 	</servlet-mapping>
 
     <servlet>
-        <servlet-name>CrearNoticia</servlet-name>
-        <servlet-class>sistinfo.servlets.contenido.CrearNoticiaServlet</servlet-class>
+        <servlet-name>EdicionNoticia</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EdicionNoticiaServlet</servlet-class>
 	</servlet>
     <servlet-mapping>
-	    <servlet-name>CrearNoticia</servlet-name>
+	    <servlet-name>EdicionNoticia</servlet-name>
 		<url-pattern>/gestion-contenido/crear-noticia/crear</url-pattern>
 		<url-pattern>/gestion-contenido/editar-noticia/editar</url-pattern>
 	</servlet-mapping>
 
     <servlet>
-        <servlet-name>CrearPregunta</servlet-name>
-        <servlet-class>sistinfo.servlets.contenido.CrearPreguntaServlet</servlet-class>
+        <servlet-name>EdicionPregunta</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EdicionPreguntaServlet</servlet-class>
 	</servlet>
     <servlet-mapping>
-	    <servlet-name>CrearPregunta</servlet-name>
+	    <servlet-name>EdicionPregunta</servlet-name>
 		<url-pattern>/gestion-contenido/crear-pregunta/crear</url-pattern>
 		<url-pattern>/gestion-contenido/editar-pregunta/editar</url-pattern>
 	</servlet-mapping>
 
     <servlet>
-        <servlet-name>CrearReto</servlet-name>
-        <servlet-class>sistinfo.servlets.contenido.CrearRetoServlet</servlet-class>
+        <servlet-name>EdicionReto</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EdicionRetoServlet</servlet-class>
 	</servlet>
     <servlet-mapping>
-	    <servlet-name>CrearReto</servlet-name>
+	    <servlet-name>EdicionReto</servlet-name>
 		<url-pattern>/gestion-contenido/crear-reto/crear</url-pattern>
 		<url-pattern>/gestion-contenido/editar-reto/editar</url-pattern>
 	</servlet-mapping>
@@ -543,6 +503,6 @@
 
     <!-- ============ Welcome page ========= -->
     <welcome-file-list>
-        <welcome-file>/</welcome-file>
+        <welcome-file></welcome-file>
     </welcome-file-list>
 </web-app>

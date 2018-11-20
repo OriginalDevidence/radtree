@@ -19,7 +19,7 @@ import sistinfo.util.RequestExtractor;
 import sistinfo.capadatos.dao.RetoDAO;
 
 @SuppressWarnings("serial")
-public class CrearRetoServlet extends HttpServlet {
+public class EdicionRetoServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doPost(request, response);
