@@ -37,38 +37,38 @@
 	<section>
 		<div class="container">
 			
-			<c:if test="${requestScope.pregunta == null or requestScope.pregunta.estado != 'VALIDADO'}">
-				<c:redirect url="/preguntas"/>
-			</c:if>
+			<form class="pregunta" name="contestarPregunta" action="${pageContext.request.contextPath}/preguntas/contestar" method="post">
 			
 			<div class="row">
 				<div class="col-md-12">
 					<h3 class="mb-10"><b><c:out value="${requestScope.pregunta.enunciado}"/></b></h3>
 					<p class="mb-30"><i><c:out value="${requestScope.autorCompleto}"/></i></p>
-
-					<form class="pregunta" name="enviarPregunta" action="" method="post">
 					
-						<c:set var = "i" value = "${1}"/>
+						<c:set var = "cuenta" value = "${1}"/>
+						<input type="hidden" name="idPregunta" value="${requestScope.pregunta.idContenido}"/>
 						<c:forEach items="${requestScope.respuestas}" var="respuesta">
 							<div class="row mt-10">
 								<div class="col-2 col-sm-1">
-									<input type="checkbox" name="correcta<c:out value="${i}"/>"/>
+									<input type="checkbox" name="resCorrecta<c:out value="${cuenta}"/>"/>
+									<input type="hidden" name="idRespuesta<c:out value="${cuenta}"/>" value="${respuesta.idRespuesta}"/>
 								</div>
 	
 								<div class="col-10 col-sm-11">
 									<p><c:out value="${respuesta.enunciado}"/></p>
 								</div>
 							</div>
-							<c:set var = "i" value = "${i + 1}"/>
+							<c:set var = "cuenta" value = "${cuenta + 1}"/>
 						</c:forEach>
-						
-					</form>
+						<input type="hidden" name="respuestasTotales" value="${cuenta - 1}"/>
+					
 				</div>
             </div>
             
 			<div class="row mt-20 mt-sm-40">
 				<div class="col-12 col-md-4">
-					<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-primary" type="submit"><b>Validar pregunta</b></button>
+					<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-primary" type="submit"
+						name="button" value="validarRespuesta"><b>Validar pregunta</b>
+					</button>
 				</div>
 				<div class="col-12 col-md-4">
 					<button class="mb-10 plr-90 plr-sm-10 w-100 btn-fill-grey" type="submit"><b>No responder y pasar</b></button>
@@ -79,7 +79,9 @@
 				<div class="col-12">
 				</div>
 			</div>
-
+			</form>
+			
+			
 		</div><!-- container -->
 
 		<!-- COMENTARIOS -->

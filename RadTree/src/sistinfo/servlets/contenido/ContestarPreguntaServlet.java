@@ -1,10 +1,7 @@
 package sistinfo.servlets.contenido;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sistinfo.capadatos.vo.ContestaVO;
-import sistinfo.capadatos.vo.PreguntaVO;
-import sistinfo.capadatos.vo.RespuestaVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 
 import sistinfo.capadatos.dao.PreguntaDAO;
@@ -35,11 +29,32 @@ public class ContestarPreguntaServlet extends HttpServlet {
 
 		String button = request.getParameter("button");
 		if (button == null) {
-			response.sendRedirect(request.getContextPath() + "/gestion-contenido/crear-pregunta");
+			response.sendRedirect(request.getContextPath() + "/preguntas/ver");
 			return;
 		}
 		switch (button) {
 		case "validarRespuesta":
+
+			Map<String, String> erroresArriba = new HashMap<String, String>();
+			Map<Long, Boolean> listaRespuestas = extractRespuestaListFromHttpRequest(request, erroresArriba);
+
+			if (listaRespuestas != null) {
+				try {
+					PreguntaDAO preguntaDAO = new PreguntaDAO();
+
+		    		UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
+		    		
+					preguntaDAO.insertContestacion(Long.parseLong(request.getParameter("idPregunta"), 10), usuario.getIdUsuario(), listaRespuestas);
+
+					response.sendRedirect(request.getContextPath() + "/preguntas");
+
+				} catch (Exception e) {
+					response.sendRedirect(request.getContextPath() + "/error-interno");
+				}
+			} else {
+				request.setAttribute("erroresArriba", erroresArriba);
+				request.getRequestDispatcher("/preguntas/ver").forward(request, response);
+			}
 			
 			break;
 
@@ -61,13 +76,12 @@ public class ContestarPreguntaServlet extends HttpServlet {
 	 * @param upErrors
 	 * @return pregunta si se ha extraido correctamente, o null
 	 */
-	public List<ContestaVO> extractRespuestaListFromHttpRequest(HttpServletRequest request, Map<String, String> errors,
-			Map<String, String> upErrors, long idPregunta) {
+	public Map<Long, Boolean> extractRespuestaListFromHttpRequest(HttpServletRequest request, Map<String, String> upErrors) {
 
 		// Comprobar que el usuario está logueado por seguridad.
     	UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
     	if (usuario == null) {
-    		errors.put("idAutor", "Debes haber iniciado sesión para someter una pregunta.");
+    		upErrors.put("idAutor", "Debes haber iniciado sesión para someter una pregunta.");
     		return null;
     	} 
     	
@@ -81,7 +95,7 @@ public class ContestarPreguntaServlet extends HttpServlet {
     		
     		//Comprobamos que todas las respuestas que se van a introducir tienen enunciado.
     		for(int i = 1; i <= respuestasTotales; i++) {
-    			esCorrecta = request.getParameter("correcta" + i);
+    			esCorrecta = request.getParameter("resCorrecta" + i);
     			if (esCorrecta != null) {
     				unaRespuestaCorrecta = true;
     			}
@@ -90,14 +104,15 @@ public class ContestarPreguntaServlet extends HttpServlet {
     		//Si ninguna de las respuestas ha sido marcada como correcta.
     		if(!unaRespuestaCorrecta) {
     			upErrors.put("errorArriba", "Debes introducir al menos una respuesta correcta.");
-    			datosCorrectos = false;
     		}
 	
 			if (datosCorrectos) {
-				List<ContestaVO> listaRespuestas = new LinkedList<ContestaVO>();
+				
 				boolean correcta = false;
 				long idRespuesta;
+				Map<Long, Boolean> listaRespuestas = new HashMap<Long, Boolean>();
 				
+
 				for(int i = 1; i <= respuestasTotales; i++) {
 	    			esCorrecta = request.getParameter("resCorrecta" + i);
 	    			idRespuesta = Long.parseLong(request.getParameter("idRespuesta" + i), 10);
@@ -106,9 +121,8 @@ public class ContestarPreguntaServlet extends HttpServlet {
 	    			} else {
 	    				correcta = false;
 	    			}
-	    			
-	    			ContestaVO contesta = new ContestaVO(idPregunta, idRespuesta, correcta);
-					listaRespuestas.add(contesta);
+
+	    			listaRespuestas.put(idRespuesta, correcta);
 	    		}
 				
 				return listaRespuestas;
