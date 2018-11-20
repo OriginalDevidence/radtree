@@ -60,7 +60,7 @@ public class CrearRetoServlet extends HttpServlet {
 							response.sendRedirect(request.getContextPath() + "/error-interno");
 						}
 					} else {
-						if (retoDAO.insertReto(reto)) {
+						if (retoDAO.insertReto(reto) >= 0L) {
 							response.sendRedirect(request.getContextPath() + "/gestion-contenido");
 						} else {
 							response.sendRedirect(request.getContextPath() + "/error-interno");

@@ -58,7 +58,7 @@ public class CargarComentariosFilter implements Filter {
 					for (ComentarioVO c : comentarios) {
 						if (!profileImages.containsKey(c.getIdAutor())){
 							String path = ProfilePictureManager.getPathForId(c.getIdAutor());
-							if (new File(path).isFile()) {
+							if (request.getSession().getServletContext().getResource(path) != null) {
 								profileImages.put(c.getIdAutor(), path);
 							} else {
 								profileImages.put(c.getIdAutor(), ProfilePictureManager.getDefaultPath());

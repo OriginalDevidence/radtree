@@ -198,10 +198,10 @@ public class PreguntaDAO extends ContenidoDAO {
 	/**
 	 * Inserta una pregunta con sus respectivas preguntas en la base de datos.
 	 * @param pregunta
-	 * @return true si la inserción ha sido correcta, false en caso contrario
+	 * @return ID de contenido si la inserción ha sido correcta, -1 si no
 	 * @throws ErrorInternoException
 	 */
-	public boolean insertPregunta(PreguntaVO pregunta, List<RespuestaVO> respuestas) throws ErrorInternoException {
+	public Long insertPregunta(PreguntaVO pregunta, List<RespuestaVO> respuestas) throws ErrorInternoException {
         try {
     		Connection connection = ConnectionFactory.getConnection();
 
@@ -220,10 +220,10 @@ public class PreguntaDAO extends ContenidoDAO {
                     	stmt.setString(2, respuesta.getEnunciado());
                     	stmt.setBoolean(3, respuesta.getCorrecta());
                     	if (stmt.executeUpdate() != 1) {
-                    		return false;
+                    		return -1L;
                     	}
             		}
-            		return true;
+            		return idContenido;
             	}
             	
             	stmt.close();
@@ -234,7 +234,7 @@ public class PreguntaDAO extends ContenidoDAO {
             ex.printStackTrace();
             throw new ErrorInternoException();
         }
-        return false;
+        return -1L;
 	}
 	
 	/**

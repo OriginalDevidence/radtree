@@ -62,7 +62,8 @@ public class CrearNoticiaServlet extends HttpServlet {
 						}
 					} else {
 						// Intentar insertarlo y ver si ha salido bien
-						if (noticiaDAO.insertNoticia(noticia)) {
+						Long idNoticia = noticiaDAO.insertNoticia(noticia);
+						if (idNoticia >= 0L) {
 							response.sendRedirect(request.getContextPath() + "/gestion-contenido");
 						} else {
 							response.sendRedirect(request.getContextPath() + "/error-interno");
