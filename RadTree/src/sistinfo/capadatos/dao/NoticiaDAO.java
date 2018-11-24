@@ -128,6 +128,126 @@ public class NoticiaDAO extends ContenidoDAO {
 	}
 	
 	/**
+	 * Búsqueda de hasta las últimas num noticias según su fecha de realización.
+	 * @param num
+	 * @return Lista de hasta num noticias ordenadas por fecha de realización
+	 * @throws ErrorInternoException 
+	 */
+	public List<NoticiaVO> getNoticiasUltimasByPag(int num, int pag) throws ErrorInternoException {
+		List<NoticiaVO> listNoticia = new ArrayList<NoticiaVO>();
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+    		Statement stmt = connection.createStatement();
+    		ResultSet rs = stmt.executeQuery("SELECT * FROM Noticia NATURAL JOIN Contenido WHERE estado = 'VALIDADO' ORDER BY fechaRealizacion DESC");
+
+            rs.absolute(num * (pag - 1));
+            
+            while (rs.next() && listNoticia.size() < num) {
+            	NoticiaVO noticia = extractNoticiaFromResultSet(rs);
+
+            	listNoticia.add(noticia);
+            }
+
+        	stmt.close();
+			connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return listNoticia;
+	}
+	
+	/**
+	 * Búsqueda de hasta las últimas num noticias según su fecha de realización.
+	 * @param num
+	 * @return Lista de hasta num noticias ordenadas por fecha de realización
+	 * @throws ErrorInternoException 
+	 */
+	public List<NoticiaVO> getPagNoticiasBySearch(int num, int pag, String filtro, String search) throws ErrorInternoException {
+		List<NoticiaVO> listNoticia = new ArrayList<NoticiaVO>();
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Noticia NATURAL JOIN Contenido WHERE estado='VALIDADO' AND titulo LIKE ? OR cuerpo LIKE ? OR url LIKE ? ORDER BY fechaRealizacion DESC");
+        	stmt.setString(1, "%" + search + "%");
+        	stmt.setString(2, "%" + search + "%");
+        	stmt.setString(3, "%" + search + "%");
+            ResultSet rs = stmt.executeQuery();
+            rs.absolute(num * (pag - 1));
+            
+            while (rs.next() && listNoticia.size() < num) {
+            	NoticiaVO noticia = extractNoticiaFromResultSet(rs);
+
+            	listNoticia.add(noticia);
+            }
+
+        	stmt.close();
+			connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return listNoticia;
+	}
+	
+	/**
+	 * Búsqueda de hasta las últimas num noticias según su fecha de realización.
+	 * @param num
+	 * @return Lista de hasta num noticias ordenadas por fecha de realización
+	 * @throws ErrorInternoException 
+	 */
+	public int getNumNoticiasBySearch(String filtro, String search) throws ErrorInternoException {
+		int numNoticias = 0;
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+        	PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(idContenido) AS numContenido FROM Noticia NATURAL JOIN Contenido WHERE estado='VALIDADO' AND titulo LIKE ? OR cuerpo LIKE ? OR url LIKE ? ORDER BY fechaRealizacion DESC");
+        	stmt.setString(1, "%" + search + "%");
+        	stmt.setString(2, "%" + search + "%");
+        	stmt.setString(3, "%" + search + "%");
+            ResultSet rs = stmt.executeQuery();
+            rs.first();
+            
+            numNoticias = rs.getInt("numContenido");
+
+        	stmt.close();
+			connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return numNoticias;
+	}
+	
+	/**
+	 * Búsqueda de hasta las últimas num noticias según su fecha de realización.
+	 * @param num
+	 * @return Lista de hasta num noticias ordenadas por fecha de realización
+	 * @throws ErrorInternoException 
+	 */
+	public int getNumNoticiasUltimas() throws ErrorInternoException {
+		int numNoticias = 0;
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+    		Statement stmt = connection.createStatement();        	
+    		ResultSet rs = stmt.executeQuery("SELECT COUNT(idContenido) AS numContenido FROM Noticia NATURAL JOIN Contenido WHERE estado = 'VALIDADO' ORDER BY fechaRealizacion DESC");
+
+            rs.first();
+            
+            numNoticias = rs.getInt("numContenido");
+
+        	stmt.close();
+			connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return numNoticias;
+	}
+	
+	/**
 	 * Búsqueda de hasta las últimas num noticias según su número de visitas.
 	 * @param num
 	 * @return Lista de hasta num noticias ordenadas por su número de visitas
