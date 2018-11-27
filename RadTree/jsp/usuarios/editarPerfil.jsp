@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title><c:out value="${sessionScope.usuario.alias}"/> - Editar perfil</title>
+	<title>Editar perfil - RadTree</title>
 	<meta name="description" content="Formulario para editar los datos del perfil">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 	

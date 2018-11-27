@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title><c:out value="${requestScope.usuario.alias}"/> - RadTree</title>
+	<title>Perfil de <c:out value="${requestScope.usuario.alias}"/> - RadTree</title>
 	<meta name="description" content="Página de perfil de usuario">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 	
