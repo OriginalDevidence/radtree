@@ -3,15 +3,15 @@ package sistinfo.servlets.jsp.carteles;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sistinfo.servlets.jsp.FooterServlet;
 import sistinfo.servlets.jsp.util.IncludeInRequest;
 import sistinfo.servlets.jsp.util.IncrementarVisitas;
 
 @SuppressWarnings("serial")
-public class PreguntaServlet extends HttpServlet {
+public class PreguntaServlet extends FooterServlet {
 
     /**
      * Redirect a doPost de la misma clase
@@ -29,7 +29,8 @@ public class PreguntaServlet extends HttpServlet {
      * Recibe un parámetro id (Long) que indica el ID del contenido a mostrar
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
+    	super.doPost(request, response);
+    	
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	

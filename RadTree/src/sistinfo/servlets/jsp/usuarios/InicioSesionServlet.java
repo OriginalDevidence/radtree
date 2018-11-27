@@ -3,12 +3,13 @@ package sistinfo.servlets.jsp.usuarios;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sistinfo.servlets.jsp.FooterServlet;
+
 @SuppressWarnings("serial")
-public class InicioSesionServlet extends HttpServlet {
+public class InicioSesionServlet extends FooterServlet {
 
     /**
      * Redirect a doPost de la misma clase
@@ -24,7 +25,8 @@ public class InicioSesionServlet extends HttpServlet {
      * No recibe parámetros
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
+    	super.doPost(request, response);
+    	
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	request.getRequestDispatcher("/jsp/usuarios/inicioSesion.jsp").forward(request, response);

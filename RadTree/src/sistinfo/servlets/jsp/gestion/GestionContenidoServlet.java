@@ -3,14 +3,14 @@ package sistinfo.servlets.jsp.gestion;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sistinfo.servlets.jsp.FooterServlet;
 import sistinfo.servlets.jsp.util.IncludeInRequest;
 
 @SuppressWarnings("serial")
-public class GestionContenidoServlet extends HttpServlet {
+public class GestionContenidoServlet extends FooterServlet {
 
     /**
      * Redirect a doPost de la misma clase
@@ -26,7 +26,8 @@ public class GestionContenidoServlet extends HttpServlet {
      * Recibe 1 parámetro tipo de contenido a mostrar (noticia, pregunta o reto)
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
+    	super.doPost(request, response);
+    	
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	

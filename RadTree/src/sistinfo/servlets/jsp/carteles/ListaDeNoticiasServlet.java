@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,9 +12,10 @@ import sistinfo.capadatos.dao.ComentarioDAO;
 import sistinfo.capadatos.dao.NoticiaDAO;
 import sistinfo.capadatos.vo.NoticiaVO;
 import sistinfo.excepciones.ErrorInternoException;
+import sistinfo.servlets.jsp.FooterServlet;
 
 @SuppressWarnings("serial")
-public class ListaDeNoticiasServlet extends HttpServlet {
+public class ListaDeNoticiasServlet extends FooterServlet {
 	public static final int CONTENIDO_POR_PAGINA = 1; // Cambiar el número de piezas de contenido mostradas por
 														// página(recomendado 30).
 
@@ -35,7 +35,8 @@ public class ListaDeNoticiasServlet extends HttpServlet {
 	 * Recibe un parámetro búsqueda (string) que filtra las noticias a mostrar
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
+    	super.doPost(request, response);
+    	
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		RequestDispatcher req = request.getRequestDispatcher("/jsp/carteles/listaDeNoticias.jsp");

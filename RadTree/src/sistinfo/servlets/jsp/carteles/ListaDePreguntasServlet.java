@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,9 +13,10 @@ import sistinfo.capadatos.dao.PreguntaDAO;
 import sistinfo.capadatos.vo.PreguntaVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
+import sistinfo.servlets.jsp.FooterServlet;
 
 @SuppressWarnings("serial")
-public class ListaDePreguntasServlet extends HttpServlet {
+public class ListaDePreguntasServlet extends FooterServlet {
 
     /**
      * Redirect a doPost de la misma clase
@@ -35,7 +35,8 @@ public class ListaDePreguntasServlet extends HttpServlet {
      * solamente mostrar las preguntas no contestadas por el usuario logueado actualmente
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
+    	super.doPost(request, response);
+    	
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
     	RequestDispatcher req = request.getRequestDispatcher("/jsp/carteles/listaDePreguntas.jsp");

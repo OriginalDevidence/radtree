@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,7 +13,7 @@ import sistinfo.capadatos.vo.ClasificacionVO;
 import sistinfo.excepciones.ErrorInternoException;
 
 @SuppressWarnings("serial")
-public class ClasificacionServlet extends HttpServlet {
+public class ClasificacionServlet extends FooterServlet {
 
     /**
      * Redirect a doPost de la misma clase
@@ -31,7 +30,8 @@ public class ClasificacionServlet extends HttpServlet {
      * No recibe parámetros
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
+    	super.doPost(request, response);
+    	
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
     	RequestDispatcher req = request.getRequestDispatcher("/jsp/clasificacion.jsp");

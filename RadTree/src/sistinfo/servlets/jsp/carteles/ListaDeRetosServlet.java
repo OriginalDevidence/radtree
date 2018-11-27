@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,9 +12,10 @@ import sistinfo.capadatos.dao.ComentarioDAO;
 import sistinfo.capadatos.dao.RetoDAO;
 import sistinfo.capadatos.vo.RetoVO;
 import sistinfo.excepciones.ErrorInternoException;
+import sistinfo.servlets.jsp.FooterServlet;
 
 @SuppressWarnings("serial")
-public class ListaDeRetosServlet extends HttpServlet {
+public class ListaDeRetosServlet extends FooterServlet {
 
     /**
      * Redirect a doPost de la misma clase
@@ -32,7 +32,8 @@ public class ListaDeRetosServlet extends HttpServlet {
      * Recibe un parámetro búsqueda (string) que filtra los retos a mostrar
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
+    	super.doPost(request, response);
+    	
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	RequestDispatcher req = request.getRequestDispatcher("/jsp/carteles/listaDeRetos.jsp");
