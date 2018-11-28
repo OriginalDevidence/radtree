@@ -42,7 +42,7 @@
 					<h3 class="mb-30">
 						<b>Crear noticia</b>
 					</h3>
-					<form name="crearNoticia" action="${pageContext.request.contextPath}/gestion-contenido/crear-noticia/crear" method="post">
+					<form name="crearNoticia" action="${pageContext.request.contextPath}/gestion-contenido/crear-noticia/crear" method="post" enctype="multipart/form-data">
 
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20">
 							<div class="col-sm-12">
@@ -81,7 +81,7 @@
 
 							<div class="col-sm-12">
 								<label for="imagen">Imagen</label>
-								<input class="m-5" name="imagen" type="file">
+								<input class="m-5" name="imagen" type="file" placeholder="Subir imagen" accept=".jpg, .jpeg, .png">
 							</div>
 						</div>
 

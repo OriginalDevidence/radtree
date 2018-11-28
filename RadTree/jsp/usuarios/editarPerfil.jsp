@@ -123,15 +123,29 @@
 				</div>
 
 				<div class="col-md-12 col-lg-4">
-					<h3 class="p-title mb-30">
-						<b>Eliminar perfil</b>
-					</h3>
-					<p>Ten cuidado, una vez eliminado no se puede volver atrás.</p>
-					<a
-						href="${pageContext.request.contextPath}/perfil/eliminar"
-						class="w-100 dplay-block btn-brdr-red mt-30 mb-md-50">
-						<b>Eliminar perfil</b>
-					</a>
+					<div class="row">
+						<div class="col-12">
+							<h3 class="p-title mb-30">
+								<b>Foto de perfil</b>
+							</h3>
+							<p class="mb-10">Los formatos aceptados son jpg, jpeg y png. Tamaño máximo de fichero TODO MB.</p>
+							<form name="editarFoto" action="${pageContext.request.contextPath}/perfil/subir-imagen" method="post" enctype="multipart/form-data">
+								<input class="m-5" type="file" name="imagen" accept=".jpg, .jpeg, .png"/>
+								<button class="mt-10 w-100 btn-fill-primary" type="submit"><b>Subir imagen</b></button>
+							</form>
+						</div>
+						<div class="col-12">
+							<h3 class="p-title mtb-30">
+								<b>Eliminar perfil</b>
+							</h3>
+							<p>Ten cuidado, una vez eliminado no se puede volver atrás.</p>
+							<a
+								href="${pageContext.request.contextPath}/perfil/eliminar"
+								class="w-100 dplay-block btn-brdr-red mt-30 mb-md-50">
+								<b>Eliminar perfil</b>
+							</a>
+						</div>
+					</div>
 				</div>
 
 			</div>

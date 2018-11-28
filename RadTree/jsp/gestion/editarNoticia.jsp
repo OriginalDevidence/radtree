@@ -87,7 +87,7 @@
 
 							<div class="col-sm-12">
 								<label for="imagen">Imagen</label> <input class="m-5"
-									name="imagen" type="file" placeholder="Subir imagen">
+									name="imagen" type="file" placeholder="Subir imagen" accept=".jpg, .jpeg, .png">
 							</div>
 						</div>
 

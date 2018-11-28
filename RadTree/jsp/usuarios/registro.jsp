@@ -134,7 +134,7 @@
 								<label for="imagen">Foto de perfil</label>
 							</div>
 							<div class="col-12">
-								<input class="m-5" type="file" name="imagen"/>
+								<input class="m-5" type="file" name="imagen" accept=".jpg, .jpeg, .png"/>
 							</div>
 						</div>
 						
