@@ -41,7 +41,7 @@
 		<div class="container">
 
 			<div class="row">
-				<div class="col-md-12 col-lg-8">
+				<div class="col-md-12 col-lg-8 mb-40">
 					<h3 class="mb-30"><b>Editar noticia</b></h3>
 					<form name="editarNoticia" action="${pageContext.request.contextPath}/gestion-contenido/editar-noticia/editar" method="post">
 
@@ -87,7 +87,7 @@
 
 							<div class="col-sm-12">
 								<label for="imagen">Imagen</label> <input class="m-5"
-									name="imagen" type="file" placeholder="Subir imagen">
+									name="imagen" type="file" placeholder="Subir imagen" accept=".jpg, .jpeg, .png">
 							</div>
 						</div>
 
@@ -103,11 +103,25 @@
 
 					</form>
                 </div>
-                <!-- TODO: mostrar la imagen subida aqui?
-				<div class="col-md-12 col-lg-4">
-					<div class="img-bg bg-1 bg-grad-layer-6"></div>
+                
+                <div class="col-md-12 col-lg-4">
+                	<div class="row">
+                		<div class="col-12">
+			                <h3 class="p-title mb-30">
+								<b>Imagen de la noticia</b>
+							</h3>
+							<p class="mb-20">Los formatos aceptados son jpg, jpeg y png. Tamaño máximo de fichero 5 MB.</p>
+							<form name="editarFoto" action="${pageContext.request.contextPath}/gestion-contenido/subir-imagen" method="post" enctype="multipart/form-data">
+								<input class="m-5" type="file" name="imagen" accept=".jpg, .jpeg, .png"/>
+								<input type="hidden" name="id" value="<c:out value="${requestScope.noticia.idContenido}"/>"/>
+								<button class="mt-20 w-100 btn-fill-primary" type="submit"><b>Subir imagen</b></button>
+							</form>
+                		</div>
+                		<div class="col-12 mt-40 mb-30">
+                			<img class="w-100 h-auto" src="<c:out value="${requestScope.noticia.urlImagen}"/>" alt="Imagen de la noticia"/>
+                		</div>
+                	</div>
                 </div>
-                -->
 
 			</div>
 

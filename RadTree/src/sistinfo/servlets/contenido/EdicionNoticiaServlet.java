@@ -33,7 +33,7 @@ public class EdicionNoticiaServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-
+		
 		// Comprobar que hay un usuario válido
 		UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 		if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
@@ -42,7 +42,7 @@ public class EdicionNoticiaServlet extends HttpServlet {
 			
 			Map<String, String> errores = new HashMap<String, String>();
 			NoticiaVO noticia = extractNoticiaFromHttpRequest(request, usuario.getIdUsuario(), errores);
-
+			
 			Long idContenido = RequestExtractor.getLong(request, "id");
 			boolean editando = false;
 			if (idContenido != null) {

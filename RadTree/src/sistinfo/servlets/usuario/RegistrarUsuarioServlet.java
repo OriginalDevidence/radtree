@@ -47,7 +47,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				Long nuevoId = usuarioDAO.insertUsuario(usuario);
 				usuario.setIdUsuario(nuevoId);
-
+				
 				// Enviar al perfil y añadir los datos del usuario en la sesión
 				request.getSession().setAttribute("usuario", usuario);
 				response.sendRedirect(request.getContextPath() + "/perfil");
@@ -82,7 +82,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
      * @return El usuario si se ha extraido correctamente, o null
      */
 	public UsuarioVO extractUsuarioFromHttpRequest(HttpServletRequest request, Map<String, String> errors, List<String> errorsArriba) {
-		
+
     	String alias = request.getParameter("alias");
         String nacimientoString = request.getParameter("nacimiento");
         java.sql.Date nacimiento = null;

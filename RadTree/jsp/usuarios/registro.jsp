@@ -128,15 +128,6 @@
 							</div>
 
 						</div>
-
-						<div class="row">
-							<div class="col-12">
-								<label for="imagen">Foto de perfil</label>
-							</div>
-							<div class="col-12">
-								<input class="m-5" type="file" name="imagen"/>
-							</div>
-						</div>
 						
 						<div class="row mt-40">
 							<div class="col-12">

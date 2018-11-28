@@ -43,7 +43,6 @@
 						<b>Crear noticia</b>
 					</h3>
 					<form name="crearNoticia" action="${pageContext.request.contextPath}/gestion-contenido/crear-noticia/crear" method="post">
-
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20">
 							<div class="col-sm-12">
 								<label for="titulo">Título de la Noticia</label>
@@ -81,7 +80,7 @@
 
 							<div class="col-sm-12">
 								<label for="imagen">Imagen</label>
-								<input class="m-5" name="imagen" type="file">
+								<input class="m-5" name="imagen" type="file" placeholder="Subir imagen" accept=".jpg, .jpeg, .png">
 							</div>
 						</div>
 
@@ -99,11 +98,6 @@
 
 					</form>
 				</div>
-				<!-- TODO: mostrar la imagen subida aqui?
-        		<div class="col-md-12 col-lg-4">
-          			<div class="img-bg bg-1 bg-grad-layer-6"></div>
-                </div>
-                -->
 
 			</div>
 
