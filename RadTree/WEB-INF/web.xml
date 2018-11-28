@@ -468,7 +468,17 @@
 		<url-pattern>/preguntas/borrar-comentario</url-pattern>
 		<url-pattern>/retos/borrar-comentario</url-pattern>
 	</servlet-mapping>
-
+	
+    <!-- EditarFotoNoticia: Cambia la foto de una noticia -->
+    <servlet>
+        <servlet-name>EditarFotoNoticia</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EditarFotoNoticiaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditarFotoNoticia</servlet-name>
+        <url-pattern>/gestion-contenido/subir-imagen</url-pattern>
+    </servlet-mapping>
+    
     <!-- ========================= WELCOME PAGE ========================= -->
     <welcome-file-list>
         <welcome-file></welcome-file>
