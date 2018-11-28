@@ -89,8 +89,9 @@ public class ContenidoDAO {
 	 * @param id
 	 * @param nuevoEstado
 	 * @return true si la actualización ha sido correcta, false en caso contrario
+	 * @throws ErrorInternoException
 	 */
-	public boolean updateEstado(Long id, Estado nuevoEstado) {
+	public boolean updateEstado(Long id, Estado nuevoEstado) throws ErrorInternoException {
         try {
     		Connection connection = ConnectionFactory.getConnection();
         	
@@ -107,6 +108,7 @@ public class ContenidoDAO {
 			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new ErrorInternoException();
         }
         return false;
 	}

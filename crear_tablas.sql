@@ -1,6 +1,6 @@
 /* Crear BD y seleccionarla */
-CREATE DATABASE IF NOT EXISTS sist_info_web CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE sist_info_web;
+CREATE DATABASE IF NOT EXISTS radtree CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE radtree;
 
 /* Creación de tablas */
 CREATE TABLE IF NOT EXISTS Usuario (

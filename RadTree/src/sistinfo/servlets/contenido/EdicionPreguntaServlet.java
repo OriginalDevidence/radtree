@@ -16,6 +16,7 @@ import sistinfo.capadatos.vo.PreguntaVO;
 import sistinfo.capadatos.vo.RespuestaVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.capadatos.vo.UsuarioVO.TipoUsuario;
+import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.util.RequestExtractor;
 import sistinfo.capadatos.dao.PreguntaDAO;
 
@@ -110,7 +111,7 @@ public class EdicionPreguntaServlet extends HttpServlet {
 								preguntaDAO.insertPregunta(pregunta, listaRespuestas);
 								response.sendRedirect(request.getContextPath() + "/gestion-contenido");
 							}
-						} catch (Exception e) {
+						} catch (ErrorInternoException e) {
 							response.sendRedirect(request.getContextPath() + "/error-interno");
 						}
 					} else {

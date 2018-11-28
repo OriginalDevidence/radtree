@@ -2,20 +2,20 @@ package sistinfo.servlets.contenido;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sistinfo.capadatos.dao.ContenidoDAO;
-import sistinfo.capadatos.vo.ContenidoVO.Estado;
+import sistinfo.capadatos.dao.ComentarioDAO;
 import sistinfo.capadatos.vo.UsuarioVO.TipoUsuario;
 import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.util.RequestExtractor;
 
 @SuppressWarnings("serial")
-public class BorrarContenidoServlet extends HttpServlet {
+public class BorrarComentarioServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doPost(request, response);
@@ -36,18 +36,20 @@ public class BorrarContenidoServlet extends HttpServlet {
         } else {
         	// Modificar el estado si aprueba o deniega el contenido
             Long idContenido = RequestExtractor.getLong(request, "id");
-            String redirect = request.getParameter("redirect");
+            Long idComentario = RequestExtractor.getLong(request, "idComentario");
             
-            if (idContenido != null && redirect != null) {
-            	ContenidoDAO contenidoDAO = new ContenidoDAO();
+            if (idContenido != null && idComentario != null) {
+            	ComentarioDAO comentarioDAO = new ComentarioDAO();
             	try {
-					contenidoDAO.updateEstado(idContenido, Estado.BORRADO);
-		        	response.sendRedirect(request.getContextPath() + "/" + redirect);
+					comentarioDAO.deleteComentario(idComentario);
+					RequestDispatcher req = request.getRequestDispatcher("ver");
+        			request.setAttribute("id", idContenido);
+        			req.forward(request, response);
 				} catch (ErrorInternoException e) {
 					response.sendRedirect(request.getContextPath() + "/error-interno");
 				}
             } else {
-            	response.sendRedirect(request.getContextPath() + "/error-interno");
+				response.sendRedirect(request.getContextPath() + "/error-interno");
             }
         }
         

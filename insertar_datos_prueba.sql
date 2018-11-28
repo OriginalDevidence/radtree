@@ -1,4 +1,4 @@
-USE sist_info_web;
+USE radtree;
 
 /* Todos los usuarios tienen como contraseña "clave" */
 INSERT INTO Usuario VALUES

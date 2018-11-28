@@ -430,6 +430,18 @@
 		<url-pattern>/preguntas/borrar</url-pattern>
 		<url-pattern>/retos/borrar</url-pattern>
 	</servlet-mapping>
+	
+	<!-- BorrarComentario: Borra un comentario y todas sus respuestas -->
+    <servlet>
+	    <servlet-name>BorrarComentario</servlet-name>
+		<servlet-class>sistinfo.servlets.contenido.BorrarComentarioServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>BorrarComentario</servlet-name>
+		<url-pattern>/noticias/borrar-comentario</url-pattern>
+		<url-pattern>/preguntas/borrar-comentario</url-pattern>
+		<url-pattern>/retos/borrar-comentario</url-pattern>
+	</servlet-mapping>
 
     <!-- ========================= WELCOME PAGE ========================= -->
     <welcome-file-list>

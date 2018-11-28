@@ -36,8 +36,18 @@
 							</h5>
 							<p class="mtb-15"><c:out value="${comentario.cuerpo}"/></p>
 							<c:if test="${not empty sessionScope.usuario}">
-								<button class="btn-brdr-grey btn-b-sm plr-15 mt-5"
-									onclick="setRespuestaDe(<c:out value="${comentario.idComentario}"/>, '<c:out value="${comentario.autor}'"/>)"><b>Responder</b></button>
+								<ul>
+									<li><button class="btn-brdr-grey btn-b-sm plr-15 mt-5"
+										onclick="setRespuestaDe(<c:out value="${comentario.idComentario}"/>, '<c:out value="${comentario.autor}'"/>)"><b>Responder</b></button></li>
+								<c:if test="${sessionScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
+									<li><form name="borrarComentario" action="${pageContext.request.contextPath}/noticias/borrar-comentario" method="post">
+										<input type="hidden" name="id" value="<c:out value="${requestScope.id}"/>"/>
+										<input type="hidden" name="idComentario" value="<c:out value="${comentario.idComentario}"/>"/>
+										<button class="ml-10 btn-brdr-red btn-b-sm plr-15 mt-5 color-red"
+											type="submit"><i class="ion-trash-b mr-5"></i><b>Eliminar</b></button>
+									</form></li>
+								</c:if>
+								</ul>
 							</c:if>
 						</div><!-- s-right -->
 						
