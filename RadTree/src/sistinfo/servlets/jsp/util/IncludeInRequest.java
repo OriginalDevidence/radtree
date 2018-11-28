@@ -143,6 +143,12 @@ public class IncludeInRequest {
 				Long idAutor = null;
 				if (noticia != null) {
 					idAutor = noticia.getIdAutor();
+					String path = NoticiaPictureManager.getPathForId(noticia.getIdContenido());
+					if (request.getSession().getServletContext().getResource(path) != null) {
+						noticia.setUrlImagen(request.getContextPath() + "/" + path);
+					} else {
+						noticia.setUrlImagen(request.getContextPath() + "/" + NoticiaPictureManager.getDefaultPath());
+					}
 					request.setAttribute("contenido", noticia);
 					request.setAttribute("noticia", noticia);
 				} else {

@@ -113,6 +113,7 @@
 							<p class="mb-20">Los formatos aceptados son jpg, jpeg y png. Tamaño máximo de fichero 5 MB.</p>
 							<form name="editarFoto" action="${pageContext.request.contextPath}/gestion-contenido/subir-imagen" method="post" enctype="multipart/form-data">
 								<input class="m-5" type="file" name="imagen" accept=".jpg, .jpeg, .png"/>
+								<input type="hidden" name="id" value="<c:out value="${requestScope.noticia.idContenido}"/>"/>
 								<button class="mt-20 w-100 btn-fill-primary" type="submit"><b>Subir imagen</b></button>
 							</form>
                 		</div>
