@@ -99,11 +99,6 @@
 
 					</form>
 				</div>
-				<!-- TODO: mostrar la imagen subida aqui?
-        		<div class="col-md-12 col-lg-4">
-          			<div class="img-bg bg-1 bg-grad-layer-6"></div>
-                </div>
-                -->
 
 			</div>
 

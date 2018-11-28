@@ -173,7 +173,7 @@
 
 	<!-- ============================ GESTIÓN CONTENIDO ===================================== -->
 	
-	<!-- TODO: Formulario para la creación de noticias -->
+	<!-- GestionContenido: Página de creación, validación y vista de contenido -->
 	<servlet>
 	    <servlet-name>GestionContenido</servlet-name>
 		<servlet-class>sistinfo.servlets.jsp.gestion.GestionContenidoServlet</servlet-class>
@@ -183,7 +183,7 @@
 	    <url-pattern>/gestion-contenido</url-pattern>
 	</servlet-mapping>
 
-	<!-- TODO: Formulario para la creación de noticias -->
+	<!-- ColaValidacion: Aprobación de contenido subido previamente -->
 	<servlet>
 	    <servlet-name>ColaValidacion</servlet-name>
 		<servlet-class>sistinfo.servlets.jsp.gestion.ColaValidacionServlet</servlet-class>
@@ -308,7 +308,8 @@
 	
 
     <!-- ================ SERVLETS USUARIO ================ -->
-    <!-- TODO comentar una linea -->
+    
+    <!-- RegistrarUsuario: Registro de nuevos usuarios -->
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.RegistrarUsuarioServlet</servlet-class>
@@ -318,6 +319,7 @@
         <url-pattern>/registrar/registro</url-pattern>
     </servlet-mapping>
 
+    <!-- IniciarSesion: Formulario de inicio de sesión -->
     <servlet>
         <servlet-name>IniciarSesion</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.IniciarSesionServlet</servlet-class>
@@ -327,6 +329,7 @@
         <url-pattern>/iniciar-sesion/inicio</url-pattern>
     </servlet-mapping>
 
+    <!-- CerrarSesion: Invalida la sesión y vuelve a la página de inicio -->
     <servlet>
         <servlet-name>CerrarSesion</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.CerrarSesionServlet</servlet-class>
@@ -336,6 +339,7 @@
         <url-pattern>/perfil/cerrar-sesion</url-pattern>
     </servlet-mapping>
 
+    <!-- EditarUsuario: Edita los datos de un usuario -->
     <servlet>
         <servlet-name>EditarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.EditarUsuarioServlet</servlet-class>
@@ -345,6 +349,7 @@
         <url-pattern>/perfil/editar-usuario</url-pattern>
     </servlet-mapping>
 
+    <!-- EliminarUsuario: Borra un perfil de usuario de forma definitiva -->
     <servlet>
         <servlet-name>EliminarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.EliminarUsuarioServlet</servlet-class>
@@ -354,6 +359,7 @@
         <url-pattern>/perfil/eliminar</url-pattern>
     </servlet-mapping>
 
+    <!-- CambiarTipoUsuario: Asciende/desciende un usuario a creador/participante -->
     <servlet>
         <servlet-name>CambiarTipoUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.CambiarTipoUsuarioServlet</servlet-class>
@@ -363,6 +369,7 @@
         <url-pattern>/perfil/cambiar-tipo</url-pattern>
     </servlet-mapping>
     
+    <!-- EditarFotoPerfil: Cambia la foto de perfil del usuario registrado -->
     <servlet>
         <servlet-name>EditarFotoPerfil</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.EditarFotoPerfilServlet</servlet-class>

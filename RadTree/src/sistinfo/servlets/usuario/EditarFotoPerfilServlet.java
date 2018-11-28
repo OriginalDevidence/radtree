@@ -24,7 +24,7 @@ public class EditarFotoPerfilServlet extends HttpServlet {
 	}
 
 	/**
-	 * TODO
+	 * Edita la foto de perfil de un usuario, obtenida en la request, y vuelve a su perfil
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -34,7 +34,6 @@ public class EditarFotoPerfilServlet extends HttpServlet {
 		// Comprobar que el usuario está logueado
 		UsuarioVO usuario = (UsuarioVO) request.getSession().getAttribute("usuario");
 		if (usuario == null) {
-			System.out.println("usuario no log");
 			response.sendRedirect(request.getContextPath() + "/error-interno");
 		} else {
 
@@ -69,7 +68,6 @@ public class EditarFotoPerfilServlet extends HttpServlet {
 				}
 			} catch (Exception e) {
 				// Ha ocurrido algún problema
-				System.out.println("problema: " + e);
 				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}
 

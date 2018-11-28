@@ -92,11 +92,6 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String clave = request.getParameter("clave");
         String reclave = request.getParameter("reclave");
         
-        System.out.println(nombre);
-        System.out.println(apellidos);
-        System.out.println(alias);
-        System.out.println(email);
-        
         boolean datosCorrectos = true;
         /* ALIAS */
         if (alias == null || alias.trim().isEmpty()) {
