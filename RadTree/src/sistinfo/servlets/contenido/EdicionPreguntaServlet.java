@@ -2,8 +2,8 @@ package sistinfo.servlets.contenido;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -147,6 +147,9 @@ public class EdicionPreguntaServlet extends HttpServlet {
 		if (enunciado == null || enunciado.trim().isEmpty()) {
 			datosCorrectos = false;
 			errors.put("enunciado", "Introduzca un enunciado para la pregunta.");
+		} else if (enunciado.length() > PreguntaVO.ENUNCIADO_MAX){
+			datosCorrectos = false;
+			errors.put("enunciado", "Máx " + PreguntaVO.ENUNCIADO_MAX + " caracteres");
 		}
 	
 		if (datosCorrectos) {
@@ -186,6 +189,9 @@ public class EdicionPreguntaServlet extends HttpServlet {
 			if (enunciado == null || enunciado.trim().isEmpty()) {
 				datosCorrectos = false;
 				errors.put("respuesta" + i, "Debes introducir un enunciado para todas las respuestas.");
+			} else if (enunciado.length() > RespuestaVO.ENUNCIADO_MAX) {
+				datosCorrectos = false;
+				errors.put("respuesta" + i, "Máx " + RespuestaVO.ENUNCIADO_MAX + " caracteres");
 			}
 			
 			esCorrecta = request.getParameter("correcta" + i);
@@ -201,7 +207,7 @@ public class EdicionPreguntaServlet extends HttpServlet {
 		}
 
 		if (datosCorrectos) {
-			List<RespuestaVO> listaRespuestas = new LinkedList<RespuestaVO>();
+			List<RespuestaVO> listaRespuestas = new ArrayList<RespuestaVO>();
 			boolean correcta = false;
 			
 			for(int i = 1; i <= respuestasTotales; i++) {

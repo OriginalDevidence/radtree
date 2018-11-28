@@ -5,6 +5,12 @@ import java.sql.Date;
 public class UsuarioVO implements java.io.Serializable {
 	
 	public enum TipoUsuario { ADMINISTRADOR, CREADOR, PARTICIPANTE };
+
+	public static final int ALIAS_MIN = 3;
+	public static final int ALIAS_MAX = 20;
+	public static final int NOMBRE_MAX = 50;
+	public static final int APELLIDOS_MAX = 100;
+	public static final int EMAIL_MAX = 254;
 	
 	private Long idUsuario;
 	private String alias;

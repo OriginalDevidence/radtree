@@ -27,7 +27,7 @@ public class FormatChecker {
 	 * @return
 	 */
 	public static boolean checkUrl(String url) {
-		return url.matches("(http(s)?:\\/\\/.)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)");
+		return url.matches("http(s)?:\\/\\/.(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)");
 	}
 	
 }

@@ -97,11 +97,17 @@ public class EdicionRetoServlet extends HttpServlet {
 		if (titulo == null || titulo.trim().isEmpty()) {
 			datosCorrectos = false;
 			errors.put("titulo", "Campo obligatorio");
+		} else if (titulo.length() > RetoVO.TITULO_MAX) {
+			datosCorrectos = false;
+			errors.put("titulo", "Máx. " + RetoVO.TITULO_MAX + " caracteres");
 		}
 		/* CUERPO */
 		if (cuerpo == null || cuerpo.trim().isEmpty()) {
 			datosCorrectos = false;
 			errors.put("cuerpo", "Campo obligatorio");
+		} else if (cuerpo.length() > RetoVO.CUERPO_MAX) {
+			datosCorrectos = false;
+			errors.put("cuerpo", "Máx. " + RetoVO.CUERPO_MAX + " caracteres");
 		}
 
 		if (datosCorrectos) {
