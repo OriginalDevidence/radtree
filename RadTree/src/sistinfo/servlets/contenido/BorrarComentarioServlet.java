@@ -34,7 +34,7 @@ public class BorrarComentarioServlet extends HttpServlet {
         if (usuario == null || usuario.getTipoUsuario() != TipoUsuario.ADMINISTRADOR) {
         	response.sendRedirect(request.getContextPath() + "/iniciar-sesion");
         } else {
-        	// Modificar el estado si aprueba o deniega el contenido
+        	// Borrar el comentario especificado en idComentario
             Long idContenido = RequestExtractor.getLong(request, "id");
             Long idComentario = RequestExtractor.getLong(request, "idComentario");
             

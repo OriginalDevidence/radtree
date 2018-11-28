@@ -34,7 +34,8 @@ public class BorrarContenidoServlet extends HttpServlet {
         if (usuario == null || usuario.getTipoUsuario() != TipoUsuario.ADMINISTRADOR) {
         	response.sendRedirect(request.getContextPath() + "/iniciar-sesion");
         } else {
-        	// Modificar el estado si aprueba o deniega el contenido
+        	// Modificar el estado del contenido con id pasado por parametro a borrado
+        	// y volver a redirect
             Long idContenido = RequestExtractor.getLong(request, "id");
             String redirect = request.getParameter("redirect");
             
