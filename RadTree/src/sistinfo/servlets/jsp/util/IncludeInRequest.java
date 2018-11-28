@@ -221,7 +221,6 @@ public class IncludeInRequest {
 				// No ha pasado ningun parámetro por request, mostrar su perfil por defecto
 				UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 				request.setAttribute("usuario", usuario);
-				
 				return true;
 
 			// No sabemos qué usuario mostrar
@@ -234,6 +233,7 @@ public class IncludeInRequest {
 		}
 				
 	}
+	
 	
 	/**
      * Incluye en la request la noticia pasada por el parámetro ID, en el atributo noticia (NoticiaVO)

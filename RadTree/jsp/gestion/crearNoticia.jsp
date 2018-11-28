@@ -42,8 +42,7 @@
 					<h3 class="mb-30">
 						<b>Crear noticia</b>
 					</h3>
-					<form name="crearNoticia" action="${pageContext.request.contextPath}/gestion-contenido/crear-noticia/crear" method="post" enctype="multipart/form-data">
-
+					<form name="crearNoticia" action="${pageContext.request.contextPath}/gestion-contenido/crear-noticia/crear" method="post">
 						<div class="row form-block form-plr-15 form-h-45 form-mb-20">
 							<div class="col-sm-12">
 								<label for="titulo">Título de la Noticia</label>

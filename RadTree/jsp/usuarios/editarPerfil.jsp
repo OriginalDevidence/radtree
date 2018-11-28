@@ -101,15 +101,6 @@
 							</div>
 
 						</div>
-
-						<div class="row">
-							<div class="col-12">
-								<label for="imagen">Foto de perfil</label>
-							</div>
-							<div class="col-12">
-								<input class="m-5" type="file" name="imagen"/>
-							</div>
-						</div>
 						
 						<div class="row mb-50">
 							<div class="col-sm-12 mt-20">
@@ -134,7 +125,7 @@
 							</form>
 						</div>
 						<div class="col-12">
-							<h3 class="p-title mtb-30">
+							<h3 class="p-title mt-50 mb-30">
 								<b>Eliminar perfil</b>
 							</h3>
 							<p>Ten cuidado, una vez eliminado no se puede volver atrás.</p>
