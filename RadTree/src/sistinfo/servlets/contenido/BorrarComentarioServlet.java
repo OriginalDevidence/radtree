@@ -22,7 +22,7 @@ public class BorrarComentarioServlet extends HttpServlet {
     }
 
     /**
-     * Cambiar el estado de un contenido BORRADO y volver a la página de redirect incluida
+     * Borrar un comentario y todas sus respuestas asociadas, y redirigir al usuario al contenido que estaba viendo
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
