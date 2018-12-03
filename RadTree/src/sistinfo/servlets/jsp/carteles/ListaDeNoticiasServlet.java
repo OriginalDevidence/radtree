@@ -90,16 +90,36 @@ public class ListaDeNoticiasServlet extends FooterServlet {
 		}
 
 		try {
+			//Filtros
+			int codigoFiltro = 0;
+
+			if (request.getParameter("filtroTitulo") != null) {
+				codigoFiltro += 0b1;
+			}
+			
+			if (request.getParameter("filtroCuerpo") != null) {
+				codigoFiltro += 0b10;
+			}
+			
+			if (request.getParameter("filtroUrl") != null) {
+				codigoFiltro += 0b100;
+			}
+			if(codigoFiltro == 0) codigoFiltro = 0b111;
+			
+			
+			
 			// Según la barra de busqueda obtener las preguntas con unas caracteristicas u
 			// otras
 			List<NoticiaVO> noticias;
+			
 			if (busqueda == null || busqueda.trim().isEmpty()) {
 				noticias = noticiaDAO.getNoticiasUltimasByPag(CONTENIDO_POR_PAGINA, page);
 				noOfContenido = noticiaDAO.getNumNoticiasUltimas();
 			} else {
-				noticias = noticiaDAO.getPagNoticiasBySearch(CONTENIDO_POR_PAGINA, page, null, busqueda);
-				noOfContenido = noticiaDAO.getNumNoticiasBySearch(null, busqueda);
+				noticias = noticiaDAO.getPagNoticiasBySearch(CONTENIDO_POR_PAGINA, page, codigoFiltro, busqueda);
+				noOfContenido = noticiaDAO.getNumNoticiasBySearch(codigoFiltro, busqueda);
 			}
+
 			// Añadir información especial e incluirlo en la request
 
 			int noOfPages = (int) Math.ceil(noOfContenido / CONTENIDO_POR_PAGINA);

@@ -28,6 +28,30 @@
 	rel="stylesheet">
 <link rel="icon" type="image/jpg"
 	href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
+
+
+
+<script>
+	function showdivDisplay() {
+		var mydiv = document.getElementById("mydiv");
+		var mybutton = document.getElementById("mybutton");
+
+		if (mydiv != null && mybutton != null) {
+			mybutton.onclick = hidedivDisplay;
+			mydiv.style.display = "";
+		}
+
+	}
+	function hidedivDisplay() {
+		var mydiv = document.getElementById("mydiv");
+		var mybutton = document.getElementById("mybutton");
+
+		if (mydiv != null && mybutton != null) {
+			mybutton.onclick = showdivDisplay;
+			mydiv.style.display = "none";
+		}
+	}
+</script>
 </head>
 
 <body>
@@ -47,12 +71,12 @@
 
 	<section>
 		<div class="container">
+			<form name="busqueda"
+				action="${pageContext.request.contextPath}/noticias" method="post">
+				<div class="row">
+					<!-- Barra de búsqueda -->
+					<div class="col-12 col-md-8 offset-0 offset-md-2 mb-10">
 
-			<div class="row">
-				<!-- Barra de búsqueda -->
-				<div class="col-12 col-md-8 offset-0 offset-md-2 mb-50">
-					<form name="busqueda"
-						action="${pageContext.request.contextPath}/noticias" method="post">
 						<div
 							class="row form-block form-plr-15 form-h-45 form-brdr-lite-white">
 
@@ -83,147 +107,166 @@
 								</button>
 							</div>
 						</div>
-					</form>
+
+					</div>
 				</div>
-				<c:if test="${not empty requestScope.noticias}">
-					<c:forEach items="${requestScope.noticias}" var="noticia">
 
-						<div class="col-12 col-md-6 mb-30 mb-sm-10">
-							<div class="h-300x">
-								<div class="pos-relative h-100 dplay-block">
-									<form name="noticia"
-										action="${pageContext.request.contextPath}/noticias/ver"
-										method="post">
-										<input type="hidden" name="id"
-											value="<c:out value="${noticia.idContenido}"/>" />
-										<button type="submit" name="buscar">
-											<div class="img-bg bg-grad-layer-6"
-												style="background: url(<c:out value="${noticia.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
+				<div class="mx-2 mb-30">
 
-											<div class="abs-blr color-white p-20 bg-sm-color-7">
-												<h4 class="mb-10 mb-sm-5 font-14 text-left font-sans">
-													<b><c:out value="${noticia.titulo}" /></b>
-												</h4>
-												<ul class="list-li-mr-20">
-													<li class="text-left float-left font-11 font-sans mt-5"><c:out
-															value="${noticia.fechaRealizacion}" /></li>
-													<li class="text-left float-left font-11 font-sans"><i
-														class="color-primary mr-5 font-11 ion-ios-bolt"></i> <c:out
-															value="${noticia.numVisitas}" /> <c:if
-															test="${noticia.numVisitas == 1}">
+					<!-- Abrir Filtros -->
+					<button class="col-fit col-md-fit btn-fill-grey" id="mybutton"
+						type="button" onclick="showdivDisplay()">
+						<i class="ion-ios-settings-strong"></i> <b>Filtros</b>
+					</button>
+
+					<!-- Filtros -->
+					<div id="mydiv" style="display: none" class="text-center">
+
+
+						<b class="text alert-wo-margin alert-success"> <input
+							class="mt-30" type="checkbox" name="filtroTitulo" /> Título
+						</b> <b class="text alert-wo-margin alert-success"><input
+							class="mt-30" type="checkbox" name="filtroCuerpo" /> Cuerpo </b> <b
+							class="text alert-wo-margin alert-success"><input
+							class="mt-30" type="checkbox" name="filtroUrl" /> URL</b>
+
+
+					</div>
+
+					<!-- Separador -->
+					<h4 class="p-title"></h4>
+				</div>
+
+			</form>
+
+
+			<c:if test="${not empty requestScope.noticias}">
+				<c:forEach items="${requestScope.noticias}" var="noticia">
+
+					<div class="col-12 col-md-6 mb-30 mb-sm-10">
+						<div class="h-300x">
+							<div class="pos-relative h-100 dplay-block">
+								<form name="noticia"
+									action="${pageContext.request.contextPath}/noticias/ver"
+									method="post">
+									<input type="hidden" name="id"
+										value="<c:out value="${noticia.idContenido}"/>" />
+									<button type="submit" name="buscar">
+										<div class="img-bg bg-grad-layer-6"
+											style="background: url(<c:out value="${noticia.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
+
+										<div class="abs-blr color-white p-20 bg-sm-color-7">
+											<h4 class="mb-10 mb-sm-5 font-14 text-left font-sans">
+												<b><c:out value="${noticia.titulo}" /></b>
+											</h4>
+											<ul class="list-li-mr-20">
+												<li class="text-left float-left font-11 font-sans mt-5"><c:out
+														value="${noticia.fechaRealizacion}" /></li>
+												<li class="text-left float-left font-11 font-sans"><i
+													class="color-primary mr-5 font-11 ion-ios-bolt"></i> <c:out
+														value="${noticia.numVisitas}" /> <c:if
+														test="${noticia.numVisitas == 1}">
 						                                	 visita
 						                                </c:if> <c:if
-															test="${noticia.numVisitas != 1}">
+														test="${noticia.numVisitas != 1}">
 						                                	 visitas
 						                                </c:if></li>
-													<li class="text-left float-left font-11 font-sans"><i
-														class="color-primary mr-5 font-11 ion-chatbubbles"></i> <c:out
-															value="${noticia.numComentarios}" /> <c:if
-															test="${noticia.numComentarios == 1}">
+												<li class="text-left float-left font-11 font-sans"><i
+													class="color-primary mr-5 font-11 ion-chatbubbles"></i> <c:out
+														value="${noticia.numComentarios}" /> <c:if
+														test="${noticia.numComentarios == 1}">
 						                                	 comentario
 						                                </c:if> <c:if
-															test="${noticia.numComentarios != 1}">
+														test="${noticia.numComentarios != 1}">
 						                                	 comentarios
 						                                </c:if></li>
-												</ul>
-											</div>
-										</button>
-									</form>
-								</div>
+											</ul>
+										</div>
+									</button>
+								</form>
 							</div>
 						</div>
+					</div>
 
-					</c:forEach>
+				</c:forEach>
+			</c:if>
+		</div>
+
+		<div class="text-center">
+			<c:if test="${empty currentPage}">
+				<c:set var="currentPage" scope="request" value="${1}" />
+			</c:if>
+
+			<form name="paginacion"
+				action="${pageContext.request.contextPath}/noticias" method="post">
+				<input type="hidden" name="currentPage" value="${currentPage}" /> <input
+					type="hidden" name="noOfPages" value="${noOfPages}" /> <input
+					type="hidden" name="busquedaAnterior" value="${busquedaAnterior}" />
+
+
+				<!--For displaying Previous link except for the 1st page -->
+				<c:if test="${requestScope.currentPage ne 1}">
+					<button class="col-fit col-md-fit btn-fill-primary" type="submit"
+						name="button" value="primeraPagina">
+						<i class="ion-chevron-left"></i><i class="ion-chevron-left"></i>
+					</button>
+					<button class="col-fit col-md-fit btn-fill-primary" type="submit"
+						name="button" value="anteriorPagina">
+						<i class="ion-chevron-left"></i>
+					</button>
 				</c:if>
-			</div>
-
-			<div class="text-center">
-					<c:if test="${empty currentPage}">
-						<c:set var="currentPage" scope="request" value="${1}"/>
-					</c:if>
-					
-				<form name="paginacion"
-					
-					action="${pageContext.request.contextPath}/noticias" method="post">
-					<input type="hidden" name="currentPage" value="${currentPage}"/>
-					<input type="hidden" name="noOfPages" value="${noOfPages}"/>
-					<input type="hidden" name="busquedaAnterior" value="${busquedaAnterior}"/>
-					
-					<!--For displaying Previous link except for the 1st page -->
-					<c:choose>
-						<c:when test="${requestScope.currentPage eq 1}">
-							<span class="text alert-wo-margin alert-success"> <i
-								class="ion-chevron-left"></i> <i class="ion-chevron-left"></i>
-							</span>
-							<span class="text alert-wo-margin alert-success"> <i
-								class="ion-chevron-left"></i>
-							</span>
-
-						</c:when>
-						<c:otherwise>
-
-							<button class="col-fit col-md-fit btn-fill-primary" type="submit"
-								name="button" value="primeraPagina">
-								<i class="ion-chevron-left"></i><i class="ion-chevron-left"></i>
-							</button>
-							<button class="col-fit col-md-fit btn-fill-primary" type="submit"
-								name="button" value="anteriorPagina">
-								<i class="ion-chevron-left"></i>
-							</button>
-
-						</c:otherwise>
-					</c:choose>
 
 
 
-					<!--For displaying Page numbers. 
+
+				<!--For displaying Page numbers. 
 			    The when condition does not display a link for the current page-->
-					<c:forEach begin="1" end="${noOfPages}" var="i">
-						<c:choose>
-							<c:when test="${currentPage eq i}">
-
-								<span class="text alert-wo-margin alert-success">${i}</span>
-
-							</c:when>
-							<c:otherwise>
-
-								<button class="col-fit col-md-fit btn-fill-primary"
-									type="submit" name="irPagina"
-									value="${i}">${i}</button>
-
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-
-
-
-					<!--For displaying Next link -->
+			    <c:set var="maxPagNum" value= "${10}" ></c:set>
+			    <c:set var="startPagNum" value= "${1}" ></c:set>
+			    
+			    <c:if test="${currentPage - 4 > 1}">
+			    	<c:set var="startPagNum" value= "${currentPage - 4}" ></c:set>
+			    	<c:set var="maxPagNum" value= "${maxPagNum + currentPage - 4}" ></c:set>
+			    </c:if>
+			    
+			    <c:if test="${maxPagNum > noOfPages}">
+			    	<c:set var="maxPagNum" value= "${noOfPages}" ></c:set>
+			    </c:if>
+			    
+				<c:forEach begin="${startPagNum}" end="${maxPagNum}" var="i">
 					<c:choose>
-						<c:when test="${currentPage eq noOfPages}">
-							<span class="text alert-wo-margin alert-success"> <i
-								class="ion-chevron-right"></i>
-							</span>
-							<span class="text alert-wo-margin alert-success"> <i
-								class="ion-chevron-right"></i><i class="ion-chevron-right"></i>
-							</span>
+						<c:when test="${currentPage eq i}">
+
+							<span class="text alert-wo-margin alert-success"><b>${i}</b></span>
 
 						</c:when>
 						<c:otherwise>
 
 							<button class="col-fit col-md-fit btn-fill-primary" type="submit"
-								name="button" value="siguientePagina">
-								<i class="ion-chevron-right"></i>
-							</button>
-							<button class="col-fit col-md-fit btn-fill-primary" type="submit"
-								name="button" value="ultimaPagina">
-								<i class="ion-chevron-right"></i> <i class="ion-chevron-right"></i>
-							</button>
+								name="irPagina" value="${i}"><b>${i}</b></button>
 
 						</c:otherwise>
 					</c:choose>
+				</c:forEach>
 
-				</form>
-			</div>
+
+
+				<!--For displaying Next link -->
+				<c:if test="${currentPage ne noOfPages}">
+
+					<button class="col-fit col-md-fit btn-fill-primary" type="submit"
+						name="button" value="siguientePagina">
+						<i class="ion-chevron-right"></i>
+					</button>
+					<button class="col-fit col-md-fit btn-fill-primary" type="submit"
+						name="button" value="ultimaPagina">
+						<i class="ion-chevron-right"></i> <i class="ion-chevron-right"></i>
+					</button>
+
+				</c:if>
+
+			</form>
+		</div>
 		</div>
 	</section>
 
