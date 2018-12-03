@@ -16,7 +16,7 @@ import sistinfo.servlets.jsp.FooterServlet;
 
 @SuppressWarnings("serial")
 public class ListaDeNoticiasServlet extends FooterServlet {
-	public static final int CONTENIDO_POR_PAGINA = 1; // Cambiar el número de piezas de contenido mostradas por
+	public static final int CONTENIDO_POR_PAGINA = 30; // Cambiar el número de piezas de contenido mostradas por
 														// página(recomendado 30).
 
 	/**
@@ -122,7 +122,11 @@ public class ListaDeNoticiasServlet extends FooterServlet {
 
 			// Añadir información especial e incluirlo en la request
 
-			int noOfPages = (int) Math.ceil(noOfContenido / CONTENIDO_POR_PAGINA);
+			int noOfPages = (int) Math.ceil(noOfContenido / CONTENIDO_POR_PAGINA + 1);
+				
+			if(noOfContenido % CONTENIDO_POR_PAGINA == 0 && noOfContenido != 0) {
+				noOfPages -= 1;
+			}
 
 			request.setAttribute("noOfPages", noOfPages);
 			request.setAttribute("currentPage", page);

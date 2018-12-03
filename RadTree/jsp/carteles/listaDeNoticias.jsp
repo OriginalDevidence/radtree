@@ -139,57 +139,58 @@
 
 			</form>
 
+			<div class="row">
+				<c:if test="${not empty requestScope.noticias}">
+					<c:forEach items="${requestScope.noticias}" var="noticia">
 
-			<c:if test="${not empty requestScope.noticias}">
-				<c:forEach items="${requestScope.noticias}" var="noticia">
+						<div class="col-12 col-md-6 mb-30 mb-sm-10">
+							<div class="h-300x">
+								<div class="pos-relative h-100 dplay-block">
+									<form name="noticia"
+										action="${pageContext.request.contextPath}/noticias/ver"
+										method="post">
+										<input type="hidden" name="id"
+											value="<c:out value="${noticia.idContenido}"/>" />
+										<button type="submit" name="buscar">
+											<div class="img-bg bg-grad-layer-6"
+												style="background: url(<c:out value="${noticia.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
 
-					<div class="col-12 col-md-6 mb-30 mb-sm-10">
-						<div class="h-300x">
-							<div class="pos-relative h-100 dplay-block">
-								<form name="noticia"
-									action="${pageContext.request.contextPath}/noticias/ver"
-									method="post">
-									<input type="hidden" name="id"
-										value="<c:out value="${noticia.idContenido}"/>" />
-									<button type="submit" name="buscar">
-										<div class="img-bg bg-grad-layer-6"
-											style="background: url(<c:out value="${noticia.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
-
-										<div class="abs-blr color-white p-20 bg-sm-color-7">
-											<h4 class="mb-10 mb-sm-5 font-14 text-left font-sans">
-												<b><c:out value="${noticia.titulo}" /></b>
-											</h4>
-											<ul class="list-li-mr-20">
-												<li class="text-left float-left font-11 font-sans mt-5"><c:out
-														value="${noticia.fechaRealizacion}" /></li>
-												<li class="text-left float-left font-11 font-sans"><i
-													class="color-primary mr-5 font-11 ion-ios-bolt"></i> <c:out
-														value="${noticia.numVisitas}" /> <c:if
-														test="${noticia.numVisitas == 1}">
+											<div class="abs-blr color-white p-20 bg-sm-color-7">
+												<h4 class="mb-10 mb-sm-5 font-14 text-left font-sans">
+													<b><c:out value="${noticia.titulo}" /></b>
+												</h4>
+												<ul class="list-li-mr-20">
+													<li class="text-left float-left font-11 font-sans mt-5"><c:out
+															value="${noticia.fechaRealizacion}" /></li>
+													<li class="text-left float-left font-11 font-sans"><i
+														class="color-primary mr-5 font-11 ion-ios-bolt"></i> <c:out
+															value="${noticia.numVisitas}" /> <c:if
+															test="${noticia.numVisitas == 1}">
 						                                	 visita
 						                                </c:if> <c:if
-														test="${noticia.numVisitas != 1}">
+															test="${noticia.numVisitas != 1}">
 						                                	 visitas
 						                                </c:if></li>
-												<li class="text-left float-left font-11 font-sans"><i
-													class="color-primary mr-5 font-11 ion-chatbubbles"></i> <c:out
-														value="${noticia.numComentarios}" /> <c:if
-														test="${noticia.numComentarios == 1}">
+													<li class="text-left float-left font-11 font-sans"><i
+														class="color-primary mr-5 font-11 ion-chatbubbles"></i> <c:out
+															value="${noticia.numComentarios}" /> <c:if
+															test="${noticia.numComentarios == 1}">
 						                                	 comentario
 						                                </c:if> <c:if
-														test="${noticia.numComentarios != 1}">
+															test="${noticia.numComentarios != 1}">
 						                                	 comentarios
 						                                </c:if></li>
-											</ul>
-										</div>
-									</button>
-								</form>
+												</ul>
+											</div>
+										</button>
+									</form>
+								</div>
 							</div>
 						</div>
-					</div>
 
-				</c:forEach>
-			</c:if>
+					</c:forEach>
+				</c:if>
+			</div>
 		</div>
 
 		<div class="text-center">
@@ -221,18 +222,18 @@
 
 				<!--For displaying Page numbers. 
 			    The when condition does not display a link for the current page-->
-			    <c:set var="maxPagNum" value= "${10}" ></c:set>
-			    <c:set var="startPagNum" value= "${1}" ></c:set>
-			    
-			    <c:if test="${currentPage - 4 > 1}">
-			    	<c:set var="startPagNum" value= "${currentPage - 4}" ></c:set>
-			    	<c:set var="maxPagNum" value= "${maxPagNum + currentPage - 4}" ></c:set>
-			    </c:if>
-			    
-			    <c:if test="${maxPagNum > noOfPages}">
-			    	<c:set var="maxPagNum" value= "${noOfPages}" ></c:set>
-			    </c:if>
-			    
+				<c:set var="maxPagNum" value="${10}"></c:set>
+				<c:set var="startPagNum" value="${1}"></c:set>
+
+				<c:if test="${currentPage - 4 > 1}">
+					<c:set var="startPagNum" value="${currentPage - 4}"></c:set>
+					<c:set var="maxPagNum" value="${maxPagNum + currentPage - 4}"></c:set>
+				</c:if>
+
+				<c:if test="${maxPagNum > noOfPages}">
+					<c:set var="maxPagNum" value="${noOfPages}"></c:set>
+				</c:if>
+
 				<c:forEach begin="${startPagNum}" end="${maxPagNum}" var="i">
 					<c:choose>
 						<c:when test="${currentPage eq i}">
@@ -243,7 +244,9 @@
 						<c:otherwise>
 
 							<button class="col-fit col-md-fit btn-fill-primary" type="submit"
-								name="irPagina" value="${i}"><b>${i}</b></button>
+								name="irPagina" value="${i}">
+								<b>${i}</b>
+							</button>
 
 						</c:otherwise>
 					</c:choose>
@@ -267,7 +270,7 @@
 
 			</form>
 		</div>
-		</div>
+
 	</section>
 
 	<%@ include file="/jsp/include/footer.jsp"%>
