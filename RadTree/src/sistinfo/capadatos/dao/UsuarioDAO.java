@@ -218,16 +218,17 @@ public class UsuarioDAO {
         	// Comprobar que no exista alguien con ese alias o email ya
     		if (checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail())) {
             	
-            	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Usuario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)",
+            	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Usuario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             															Statement.RETURN_GENERATED_KEYS);
             	stmt.setString(1, usuario.getAlias());
             	stmt.setString(2, usuario.getNombre());
             	stmt.setString(3, usuario.getApellidos());
             	stmt.setDate(4, usuario.getFechaNacimiento());
             	stmt.setString(5, usuario.getEmail());
-            	stmt.setString(6, usuario.getPasswordHash());
-            	stmt.setString(7, usuario.getTipoUsuario().toString());
-            	stmt.setDouble(8, usuario.getPuntuacion());
+            	stmt.setBoolean(6, usuario.getEmailVerificado());
+            	stmt.setString(7, usuario.getPasswordHash());
+            	stmt.setString(8, usuario.getTipoUsuario().toString());
+            	stmt.setDouble(9, usuario.getPuntuacion());
             	int result = stmt.executeUpdate();
 
             	if (result == 1) {
@@ -263,16 +264,17 @@ public class UsuarioDAO {
         	// Comprobar que no exista alguien con ese alias o email ya
     		if (checkAliasYEmailExistente(cambiaAlias ? usuario.getAlias() : "$", cambiaEmail ? usuario.getEmail() : "$")) {
         	
-		    	PreparedStatement stmt = connection.prepareStatement("UPDATE Usuario SET alias=?, nombre=?, apellidos=?, fechaNacimiento=?, email=?, passwordHash=?, tipoUsuario=?, puntuacion=? WHERE idUsuario=?");
+		    	PreparedStatement stmt = connection.prepareStatement("UPDATE Usuario SET alias=?, nombre=?, apellidos=?, fechaNacimiento=?, email=?, emailVerificado=?, passwordHash=?, tipoUsuario=?, puntuacion=? WHERE idUsuario=?");
 		    	stmt.setString(1, usuario.getAlias());
 		    	stmt.setString(2, usuario.getNombre());
 		    	stmt.setString(3, usuario.getApellidos());
 		    	stmt.setDate(4, usuario.getFechaNacimiento());
 		    	stmt.setString(5, usuario.getEmail());
-		    	stmt.setString(6, usuario.getPasswordHash());
-		    	stmt.setString(7, usuario.getTipoUsuario().toString());
-		    	stmt.setDouble(8, usuario.getPuntuacion());
-		    	stmt.setLong(9, usuario.getIdUsuario());
+		    	stmt.setBoolean(6, usuario.getEmailVerificado());
+            	stmt.setString(7, usuario.getPasswordHash());
+            	stmt.setString(8, usuario.getTipoUsuario().toString());
+            	stmt.setDouble(9, usuario.getPuntuacion());
+		    	stmt.setLong(10, usuario.getIdUsuario());
 
 		    	int result = stmt.executeUpdate();
 	        	stmt.close();
@@ -329,6 +331,7 @@ public class UsuarioDAO {
          	rs.getString("apellidos"),
          	rs.getDate("fechaNacimiento"),
          	rs.getString("email"),
+         	rs.getBoolean("emailVerificado"),
          	rs.getString("passwordHash"),
          	UsuarioVO.TipoUsuario.valueOf(rs.getString("tipoUsuario")),
          	rs.getDouble("puntuacion")

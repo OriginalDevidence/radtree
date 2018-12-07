@@ -378,6 +378,26 @@
         <servlet-name>EditarFotoPerfil</servlet-name>
         <url-pattern>/perfil/subir-imagen</url-pattern>
     </servlet-mapping>
+    
+    <!-- EnviarVerificacion: Envia un correo de verificación para el usuario -->
+    <servlet>
+        <servlet-name>EnviarVerificacion</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.EnviarVerificacionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EnviarVerificacion</servlet-name>
+        <url-pattern>/perfil/enviar-verificacion</url-pattern>
+    </servlet-mapping>
+    
+    <!-- VerificarUsuario: Verifica el email de un usuario -->
+    <servlet>
+        <servlet-name>VerificarUsuario</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.VerificarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VerificarUsuario</servlet-name>
+        <url-pattern>/perfil/verificar</url-pattern>
+    </servlet-mapping>
 
     <!-- ============ SERVLETS CONTENIDO ============ -->
     
