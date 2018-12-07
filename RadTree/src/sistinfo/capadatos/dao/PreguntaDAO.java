@@ -163,12 +163,12 @@ public class PreguntaDAO extends ContenidoDAO {
 			if (rs.last()) {
 				if (rs.getRow() == 1) {
 					PreguntaVO pregunta = extractPreguntaFromResultSet(rs);
+					stmt.close();
+					connection.close();
 					return pregunta;
 				}
 			}
 
-			stmt.close();
-			connection.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new ErrorInternoException();
@@ -193,11 +193,11 @@ public class PreguntaDAO extends ContenidoDAO {
 
 			if (rs.next()) {
 				RespuestaVO respuesta = extractRespuestaFromResultSet(rs);
+				stmt.close();
+				connection.close();
 				return respuesta;
 			}
 
-			stmt.close();
-			connection.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -352,11 +352,11 @@ public class PreguntaDAO extends ContenidoDAO {
 			int result = stmt.executeUpdate();
 
 			stmt.close();
+			connection.close();
 			if (result == 1) {
 				return true;
 			}
 
-			connection.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new ErrorInternoException();
@@ -484,12 +484,12 @@ public class PreguntaDAO extends ContenidoDAO {
 			stmt.setLong(2, pregunta.getIdContenido());
 			int result = stmt.executeUpdate();
 
+			stmt.close();
+			connection.close();
 			if (result == 1) {
 				return false;
 			}
 
-			stmt.close();
-			connection.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new ErrorInternoException();
@@ -515,11 +515,11 @@ public class PreguntaDAO extends ContenidoDAO {
 			int result = stmt.executeUpdate();
 
 			stmt.close();
+			connection.close();
 			if (result == 1) {
 				return true;
 			}
 
-			connection.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new ErrorInternoException();
@@ -554,12 +554,12 @@ public class PreguntaDAO extends ContenidoDAO {
 			stmt.setLong(1, id);
 			int result = stmt.executeUpdate();
 
+			stmt.close();
+			connection.close();
 			if (result == 1) {
 				return true;
 			}
 
-			stmt.close();
-			connection.close();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new ErrorInternoException();

@@ -155,6 +155,8 @@ public class UsuarioDAO {
             	if (rs.getRow() == 1) {
                     UsuarioVO user = extractUsuarioFromResultSet(rs);
                     if (checkLogin(user, passwordHash)) {
+                    	stmt.close();
+                    	connection.close();
                     	return user;
                     }
             	}
@@ -190,6 +192,8 @@ public class UsuarioDAO {
             	if (rs.getRow() == 1) {
                     UsuarioVO user = extractUsuarioFromResultSet(rs);
                     if (checkLogin(user, passwordHash)) {
+                    	stmt.close();
+                    	connection.close();
                     	return user;
                     }
             	}
@@ -276,6 +280,7 @@ public class UsuarioDAO {
 
 		    	int result = stmt.executeUpdate();
 	        	stmt.close();
+	        	connection.close();
 		    	return result == 1;
 
     		}
@@ -304,6 +309,7 @@ public class UsuarioDAO {
 
         	stmt.close();
         	if (result == 1) {
+            	connection.close();
         		return true;
         	}
         	

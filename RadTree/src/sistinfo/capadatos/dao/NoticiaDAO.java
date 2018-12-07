@@ -16,7 +16,7 @@ public class NoticiaDAO extends ContenidoDAO {
 	 * @return La noticia si el id existe, null en caso contrario
 	 * @throws ErrorInternoException 
 	 */
-	public NoticiaVO getNoticiaById(long id) throws ErrorInternoException {
+	public NoticiaVO getNoticiaById(Long id) throws ErrorInternoException {
         try {
     		Connection connection = ConnectionFactory.getConnection();
     		
@@ -27,10 +27,12 @@ public class NoticiaDAO extends ContenidoDAO {
             if (rs.last()) {
             	if (rs.getRow() == 1) {
                 	NoticiaVO noticia = extractNoticiaFromResultSet(rs);
+                	stmt.close();
+        			connection.close();
                     return noticia;
             	}
             }
-
+            
         	stmt.close();
 			connection.close();
         } catch (SQLException ex) {
@@ -331,11 +333,12 @@ public class NoticiaDAO extends ContenidoDAO {
             	int result = stmt.executeUpdate();
             	
             	if (result == 1) {
+                	stmt.close();
+        			connection.close();
             		return idContenido;
             	}
-            	stmt.close();
         	}
-
+        	
 			connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -368,6 +371,8 @@ public class NoticiaDAO extends ContenidoDAO {
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
+            	stmt.close();
+            	connection.close();
         		return true;
         	}
         	
