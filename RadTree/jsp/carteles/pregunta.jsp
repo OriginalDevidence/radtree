@@ -59,9 +59,9 @@
 						
 						<form name="perfilAutor" action="${pageContext.request.contextPath}/perfil" method="post">
 	                    	<input type="hidden" name="alias" value="<c:out value='${requestScope.autorAlias}'/>"/>
-	                    	<p><i><b>Autor: </b>
+	                    	<p><b>Autor: </b>
 		                   		<button class="link-brdr-btm-primary color-primary mb-15" type="submit"><c:out value='${requestScope.autorCompleto}'/></button>
-							</i></p>
+							</p>
 	                    </form>
 	                    
 						<c:if test="${not empty requestScope.errorArriba}">
