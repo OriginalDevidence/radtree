@@ -569,9 +569,9 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 .share-link{ width: fit-content; border: 2px solid #0cc300; }
 .share-link:hover { background-color: #0cc300; }
 .share-link > input{ margin-left: 9999px; }
-.share-link > i{ padding-left: 20px; font-size: 1.5em; }
+.share-link > i{ padding-left: 20px; font-size: 1.2em; }
 .share-link:hover { color: #ffffff; }
-.share-link > .link{ padding: 10px 20px 10px 10px; font-size: 1.1em; font-weight: 400; }
+.share-link > .link{ padding: 10px 20px 10px 10px; font-size: 0.9em; font-weight: 400; }
 .share-link > .link:hover { color: #ffffff; }
 
 /* INDIVIDUAL STYLING */
