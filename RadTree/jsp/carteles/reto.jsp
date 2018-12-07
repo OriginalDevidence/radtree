@@ -67,6 +67,17 @@
 				</c:if>
 			</div>
 
+			<script src="${pageContext.request.contextPath}/common/copyToClipboard.js"></script>
+			<div class="col-12">
+				<input class="hidden-input" type="text"
+					value="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/retos/ver?id=<c:out value="${requestScope.reto.idContenido}"/>" id="copy">
+				<p class="mb-10"><b>Link para compartir:</b></p>
+				<a class="share-link" href="#" onclick="copyToClipboard('copy')">
+					<i class="ion-ios-copy-outline"></i>
+					<span class="link" id="copy">${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/retos/ver?id=<c:out value="${requestScope.reto.idContenido}"/></span>
+				</a>
+			</div>
+		
 		</div><!-- container -->
 		
 		<%@ include file="/jsp/include/comentarios.jsp" %>

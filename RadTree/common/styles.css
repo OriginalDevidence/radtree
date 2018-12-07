@@ -562,17 +562,29 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 .lista-titulos li:hover span{ color:white; }
 .lista-titulos li:hover i{ color:white; }
 
+/* LINK PARA COMPARTIR */
+
+.hidden-input { margin-left: 9999px; }
+
+.share-link{ width: fit-content; border: 2px solid #0cc300; }
+.share-link:hover { background-color: #0cc300; }
+.share-link > input{ margin-left: 9999px; }
+.share-link > i{ padding-left: 20px; font-size: 1.5em; }
+.share-link:hover { color: #ffffff; }
+.share-link > .link{ padding: 10px 20px 10px 10px; font-size: 1.1em; font-weight: 400; }
+.share-link > .link:hover { color: #ffffff; }
+
 /* INDIVIDUAL STYLING */
 
 section{ padding: 50px 0; }
 
-.p-title{ position: relative; padding-bottom: 20px; margin-bottom: 40px; }
+.p-title{ width: auto; position: relative; padding-bottom: 20px; margin-bottom: 40px; }
 
 .p-title:after { content:''; position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; background: #ccc; }
 .p-title:before{ content:''; position: absolute; bottom: 0; left: 0; width: 80px; height: 5px; 
 	background: #0cc300; z-index: 1; }
 
-.quote-primary{ padding: 10px 20px; border-left: 2px solid #0cc300; }
+.quote-primary{ padding: 5px 5px; border-left: 2px solid #0cc300; }
 
 
 

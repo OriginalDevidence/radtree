@@ -53,9 +53,9 @@
 					</p>
 					<form name="perfilAutor" action="${pageContext.request.contextPath}/perfil" method="post">
                     	<input type="hidden" name="alias" value="<c:out value='${requestScope.autorAlias}'/>"/>
-                    	<p><i><b>Autor: </b>
+                    	<p><b>Autor: </b>
 	                   		<button class="link-brdr-btm-primary color-primary" type="submit"><c:out value='${requestScope.autorCompleto}'/></button>
-						</i></p>
+						</p>
                     </form>
 				</div>
 
@@ -69,9 +69,22 @@
 						</form>
 					</c:if>
 				</div>
+				
+				<script src="${pageContext.request.contextPath}/common/copyToClipboard.js"></script>
+				<div class="col-12">
+					<input class="hidden-input" type="text"
+						value="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/noticias/ver?id=<c:out value="${requestScope.noticia.idContenido}"/>" id="copy">
+					<p class="mb-10"><b>Link para compartir:</b></p>
+					<a class="share-link" href="#" onclick="copyToClipboard('copy')">
+						<i class="ion-ios-copy-outline"></i>
+						<span class="link" id="copy">${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/noticias/ver?id=<c:out value="${requestScope.noticia.idContenido}"/></span>
+					</a>
+				</div>
+				
 			</div>
 
 		</div>
+		
 		
 		<%@ include file="/jsp/include/comentarios.jsp" %>
 		
