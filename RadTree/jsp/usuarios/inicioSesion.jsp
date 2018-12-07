@@ -50,19 +50,23 @@
 							<div class="col-12">
 								<label for="identificador">Email o alias</label>
 								<input type="text" name="identificador" placeholder="Email o alias"
-									value="<c:out value="${param.identificador}"/>"/>
+									value="<c:out value="${param.identificador}"/><c:out value="${requestScope.identificadorCookies}"/>"/>
 							</div>
 							
 							<div class="col-12">
 								<label for="clave">Contraseña</label>
 								<input type="password" name="clave" placeholder="Contraseña"/>
 							</div>
-
+							
 						</div>
 						
-						<div class="row mt-20">
+						<div class="row">
 							<div class="col-12">
-								<button class="w-100 btn-fill-primary" type="submit"><b>Iniciar sesión</b></button>
+								<p>
+									<input class="w-auto h-auto m-5 p-5" type="checkbox" name="recordar"/>
+									Recordar nombre de usuario
+								</p>
+								<button class="mt-20 w-100 btn-fill-primary" type="submit"><b>Iniciar sesión</b></button>
 							</div>
 						</div>
 					

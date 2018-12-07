@@ -2,11 +2,14 @@ package sistinfo.servlets.jsp.usuarios;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import sistinfo.servlets.jsp.FooterServlet;
+import sistinfo.util.CookieManager;
 
 @SuppressWarnings("serial")
 public class InicioSesionServlet extends FooterServlet {
@@ -29,7 +32,15 @@ public class InicioSesionServlet extends FooterServlet {
     	
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
-    	request.getRequestDispatcher("/jsp/usuarios/inicioSesion.jsp").forward(request, response);
+    	
+    	RequestDispatcher req = request.getRequestDispatcher("/jsp/usuarios/inicioSesion.jsp");
+    	
+    	String identificadorCookies = CookieManager.getIdFromCookies(request);
+    	if (identificadorCookies != null && request.getParameter("identificador") == null) {
+    		request.setAttribute("identificadorCookies", identificadorCookies);
+    	}
+    	
+    	req.forward(request, response);
     		
 	}
 
