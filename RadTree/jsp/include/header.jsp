@@ -46,7 +46,7 @@
 		<a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
 		
 		<ul class="main-menu" id="main-menu">
-			<li class="drop-down"><a href="#">CARTELES<i class="ion-arrow-down-b"></i></a>
+			<li class="drop-down"><a href="">CARTELES<i class="ion-arrow-down-b"></i></a>
 				<ul class="drop-down-menu drop-down-inner">
 					<li><a href="${pageContext.request.contextPath}/noticias">NOTICIAS</a></li>
 					<li><a href="${pageContext.request.contextPath}/preguntas">PREGUNTAS</a></li>
@@ -60,6 +60,7 @@
 				<li><a class="btn-b-md btn-fill-primary lh-30" href="${pageContext.request.contextPath}/gestion-contenido">GESTIÓN CONTENIDO</a></li>
 			</c:if>
 		</ul>
+		
 		<div class="clearfix"></div>
 	</div><!-- container -->
 </header>
