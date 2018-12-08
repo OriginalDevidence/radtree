@@ -21,7 +21,7 @@ public class ListaDePreguntasServlet extends FooterServlet {
 
 	// Número de piezas de contenido mostradas por página
 	public static final int CONTENIDO_POR_PAGINA = 10;
-	
+
 	/**
 	 * Redirect a doPost de la misma clase
 	 */
@@ -58,94 +58,91 @@ public class ListaDePreguntasServlet extends FooterServlet {
 			idUsuario = ((UsuarioVO) request.getSession().getAttribute("usuario")).getIdUsuario();
 		}
 
-		
 		PreguntaDAO preguntaDAO = new PreguntaDAO();
 		ComentarioDAO comentarioDAO = new ComentarioDAO();
-		
+
 		// Obtener página actual y páginas totales
 		Integer noOfContenido;
 		Integer page;
 		int noOfPages;
-		
+
 		try {
 			if (busqueda == null || busqueda.trim().isEmpty()) {
 				if (noContestadas) {
-					noOfContenido = preguntaDAO.getNumPreguntasUltimasContestadas(false, idUsuario, CONTENIDO_POR_PAGINA);
+					noOfContenido = preguntaDAO.getNumPreguntasUltimasContestadas(false, idUsuario,
+							CONTENIDO_POR_PAGINA);
 				} else {
 					noOfContenido = preguntaDAO.getNumPreguntasUltimas(CONTENIDO_POR_PAGINA);
 				}
 			} else {
 				if (noContestadas) {
-					noOfContenido = preguntaDAO.getNumPreguntasBySearchContestadas(busqueda, false, idUsuario, CONTENIDO_POR_PAGINA);
+					noOfContenido = preguntaDAO.getNumPreguntasBySearchContestadas(busqueda, false, idUsuario,
+							CONTENIDO_POR_PAGINA);
 				} else {
 					noOfContenido = preguntaDAO.getNumPreguntasBySearch(busqueda, CONTENIDO_POR_PAGINA);
 				}
 			}
-		
-		noOfPages = (int)Math.ceil(noOfContenido.doubleValue() / CONTENIDO_POR_PAGINA);
-		
-		page = RequestExtractor.getInteger(request, "currentPage");
-		
-		// Gestión del número de página
-		if (page == null) {
-			// Primera visita a la página - ir a pág 1
-			page = 1;
-		} else {
-			// Botón pulsado (siguiente/anterior página)
-			String button = request.getParameter("button");
-			if (button != null) {
-				switch (button) {
-				case "siguientePagina":
-					page += 1;
-					break;
-				case "anteriorPagina":
-					page -= 1;
-					break;
-				case "ultimaPagina":
-					page = noOfPages;
-					break;
-				case "primeraPagina":
-					page = 1;
-					break;
-				}
+
+			noOfPages = (int) Math.ceil(noOfContenido.doubleValue() / CONTENIDO_POR_PAGINA);
+
+			page = RequestExtractor.getInteger(request, "currentPage");
+
+			// Gestión del número de página
+			if (page == null) {
+				// Primera visita a la página - ir a pág 1
+				page = 1;
 			} else {
-				button = request.getParameter("irPagina");
-				Integer irPagina = RequestExtractor.getInteger(request, "irPagina");
-				if (irPagina != null) {
-					page = irPagina;
+				// Botón pulsado (siguiente/anterior página)
+				String button = request.getParameter("button");
+				if (button != null) {
+					switch (button) {
+					case "siguientePagina":
+						page += 1;
+						break;
+					case "anteriorPagina":
+						page -= 1;
+						break;
+					case "ultimaPagina":
+						page = noOfPages;
+						break;
+					case "primeraPagina":
+						page = 1;
+						break;
+					}
+				} else {
+					button = request.getParameter("irPagina");
+					Integer irPagina = RequestExtractor.getInteger(request, "irPagina");
+					if (irPagina != null) {
+						page = irPagina;
+					}
 				}
 			}
-		}
-		
-		} catch (ErrorInternoException e) {
-			response.sendRedirect(request.getContextPath() + "/error-interno");
-			return;
-		}
-		
-		try {
+
 			// Según la barra de busqueda obtener las preguntas con unas caracteristicas u
 			// otras
 			List<PreguntaVO> preguntas;
 			if (busqueda == null || busqueda.trim().isEmpty()) {
 				if (noContestadas) {
-					preguntas = preguntaDAO.getPreguntasUltimasContestadas(false, idUsuario, CONTENIDO_POR_PAGINA, page);
+					preguntas = preguntaDAO.getPreguntasUltimasContestadas(false, idUsuario, CONTENIDO_POR_PAGINA,
+							page);
 				} else {
 					preguntas = preguntaDAO.getPreguntasUltimas(CONTENIDO_POR_PAGINA, page);
 				}
 			} else {
 				if (noContestadas) {
-					preguntas = preguntaDAO.getPreguntasBySearchContestadas(busqueda, false, idUsuario, CONTENIDO_POR_PAGINA, page);
+					preguntas = preguntaDAO.getPreguntasBySearchContestadas(busqueda, false, idUsuario,
+							CONTENIDO_POR_PAGINA, page);
 				} else {
 					preguntas = preguntaDAO.getPreguntasBySearch(busqueda, CONTENIDO_POR_PAGINA, page);
 				}
 			}
-			
+
 			// Incluir en la request
 			// Datos sobre la paginación y búsqueda
 			request.setAttribute("noOfPages", noOfPages);
 			request.setAttribute("currentPage", page);
 			request.setAttribute("busquedaAnterior", busqueda);
-			
+
 			// Añadir información especial e incluirlo en la request
 			preguntas = comentarioDAO.addNumComentariosToContenido(preguntas);
 			preguntas = preguntaDAO.addVecesContestadaToPregunta(preguntas);
@@ -156,8 +153,6 @@ public class ListaDePreguntasServlet extends FooterServlet {
 		} catch (ErrorInternoException e) {
 			response.sendRedirect(request.getContextPath() + "/error-interno");
 		}
-		
-		
 
 	}
 

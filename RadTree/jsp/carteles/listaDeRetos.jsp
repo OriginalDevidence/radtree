@@ -74,8 +74,7 @@
 								type="button"
 								<c:choose>
 									<c:when test="${param.filtroTitulo == 'on'
-												or param.filtroCuerpo == 'on'
-												or param.filtroUrl == 'on'}">
+												or param.filtroCuerpo == 'on'}">
 										onclick="hideFiltros()"
 									</c:when>
 									<c:otherwise>
@@ -88,8 +87,7 @@
 						<!-- Filtros -->
 						<div class="mtb-10 w-100" id="filtrosDiv"
 							<c:if test="${param.filtroTitulo != 'on'
-										and param.filtroCuerpo != 'on'
-										and param.filtroUrl != 'on'}">
+										and param.filtroCuerpo != 'on'}">
 								style="display: none"
 							</c:if> >
 							<div class="row w-100">
@@ -108,14 +106,6 @@
 											<c:if test="${param.filtroCuerpo == 'on'}">
 											checked
 											</c:if> /><b>Cuerpo</b>
-									</span>
-								</div>
-								<div class="col-fit">
-									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroUrl"
-											<c:if test="${param.filtroUrl == 'on'}">
-											checked
-											</c:if> /><b>URL</b>
 									</span>
 								</div>
 							</div>
@@ -163,7 +153,13 @@
 
 		</div><!-- container -->
 		
-		<%@ include file="/jsp/include/paginacion.jsp"%>
+		<%-- Paginacion --%>
+		<div class="text-center">
+			<form name="paginacion"
+				action="${pageContext.request.contextPath}/retos" method="post">
+				<%@ include file="/jsp/include/paginacion.jsp"%>
+			</form>
+		</div>
 	</section>
 
 	<%@ include file="/jsp/include/footer.jsp" %>
