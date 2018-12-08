@@ -2,6 +2,15 @@
 CREATE DATABASE IF NOT EXISTS radtree CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE radtree;
 
+DROP TABLE Contesta;
+DROP TABLE Comentario;
+DROP TABLE Respuesta;
+DROP TABLE Pregunta;
+DROP TABLE Noticia;
+DROP TABLE Reto;
+DROP TABLE Contenido;
+DROP TABLE Usuario;
+
 /* Creación de tablas */
 CREATE TABLE IF NOT EXISTS Usuario (
   idUsuario           BIGINT        PRIMARY KEY AUTO_INCREMENT,
