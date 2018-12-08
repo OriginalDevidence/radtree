@@ -13,11 +13,42 @@ import sistinfo.capadatos.dao.NoticiaDAO;
 import sistinfo.capadatos.vo.NoticiaVO;
 import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.servlets.jsp.FooterServlet;
+import sistinfo.util.RequestExtractor;
 
 @SuppressWarnings("serial")
 public class ListaDeNoticiasServlet extends FooterServlet {
-	public static final int CONTENIDO_POR_PAGINA = 30; // Cambiar el número de piezas de contenido mostradas por
-														// página(recomendado 30).
+	
+	// Número de piezas de contenido mostradas por página
+	public static final int CONTENIDO_POR_PAGINA = 10;
+	
+	// Filtro de búsqueda para noticias. Si no tiene ninguna de sus componentes activas,
+	// activa todas
+	public class FiltroNoticia {
+		boolean filtrarTitulo, filtrarCuerpo, filtrarUrl;
+		
+		public FiltroNoticia(boolean filtrarTitulo, boolean filtrarCuerpo, boolean filtrarUrl) {
+			// Si no se ha marcado nada se interpreta como si se haya marcado todo
+			if (filtrarTitulo || filtrarCuerpo || filtrarUrl) {
+				this.filtrarTitulo = filtrarTitulo;
+				this.filtrarCuerpo = filtrarCuerpo;
+				this.filtrarUrl = filtrarUrl;
+			} else {
+				this.filtrarTitulo = true;
+				this.filtrarCuerpo = true;
+				this.filtrarUrl = true;
+			}
+		}
+		
+		public boolean getFiltrarTitulo() {
+			return filtrarTitulo;
+		}
+		public boolean getFiltrarCuerpo() {
+			return filtrarCuerpo;
+		}
+		public boolean getFiltrarUrl() {
+			return filtrarUrl;
+		}
+	}
 
 	/**
 	 * Redirect a doPost de la misma clase
@@ -28,8 +59,8 @@ public class ListaDeNoticiasServlet extends FooterServlet {
 
 	/**
 	 * Cargar el contenido de las últimas noticias del sistema. Si recibe un
-	 * parámetro busqueda, solo tiene en cuenta las noticias que tengan busqueda en
-	 * su titulo, cuerpo o url. Coloca la lista de noticias en la request y muestra
+	 * parámetro busqueda o filtro, solo tiene en cuenta las noticias que tengan busqueda en
+	 * su titulo, cuerpo o url según el filtro. Coloca la lista de noticias en la request y muestra
 	 * el contenido según listaDeNoticias.jsp
 	 * 
 	 * Recibe un parámetro búsqueda (string) que filtra las noticias a mostrar
@@ -43,93 +74,72 @@ public class ListaDeNoticiasServlet extends FooterServlet {
 
 		NoticiaDAO noticiaDAO = new NoticiaDAO();
 		ComentarioDAO comentarioDAO = new ComentarioDAO();
-
-		int page = 1;
-		int noOfContenido = 0;
 		
-		// Barra de búsqueda: string a buscar y filtrar por preguntas no contestadas o no
+		// Búsqueda: string de búsqueda
 		String busqueda = request.getParameter("busqueda");
-		// Si no hay una nueva búsqueda nos quedamos con la anterior.
-		if (busqueda == null) {
-			busqueda = request.getParameter("busquedaAnterior");
-		}
+		// Búsqueda: filtros de atributos
+		boolean fTitulo = request.getParameter("filtroTitulo") != null;
+		boolean fCuerpo = request.getParameter("filtroCuerpo") != null;
+		boolean fUrl = request.getParameter("filtroUrl") != null;
+		FiltroNoticia filtro = new FiltroNoticia(fTitulo, fCuerpo, fUrl);
 
-		// Obtener página actual.
-		if (request.getParameter("currentPage") != null)
-			page = Integer.parseInt(request.getParameter("currentPage"));
-
-		// GestionBotones
-		String button = request.getParameter("button");
-		if (button != null) {
-			switch (button) {
-			case "siguientePagina":
-				page += 1;
-				break;
-			case "anteriorPagina":
-				page -= 1;
-				break;
-			case "ultimaPagina":
-				page = Integer.parseInt(request.getParameter("noOfPages"));
-				break;
-			case "primeraPagina":
-				page = 1;
-				break;
-			}
-		} else {
-			button = request.getParameter("irPagina");
-			if (button != null) {
-				try {
-					page = Integer.parseInt(request.getParameter("irPagina"));
-
-				} catch (NumberFormatException nfe) {
-					response.sendRedirect(request.getContextPath() + "/error-interno");
-					return;
-				}
-
-			}
-		}
-
+		// Obtener página actual y páginas totales
+		Integer page = RequestExtractor.getInteger(request, "currentPage");
+		Integer noOfContenido;
 		try {
-			//Filtros
-			int codigoFiltro = 0;
-
-			if (request.getParameter("filtroTitulo") != null) {
-				codigoFiltro += 0b1;
-			}
-			
-			if (request.getParameter("filtroCuerpo") != null) {
-				codigoFiltro += 0b10;
-			}
-			
-			if (request.getParameter("filtroUrl") != null) {
-				codigoFiltro += 0b100;
-			}
-			if(codigoFiltro == 0) codigoFiltro = 0b111;
-			
-			
-			
-			// Según la barra de busqueda obtener las preguntas con unas caracteristicas u
-			// otras
-			List<NoticiaVO> noticias;
-			
 			if (busqueda == null || busqueda.trim().isEmpty()) {
-				noticias = noticiaDAO.getNoticiasUltimasByPag(CONTENIDO_POR_PAGINA, page);
 				noOfContenido = noticiaDAO.getNumNoticiasUltimas();
 			} else {
-				noticias = noticiaDAO.getPagNoticiasBySearch(CONTENIDO_POR_PAGINA, page, codigoFiltro, busqueda);
-				noOfContenido = noticiaDAO.getNumNoticiasBySearch(codigoFiltro, busqueda);
+				noOfContenido = noticiaDAO.getNumNoticiasBySearch(filtro, busqueda);
 			}
+		} catch (ErrorInternoException e) {
+			response.sendRedirect(request.getContextPath() + "/error-interno");
+			return; // no es la mejor opción pero es lo que hay
+		}
+		int noOfPages = (int)Math.ceil(noOfContenido.doubleValue() / CONTENIDO_POR_PAGINA);
 
-			// Añadir información especial e incluirlo en la request
-
-			int noOfPages = (int) Math.ceil(noOfContenido / CONTENIDO_POR_PAGINA + 1);
-				
-			if(noOfContenido % CONTENIDO_POR_PAGINA == 0 && noOfContenido != 0) {
-				noOfPages -= 1;
+		// Gestión del número de página
+		if (page == null) {
+			// Primera visita a la página - ir a pág 1
+			page = 1;
+		} else {
+			// Botón pulsado (siguiente/anterior página)
+			String button = request.getParameter("button");
+			if (button != null) {
+				switch (button) {
+				case "siguientePagina":
+					page += 1;
+					break;
+				case "anteriorPagina":
+					page -= 1;
+					break;
+				case "ultimaPagina":
+					page = noOfPages;
+					break;
+				case "primeraPagina":
+					page = 1;
+					break;
+				}
+			} else {
+				button = request.getParameter("irPagina");
+				Integer irPagina = RequestExtractor.getInteger(request, "irPagina");
+				if (irPagina != null) {
+					page = irPagina;
+				}
 			}
+		}
 
-			request.setAttribute("noOfPages", noOfPages);
-			request.setAttribute("currentPage", page);
+
+		try {
+			
+			// Según la barra de busqueda obtener las preguntas
+			// con unas caracteristicas u otras
+			List<NoticiaVO> noticias;
+			if (busqueda == null || busqueda.trim().isEmpty()) {
+				noticias = noticiaDAO.getNoticiasUltimasByPag(CONTENIDO_POR_PAGINA, page);
+			} else {
+				noticias = noticiaDAO.getNoticiasBySearchAndPag(CONTENIDO_POR_PAGINA, page, filtro, busqueda);
+			}
 
 			// URL imagen
 			for (NoticiaVO noticia : noticias) {
@@ -141,10 +151,15 @@ public class ListaDeNoticiasServlet extends FooterServlet {
 				}
 			}
 
-			// Num comentarios
+			// Incluir en la request
+			// Datos sobre la paginación y búsqueda
+			request.setAttribute("noOfPages", noOfPages);
+			request.setAttribute("currentPage", page);
+			request.setAttribute("busquedaAnterior", busqueda);
+
+			// Añadir número de comentarios a noticia e incluirlo
 			noticias = comentarioDAO.addNumComentariosToContenido(noticias);
 			request.setAttribute("noticias", noticias);
-			request.setAttribute("busquedaAnterior", busqueda);
 
 			req.forward(request, response);
 

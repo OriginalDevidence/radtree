@@ -4,33 +4,31 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Noticias - RadTree</title>
-<meta name="description" content="Listado de todas las noticias">
-<meta name="author"
-	content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
-
-<!-- Font -->
-<link
-	href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700"
-	rel="stylesheet">
-
-<!-- Stylesheets -->
-<link
-	href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css"
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/fonts/ionicons.css"
-	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/common/styles.css"
-	rel="stylesheet">
-<link rel="icon" type="image/jpg"
-	href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
-
-<script src="${pageContext.request.contextPath}/doc/switchFiltrosScript.js"></script>
-
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Noticias - RadTree</title>
+	<meta name="description" content="Listado de todas las noticias">
+	<meta name="author"
+		content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
+	
+	<!-- Font -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700"
+		rel="stylesheet">
+	
+	<!-- Stylesheets -->
+	<link
+		href="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.css"
+		rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/fonts/ionicons.css"
+		rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/common/styles.css"
+		rel="stylesheet">
+	<link rel="icon" type="image/jpg"
+		href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
+	<script src="${pageContext.request.contextPath}/common/switchFiltrosScript.js"></script>
 </head>
 
 <body>
@@ -45,7 +43,6 @@
 				class="mlr-10 ion-chevron-right"></i></a> <a class="mt-10 color-ash"
 				href="#">Noticias</a>
 		</div>
-		<!-- container -->
 	</section>
 
 	<section>
@@ -56,8 +53,7 @@
 					<!-- Barra de búsqueda -->
 					<div class="col-12 col-md-8 offset-0 offset-md-2 mb-10">
 
-						<div
-							class="row form-block form-plr-15 form-h-45 form-brdr-lite-white">
+						<div class="row form-block form-plr-15 form-h-45 form-brdr-lite-white">
 
 							<c:if test="${empty param.busqueda}">
 								<div class="col-9 col-md-10">
@@ -89,43 +85,69 @@
 
 					</div>
 					<div class="col-12 col-md-8 offset-0 offset-md-2 mb-30">
-						<div class="row">
-							<!-- Abrir Filtros -->
-							<div class="mtb-10 col-3">
-								<button class="w-100 btn-fill-grey" id="mybutton"
-									type="button" onclick="showdivDisplay()">
-									<i class="ion-ios-settings-strong"></i> <b>Filtros</b>
-								</button>
-							</div>
-							<!-- Filtros -->
-							<div class="mtb-10 col-fit" id="mydiv" style="display: none">
-								<div class="row">
-									<div class="col-fit">
-										<span class="w-100 pl-5 text alert-wo-margin alert-success">
-											<input class="mlr-10" type="checkbox" name="filtroTitulo"/><b>Título</b>
-										</span>
-									</div>
-									<div class="col-fit">
-										<span class="w-100 pl-5 text alert-wo-margin alert-success">
-											<input class="mlr-10" type="checkbox" name="filtroCuerpo"/><b>Cuerpo</b>
-										</span>
-									</div>
-									<div class="col-fit">
-										<span class="w-100 pl-5 text alert-wo-margin alert-success">
-											<input class="mlr-10" type="checkbox" name="filtroUrl"/><b>URL</b>
-										</span>
-									</div>
+						<!-- Abrir Filtros -->
+						<div class="mtb-10">
+							<button class="w-100 btn-fill-grey" id="filtrosButton"
+								type="button"
+								<c:choose>
+									<c:when test="${param.filtroTitulo == 'on'
+												or param.filtroCuerpo == 'on'
+												or param.filtroUrl == 'on'}">
+										onclick="hideFiltros()"
+									</c:when>
+									<c:otherwise>
+										onclick="showFiltros()"
+									</c:otherwise>
+								</c:choose>>
+								<i class="ion-ios-settings-strong mr-10"></i><b>Filtros</b>
+							</button>
+						</div>
+						<!-- Filtros -->
+						<div class="mtb-10 w-100" id="filtrosDiv"
+							<c:if test="${param.filtroTitulo != 'on'
+										and param.filtroCuerpo != 'on'
+										and param.filtroUrl != 'on'}">
+								style="display: none"
+							</c:if> >
+							<div class="row w-100">
+								<div class="col-fit">
+									<span class="w-100 m-10 text alert-wo-margin alert-success">
+										<input class="mlr-10" type="checkbox" name="filtroTitulo"
+											<c:if test="${param.filtroTitulo == 'on'}">
+											checked
+											</c:if> />
+										<b>Título</b>
+									</span>
+								</div>
+								<div class="col-fit">
+									<span class="w-100 m-10 text alert-wo-margin alert-success">
+										<input class="mlr-10" type="checkbox" name="filtroCuerpo"
+											<c:if test="${param.filtroCuerpo == 'on'}">
+											checked
+											</c:if> /><b>Cuerpo</b>
+									</span>
+								</div>
+								<div class="col-fit">
+									<span class="w-100 m-10 text alert-wo-margin alert-success">
+										<input class="mlr-10" type="checkbox" name="filtroUrl"
+											<c:if test="${param.filtroUrl == 'on'}">
+											checked
+											</c:if> /><b>URL</b>
+									</span>
 								</div>
 							</div>
 						</div>
-					<!-- Separador -->
-					<h4 class="p-title"></h4>
-				</div>
+						<!-- Separador -->
+						<h4 class="p-title"></h4>
+					</div>
 				</div>
 
 			</form>
 
 			<div class="row">
+				<c:if test="${empty requestScope.noticias}">
+					<p><i>Parece que no hay nada por aquí...</i></p>
+				</c:if>
 				<c:if test="${not empty requestScope.noticias}">
 					<c:forEach items="${requestScope.noticias}" var="noticia">
 
@@ -186,12 +208,9 @@
 	<%@ include file="/jsp/include/footer.jsp"%>
 
 	<!-- SCRIPTS -->
-	<script
-		src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/tether.min.js"></script>
+	<script src="${pageContext.request.contextPath}/plugin-frameworks/bootstrap.js"></script>
 	<script src="${pageContext.request.contextPath}/common/scripts.js"></script>
 
 </body>

@@ -261,6 +261,7 @@ public class IncludeInRequest {
 			if (idContenido == null || idContenido <= 0L) {
 				// No sabemos qué reto mostrar
 				response.sendRedirect(request.getContextPath() + "/noticias");
+				return false;
 			}
 		}
 		if (idContenido != null && idContenido > 0L) {
