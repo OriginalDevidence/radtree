@@ -127,6 +127,15 @@
             </div>
 
 		</div><!-- container -->
+
+		<%-- Paginacion --%>
+		<div class="text-center">
+			<form name="paginacion"
+				action="${pageContext.request.contextPath}/preguntas" method="post">
+				<%@ include file="/jsp/include/paginacion.jsp"%>
+			</form>
+		</div>
+
 	</section>
 
 	<%@ include file="/jsp/include/footer.jsp" %>

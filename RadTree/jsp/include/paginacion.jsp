@@ -2,10 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
-<div class="text-center">
 
-	<form name="paginacion"
-		action="${pageContext.request.contextPath}/noticias" method="post">
 		<input type="hidden" name="currentPage" value="${currentPage}" />
 		<input type="hidden" name="noOfPages" value="${noOfPages}" />
 		<input type="hidden" name="busqueda" value="${param.busqueda}" />
@@ -68,6 +65,3 @@
 			</button>
 
 		</c:if>
-
-	</form>
-</div>

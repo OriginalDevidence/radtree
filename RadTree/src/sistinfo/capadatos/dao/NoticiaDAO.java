@@ -202,7 +202,7 @@ public class NoticiaDAO extends ContenidoDAO {
         try {
         	Connection connection = ConnectionFactory.getConnection();
         		
-        	// Apilcar filtros de búsqueda
+        	// Aplicar filtros de búsqueda
     		String filtroString = "";
     		int numFiltros = 0;
     		if (filtro.getFiltrarTitulo()) {
@@ -224,7 +224,7 @@ public class NoticiaDAO extends ContenidoDAO {
 				numFiltros++;
     		}
         	
-    		PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(idContenido) AS numContenido FROM Noticia NATURAL JOIN Contenido WHERE estado='VALIDADO' AND " + filtroString + "ORDER BY fechaRealizacion DESC");
+    		PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(idContenido) AS numContenido FROM Noticia NATURAL JOIN Contenido WHERE estado='VALIDADO' AND " + filtroString);
     		
     		for(int i = 0; i < numFiltros; i++) {
     			stmt.setString(i + 1, "%" + search + "%");
@@ -255,7 +255,7 @@ public class NoticiaDAO extends ContenidoDAO {
     		Connection connection = ConnectionFactory.getConnection();
         	
     		Statement stmt = connection.createStatement();        	
-    		ResultSet rs = stmt.executeQuery("SELECT COUNT(idContenido) AS numContenido FROM Noticia NATURAL JOIN Contenido WHERE estado = 'VALIDADO' ORDER BY fechaRealizacion DESC");
+    		ResultSet rs = stmt.executeQuery("SELECT COUNT(idContenido) AS numContenido FROM Noticia NATURAL JOIN Contenido WHERE estado = 'VALIDADO'");
 
             rs.first();
             
