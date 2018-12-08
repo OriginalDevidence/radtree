@@ -95,27 +95,35 @@
 							<div class="row w-100">
 								<div class="col-fit">
 									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroTitulo"
-											<c:if test="${param.filtroTitulo == 'on'}">
+										<input class="mlr-10" type="checkbox" name="filtroAlias"
+											<c:if test="${param.filtroAlias == 'on'}">
 											checked
 											</c:if> />
-										<b>Título</b>
+										<b>Alias</b>
 									</span>
 								</div>
 								<div class="col-fit">
 									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroCuerpo"
-											<c:if test="${param.filtroCuerpo == 'on'}">
+										<input class="mlr-10" type="checkbox" name="filtroNombre"
+											<c:if test="${param.filtroNombre == 'on'}">
 											checked
-											</c:if> /><b>Cuerpo</b>
+											</c:if> /><b>Nombre</b>
 									</span>
 								</div>
 								<div class="col-fit">
 									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroUrl"
-											<c:if test="${param.filtroUrl == 'on'}">
+										<input class="mlr-10" type="checkbox" name="filtroApellidos"
+											<c:if test="${param.filtroApellidos == 'on'}">
 											checked
-											</c:if> /><b>URL</b>
+											</c:if> /><b>Apellidos</b>
+									</span>
+								</div>
+								<div class="col-fit">
+									<span class="w-100 m-10 text alert-wo-margin alert-success">
+										<input class="mlr-10" type="checkbox" name="filtroCorreo"
+											<c:if test="${param.filtroCorreo == 'on'}">
+											checked
+											</c:if> /><b>Correo</b>
 									</span>
 								</div>
 							</div>

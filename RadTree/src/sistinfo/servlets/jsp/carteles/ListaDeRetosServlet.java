@@ -13,7 +13,6 @@ import sistinfo.capadatos.dao.RetoDAO;
 import sistinfo.capadatos.vo.RetoVO;
 import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.servlets.jsp.FooterServlet;
-import sistinfo.servlets.jsp.carteles.ListaDeNoticiasServlet.FiltroNoticia;
 import sistinfo.util.RequestExtractor;
 
 @SuppressWarnings("serial")

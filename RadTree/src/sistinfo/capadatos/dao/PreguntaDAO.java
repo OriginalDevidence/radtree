@@ -222,7 +222,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return Lista de hasta num preguntas ordenadas por fecha de realización
 	 * @throws ErrorInternoException
 	 */
-	public List<PreguntaVO> getPreguntasUltimas(int num, int pagina) throws ErrorInternoException {
+	public List<PreguntaVO> getPreguntasUltimasByPag(int num, int pagina) throws ErrorInternoException {
 		return getPreguntasUltimasHelperByPag(num, null, null, null, pagina);
 	}
 	
@@ -259,7 +259,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return Lista de hasta num preguntas ordenadas por fecha de realización
 	 * @throws ErrorInternoException
 	 */
-	public List<PreguntaVO> getPreguntasUltimasContestadas(boolean contestadas, Long idUsuario, int num, int pagina)
+	public List<PreguntaVO> getPreguntasUltimasContestadasByPag(boolean contestadas, Long idUsuario, int num, int pagina)
 			throws ErrorInternoException {
 		return getPreguntasUltimasHelperByPag(num, contestadas, idUsuario, null, pagina);
 	}
@@ -297,7 +297,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return Lista con todas las preguntas
 	 * @throws ErrorInternoException
 	 */
-	public List<PreguntaVO> getPreguntasBySearch(String search, int num, int pagina) throws ErrorInternoException {
+	public List<PreguntaVO> getPreguntasBySearchByPag(String search, int num, int pagina) throws ErrorInternoException {
 		return getPreguntasUltimasHelperByPag(num, null, null, search, pagina);
 	}
 	
@@ -333,7 +333,7 @@ public class PreguntaDAO extends ContenidoDAO {
 	 * @return Lista con todas las preguntas
 	 * @throws ErrorInternoException
 	 */
-	public List<PreguntaVO> getPreguntasBySearchContestadas(String search, boolean contestadas, Long idUsuario, int num, int pagina)
+	public List<PreguntaVO> getPreguntasBySearchContestadasByPag(String search, boolean contestadas, Long idUsuario, int num, int pagina)
 			throws ErrorInternoException {
 		return getPreguntasUltimasHelperByPag(num, contestadas, idUsuario, search, pagina);
 	}
