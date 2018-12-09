@@ -19,6 +19,7 @@
 	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 	<link rel="icon" type="image/jpg" href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
+	<script src="${pageContext.request.contextPath}/common/switchFiltrosScript.js"></script>
 </head>
 <body>
 
@@ -67,6 +68,70 @@
 							</div>
 							
 						</div>
+						<!-- Abrir Filtros -->
+						<div class="mtb-10">
+							<button class="w-100 btn-fill-grey" id="filtrosButton"
+								type="button"
+								<c:choose>
+									<c:when test="${param.filtroTitulo == 'on'
+												and param.filtroNombre != 'on'
+												and param.filtroApellidos != 'on'
+												and param.filtroCorreo != 'on'}">
+										onclick="hideFiltros()"
+									</c:when>
+									<c:otherwise>
+										onclick="showFiltros()"
+									</c:otherwise>
+								</c:choose>>
+								<i class="ion-ios-settings-strong mr-10"></i><b>Filtros</b>
+							</button>
+						</div>
+						<!-- Filtros -->
+						<div class="mtb-10 w-100" id="filtrosDiv"
+							<c:if test="${param.filtroAlias != 'on'
+										and param.filtroNombre != 'on'
+										and param.filtroApellidos != 'on'
+										and param.filtroCorreo != 'on'}">
+								style="display: none"
+							</c:if> >
+							<div class="row w-100">
+								<div class="col-fit">
+									<span class="w-100 m-10 text alert-wo-margin alert-success">
+										<input class="mlr-10" type="checkbox" name="filtroAlias"
+											<c:if test="${param.filtroAlias == 'on'}">
+											checked
+											</c:if> />
+										<b>Alias</b>
+									</span>
+								</div>
+								<div class="col-fit">
+									<span class="w-100 m-10 text alert-wo-margin alert-success">
+										<input class="mlr-10" type="checkbox" name="filtroNombre"
+											<c:if test="${param.filtroNombre == 'on'}">
+											checked
+											</c:if> /><b>Nombre</b>
+									</span>
+								</div>
+								<div class="col-fit">
+									<span class="w-100 m-10 text alert-wo-margin alert-success">
+										<input class="mlr-10" type="checkbox" name="filtroApellidos"
+											<c:if test="${param.filtroApellidos == 'on'}">
+											checked
+											</c:if> /><b>Apellidos</b>
+									</span>
+								</div>
+								<div class="col-fit">
+									<span class="w-100 m-10 text alert-wo-margin alert-success">
+										<input class="mlr-10" type="checkbox" name="filtroCorreo"
+											<c:if test="${param.filtroCorreo == 'on'}">
+											checked
+											</c:if> /><b>Email</b>
+									</span>
+								</div>
+							</div>
+						</div>
+						<!-- Separador -->
+						<h4 class="p-title"></h4>
 					</form>
 					<c:if test="${empty param.busqueda}">
 						<p>Debes introducir algo en la barra de búsqueda primero.</p>
@@ -105,6 +170,14 @@
             </div>
 
 		</div><!-- container -->
+		
+		<%-- Paginacion --%>
+		<div class="text-center">
+			<form name="paginacion"
+				action="${pageContext.request.contextPath}/usuarios" method="post">
+				<%@ include file="/jsp/include/paginacion.jsp"%>
+			</form>
+		</div>
 	</section>
 
 	<%@ include file="include/footer.jsp" %>

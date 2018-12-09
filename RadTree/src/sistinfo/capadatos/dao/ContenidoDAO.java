@@ -101,9 +101,11 @@ public class ContenidoDAO {
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
+            	stmt.close();
+    			connection.close();
         		return true;
         	}
-
+        
         	stmt.close();
 			connection.close();
         } catch (SQLException ex) {
@@ -136,6 +138,8 @@ public class ContenidoDAO {
             			rs.getDate("fechaRealizacion"),
             			ContenidoVO.Estado.valueOf(rs.getString("estado"))
             		);
+                	stmt.close();
+        			connection.close();
             		return cont;
             	}
             }
@@ -203,6 +207,8 @@ public class ContenidoDAO {
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
+            	stmt.close();
+    			connection.close();
         		return true;
         	}
 
@@ -230,6 +236,8 @@ public class ContenidoDAO {
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
+            	stmt.close();
+    			connection.close();
         		return true;
         	}
 
