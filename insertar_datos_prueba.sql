@@ -11,17 +11,17 @@ INSERT INTO Usuario VALUES
 (NULL, 'ElInsectoEcologico', 'Victor', 'Pérez Peñasco', '1999-01-25', 'victor1999@unizar.es', TRUE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'CREADOR', 0.0);
 
 INSERT INTO Contenido VALUES
-(NULL, 1, 0, '2018-01-01', 'PENDIENTE'),
-(NULL, 2, 0, '2018-01-02', 'PENDIENTE'),
-(NULL, 1, 0, '2018-01-03', 'PENDIENTE'),
-(NULL, 3, 0, '2018-01-04', 'PENDIENTE'),
-(NULL, 4, 0, '2018-01-05', 'PENDIENTE'),
-(NULL, 1, 0, '2018-01-01', 'PENDIENTE'),
-(NULL, 2, 0, '2018-01-02', 'PENDIENTE'),
-(NULL, 1, 0, '2018-01-03', 'PENDIENTE'),
-(NULL, 3, 0, '2018-01-04', 'PENDIENTE'),
-(NULL, 4, 0, '2018-01-05', 'PENDIENTE'),
-(NULL, 2, 0, '2018-01-06', 'PENDIENTE');
+(NULL, 1, 0, '2018-01-01', 'VALIDADO'),
+(NULL, 2, 0, '2018-01-02', 'VALIDADO'),
+(NULL, 1, 0, '2018-01-03', 'VALIDADO'),
+(NULL, 3, 0, '2018-01-04', 'VALIDADO'),
+(NULL, 4, 0, '2018-01-05', 'VALIDADO'),
+(NULL, 1, 0, '2018-01-01', 'VALIDADO'),
+(NULL, 2, 0, '2018-01-02', 'VALIDADO'),
+(NULL, 1, 0, '2018-01-03', 'VALIDADO'),
+(NULL, 3, 0, '2018-01-04', 'VALIDADO'),
+(NULL, 4, 0, '2018-01-05', 'VALIDADO'),
+(NULL, 2, 0, '2018-01-06', 'VALIDADO');
 
 INSERT INTO Noticia VALUES
 (1, 'Los bosques secundarios tienen vidas cortas', 'Los bosques secundarios solo duran un promedio de 20 años. El hallazgo presenta un problema importante para la política de restauración a gran escala, que a menudo se enfoca en compromisos para restaurar un cierto número de hectáreas para un año determinado. Pero los beneficios de la restauración dependen de los bosques que persisten. Según muestra una investigación, se tarda mucho más de 20 años para que un bosque secundario absorba grandes cantidades de carbono o proporcione un hábitat para muchas especies forestales.', 'https://www.sciencedaily.com/releases/2018/10/181002102900.htm'),
@@ -48,8 +48,8 @@ INSERT INTO Pregunta VALUES
 
 /* 5 respuestas para la priemra pregunta y 5 respuestas para la segunda */
 INSERT INTO Respuesta VALUES
-(NULL, 7, 'Cada minuto se deforesta media hectarea, y se repuebla el doble de lo deforestado.', FALSE),
-(NULL, 7, 'Cada minuto se deforestan diez hectareas.', TRUE),
+(NULL, 7, 'Cada minuto se deforesta media hectárea, y se repuebla el doble de lo deforestado.', FALSE),
+(NULL, 7, 'Cada minuto se deforestan diez hectáreas.', TRUE),
 (NULL, 7, 'El mismo número de árboles que se platan en españa en todo un mes.', FALSE),
 (NULL, 7, 'Tantos árboles como se necesitaban para costruir un galeón.', FALSE),
 (NULL, 7, 'Cada minuto se deforestan el equivalente en superficie a 25 campos de fútbol.', FALSE),
@@ -60,61 +60,27 @@ INSERT INTO Respuesta VALUES
 (NULL, 8, 'El equivalente en toneladas de cereal consumidos en un año en españa.', FALSE),
 (NULL, 9, 'Unas 14 horas es el tiempo que tarda en degradarse una toallita de papel.', FALSE),
 (NULL, 9, 'De tres a cuatro semanas es el tiempo que tarda en degradarse.', TRUE),
-(NULL, 9, 'Entorno a unos cincuenta dias si el agua es salada y unos cuarenta en agua dulce.', FALSE),
+(NULL, 9, 'En torno a unos cincuenta días si el agua es salada y unos cuarenta en agua dulce.', FALSE),
 (NULL, 9, 'Son unos 200 años el tiempo que necesita una toallita de papel.', TRUE),
-(NULL, 10, 'Entorno a 20.000 toneladas.', FALSE),
-(NULL, 10, 'En total son 135.000 toneladas, de las cuales el 70% proceden de los paises mas desarrollados.', FALSE),
-(NULL, 10, 'Entorno a 100.000 toneladas, de las cuales la mayoría son bolsas de plastico.', FALSE),
+(NULL, 10, 'En torno a 20.000 toneladas.', FALSE),
+(NULL, 10, 'En total son 135.000 toneladas, de las cuales el 70% proceden de los países más desarrollados.', FALSE),
+(NULL, 10, 'En torno a 100.000 toneladas, de las cuales la mayoría son bolsas de plástico.', FALSE),
 (NULL, 10, 'El peso de la estatua de la la libertad, unas 27.500 toneladas.', FALSE),
 (NULL, 10, 'Unas 275.000 toneladas, compuestas por todo tipo de emboltorios platicos.', TRUE),
 (NULL, 10, 'Son 350.000 toneladas de plasticos repartidas en 5.000.000 de metros cuadrados.', FALSE),
-(NULL, 10, 'Entorno a 45.000 toneladas.', FALSE),
+(NULL, 10, 'En torno a 45.000 toneladas.', FALSE),
 (NULL, 10, '190.000 toneladas, que causan 35% de las muertes de la fauna maritima.', FALSE),
-(NULL, 10, 'Entorno a 220.000 toneladas.', FALSE),
-(NULL, 10, 'Un millon de toneladas de planticos, que flotan a la deriva en pequeños trozos.', FALSE),
+(NULL, 10, 'En torno a 220.000 toneladas.', FALSE),
+(NULL, 10, 'Un millón de toneladas de planticos, que flotan a la deriva en pequeños trozos.', FALSE),
 (NULL, 11, 'Toallitas de papel.', TRUE),
 (NULL, 11, 'Un cartón de leche.', FALSE),
 (NULL, 11, 'Un trozo de cuerda', FALSE),
-(NULL, 11, 'Un periodico.', TRUE),
-(NULL, 11, 'Un royo de papel higienico.', TRUE),
-(NULL, 11, 'La peladura de un platano.', FALSE),
+(NULL, 11, 'Un periódico.', TRUE),
+(NULL, 11, 'Un rollo de papel higiénico.', TRUE),
+(NULL, 11, 'La peladura de un plátano.', FALSE),
 (NULL, 11, 'Un folio de papel.', FALSE),
 (NULL, 11, 'Una colilla de tabaco.', FALSE),
-(NULL, 11, 'Una cascara de pipa.', FALSE),
+(NULL, 11, 'Una cáscara de pipa.', FALSE),
 (NULL, 11, 'Un pañuelo.', TRUE),
 (NULL, 11, 'Una bolsa de plástico.', FALSE),
 (NULL, 11, 'El hilo del sedal de pesca.', FALSE);
-
-/* modificar cuerpo solamente, el resto ya esta */
-INSERT INTO Comentario VALUES
-(NULL, 1, 3, 'cuerpo 1', '2000-02-01', NULL),
-(NULL, 2, 3, 'cuerpo 2', '2000-02-02', 1),
-(NULL, 3, 3, 'cuerpo 3', '2000-02-03', 2),
-(NULL, 2, 3, 'cuerpo 4', '2000-02-04', NULL),
-(NULL, 3, 3, 'cuerpo 5', '2000-02-05', NULL),
-(NULL, 1, 2, 'cuerpo 6', '2000-02-06', NULL),
-(NULL, 1, 2, 'cuerpo 7', '2000-02-07', NULL),
-(NULL, 2, 2, 'cuerpo 8', '2000-02-08', 6);
-
-/* no hace falta cambiar nada aqui */
-INSERT INTO Contesta VALUES
-(1, 1, FALSE),
-(1, 2, FALSE),
-(1, 3, FALSE),
-(1, 4, FALSE),
-(1, 5, FALSE),
-(1, 6, FALSE),
-(1, 7, FALSE),
-(1, 8, FALSE),
-(1, 9, FALSE),
-(1, 10, FALSE),
-(2, 1, TRUE),
-(2, 2, TRUE),
-(2, 3, TRUE),
-(2, 4, TRUE),
-(2, 5, TRUE),
-(2, 6, TRUE),
-(2, 7, TRUE),
-(2, 8, TRUE),
-(2, 9, TRUE),
-(2, 10, TRUE);
