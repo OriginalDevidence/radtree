@@ -117,6 +117,25 @@ Seguido el tutorial encontrado en la [siguiente web](https://www.digitalocean.co
 
 A partir de aquí solo falta instalar nuestra aplicación web en Tomcat y deshabilitar el resto de aplicaciones que venían por defecto empleando la aplicación de management
 
+#### Instalación del servidor SMTP Postfix en la máquina virtual
+
+Preparación de la máquina virtual según el [siguiente tutorial](https://elprespufferfish.net/blog/aws,mail/2015/09/03/mail-server-ec2.html):
+
+1. Editado fichero /etc/hosts para que el host conozca su nombre: radtree.ml
+
+
+Seguido el tutorial encontrado en la [siguiente web](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-postfix-as-a-send-only-smtp-server-on-ubuntu-14-04):
+
+1. Instalación de Postfix: `sudo apt-get install mailutils`
+   - Elegida configuración por defecto *Internet Site*.
+   - Para System Mail name se ha utilizado la dirección del sitio web: radtree.ml
+1. Configuración de Postfix: `sudo nano /etc/postfix/main.cf`
+   - Modificada configuración para solamente enviar emails desde el servidos en el que está funcionando:
+   ```
+    inet_interfaces = localhost
+   ```
+   - Reinicio del servicio Postfix: `sudo service postfix restart`
+
 #### Instalación de la aplicación web en el servidor Tomcat y puesta a punto
 
 **TODO: hacer estos pasos**
