@@ -96,6 +96,7 @@ public class ListaDeNoticiasServlet extends FooterServlet {
 			response.sendRedirect(request.getContextPath() + "/error-interno");
 			return; // no es la mejor opción pero es lo que hay
 		}
+		
 		int noOfPages = (int)Math.ceil(noOfContenido.doubleValue() / CONTENIDO_POR_PAGINA);
 
 		// Gestión del número de página

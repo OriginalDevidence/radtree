@@ -2,10 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
-<div class="text-center">
 
-	<form name="paginacion"
-		action="${pageContext.request.contextPath}/noticias" method="post">
 		<input type="hidden" name="currentPage" value="${currentPage}" />
 		<input type="hidden" name="noOfPages" value="${noOfPages}" />
 		<input type="hidden" name="busqueda" value="${param.busqueda}" />
@@ -13,6 +10,10 @@
 		<input type="hidden" name="filtroTitulo" value="<c:out value="${param.filtroTitulo}"/>"/>
 		<input type="hidden" name="filtroCuerpo" value="<c:out value="${param.filtroCuerpo}"/>"/>
 		<input type="hidden" name="filtroUrl" value="<c:out value="${param.filtroUrl}"/>"/>
+		<input type="hidden" name="filtroAlias" value="<c:out value="${param.filtroAlias}"/>"/>
+		<input type="hidden" name="filtroNombre" value="<c:out value="${param.filtroNombre}"/>"/>
+		<input type="hidden" name="filtroApellidos" value="<c:out value="${param.filtroApellidos}"/>"/>
+		<input type="hidden" name="filtroCorreo" value="<c:out value="${param.filtroCorreo}"/>"/>
 
 		<%--For displaying Previous link except for the 1st page --%>
 		<c:if test="${requestScope.currentPage > 1}">
@@ -68,6 +69,3 @@
 			</button>
 
 		</c:if>
-
-	</form>
-</div>
