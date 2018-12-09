@@ -45,20 +45,20 @@ public class EnviarVerificacionServlet extends HttpServlet {
 	    		String tokenString = UUID.randomUUID().toString();
 	    		if (tokenDAO.insertToken(new TokenVO(tokenString, usuario.getIdUsuario()))) {
 	    		
-					// TODO completar en la VM al instalar el servidor SMTP
-	    			// enviar redirect a (url)/perfil/verificar?token=(tokenString)
 					Properties properties = System.getProperties();  
 					properties.setProperty("mail.smtp.host", "localhost");  
 					Session session = Session.getDefaultInstance(properties);  
 					
 					MimeMessage message = new MimeMessage(session);  
-					message.setFrom(new InternetAddress("verificacion@radtree.ml"));  
+					message.setFrom(new InternetAddress("no-reply@radtree.ml"));  
 					message.addRecipient(Message.RecipientType.TO,new InternetAddress(usuario.getEmail()));  
-					message.setSubject("Ping");  
-					message.setText("Hello, this is example of sending email");  
+					message.setSubject("RadTree - Verificación de correo");  
+					message.setText("Gracias por registrarte en RadTree!\n\n"
+									+ "Para confirmar tu dirección de correo electrónico, haz click en el siguiente enlace:\n"
+									+ "http://radtree.ml/perfil/verificar?token=" + tokenString + "\n\n"
+									+ "El equipo de RadTree");  
 					
-					Transport.send(message);  
-					System.out.println("message sent successfully....");
+					Transport.send(message);
 		    		request.getRequestDispatcher("/perfil").forward(request, response);
 	    		} else {
 		    		response.sendRedirect(request.getContextPath() + "/error-interno");
