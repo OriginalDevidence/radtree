@@ -74,8 +74,9 @@
 								type="button"
 								<c:choose>
 									<c:when test="${param.filtroTitulo == 'on'
-												or param.filtroCuerpo == 'on'
-												or param.filtroUrl == 'on'}">
+												and param.filtroNombre != 'on'
+												and param.filtroApellidos != 'on'
+												and param.filtroCorreo != 'on'}">
 										onclick="hideFiltros()"
 									</c:when>
 									<c:otherwise>
@@ -87,9 +88,10 @@
 						</div>
 						<!-- Filtros -->
 						<div class="mtb-10 w-100" id="filtrosDiv"
-							<c:if test="${param.filtroTitulo != 'on'
-										and param.filtroCuerpo != 'on'
-										and param.filtroUrl != 'on'}">
+							<c:if test="${param.filtroAlias != 'on'
+										and param.filtroNombre != 'on'
+										and param.filtroApellidos != 'on'
+										and param.filtroCorreo != 'on'}">
 								style="display: none"
 							</c:if> >
 							<div class="row w-100">
@@ -123,7 +125,7 @@
 										<input class="mlr-10" type="checkbox" name="filtroCorreo"
 											<c:if test="${param.filtroCorreo == 'on'}">
 											checked
-											</c:if> /><b>Correo</b>
+											</c:if> /><b>Email</b>
 									</span>
 								</div>
 							</div>

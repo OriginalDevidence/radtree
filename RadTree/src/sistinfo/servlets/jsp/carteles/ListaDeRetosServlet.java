@@ -20,7 +20,7 @@ public class ListaDeRetosServlet extends FooterServlet {
 	// Número de piezas de contenido mostradas por página
 	public static final int CONTENIDO_POR_PAGINA = 10;
 
-	// Filtro de búsqueda para noticias. Si no tiene ninguna de sus componentes
+	// Filtro de búsqueda para retos. Si no tiene ninguna de sus componentes
 	// activas,
 	// activa todas
 	public class FiltroReto {

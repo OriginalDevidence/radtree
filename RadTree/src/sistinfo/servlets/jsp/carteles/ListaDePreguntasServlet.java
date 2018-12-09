@@ -69,15 +69,13 @@ public class ListaDePreguntasServlet extends FooterServlet {
 		try {
 			if (busqueda == null || busqueda.trim().isEmpty()) {
 				if (noContestadas) {
-					noOfContenido = preguntaDAO.getNumPreguntasUltimasContestadas(false, idUsuario,
-							CONTENIDO_POR_PAGINA);
+					noOfContenido = preguntaDAO.getNumPreguntasUltimasContestadas(false, idUsuario, CONTENIDO_POR_PAGINA);
 				} else {
 					noOfContenido = preguntaDAO.getNumPreguntasUltimas(CONTENIDO_POR_PAGINA);
 				}
 			} else {
 				if (noContestadas) {
-					noOfContenido = preguntaDAO.getNumPreguntasBySearchContestadas(busqueda, false, idUsuario,
-							CONTENIDO_POR_PAGINA);
+					noOfContenido = preguntaDAO.getNumPreguntasBySearchContestadas(busqueda, false, idUsuario, CONTENIDO_POR_PAGINA);
 				} else {
 					noOfContenido = preguntaDAO.getNumPreguntasBySearch(busqueda, CONTENIDO_POR_PAGINA);
 				}

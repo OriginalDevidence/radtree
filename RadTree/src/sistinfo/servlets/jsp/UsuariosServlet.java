@@ -16,9 +16,9 @@ import sistinfo.util.RequestExtractor;
 @SuppressWarnings("serial")
 public class UsuariosServlet extends FooterServlet {
 	// Número de piezas de contenido mostradas por página
-	public static final int CONTENIDO_POR_PAGINA = 15;
+	public static final int CONTENIDO_POR_PAGINA = 1;
 
-	// Filtro de búsqueda para noticias. Si no tiene ninguna de sus componentes
+	// Filtro de búsqueda para usuarios. Si no tiene ninguna de sus componentes
 	// activas,
 	// activa todas
 	public class FiltroUsuario {
