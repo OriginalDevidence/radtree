@@ -43,7 +43,7 @@
 								
 					<!-- Medallas de perfil (administrador, creador de contenido, etc) -->
 					<ul class="list-a-plr-10 list-a-plr-sm-5 list-a-ptb-10 list-a-ptb-sm-5">
-						<c:if test="${sessionScope.usuario
+						<c:if test="${not empty sessionScope.usuario
 									and sessionScope.usuario.idUsuario == requestScope.usuario.idUsuario
 									and sessionScope.usuario.emailVerificado}">
 							<li class="bg-primary ptb-5 plr-15"><i class="mr-5 ion-ios-email-outline"></i>Email verificado</li>
@@ -56,7 +56,7 @@
 						</c:if>
 					</ul>
 					
-					<c:if test="${sessionScope.usuario
+					<c:if test="${not empty sessionScope.usuario
 									and sessionScope.usuario.idUsuario == requestScope.usuario.idUsuario
 									and not sessionScope.usuario.emailVerificado}">
 						<p class="alert alert-info"><i class="ion-information-circled pr-10"></i>Todavía no has verificado tu dirección de correo electrónico.
