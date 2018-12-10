@@ -19,28 +19,27 @@ public class RetoDAO extends ContenidoDAO {
 	 * @return El reto si el id existe, null en caso contrario
 	 * @throws ErrorInternoException
 	 */
-	public RetoVO getRetoById(long id) throws ErrorInternoException {
-		try {
-			Connection connection = ConnectionFactory.getConnection();
+	public RetoVO getRetoById(Long id) throws ErrorInternoException {
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+        	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE idContenido=?");
+        	stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.last()) {
+            	if (rs.getRow() == 1) {
+                	RetoVO reto = extractRetoFromResultSet(rs);
+    	            return reto;
+            	}
+            }
 
-			PreparedStatement stmt = connection
-					.prepareStatement("SELECT * FROM Reto NATURAL JOIN Contenido WHERE idContenido=?");
-			stmt.setLong(1, id);
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.last()) {
-				if (rs.getRow() == 1) {
-					RetoVO reto = extractRetoFromResultSet(rs);
-					return reto;
-				}
-			}
-
-			stmt.close();
-			connection.close();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw new ErrorInternoException();
-		}
+        	stmt.close();
+        	connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
 		return null;
 	}
 
@@ -384,7 +383,7 @@ public class RetoDAO extends ContenidoDAO {
 	 * @return true si el borrado ha sido correcto, false en caso contrario
 	 * @throws ErrorInternoException
 	 */
-	public boolean deleteReto(long id) throws ErrorInternoException {
+	public boolean deleteReto(Long id) throws ErrorInternoException {
 		return deleteContenido(id);
 	}
 

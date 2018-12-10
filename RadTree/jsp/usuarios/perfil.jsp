@@ -42,13 +42,25 @@
 					<h3 class="p-title mb-30"><b>Perfil de <c:out value="${requestScope.usuario.alias}"/></b></h3>
 								
 					<!-- Medallas de perfil (administrador, creador de contenido, etc) -->
-					<c:if test="${requestScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
-						<ul class="list-a-plr-10 list-a-plr-sm-5 list-a-ptb-10 list-a-ptb-sm-5">
+					<ul class="list-a-plr-10 list-a-plr-sm-5 list-a-ptb-10 list-a-ptb-sm-5">
+						<c:if test="${not empty sessionScope.usuario
+									and sessionScope.usuario.idUsuario == requestScope.usuario.idUsuario
+									and sessionScope.usuario.emailVerificado}">
+							<li class="bg-primary ptb-5 plr-15"><i class="mr-5 ion-ios-email-outline"></i>Email verificado</li>
+						</c:if>
+						<c:if test="${requestScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
 							<c:if test="${requestScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
 								<li class="bg-primary ptb-5 plr-15"><i class="mr-5 ion-settings"></i>Administrador</li>
 							</c:if>
 							<li class="bg-primary ptb-5 plr-15"><i class="mr-5 ion-paintbrush"></i>Creador de contenido</li>
-						</ul>
+						</c:if>
+					</ul>
+					
+					<c:if test="${not empty sessionScope.usuario
+									and sessionScope.usuario.idUsuario == requestScope.usuario.idUsuario
+									and not sessionScope.usuario.emailVerificado}">
+						<p class="mt-20 alert alert-info"><i class="ion-information-circled pr-10"></i>Todavía no has verificado tu dirección de correo electrónico.
+						<a href="${pageContext.request.contextPath}/perfil/enviar-verificacion">Para recibir el email de confirmación, haz click aquí</a>.</p>
 					</c:if>
 
 					<div class="row mt-30">

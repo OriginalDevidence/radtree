@@ -2,13 +2,13 @@ USE radtree;
 
 /* Todos los usuarios tienen como contraseña "clave" */
 INSERT INTO Usuario VALUES
-(NULL, 'JuanEcologico28', 'Juan', 'Pérez Peñasco', '2000-01-01', 'jperez@gmail.com', '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
-(NULL, 'ElArbolCaido', 'Isidoro', 'Chavez Linares', '1945-02-023', 'isidoro45@hotmail.com', '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
-(NULL, 'GreenGlobal', 'Francisco Miguel', 'García Calvo', '1998-07-08', 'franCalvo@yahoo.es', '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'CREADOR', 0.0),
-(NULL, 'Ramita64', 'Alejandro', 'Martinez Ruiz ', '1961-05-25', 'Alex_Ruiz@hotmail.com', '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
-(NULL, 'LaRataDelReciclaje', 'Sergio', 'Ruperez Torres', '1980-06-28', 'sergioTorres@gmail.com', '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
-(NULL, 'AlonsoElVerde', 'Fernando', 'Alonso Díaz', '1975-03-30', 'ferAlonso@yahoo.es', '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'ADMINISTRADOR', 0.0),
-(NULL, 'ElInsectoEcologico', 'Victor', 'Pérez Peñasco', '1999-01-25', 'victor1999@unizar.es', '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'CREADOR', 0.0);
+(NULL, 'JuanEcologico28', 'Juan', 'Pérez Peñasco', '2000-01-01', 'jperez@gmail.com', FALSE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
+(NULL, 'ElArbolCaido', 'Isidoro', 'Chavez Linares', '1945-02-023', 'isidoro45@hotmail.com', FALSE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
+(NULL, 'GreenGlobal', 'Francisco Miguel', 'García Calvo', '1998-07-08', 'franCalvo@yahoo.es', TRUE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'CREADOR', 0.0),
+(NULL, 'Ramita64', 'Alejandro', 'Martinez Ruiz ', '1961-05-25', 'Alex_Ruiz@hotmail.com', FALSE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
+(NULL, 'LaRataDelReciclaje', 'Sergio', 'Ruperez Torres', '1980-06-28', 'sergioTorres@gmail.com', FALSE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
+(NULL, 'AlonsoElVerde', 'Fernando', 'Alonso Díaz', '1975-03-30', 'ferAlonso@yahoo.es', TRUE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'ADMINISTRADOR', 0.0),
+(NULL, 'ElInsectoEcologico', 'Victor', 'Pérez Peñasco', '1999-01-25', 'victor1999@unizar.es', TRUE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'CREADOR', 0.0);
 
 INSERT INTO Contenido VALUES
 (NULL, 1, 0, '2018-01-01', 'VALIDADO'),

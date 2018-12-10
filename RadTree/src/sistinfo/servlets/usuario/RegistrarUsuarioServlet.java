@@ -184,7 +184,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         if (datosCorrectos) {
     		String claveHash = PBKDF2Hash.hash(clave.toCharArray());
     		if (claveHash != null) {
-    			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, TipoUsuario.PARTICIPANTE, 0.0);
+    			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, false, claveHash, TipoUsuario.PARTICIPANTE, 0.0);
     		}
         }
         return null;

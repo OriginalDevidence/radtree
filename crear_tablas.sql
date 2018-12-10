@@ -20,12 +20,20 @@ CREATE TABLE IF NOT EXISTS Usuario (
   fechaNacimiento     DATE          NOT NULL,
   /* La longitud máxima de un email válido es de 254 caracteres */
   email               VARCHAR(254)  UNIQUE NOT NULL,
+  emailVerificado     BOOLEAN       NOT NULL,
   /* Hash de la contraseña (PBKDF2), 256 bits */
   passwordHash        BLOB          NOT NULL,
   tipoUsuario         ENUM ('ADMINISTRADOR', 'CREADOR', 'PARTICIPANTE')
                                     NOT NULL,
   /* No guardamos la foto de perfil ya que no se almacena en la base de datos y podemos acceder con el idUsuario */
   puntuacion          DOUBLE        NOT NULL
+);
+
+/* Token de verificación de correo electrónico */
+CREATE TABLE IF NOT EXISTS Token (
+  token               VARCHAR(255)  PRIMARY KEY NOT NULL,
+  idUsuario           BIGINT        UNIQUE NOT NULL,
+  FOREIGN KEY(idUsuario) REFERENCES Usuario(idUsuario) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Contenido (

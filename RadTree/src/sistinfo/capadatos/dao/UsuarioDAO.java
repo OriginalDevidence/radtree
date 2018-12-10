@@ -360,41 +360,42 @@ public class UsuarioDAO {
 	 * @throws ErrorInternoException
 	 */
 	public Long insertUsuario(UsuarioVO usuario) throws UsuarioYaExistenteException, ErrorInternoException {
-		try {
-			Connection connection = ConnectionFactory.getConnection();
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+        	// Comprobar que no exista alguien con ese alias o email ya
+    		if (checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail())) {
+            	
+            	PreparedStatement stmt = connection.prepareStatement("INSERT INTO Usuario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            															Statement.RETURN_GENERATED_KEYS);
+            	stmt.setString(1, usuario.getAlias());
+            	stmt.setString(2, usuario.getNombre());
+            	stmt.setString(3, usuario.getApellidos());
+            	stmt.setDate(4, usuario.getFechaNacimiento());
+            	stmt.setString(5, usuario.getEmail());
+            	stmt.setBoolean(6, usuario.getEmailVerificado());
+            	stmt.setString(7, usuario.getPasswordHash());
+            	stmt.setString(8, usuario.getTipoUsuario().toString());
+            	stmt.setDouble(9, usuario.getPuntuacion());
+            	int result = stmt.executeUpdate();
 
-			// Comprobar que no exista alguien con ese alias o email ya
-			if (checkAliasYEmailExistente(usuario.getAlias(), usuario.getEmail())) {
+            	if (result == 1) {
+            		// Devolver el ID del usuario insertado
+            		ResultSet rs = stmt.getGeneratedKeys();
+            		if (rs != null && rs.last()) {
+            			return rs.getLong(1);
+            		}
+            	}
 
-				PreparedStatement stmt = connection.prepareStatement(
-						"INSERT INTO Usuario VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-				stmt.setString(1, usuario.getAlias());
-				stmt.setString(2, usuario.getNombre());
-				stmt.setString(3, usuario.getApellidos());
-				stmt.setDate(4, usuario.getFechaNacimiento());
-				stmt.setString(5, usuario.getEmail());
-				stmt.setString(6, usuario.getPasswordHash());
-				stmt.setString(7, usuario.getTipoUsuario().toString());
-				stmt.setDouble(8, usuario.getPuntuacion());
-				int result = stmt.executeUpdate();
+            	stmt.close();
+    		}
 
-				if (result == 1) {
-					// Devolver el ID del usuario insertado
-					ResultSet rs = stmt.getGeneratedKeys();
-					if (rs != null && rs.last()) {
-						return rs.getLong(1);
-					}
-				}
-
-				stmt.close();
-			}
-
-			connection.close();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw new ErrorInternoException();
-		}
-		return 0L;
+        	connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return 0L;
 	}
 
 	/**
@@ -406,40 +407,37 @@ public class UsuarioDAO {
 	 * @throws UsuarioYaExistenteException
 	 * @throws ErrorInternoException
 	 */
-	public boolean updateUsuario(UsuarioVO usuario, boolean cambiaAlias, boolean cambiaEmail)
-			throws UsuarioYaExistenteException, ErrorInternoException {
-		try {
-			Connection connection = ConnectionFactory.getConnection();
+	public boolean updateUsuario(UsuarioVO usuario, boolean cambiaAlias, boolean cambiaEmail) throws UsuarioYaExistenteException, ErrorInternoException {
+        try {
+    		Connection connection = ConnectionFactory.getConnection();
+        	
+        	// Comprobar que no exista alguien con ese alias o email ya
+    		if (checkAliasYEmailExistente(cambiaAlias ? usuario.getAlias() : "$", cambiaEmail ? usuario.getEmail() : "$")) {
+        	
+		    	PreparedStatement stmt = connection.prepareStatement("UPDATE Usuario SET alias=?, nombre=?, apellidos=?, fechaNacimiento=?, email=?, emailVerificado=?, passwordHash=?, tipoUsuario=?, puntuacion=? WHERE idUsuario=?");
+		    	stmt.setString(1, usuario.getAlias());
+		    	stmt.setString(2, usuario.getNombre());
+		    	stmt.setString(3, usuario.getApellidos());
+		    	stmt.setDate(4, usuario.getFechaNacimiento());
+		    	stmt.setString(5, usuario.getEmail());
+		    	stmt.setBoolean(6, usuario.getEmailVerificado());
+            	stmt.setString(7, usuario.getPasswordHash());
+            	stmt.setString(8, usuario.getTipoUsuario().toString());
+            	stmt.setDouble(9, usuario.getPuntuacion());
+		    	stmt.setLong(10, usuario.getIdUsuario());
 
-			// Comprobar que no exista alguien con ese alias o email ya
-			if (checkAliasYEmailExistente(cambiaAlias ? usuario.getAlias() : "$",
-					cambiaEmail ? usuario.getEmail() : "$")) {
+		    	int result = stmt.executeUpdate();
+	        	stmt.close();
+		    	return result == 1;
 
-				PreparedStatement stmt = connection.prepareStatement(
-						"UPDATE Usuario SET alias=?, nombre=?, apellidos=?, fechaNacimiento=?, email=?, passwordHash=?, tipoUsuario=?, puntuacion=? WHERE idUsuario=?");
-				stmt.setString(1, usuario.getAlias());
-				stmt.setString(2, usuario.getNombre());
-				stmt.setString(3, usuario.getApellidos());
-				stmt.setDate(4, usuario.getFechaNacimiento());
-				stmt.setString(5, usuario.getEmail());
-				stmt.setString(6, usuario.getPasswordHash());
-				stmt.setString(7, usuario.getTipoUsuario().toString());
-				stmt.setDouble(8, usuario.getPuntuacion());
-				stmt.setLong(9, usuario.getIdUsuario());
+    		}
 
-				int result = stmt.executeUpdate();
-				stmt.close();
-				connection.close();
-				return result == 1;
-
-			}
-
-			connection.close();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw new ErrorInternoException();
-		}
-		return false;
+        	connection.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new ErrorInternoException();
+        }
+        return false;
 	}
 
 	/**
@@ -479,11 +477,19 @@ public class UsuarioDAO {
 	 * @throws SQLException
 	 */
 	private UsuarioVO extractUsuarioFromResultSet(ResultSet rs) throws SQLException {
-		UsuarioVO user = new UsuarioVO(rs.getLong("idUsuario"), rs.getString("alias"), rs.getString("nombre"),
-				rs.getString("apellidos"), rs.getDate("fechaNacimiento"), rs.getString("email"),
-				rs.getString("passwordHash"), UsuarioVO.TipoUsuario.valueOf(rs.getString("tipoUsuario")),
-				rs.getDouble("puntuacion"));
-		return user;
+         UsuarioVO user = new UsuarioVO(
+         	rs.getLong("idUsuario"),
+         	rs.getString("alias"),
+         	rs.getString("nombre"),
+         	rs.getString("apellidos"),
+         	rs.getDate("fechaNacimiento"),
+         	rs.getString("email"),
+         	rs.getBoolean("emailVerificado"),
+         	rs.getString("passwordHash"),
+         	UsuarioVO.TipoUsuario.valueOf(rs.getString("tipoUsuario")),
+         	rs.getDouble("puntuacion")
+         );
+         return user;
 	}
 
 	/**
