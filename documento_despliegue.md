@@ -138,7 +138,9 @@ Seguido el tutorial encontrado en la [siguiente web](https://www.digitalocean.co
 
 #### Instalación de la aplicación web en el servidor Tomcat y puesta a punto
 
-**TODO: hacer estos pasos**
+**TODO: explicar**
+
+exportado war, copiadas carpetas menos src y web-inf/classes, modificado login.properties, manager para deshabilitar el resto y mover radtree a root, activar, reinicio del servidor y comprobar que conecta
 
 ### **RDS:** Creación de la base de datos MySQL
 
@@ -157,7 +159,9 @@ Seguido el tutorial encontrado en la [siguiente web](https://www.digitalocean.co
    - **Log de errores:** sin publicar a la nube (Amazon CloudWatch Logs)
    - **Maintenance:** Auto minor version upgrade
    - **Deletion protection:** yes
-1. Una vez creada es posible conectarse, consultar para los detalles.
+1. Una vez creada es posible conectarse, consultar para los detalles
+
+**TODO: usuario root + radtree + configuración puertos**
 
 ### Obtención del dominio **radtree.ml**
 
