@@ -28,7 +28,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Usuarios</a>
 		</div><!-- container -->
 	</section>
@@ -40,7 +40,7 @@
                 <!-- Barra de búsqueda -->
 				<div class="col-12 col-md-8 offset-0 offset-md-2 mb-50">
 					<form name="busqueda" action="${pageContext.request.contextPath}/usuarios" method="post">
-						<div class="row form-block form-plr-15 form-h-45 form-brdr-lite-white mb-30">
+						<div class="row form-block form-plr-15 form-h-45 form-brdr-lite-white mb-10">
 							
 							<c:if test="${empty param.busqueda}">
 								<div class="col-9 col-md-10">
@@ -96,8 +96,8 @@
 							</c:if> >
 							<div class="row w-100">
 								<div class="col-fit">
-									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroAlias"
+									<span class="w-100 m-10 m-sm-5 text alert-wo-margin alert-success">
+										<input class="mr-10" type="checkbox" name="filtroAlias"
 											<c:if test="${param.filtroAlias == 'on'}">
 											checked
 											</c:if> />
@@ -105,24 +105,24 @@
 									</span>
 								</div>
 								<div class="col-fit">
-									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroNombre"
+									<span class="w-100 m-10 m-sm-5 text alert-wo-margin alert-success">
+										<input class="mr-10" type="checkbox" name="filtroNombre"
 											<c:if test="${param.filtroNombre == 'on'}">
 											checked
 											</c:if> /><b>Nombre</b>
 									</span>
 								</div>
 								<div class="col-fit">
-									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroApellidos"
+									<span class="w-100 m-10 m-sm-5 text alert-wo-margin alert-success">
+										<input class="mr-10" type="checkbox" name="filtroApellidos"
 											<c:if test="${param.filtroApellidos == 'on'}">
 											checked
 											</c:if> /><b>Apellidos</b>
 									</span>
 								</div>
 								<div class="col-fit">
-									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroCorreo"
+									<span class="w-100 m-10 m-sm-5 text alert-wo-margin alert-success">
+										<input class="mr-10" type="checkbox" name="filtroCorreo"
 											<c:if test="${param.filtroCorreo == 'on'}">
 											checked
 											</c:if> /><b>Email</b>
@@ -172,12 +172,14 @@
 		</div><!-- container -->
 		
 		<%-- Paginacion --%>
-		<div class="text-center">
-			<form name="paginacion"
-				action="${pageContext.request.contextPath}/usuarios" method="post">
-				<%@ include file="/jsp/include/paginacion.jsp"%>
-			</form>
-		</div>
+		<c:if test="${not empty requestScope.usuarios}">
+			<div class="text-center">
+				<form name="paginacion"
+					action="${pageContext.request.contextPath}/usuarios" method="post">
+					<%@ include file="/jsp/include/paginacion.jsp"%>
+				</form>
+			</div>
+		</c:if>
 	</section>
 
 	<%@ include file="include/footer.jsp" %>

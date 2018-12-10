@@ -28,7 +28,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Retos</a>
 		</div><!-- container -->
 	</section>
@@ -92,8 +92,8 @@
 							</c:if> >
 							<div class="row w-100">
 								<div class="col-fit">
-									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroTitulo"
+									<span class="w-100 m-10 m-sm-5 text alert-wo-margin alert-success">
+										<input class="mr-10" type="checkbox" name="filtroTitulo"
 											<c:if test="${param.filtroTitulo == 'on'}">
 											checked
 											</c:if> />
@@ -101,8 +101,8 @@
 									</span>
 								</div>
 								<div class="col-fit">
-									<span class="w-100 m-10 text alert-wo-margin alert-success">
-										<input class="mlr-10" type="checkbox" name="filtroCuerpo"
+									<span class="w-100 m-10 m-sm-5 text alert-wo-margin alert-success">
+										<input class="mr-10" type="checkbox" name="filtroCuerpo"
 											<c:if test="${param.filtroCuerpo == 'on'}">
 											checked
 											</c:if> /><b>Cuerpo</b>
@@ -154,12 +154,15 @@
 		</div><!-- container -->
 		
 		<%-- Paginacion --%>
-		<div class="text-center">
-			<form name="paginacion"
-				action="${pageContext.request.contextPath}/retos" method="post">
-				<%@ include file="/jsp/include/paginacion.jsp"%>
-			</form>
-		</div>
+		<c:if test="${not empty requestScope.retos}">
+			<div class="text-center">
+				<form name="paginacion"
+					action="${pageContext.request.contextPath}/retos" method="post">
+					<%@ include file="/jsp/include/paginacion.jsp"%>
+				</form>
+			</div>
+		</c:if>
+			
 	</section>
 
 	<%@ include file="/jsp/include/footer.jsp" %>

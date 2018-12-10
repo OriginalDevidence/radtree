@@ -34,7 +34,7 @@ public class EliminarUsuarioServlet extends HttpServlet {
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				usuarioDAO.deleteUsuario(usuario.getIdUsuario());
 				request.getSession().invalidate();
-				response.sendRedirect(request.getContextPath());
+				response.sendRedirect(request.getContextPath() + "/");
 			} catch (ErrorInternoException e) {
 				response.sendRedirect(request.getContextPath() + "/error-interno");
 			}

@@ -27,7 +27,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Preguntas</a>
 		</div><!-- container -->
 	</section>
@@ -129,12 +129,14 @@
 		</div><!-- container -->
 
 		<%-- Paginacion --%>
-		<div class="text-center">
-			<form name="paginacion"
-				action="${pageContext.request.contextPath}/preguntas" method="post">
-				<%@ include file="/jsp/include/paginacion.jsp"%>
-			</form>
-		</div>
+		<c:if test="${not empty requestScope.preguntas}">
+			<div class="text-center">
+				<form name="paginacion"
+					action="${pageContext.request.contextPath}/preguntas" method="post">
+					<%@ include file="/jsp/include/paginacion.jsp"%>
+				</form>
+			</div>
+		</c:if>
 
 	</section>
 

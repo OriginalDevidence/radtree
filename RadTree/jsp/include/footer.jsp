@@ -11,7 +11,7 @@
 			
 				<div class="col-sm-4">
 					<div class="mb-30">
-						<a href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath}/images/logo-white.png"></a>
+						<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/images/logo-white.png"></a>
 						<p class="mt-20 color-ccc">
 							RadTree es un proyecto de la Universidad de Zaragoza que intenta concienciar a la población sobre los peligros medioambientales.
 						</p>
@@ -75,8 +75,8 @@
 		
 			<ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
 				<li><a class="pl-0 pl-sm-10" href="https://es-es.facebook.com/unizar.es/"><i class="ion-social-facebook"></i></a></li>
-				<li><a href="https://twitter.com/unizar"><i class="ion-social-twitter"></i></a></li>
-				<li><a href="https://www.instagram.com/explore/tags/unizar/top/"><i class="ion-social-instagram"></i></a></li>
+				<li><a class="pl-0 pl-sm-10" href="https://twitter.com/unizar"><i class="ion-social-twitter"></i></a></li>
+				<li><a class="pl-0 pl-sm-10" href="https://www.instagram.com/explore/tags/unizar/top/"><i class="ion-social-instagram"></i></a></li>
 			</ul>
 			
 		</div><!-- oflow-hidden -->
