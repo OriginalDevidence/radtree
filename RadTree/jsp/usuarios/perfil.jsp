@@ -59,7 +59,7 @@
 					<c:if test="${not empty sessionScope.usuario
 									and sessionScope.usuario.idUsuario == requestScope.usuario.idUsuario
 									and not sessionScope.usuario.emailVerificado}">
-						<p class="alert alert-info"><i class="ion-information-circled pr-10"></i>Todavía no has verificado tu dirección de correo electrónico.
+						<p class="mt-20 alert alert-info"><i class="ion-information-circled pr-10"></i>Todavía no has verificado tu dirección de correo electrónico.
 						<a href="${pageContext.request.contextPath}/perfil/enviar-verificacion">Para recibir el email de confirmación, haz click aquí</a>.</p>
 					</c:if>
 
