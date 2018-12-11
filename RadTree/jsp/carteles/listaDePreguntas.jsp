@@ -130,7 +130,7 @@
 
 		<%-- Paginacion --%>
 		<c:if test="${not empty requestScope.preguntas}">
-			<div class="text-center">
+			<div class="text-center mt-10">
 				<form name="paginacion"
 					action="${pageContext.request.contextPath}/preguntas" method="post">
 					<%@ include file="/jsp/include/paginacion.jsp"%>
