@@ -1062,6 +1062,8 @@ pre code {
   -webkit-flex: 0 0 100%;
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
+  max-width: -moz-fit-content;
+  max-width: -o-fit-content;
   max-width: fit-content;
 }
 
@@ -1538,6 +1540,8 @@ pre code {
     -webkit-flex: 0 0 100%;
         -ms-flex: 0 0 100%;
             flex: 0 0 100%;
+    max-width: -moz-fit-content; 
+    max-width: -o-fit-content; 
     max-width: fit-content;
   }
   .pull-md-0 {
