@@ -1,6 +1,5 @@
 USE radtree;
 
-/* Todos los usuarios tienen como contraseña "clave" */
 INSERT INTO Usuario VALUES
 (NULL, 'JuanEcologico28', 'Juan', 'Pérez Peñasco', '2000-01-01', 'jperez@gmail.com', FALSE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
 (NULL, 'ElArbolCaido', 'Isidoro', 'Chavez Linares', '1945-02-023', 'isidoro45@hotmail.com', FALSE, '$31$1000$AAAAAAAAAAAAAAAAAAAAAGLPiriGp7lXdLflFuOuAyk', 'PARTICIPANTE', 0.0),
@@ -46,7 +45,6 @@ INSERT INTO Pregunta VALUES
 (10, '¿Cuántas toneladas de residuos plasticos flotan a la deriva por nuestros mares?'),
 (11, '¿Cuales de estos productos se degradan en menos de 8 semanas?');
 
-/* 5 respuestas para la priemra pregunta y 5 respuestas para la segunda */
 INSERT INTO Respuesta VALUES
 (NULL, 7, 'Cada minuto se deforesta media hectárea, y se repuebla el doble de lo deforestado.', FALSE),
 (NULL, 7, 'Cada minuto se deforestan diez hectáreas.', TRUE),
