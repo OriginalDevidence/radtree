@@ -30,7 +30,7 @@ Resumen de los pasos seguidos:
    - **DB instance class:** db.t2.micro - 1 vCPU, 1GiB RAM
    - **Allocated storage:** 20 GiB
    - **DB instance identifier:** radtree
-   - _Creado usuario master, consultar para obtener sus credenciales_
+   - _Creado usuario master, consultar el fichero **credenciales.txt** proporcionado para ver sus credenciales._
    - **VPC:** Por defecto
    - **Public availability:** yes
    - **Database:** Nombre radtree, port 3306, 8.0
@@ -118,7 +118,11 @@ Seguido el tutorial encontrado en la [siguiente web](https://www.digitalocean.co
 
 1. Configuración de las reglas del firewall:
    - Todos los puertos abiertos, a excepción de:
-     - **TODO**
+     - Puerto 22 (SSH)
+     - Puerto 25 (SMTP)
+     - Puerto 80 (HTTP)
+     - Puerto 3306 (MySQL)
+     - Todo el tráfico ICMP (para poder hacer `ping` y comprobar que está viva) 
    - Accedeso al servidor web desde el puerto `80`:
      - Redirección del tráfico del puerto `80` al `8080`: `sudo su` y `iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to-port 8080`
      - También permitido el tráfico por el puerto `80` en la configuración de la instancia de la VM (ver arriba)
@@ -130,6 +134,7 @@ Seguido el tutorial encontrado en la [siguiente web](https://www.digitalocean.co
         <user username="<user>" password="<password>" roles="manager-gui,admin-gui"/>
     </tomcat-users>
     ```
+    - _Nota: Las credenciales se encuentran en el fichero entregado **credenciales.txt**_.
     - De esta forma será posible acceder con estos credenciales a la aplicación de management de Tomcat (`http://radtree.ml/manager/html`)
 1. Permitido acceso a la aplicación de management desde cualquier IP: `sudo nano /opt/tomcat/webapps/manager/META-INF/context.xml` (comentar la restricción de IP)
     ```xml
@@ -155,7 +160,7 @@ Seguido el tutorial encontrado en la [siguiente web](https://www.digitalocean.co
 1. Configuración de Postfix: `sudo nano /etc/postfix/main.cf`
    - Modificada configuración para solamente enviar emails desde el servidos en el que está funcionando:
    ```
-    inet_interfaces = localhost
+   inet_interfaces = localhost
    ```
    - Reinicio del servicio Postfix: `sudo service postfix restart`
 
@@ -163,7 +168,20 @@ Con esto la VM queda preparada para poder enviar emails al ejecutar un servlet d
 
 #### 2.3. Instalación de la aplicación web en el servidor Tomcat y puesta a punto
 
-**TODO: explicar**
+1. Subida de todos los archivos a través del comando `scp` mencionado anteriormente:
+    - Archivo .war de la aplicación: Colocado en `/opt/tomcat/webapps/ROOT.war`.
+    - Carpetas `/jsp`, `/images`, `/common`, `/plugin-frameworks` y `/WEB-INF/lib` de la aplicación, que contienen los ficheros esenciales para el correcto funcionamiento, además de las bibliotecas empleadas por esta. Temporalmente colocados en `/home/ubuntu`.
+1. Arranque del servidor Tomcat. De esta forma, al detectar el fichero `ROOT.war` crea la aplicación web `webapps/ROOT`. Posteriormente se pueden copiar todas las carpetas mencionadas en el paso 1 a la carpeta `webapps/ROOT` que acaba de ser creada.
+1. Cambiado el dueño de todos los ficheros de esta carpeta al usuario `tomcat`: `cd /opt/tomcat/webapps/ROOT` y `sudo chown -R tomcat *`
+1. Conexión con la base de datos: creado un fichero con nombre `login.properties` en el directorio `WEB-INF/classes/sistinfo/capadatos/jdbc` con el siguiente contenido:
+  ```
+  db_url=jdbc:mysql://<url_base_datos>/radtree?useSSL=false
+  user=<usuario>
+  password=<password>
+  ```
+
+Nota
+
 
 exportado war, copiadas carpetas menos src y web-inf/classes, modificado login.properties, manager para deshabilitar el resto y mover radtree a root, activar, reinicio del servidor y comprobar que conecta
 
