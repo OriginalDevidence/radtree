@@ -1,5 +1,12 @@
 # Documento de despliegue de la aplicación
 
+Práctica 4 de Sistemas de Información. Universidad de Zaragoza. 12 de diciembre de 2018.
+
+- Autores:
+  - Diego Royo (740388@unizar.es)
+  - Alonso Muñoz (745016@unizar.es)
+  - Gregorio Largo (746621@unizar.es)
+
 Servicio elegido: [Amazon AWS](https://aws.amazon.com/es/)
 
 En concreto, los servicios EC2 (creación de máquinas virtuales) para la instalación del servidor Tomcat y servidor de correo Postfix y servicio RDS (creación de bases de datos relacionales) para la base de datos MySQL, respectivamente.
@@ -137,6 +144,7 @@ Seguido el tutorial encontrado en la [siguiente web](https://www.digitalocean.co
     - _Nota: Las credenciales se encuentran en el fichero entregado **credenciales.txt**_.
     - De esta forma será posible acceder con estos credenciales a la aplicación de management de Tomcat (`http://radtree.ml/manager/html`)
 1. Permitido acceso a la aplicación de management desde cualquier IP: `sudo nano /opt/tomcat/webapps/manager/META-INF/context.xml` (comentar la restricción de IP)
+
     ```xml
     <Context antiResourceLocking="false" privileged="true" >
       <!--<Valve className="org.apache.catalina.valves.RemoteAddrValve"

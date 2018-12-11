@@ -77,11 +77,6 @@
 									placeholder="URL de la fuente"
 									value="<c:out value="${param.url}"/>" />
 							</div>
-
-							<div class="col-sm-12">
-								<label for="imagen">Imagen</label>
-								<input class="m-5" name="imagen" type="file" placeholder="Subir imagen" accept=".jpg, .jpeg, .png">
-							</div>
 						</div>
 
 						<div class="row">

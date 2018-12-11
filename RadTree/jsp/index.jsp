@@ -35,9 +35,9 @@
 						<!-- NOTICIAS -->
 						<div class="pb-5 pr-5 pr-sm-0 float-left float-sm-none w-100 w-sm-100 h-2-3 h-sm-300x">
 							<div class="pos-relative h-100 dplay-block">
-								<form name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+								<form class="w-100 h-100" name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
 									<input type="hidden" name="id" value="<c:out value="${requestScope.indexNoticia1.idContenido}"/>"/>
-									<button type="submit">
+									<button class="w-100 h-100"  type="submit">
 										<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${requestScope.indexNoticia1.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
 										
 										<div class="abs-blr color-white p-20 bg-sm-color-7">
@@ -61,9 +61,9 @@
 						
 						<div class="pr-5 pr-sm-0 pt-5 float-left float-sm-none pos-relative w-50 w-sm-100 h-1-3 h-sm-300x">
 							<div class="pos-relative h-100 dplay-block">
-								<form name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+								<form class="w-100 h-100" name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
 									<input type="hidden" name="id" value="<c:out value="${requestScope.indexNoticia2.idContenido}"/>"/>
-									<button type="submit">
+									<button class="w-100 h-100" type="submit">
 										<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${requestScope.indexNoticia2.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
 										
 										<div class="abs-blr color-white p-20 bg-sm-color-7">
@@ -87,9 +87,9 @@
 						
 						<div class="pr-5 pr-sm-0 pt-5 float-left float-sm-none pos-relative w-50 w-sm-100 h-1-3 h-sm-300x">
 							<div class="pos-relative h-100 dplay-block">
-								<form name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+								<form class="w-100 h-100"  name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
 									<input type="hidden" name="id" value="<c:out value="${requestScope.indexNoticia3.idContenido}"/>"/>
-									<button type="submit">
+									<button class="w-100 h-100"  type="submit">
 										<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${requestScope.indexNoticia3.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
 										
 										<div class="abs-blr color-white p-20 bg-sm-color-7">

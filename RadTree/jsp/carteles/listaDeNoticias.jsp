@@ -158,12 +158,12 @@
 						<div class="col-12 col-md-6 mb-30 mb-sm-10">
 							<div class="h-300x">
 								<div class="pos-relative h-100 dplay-block">
-									<form name="noticia"
+									<form class="w-100 h-100" name="noticia"
 										action="${pageContext.request.contextPath}/noticias/ver"
 										method="post">
 										<input type="hidden" name="id"
 											value="<c:out value="${noticia.idContenido}"/>" />
-										<button type="submit" name="buscar">
+										<button class="w-100 h-100" type="submit" name="buscar">
 											<div class="img-bg bg-grad-layer-6"
 												style="background: url(<c:out value="${noticia.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
 
