@@ -180,10 +180,12 @@ Con esto la VM queda preparada para poder enviar emails al ejecutar un servlet d
   password=<password>
   ```
 
-Nota
+  _Nota: estos datos están incluidos en el fichero **credenciales.txt** entregado._
 
+5. Inicio de sesión en la aplicación manager de Tomcat: `http://<ip_vm>/manager/html`. Se han desactivado todas las aplicaciones menos la instalada anteriormente.
+6. Reinicio del servidor Tomcat: `sudo systemctl restart tomcat`
 
-exportado war, copiadas carpetas menos src y web-inf/classes, modificado login.properties, manager para deshabilitar el resto y mover radtree a root, activar, reinicio del servidor y comprobar que conecta
+Con esto el servidor web queda totalmente operativo y solamente falta obtener el servicio DNS. Para iniciar sesión como usuario administrador en la aplicación web se puede consultar el documento de primeros pasos incluido, y sus credenciales también están disponibles en el fichero **credenciales.txt** entregado.
 
 ### 3. Obtención del dominio **radtree.ml**
 
