@@ -5,6 +5,12 @@ import java.sql.Date;
 public class UsuarioVO implements java.io.Serializable {
 	
 	public enum TipoUsuario { ADMINISTRADOR, CREADOR, PARTICIPANTE };
+
+	public static final int ALIAS_MIN = 3;
+	public static final int ALIAS_MAX = 20;
+	public static final int NOMBRE_MAX = 50;
+	public static final int APELLIDOS_MAX = 100;
+	public static final int EMAIL_MAX = 254;
 	
 	private Long idUsuario;
 	private String alias;
@@ -12,23 +18,25 @@ public class UsuarioVO implements java.io.Serializable {
 	private String apellidos;
 	private Date fechaNacimiento;
 	private String email;
+	private Boolean emailVerificado;
 	private String passwordHash;
 	private TipoUsuario tipoUsuario;
 	private Double puntuacion;
 	
-	public UsuarioVO(String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
+	public UsuarioVO(String alias, String nombre, String apellidos, Date fechaNacimiento, String email, Boolean emailVerificado,
 			String passwordHash, TipoUsuario tipoUsuario, Double puntuacion) {
 		this.alias = alias;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.fechaNacimiento = fechaNacimiento;
 		this.email = email;
+		this.emailVerificado = emailVerificado;
 		this.passwordHash = passwordHash;
 		this.tipoUsuario = tipoUsuario;
 		this.puntuacion = puntuacion;
 	}
 	
-	public UsuarioVO(Long idUsuario, String alias, String nombre, String apellidos, Date fechaNacimiento, String email,
+	public UsuarioVO(Long idUsuario, String alias, String nombre, String apellidos, Date fechaNacimiento, String email, Boolean emailVerificado,
 			String passwordHash, TipoUsuario tipoUsuario, Double puntuacion) {
 		this.idUsuario = idUsuario;
 		this.alias = alias;
@@ -36,6 +44,7 @@ public class UsuarioVO implements java.io.Serializable {
 		this.apellidos = apellidos;
 		this.fechaNacimiento = fechaNacimiento;
 		this.email = email;
+		this.emailVerificado = emailVerificado;
 		this.passwordHash = passwordHash;
 		this.tipoUsuario = tipoUsuario;
 		this.puntuacion = puntuacion;
@@ -49,6 +58,7 @@ public class UsuarioVO implements java.io.Serializable {
 		this.apellidos = apellidos;
 		this.fechaNacimiento = fechaNacimiento;
 		this.email = email;
+		this.emailVerificado = original.getEmailVerificado();
 		this.passwordHash = original.getPasswordHash();
 		this.tipoUsuario = original.getTipoUsuario();
 		this.puntuacion = original.getPuntuacion();
@@ -89,6 +99,12 @@ public class UsuarioVO implements java.io.Serializable {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Boolean getEmailVerificado() {
+		return emailVerificado;
+	}
+	public void setEmailVerificado(Boolean emailVerificado) {
+		this.emailVerificado = emailVerificado;
 	}
 	public String getPasswordHash() {
 		return passwordHash;

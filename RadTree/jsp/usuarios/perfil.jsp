@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title><c:out value="${requestScope.usuario.alias}"/> - RadTree</title>
+	<title>Perfil de <c:out value="${requestScope.usuario.alias}"/> - RadTree</title>
 	<meta name="description" content="Página de perfil de usuario">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 	
@@ -27,7 +27,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Perfil de <c:out value="${requestScope.usuario.alias}"/></a>
 		</div><!-- container -->
 	</section>
@@ -38,16 +38,29 @@
 			<div class="row">
 			
 				<div class="col-md-12 col-lg-8">
-					<h3 class="p-title mb-30"><b>Perfil de <c:out value="${requestScope.usuario.alias}"/></b></h3>
 					
+					<h3 class="p-title mb-30"><b>Perfil de <c:out value="${requestScope.usuario.alias}"/></b></h3>
+								
 					<!-- Medallas de perfil (administrador, creador de contenido, etc) -->
-					<c:if test="${requestScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
-						<ul class="list-a-plr-10 list-a-plr-sm-5 list-a-ptb-10 list-a-ptb-sm-5">
+					<ul class="list-a-plr-10 list-a-plr-sm-5 list-a-ptb-10 list-a-ptb-sm-5">
+						<c:if test="${not empty sessionScope.usuario
+									and sessionScope.usuario.idUsuario == requestScope.usuario.idUsuario
+									and sessionScope.usuario.emailVerificado}">
+							<li class="bg-primary ptb-5 plr-15"><i class="mr-5 ion-ios-email-outline"></i>Email verificado</li>
+						</c:if>
+						<c:if test="${requestScope.usuario.tipoUsuario != 'PARTICIPANTE'}">
 							<c:if test="${requestScope.usuario.tipoUsuario == 'ADMINISTRADOR'}">
 								<li class="bg-primary ptb-5 plr-15"><i class="mr-5 ion-settings"></i>Administrador</li>
 							</c:if>
 							<li class="bg-primary ptb-5 plr-15"><i class="mr-5 ion-paintbrush"></i>Creador de contenido</li>
-						</ul>
+						</c:if>
+					</ul>
+					
+					<c:if test="${not empty sessionScope.usuario
+									and sessionScope.usuario.idUsuario == requestScope.usuario.idUsuario
+									and not sessionScope.usuario.emailVerificado}">
+						<p class="mt-20 alert alert-info"><i class="ion-information-circled pr-10"></i>Todavía no has verificado tu dirección de correo electrónico.
+						<a href="${pageContext.request.contextPath}/perfil/enviar-verificacion">Para recibir el email de confirmación, haz click aquí</a>.</p>
 					</c:if>
 
 					<div class="row mt-30">
@@ -71,7 +84,7 @@
 							<p><c:out value="${requestScope.usuario.apellidos}"/></p>
 						</div>
 							
-						<div class="col-12 mb-20">
+						<div class="col-12 col-sm-6 mb-20">
 							<h4 class="mb-5">Email</h4>
 							<p><c:out value="${requestScope.usuario.email}"/></p>
 						</div>

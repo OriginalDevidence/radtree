@@ -38,7 +38,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i
 				class="mr-5 ion-ios-home"></i>Inicio<i
 				class="mlr-10 ion-chevron-right"></i></a> <a class="mt-10"
 				href="${pageContext.request.contextPath}/preguntas">Preguntas<i
@@ -59,9 +59,9 @@
 						
 						<form name="perfilAutor" action="${pageContext.request.contextPath}/perfil" method="post">
 	                    	<input type="hidden" name="alias" value="<c:out value='${requestScope.autorAlias}'/>"/>
-	                    	<p><i><b>Autor: </b>
+	                    	<p><b>Autor: </b>
 		                   		<button class="link-brdr-btm-primary color-primary mb-15" type="submit"><c:out value='${requestScope.autorCompleto}'/></button>
-							</i></p>
+							</p>
 	                    </form>
 	                    
 						<c:if test="${not empty requestScope.errorArriba}">
@@ -108,7 +108,7 @@
 										</c:if>
 									</div>
 	
-									<!-- Señalar las respuestas del usuario que estén mal-->
+									<%-- Señalar las respuestas del usuario que estén mal --%>
 									<div class="col-9 col-md-10
 										<c:if test="${not requestsScope.usuarioNoReg and requestScope.contestada}">
 											<c:if test="${not requestScope[resCorrectaN]}">
@@ -118,7 +118,7 @@
 												alert alert-success
 											</c:if>
 										</c:if>">
-										<!-- Señalar las respuestas correctas de la pregunta-->
+										<%-- Señalar las respuestas correctas de la pregunta --%>
 										<p><c:out value="${respuesta.enunciado}" /></p>
 									</div>
 								</div>
@@ -127,7 +127,7 @@
 							
 							<c:if test="${requestScope.usuarioNoReg}">
 								<div class="row mt-20 mt-sm-40">
-									<p class="mb-30">
+									<p>
 										<i>¿Quieres saber la respuesta?
 											<a class="link-brdr-btm-primary color-primary" href="${pageContext.request.contextPath}/iniciar-sesion">Inicia sesión</a>
 											para responder</i>
@@ -164,6 +164,17 @@
 							</form>
 						</div>
 					</c:if>
+				</div>
+				
+				<script src="${pageContext.request.contextPath}/common/copyToClipboard.js"></script>
+				<div class="col-12">
+					<input class="hidden-input" type="text"
+						value="${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/preguntas/ver?id=<c:out value="${requestScope.pregunta.idContenido}"/>" id="copy">
+					<p class="mb-10"><b>Link para compartir:</b></p>
+					<a class="share-link" href="#" onclick="copyToClipboard('copy')">
+						<i class="ion-ios-copy-outline"></i>
+						<span class="link" id="copy">${pageContext.request.scheme}://${pageContext.request.serverName}${pageContext.request.contextPath}/preguntas/ver?id=<c:out value="${requestScope.pregunta.idContenido}"/></span>
+					</a>
 				</div>
 
 		</div>

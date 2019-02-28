@@ -72,6 +72,8 @@ public class ComentarioDAO {
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
+            	stmt.close();
+    			connection.close();
         		return true;
         	}
         	
@@ -102,8 +104,10 @@ public class ComentarioDAO {
         	stmt.setLong(5, comentario.getRespuestaDe());
         	stmt.setLong(6, comentario.getIdComentario());
         	int result = stmt.executeUpdate();
-            
+
         	if (result == 1) {
+            	stmt.close();
+    			connection.close();                       
         		return true;
         	}
 
@@ -131,6 +135,8 @@ public class ComentarioDAO {
         	int result = stmt.executeUpdate();
             
         	if (result == 1) {
+            	stmt.close();
+    			connection.close();
         		return true;
         	}
 

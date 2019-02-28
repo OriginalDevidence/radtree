@@ -57,35 +57,14 @@
 		<url-pattern>/gestion-contenido/cola-validacion</url-pattern>
 	</filter-mapping>
 	
-    <!-- NoticiasFooter: Cargar las noticias para mostrar en el footer -->
-    <!-- Otra opción es hacer que todos los servlets incluyan en su request los datos -->
+	<!-- RedirectJSP: Evita el acceso directo a páginas JSP -->
     <filter>
-		<filter-name>NoticiasFooter</filter-name>
-		<filter-class>sistinfo.filters.contenido.NoticiasFooterFilter</filter-class>
+		<filter-name>RedirectJSP</filter-name>
+		<filter-class>sistinfo.filters.contenido.RedirectJSPFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>NoticiasFooter</filter-name>
-		<url-pattern>/</url-pattern>
-		<url-pattern>/registrar</url-pattern>
-		<url-pattern>/iniciar-sesion</url-pattern>
-		<url-pattern>/perfil</url-pattern>
-		<url-pattern>/perfil/editar</url-pattern>
-		<url-pattern>/noticias</url-pattern>
-		<url-pattern>/noticias/ver</url-pattern>
-		<url-pattern>/preguntas</url-pattern>
-		<url-pattern>/preguntas/ver</url-pattern>
-		<url-pattern>/retos</url-pattern>
-		<url-pattern>/retos/ver</url-pattern>
-		<url-pattern>/usuarios</url-pattern>
-		<url-pattern>/quienes-somos</url-pattern>
-		<url-pattern>/clasificacion</url-pattern>
-		<url-pattern>/gestion-contenido</url-pattern>
-		<url-pattern>/gestion-contenido/crear-noticia</url-pattern>
-		<url-pattern>/gestion-contenido/crear-pregunta</url-pattern>
-		<url-pattern>/gestion-contenido/crear-reto</url-pattern>
-		<url-pattern>/gestion-contenido/editar-noticia</url-pattern>
-		<url-pattern>/gestion-contenido/editar-pregunta</url-pattern>
-		<url-pattern>/gestion-contenido/editar-reto</url-pattern>
+		<filter-name>RedirectJSP</filter-name>
+		<url-pattern>/jsp/*</url-pattern>
 	</filter-mapping>
 	
 	<!-- =============================================================================== -->
@@ -194,7 +173,7 @@
 
 	<!-- ============================ GESTIÓN CONTENIDO ===================================== -->
 	
-	<!-- TODO: Formulario para la creación de noticias -->
+	<!-- GestionContenido: Página de creación, validación y vista de contenido -->
 	<servlet>
 	    <servlet-name>GestionContenido</servlet-name>
 		<servlet-class>sistinfo.servlets.jsp.gestion.GestionContenidoServlet</servlet-class>
@@ -204,7 +183,7 @@
 	    <url-pattern>/gestion-contenido</url-pattern>
 	</servlet-mapping>
 
-	<!-- TODO: Formulario para la creación de noticias -->
+	<!-- ColaValidacion: Aprobación de contenido subido previamente -->
 	<servlet>
 	    <servlet-name>ColaValidacion</servlet-name>
 		<servlet-class>sistinfo.servlets.jsp.gestion.ColaValidacionServlet</servlet-class>
@@ -329,7 +308,8 @@
 	
 
     <!-- ================ SERVLETS USUARIO ================ -->
-    <!-- TODO comentar una linea -->
+    
+    <!-- RegistrarUsuario: Registro de nuevos usuarios -->
     <servlet>
         <servlet-name>RegistrarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.RegistrarUsuarioServlet</servlet-class>
@@ -339,6 +319,7 @@
         <url-pattern>/registrar/registro</url-pattern>
     </servlet-mapping>
 
+    <!-- IniciarSesion: Formulario de inicio de sesión -->
     <servlet>
         <servlet-name>IniciarSesion</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.IniciarSesionServlet</servlet-class>
@@ -348,6 +329,7 @@
         <url-pattern>/iniciar-sesion/inicio</url-pattern>
     </servlet-mapping>
 
+    <!-- CerrarSesion: Invalida la sesión y vuelve a la página de inicio -->
     <servlet>
         <servlet-name>CerrarSesion</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.CerrarSesionServlet</servlet-class>
@@ -357,6 +339,7 @@
         <url-pattern>/perfil/cerrar-sesion</url-pattern>
     </servlet-mapping>
 
+    <!-- EditarUsuario: Edita los datos de un usuario -->
     <servlet>
         <servlet-name>EditarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.EditarUsuarioServlet</servlet-class>
@@ -366,6 +349,7 @@
         <url-pattern>/perfil/editar-usuario</url-pattern>
     </servlet-mapping>
 
+    <!-- EliminarUsuario: Borra un perfil de usuario de forma definitiva -->
     <servlet>
         <servlet-name>EliminarUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.EliminarUsuarioServlet</servlet-class>
@@ -375,6 +359,7 @@
         <url-pattern>/perfil/eliminar</url-pattern>
     </servlet-mapping>
 
+    <!-- CambiarTipoUsuario: Asciende/desciende un usuario a creador/participante -->
     <servlet>
         <servlet-name>CambiarTipoUsuario</servlet-name>
         <servlet-class>sistinfo.servlets.usuario.CambiarTipoUsuarioServlet</servlet-class>
@@ -382,6 +367,36 @@
     <servlet-mapping>
         <servlet-name>CambiarTipoUsuario</servlet-name>
         <url-pattern>/perfil/cambiar-tipo</url-pattern>
+    </servlet-mapping>
+    
+    <!-- EditarFotoPerfil: Cambia la foto de perfil del usuario registrado -->
+    <servlet>
+        <servlet-name>EditarFotoPerfil</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.EditarFotoPerfilServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditarFotoPerfil</servlet-name>
+        <url-pattern>/perfil/subir-imagen</url-pattern>
+    </servlet-mapping>
+    
+    <!-- EnviarVerificacion: Envia un correo de verificación para el usuario -->
+    <servlet>
+        <servlet-name>EnviarVerificacion</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.EnviarVerificacionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EnviarVerificacion</servlet-name>
+        <url-pattern>/perfil/enviar-verificacion</url-pattern>
+    </servlet-mapping>
+    
+    <!-- VerificarUsuario: Verifica el email de un usuario -->
+    <servlet>
+        <servlet-name>VerificarUsuario</servlet-name>
+        <servlet-class>sistinfo.servlets.usuario.VerificarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VerificarUsuario</servlet-name>
+        <url-pattern>/perfil/verificar</url-pattern>
     </servlet-mapping>
 
     <!-- ============ SERVLETS CONTENIDO ============ -->
@@ -461,7 +476,29 @@
 		<url-pattern>/preguntas/borrar</url-pattern>
 		<url-pattern>/retos/borrar</url-pattern>
 	</servlet-mapping>
-
+	
+	<!-- BorrarComentario: Borra un comentario y todas sus respuestas -->
+    <servlet>
+	    <servlet-name>BorrarComentario</servlet-name>
+		<servlet-class>sistinfo.servlets.contenido.BorrarComentarioServlet</servlet-class>
+	</servlet>
+    <servlet-mapping>
+	    <servlet-name>BorrarComentario</servlet-name>
+		<url-pattern>/noticias/borrar-comentario</url-pattern>
+		<url-pattern>/preguntas/borrar-comentario</url-pattern>
+		<url-pattern>/retos/borrar-comentario</url-pattern>
+	</servlet-mapping>
+	
+    <!-- EditarFotoNoticia: Cambia la foto de una noticia -->
+    <servlet>
+        <servlet-name>EditarFotoNoticia</servlet-name>
+        <servlet-class>sistinfo.servlets.contenido.EditarFotoNoticiaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditarFotoNoticia</servlet-name>
+        <url-pattern>/gestion-contenido/subir-imagen</url-pattern>
+    </servlet-mapping>
+    
     <!-- ========================= WELCOME PAGE ========================= -->
     <welcome-file-list>
         <welcome-file></welcome-file>

@@ -19,6 +19,7 @@
 	<link href="${pageContext.request.contextPath}/fonts/ionicons.css" rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/common/styles.css" rel="stylesheet">
 	<link rel="icon" type="image/jpg" href="${pageContext.request.contextPath}/images/RadTree_Logo_x32.jpg" />
+	<script src="${pageContext.request.contextPath}/common/switchFiltrosScript.js"></script>
 </head>
 <body>
 
@@ -27,7 +28,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Retos</a>
 		</div><!-- container -->
 	</section>
@@ -67,6 +68,50 @@
 							</div>
 							
 						</div>
+						<!-- Abrir Filtros -->
+						<div class="mtb-10">
+							<button class="w-100 btn-fill-grey" id="filtrosButton"
+								type="button"
+								<c:choose>
+									<c:when test="${param.filtroTitulo == 'on'
+												or param.filtroCuerpo == 'on'}">
+										onclick="hideFiltros()"
+									</c:when>
+									<c:otherwise>
+										onclick="showFiltros()"
+									</c:otherwise>
+								</c:choose>>
+								<i class="ion-ios-settings-strong mr-10"></i><b>Filtros</b>
+							</button>
+						</div>
+						<!-- Filtros -->
+						<div class="mtb-10 w-100" id="filtrosDiv"
+							<c:if test="${param.filtroTitulo != 'on'
+										and param.filtroCuerpo != 'on'}">
+								style="display: none"
+							</c:if> >
+							<div class="row w-100">
+								<div class="col-fit">
+									<span class="w-100 m-10 m-sm-5 text alert-wo-margin alert-success">
+										<input class="mr-10" type="checkbox" name="filtroTitulo"
+											<c:if test="${param.filtroTitulo == 'on'}">
+											checked
+											</c:if> />
+										<b>Título</b>
+									</span>
+								</div>
+								<div class="col-fit">
+									<span class="w-100 m-10 m-sm-5 text alert-wo-margin alert-success">
+										<input class="mr-10" type="checkbox" name="filtroCuerpo"
+											<c:if test="${param.filtroCuerpo == 'on'}">
+											checked
+											</c:if> /><b>Cuerpo</b>
+									</span>
+								</div>
+							</div>
+						</div>
+						<!-- Separador -->
+						<h4 class="p-title"></h4>
 					</form>
 				</div>
 				<div class="col-12">
@@ -107,6 +152,17 @@
             </div>
 
 		</div><!-- container -->
+		
+		<%-- Paginacion --%>
+		<c:if test="${not empty requestScope.retos}">
+			<div class="text-center mt-10">
+				<form name="paginacion"
+					action="${pageContext.request.contextPath}/retos" method="post">
+					<%@ include file="/jsp/include/paginacion.jsp"%>
+				</form>
+			</div>
+		</c:if>
+			
 	</section>
 
 	<%@ include file="/jsp/include/footer.jsp" %>

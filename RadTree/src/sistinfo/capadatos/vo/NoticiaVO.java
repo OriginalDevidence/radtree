@@ -4,6 +4,10 @@ import java.sql.Date;
 @SuppressWarnings("serial")
 public class NoticiaVO extends ContenidoVO {
 	
+	public static final int TITULO_MAX = 200;
+	public static final int CUERPO_MAX = 2000;
+	public static final int URL_MAX = 200;
+	
 	private String titulo;
 	private String cuerpo;
 	private String url;

@@ -3,6 +3,8 @@ package sistinfo.capadatos.vo;
 @SuppressWarnings("serial")
 public class RespuestaVO implements java.io.Serializable {
 	
+	public static final int ENUNCIADO_MAX = 200;
+	
 	private Long idRespuesta;	
 	private Long idPregunta;
 	private String enunciado;

@@ -26,7 +26,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10" href="${pageContext.request.contextPath}/gestion-contenido">Gestionar contenido<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Cola de validación</a>
 		</div><!-- container -->
@@ -105,12 +105,19 @@
 						<h5 class="mt-10 mr-15 mb-50"><b>Fecha:</b> <c:out value="${requestScope.contenido.fechaRealizacion}"/></h5>
 						
 						<c:if test="${not empty requestScope.noticia}">
-							<h4 class="p-title mr-15"><b><span class="color-primary">Noticia:</span> <c:out value="${requestScope.noticia.titulo}"/></b></h4>
-							<p class="mt-10 text-justify"><c:out value="${requestScope.noticia.cuerpo}"/></p>
-							<p class="mt-10">
-								<b>URL de la fuente: </b>
-								<a class="link-brdr-btm-primary color-primary" href="<c:out value="${requestScope.noticia.url}"/>"><c:out value="${requestScope.noticia.url}"/></a>
-							</p>
+							<div class="row">
+								<div class="col-12 col-lg-8 mb-30">
+									<h4 class="p-title mr-15"><b><span class="color-primary">Noticia:</span> <c:out value="${requestScope.noticia.titulo}"/></b></h4>
+									<p class="mt-10 text-justify"><c:out value="${requestScope.noticia.cuerpo}"/></p>
+									<p class="mt-10">
+										<b>URL de la fuente: </b>
+										<a class="link-brdr-btm-primary color-primary" href="<c:out value="${requestScope.noticia.url}"/>"><c:out value="${requestScope.noticia.url}"/></a>
+									</p>
+								</div>
+								<div class="col-12 col-lg-4">
+									<img class="w-100 h-auto" src="${requestScope.noticia.urlImagen}" alt="Imagen de la noticia" />
+								</div>
+							</div>
 						</c:if>
 						<c:if test="${not empty requestScope.reto}">
 							<h4 class="p-title mr-15"><b><span class="color-primary">Reto:</span> <c:out value="${requestScope.reto.titulo}"/></b></h4>

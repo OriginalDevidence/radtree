@@ -96,9 +96,12 @@ public class EditarUsuarioServlet extends HttpServlet {
         if (alias == null || alias.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("alias", "Campo obligatorio");
-        } else if (alias.length() < 3) {
+        } else if (alias.length() < UsuarioVO.ALIAS_MIN) {
         	datosCorrectos = false;
         	errors.put("alias", "Demasiado corto");
+        } else if (alias.length() > UsuarioVO.ALIAS_MAX) {
+        	datosCorrectos = false;
+        	errors.put("alias", "Demasiado largo");
         } else if (!FormatChecker.checkAlias(alias)) {
         	datosCorrectos = false;
         	errors.put("alias", "Formato incorrecto");
@@ -128,17 +131,23 @@ public class EditarUsuarioServlet extends HttpServlet {
         if (nombre == null || nombre.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("nombre", "Campo obligatorio");
+        } else if (nombre.length() > UsuarioVO.NOMBRE_MAX) {
+        	datosCorrectos = false;
+        	errors.put("nombre", "Demasiado largo");
         }
         /* APELLIDOS */
         if (apellidos == null || apellidos.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("apellidos", "Campo obligatorio");
+        } else if (apellidos.length() > UsuarioVO.APELLIDOS_MAX) {
+        	datosCorrectos = false;
+        	errors.put("apellidos", "Demasiado largos");
         }
         /* EMAIL */
         if (email == null || email.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("email", "Campo obligatorio");
-        } else if (!FormatChecker.checkEmail(email)) {
+        } else if (email.length() > UsuarioVO.EMAIL_MAX || !FormatChecker.checkEmail(email)) {
         	datosCorrectos = false;
         	errors.put("email", "Formato incorrecto");
         }

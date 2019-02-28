@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.dao.UsuarioDAO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
+import sistinfo.util.CookieManager;
 import sistinfo.util.PBKDF2Hash;
 
 @SuppressWarnings("serial")
@@ -52,6 +53,9 @@ public class IniciarSesionServlet extends HttpServlet {
 					loginError(request, response);
 				} else {
 					// Enviar al perfil y añadir los datos del usuario en la sesión
+					if (request.getParameter("recordar") != null) {
+						CookieManager.addIdCookiesToResponse(response, id);
+					}
 					request.getSession().setAttribute("usuario", usuario);
 					response.sendRedirect(request.getContextPath() + "/perfil");
 				}

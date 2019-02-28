@@ -33,7 +33,7 @@ public class EdicionNoticiaServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-
+		
 		// Comprobar que hay un usuario válido
 		UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 		if (usuario == null || usuario.getTipoUsuario() == TipoUsuario.PARTICIPANTE) {
@@ -42,7 +42,7 @@ public class EdicionNoticiaServlet extends HttpServlet {
 			
 			Map<String, String> errores = new HashMap<String, String>();
 			NoticiaVO noticia = extractNoticiaFromHttpRequest(request, usuario.getIdUsuario(), errores);
-
+			
 			Long idContenido = RequestExtractor.getLong(request, "id");
 			boolean editando = false;
 			if (idContenido != null) {
@@ -101,16 +101,25 @@ public class EdicionNoticiaServlet extends HttpServlet {
         if (titulo == null || titulo.trim().isEmpty()) {
           datosCorrectos = false;
           errors.put("titulo", "Campo obligatorio");
+        } else if (titulo.length() > NoticiaVO.TITULO_MAX) {
+            datosCorrectos = false;
+            errors.put("titulo", "Máx. " + NoticiaVO.TITULO_MAX + " caracteres");
         }
         /* CUERPO */
         if (cuerpo == null || cuerpo.trim().isEmpty()) {
           datosCorrectos = false;
           errors.put("cuerpo", "Campo obligatorio");
+        } else if (cuerpo.length() > NoticiaVO.CUERPO_MAX) {
+            datosCorrectos = false;
+            errors.put("cuerpo", "Máx. " + NoticiaVO.CUERPO_MAX + " caracteres");
         }
         /* URL */
         if (url == null || url.trim().isEmpty()) {
             datosCorrectos = false;
             errors.put("url", "Campo obligatorio");
+        } else if (url.length() > NoticiaVO.URL_MAX) {
+            datosCorrectos = false;
+            errors.put("url", "Máx. " + NoticiaVO.URL_MAX + " caracteres");
         } else if (!FormatChecker.checkUrl(url)) {
         	datosCorrectos = false;
         	errors.put("url", "URL inválida. Debe tener formato 'http://www.example.com'");

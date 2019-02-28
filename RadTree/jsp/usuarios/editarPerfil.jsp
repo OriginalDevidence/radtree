@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title><c:out value="${sessionScope.usuario.alias}"/> - Editar perfil</title>
+	<title>Editar perfil - RadTree</title>
 	<meta name="description" content="Formulario para editar los datos del perfil">
 	<meta name="author" content="Grupo A: Gregorio Largo, Alonso Muñoz y Diego Royo">
 	
@@ -27,9 +27,8 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
-			<!-- TODO -->
-			<a class="mt-10" href="perfil.jsp?alias=<c:out value="${sessionScope.usuario.alias}"/>">Perfil de <c:out value="${sessionScope.usuario.alias}"/><i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/perfil">Perfil de <c:out value="${sessionScope.usuario.alias}"/><i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Editar perfil</a>
 		</div><!-- container -->
 	</section>
@@ -102,15 +101,6 @@
 							</div>
 
 						</div>
-
-						<div class="row">
-							<div class="col-12">
-								<label for="imagen">Foto de perfil</label>
-							</div>
-							<div class="col-12">
-								<input class="m-5" type="file" name="imagen"/>
-							</div>
-						</div>
 						
 						<div class="row mb-50">
 							<div class="col-sm-12 mt-20">
@@ -123,15 +113,30 @@
 				</div>
 
 				<div class="col-md-12 col-lg-4">
-					<h3 class="p-title mb-30">
-						<b>Eliminar perfil</b>
-					</h3>
-					<p>Ten cuidado, una vez eliminado no se puede volver atrás.</p>
-					<a
-						href="${pageContext.request.contextPath}/perfil/eliminar"
-						class="w-100 dplay-block btn-brdr-red mt-30 mb-md-50">
-						<b>Eliminar perfil</b>
-					</a>
+					<div class="row">
+						<div class="col-12">
+							<h3 class="p-title mb-30">
+								<b>Foto de perfil</b>
+							</h3>
+							<p class="mb-20">Los formatos aceptados son jpg, jpeg y png. Tamaño máximo de fichero 5 MB.</p>
+							<p class="mb-20"><i>Nota: solamente se aceptan imágenes cuadradas, no rectangulares.</i></p>
+							<form name="editarFoto" action="${pageContext.request.contextPath}/perfil/subir-imagen" method="post" enctype="multipart/form-data">
+								<input class="m-5" type="file" name="imagen" accept=".jpg, .jpeg, .png"/>
+								<button class="mt-20 w-100 btn-fill-primary" type="submit"><b>Subir imagen</b></button>
+							</form>
+						</div>
+						<div class="col-12">
+							<h3 class="p-title mt-50 mb-30">
+								<b>Eliminar perfil</b>
+							</h3>
+							<p>Ten cuidado, una vez eliminado no se puede volver atrás.</p>
+							<a
+								href="${pageContext.request.contextPath}/perfil/eliminar"
+								class="w-100 dplay-block btn-brdr-red mt-30 mb-md-50">
+								<b>Eliminar perfil</b>
+							</a>
+						</div>
+					</div>
 				</div>
 
 			</div>

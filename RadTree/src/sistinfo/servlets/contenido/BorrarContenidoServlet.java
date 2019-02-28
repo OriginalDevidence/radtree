@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import sistinfo.capadatos.dao.ContenidoDAO;
 import sistinfo.capadatos.vo.ContenidoVO.Estado;
 import sistinfo.capadatos.vo.UsuarioVO.TipoUsuario;
+import sistinfo.excepciones.ErrorInternoException;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.util.RequestExtractor;
 
@@ -33,15 +34,22 @@ public class BorrarContenidoServlet extends HttpServlet {
         if (usuario == null || usuario.getTipoUsuario() != TipoUsuario.ADMINISTRADOR) {
         	response.sendRedirect(request.getContextPath() + "/iniciar-sesion");
         } else {
-        	// Modificar el estado si aprueba o deniega el contenido
+        	// Modificar el estado del contenido con id pasado por parametro a borrado
+        	// y volver a redirect
             Long idContenido = RequestExtractor.getLong(request, "id");
             String redirect = request.getParameter("redirect");
             
             if (idContenido != null && redirect != null) {
             	ContenidoDAO contenidoDAO = new ContenidoDAO();
-            	contenidoDAO.updateEstado(idContenido, Estado.BORRADO);
+            	try {
+					contenidoDAO.updateEstado(idContenido, Estado.BORRADO);
+		        	response.sendRedirect(request.getContextPath() + "/" + redirect);
+				} catch (ErrorInternoException e) {
+					response.sendRedirect(request.getContextPath() + "/error-interno");
+				}
+            } else {
+            	response.sendRedirect(request.getContextPath() + "/error-interno");
             }
-        	response.sendRedirect(request.getContextPath() + "/" + redirect);
         }
         
         

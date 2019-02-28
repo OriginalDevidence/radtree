@@ -26,7 +26,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">¿Quienes somos?</a>
 		</div><!-- container -->
 	</section>
@@ -39,31 +39,23 @@
 					<h3 class="mb-30"><b>¿Quienes somos?</b></h3>
                     <p class="mb-20 text-justify">
                         El departamento de Ingeniería Química y Tecnologías del Medio Ambiente
-                        está realizando un proyecto cuyo objetivo es informar a la población
-                        sobre los peligros medioambientales y sus mitos relacionados, y cómo
-                        llegar a un mundo sostenible. Además busca recopilar información acerca
-                        de la concienciación que tienen las personas sobre la importancia de este tema.
+                        de la Universidad de Zaragoza está realizando un proyecto cuyo objetivo
+                        es informar a la población sobre los peligros medioambientales y sus mitos
+                        relacionados, y cómo llegar a un mundo sostenible. Además busca recopilar
+                        información acerca de la concienciación que tienen las personas sobre la
+                        importancia de este tema. Estos objetivos se intentan llevar a cabo mediante
+                        tres formas diferentes: noticias, preguntas y retos. 
+                    </p>
+					<h3 class="mb-30"><b>¿Qué puedo hacer para ayudar?</b></h3>
+                    <p class="mb-20 text-justify">
+                        El contenido de esta web es creado por los alumnos de la Universidad de Zaragoza.
+                        Si estás interesado en subir cualquier contenido, puedes registrarte con tu e-mail
+                        de la Universidad de Zaragoza, y al validar tu correo obtendrás permisos para subir
+                        tu contenido.
                     </p>
                     <p class="mb-20 text-justify">
-                        Estos objetivos se intentan llevar a cabo mediante tres formas diferentes:
-                        Noticias, preguntas y retos. Para generar estos contenidos se ha decidido
-                        involucrar a alumnos universitarios, de la asignatura de ingeniería del medio
-                        ambiente, que deberán presentar un cartel por grupos al profesor encargado
-                        de la asignatura. Este cartel contendrá diferentes secciones: una noticia,
-                        una pregunta (ya sea de conocimiento o de opinión) y un reto.
-                    </p>
-                    <p class="mb-20 text-justify">
-                        Las noticias tratan de sucesos o casos de actualidad relacionados con el
-                        tema del medioambiente. Por otro lado, las preguntas son de opción múltiple y
-                        son de conocimiento o de opinión. Finalmente se plantean retos a los participantes
-                        que intentan que el usuario haga un pequeño esfuerzo para hacer una buena labor
-                        por el medio ambiente.
-                    </p>
-                    <p class="mb-20 text-justify">
-                        Al finalizar el proyecto, los alumnos entregan los carteles a sus respectivos
-                        profesores, que se encargan de elegir los mejores contenidos entre todos los
-                        carteles que han sido presentados y crear uno con las mejores secciones de estos.
-                        En el apartado de bibliografía se pueden ver varios ejemplos de carteles completados.
+                        Si quieres colaborar pero no dispones de un correo universitario, puedes ponerte
+                        en contacto con los administradores para obtener permisos de subir contenido.
                     </p>
                 </div>
             </div> 

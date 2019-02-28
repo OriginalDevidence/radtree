@@ -21,6 +21,7 @@ import sistinfo.capadatos.vo.RespuestaVO;
 import sistinfo.capadatos.vo.RetoVO;
 import sistinfo.capadatos.vo.UsuarioVO;
 import sistinfo.excepciones.ErrorInternoException;
+import sistinfo.util.NoticiaPictureManager;
 import sistinfo.util.ProfilePictureManager;
 import sistinfo.util.RequestExtractor;
 
@@ -142,6 +143,12 @@ public class IncludeInRequest {
 				Long idAutor = null;
 				if (noticia != null) {
 					idAutor = noticia.getIdAutor();
+					String path = NoticiaPictureManager.getPathForId(noticia.getIdContenido());
+					if (request.getSession().getServletContext().getResource(path) != null) {
+						noticia.setUrlImagen(request.getContextPath() + "/" + path);
+					} else {
+						noticia.setUrlImagen(request.getContextPath() + "/" + NoticiaPictureManager.getDefaultPath());
+					}
 					request.setAttribute("contenido", noticia);
 					request.setAttribute("noticia", noticia);
 				} else {
@@ -220,7 +227,6 @@ public class IncludeInRequest {
 				// No ha pasado ningun parámetro por request, mostrar su perfil por defecto
 				UsuarioVO usuario = (UsuarioVO)request.getSession().getAttribute("usuario");
 				request.setAttribute("usuario", usuario);
-				
 				return true;
 
 			// No sabemos qué usuario mostrar
@@ -233,6 +239,7 @@ public class IncludeInRequest {
 		}
 				
 	}
+	
 	
 	/**
      * Incluye en la request la noticia pasada por el parámetro ID, en el atributo noticia (NoticiaVO)
@@ -254,6 +261,7 @@ public class IncludeInRequest {
 			if (idContenido == null || idContenido <= 0L) {
 				// No sabemos qué reto mostrar
 				response.sendRedirect(request.getContextPath() + "/noticias");
+				return false;
 			}
 		}
 		if (idContenido != null && idContenido > 0L) {
@@ -274,11 +282,11 @@ public class IncludeInRequest {
 					if (usuario == null) {
 			            response.sendRedirect(request.getContextPath() + "/error-interno");
 					} else {
-						String path = "images/noticias/" + noticia.getIdContenido() + ".jpg";
+						String path = NoticiaPictureManager.getPathForId(noticia.getIdContenido());
 						if (request.getSession().getServletContext().getResource(path) != null) {
 							noticia.setUrlImagen(request.getContextPath() + "/" + path);
 						} else {
-							noticia.setUrlImagen(request.getContextPath() + "/images/noticias/default.jpg");
+							noticia.setUrlImagen(request.getContextPath() + "/" + NoticiaPictureManager.getDefaultPath());
 						}
 						request.setAttribute("noticia", noticia);
 						request.setAttribute("autorAlias", usuario.getAlias());

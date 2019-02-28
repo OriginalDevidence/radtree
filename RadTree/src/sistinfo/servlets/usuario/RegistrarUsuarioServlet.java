@@ -47,7 +47,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
 				UsuarioDAO usuarioDAO = new UsuarioDAO();
 				Long nuevoId = usuarioDAO.insertUsuario(usuario);
 				usuario.setIdUsuario(nuevoId);
-
+				
 				// Enviar al perfil y añadir los datos del usuario en la sesión
 				request.getSession().setAttribute("usuario", usuario);
 				response.sendRedirect(request.getContextPath() + "/perfil");
@@ -82,7 +82,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
      * @return El usuario si se ha extraido correctamente, o null
      */
 	public UsuarioVO extractUsuarioFromHttpRequest(HttpServletRequest request, Map<String, String> errors, List<String> errorsArriba) {
-		
+
     	String alias = request.getParameter("alias");
         String nacimientoString = request.getParameter("nacimiento");
         java.sql.Date nacimiento = null;
@@ -97,11 +97,15 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         if (alias == null || alias.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("alias", "Campo obligatorio");
-        	errorsArriba.add("Un alias debe tener al menos 3 caracteres.");
-        } else if (alias.length() < 3) {
+        	errorsArriba.add("Un alias debe tener al menos " + UsuarioVO.ALIAS_MIN + " caracteres.");
+        } else if (alias.length() < UsuarioVO.ALIAS_MIN) {
         	datosCorrectos = false;
         	errors.put("alias", "Demasiado corto");
-        	errorsArriba.add("Un alias debe tener al menos 3 caracteres.");
+        	errorsArriba.add("Un alias debe tener al menos " + UsuarioVO.ALIAS_MIN + " caracteres.");
+        } else if (alias.length() > UsuarioVO.ALIAS_MAX) {
+        	datosCorrectos = false;
+        	errors.put("alias", "Demasiado largo");
+        	errorsArriba.add("Un alias debe tener " + UsuarioVO.ALIAS_MAX + " caracteres máximo.");
         } else if (!FormatChecker.checkAlias(alias)) {
         	datosCorrectos = false;
         	errors.put("alias", "Formato incorrecto");
@@ -136,17 +140,25 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         if (nombre == null || nombre.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("nombre", "Campo obligatorio");
+        } else if (nombre.length() > UsuarioVO.NOMBRE_MAX) {
+        	datosCorrectos = false;
+        	errors.put("nombre", "Demasiado largo");
+        	errorsArriba.add("Un nombre debe tener " + UsuarioVO.NOMBRE_MAX + " caracteres máximo.");
         }
         /* APELLIDOS */
         if (apellidos == null || apellidos.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("apellidos", "Campo obligatorio");
+        } else if (apellidos.length() > UsuarioVO.APELLIDOS_MAX) {
+        	datosCorrectos = false;
+        	errors.put("apellidos", "Demasiado largos");
+        	errorsArriba.add("Los apellidos deben tener " + UsuarioVO.APELLIDOS_MAX + " caracteres máximo.");
         }
         /* EMAIL */
         if (email == null || email.trim().isEmpty()) {
         	datosCorrectos = false;
         	errors.put("email", "Campo obligatorio");
-        } else if (!FormatChecker.checkEmail(email)) {
+        } else if (email.length() > UsuarioVO.EMAIL_MAX || !FormatChecker.checkEmail(email)) {
         	datosCorrectos = false;
         	errors.put("email", "Formato incorrecto");
         	errorsArriba.add("La dirección de email no es válida");
@@ -172,7 +184,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         if (datosCorrectos) {
     		String claveHash = PBKDF2Hash.hash(clave.toCharArray());
     		if (claveHash != null) {
-    			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, claveHash, TipoUsuario.PARTICIPANTE, 0.0);
+    			return new UsuarioVO(alias, nombre, apellidos, nacimiento, email, false, claveHash, TipoUsuario.PARTICIPANTE, 0.0);
     		}
         }
         return null;

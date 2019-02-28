@@ -27,7 +27,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Registro</a>
 		</div><!-- container -->
 	</section>
@@ -127,15 +127,6 @@
 								<input class="mt-5" type="password" name="reclave" placeholder="Repite la contraseña"/>
 							</div>
 
-						</div>
-
-						<div class="row">
-							<div class="col-12">
-								<label for="imagen">Foto de perfil</label>
-							</div>
-							<div class="col-12">
-								<input class="m-5" type="file" name="imagen"/>
-							</div>
 						</div>
 						
 						<div class="row mt-40">

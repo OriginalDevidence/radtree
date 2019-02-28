@@ -23,153 +23,156 @@
 	
 	<%@ include file="/jsp/include/header.jsp" %>
 	
+	<section class="pt-0">
 	<div class="container">
-
-		<div class="h-600x h-sm-auto">
-
-			<div class="w-2-3 w-sm-100 h-100 h-sm-100 float-left float-sm-none oflow-hidden">
+		<div class="row">
+			<div class="col-12 col-lg-8">
+			
+				<div class="h-600x h-sm-auto">
 		
-				<!-- NOTICIAS -->
-				<div class="pb-5 pr-5 pr-sm-0 float-left float-sm-none w-100 w-sm-100 h-2-3 h-sm-300x">
-					<div class="pos-relative h-100 dplay-block">
-						<form name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
-							<input type="hidden" name="id" value="<c:out value="${requestScope.indexNoticia1.idContenido}"/>"/>
-							<button type="submit">
-								<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${requestScope.indexNoticia1.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
-								
-								<div class="abs-blr color-white p-20 bg-sm-color-7">
-									<h3 class="w-100 mb-10 font-14 font-sm-13 font-sans text-left"><b><c:out value="${requestScope.indexNoticia1.titulo}"/></b></h3>
-									<ul class="float-left list-li-mr-20">
-										<li class="float-left text-left font-11 font-sans mt-5"><c:out value="${requestScope.indexNoticia1.fechaRealizacion}"/></li>
-										<li class="float-left text-left font-11 font-sans">
-											<i class="color-primary mr-5 font-12 ion-ios-bolt"></i>
-											<c:out value="${requestScope.indexNoticia1.numVisitas}"/>
-										</li>
-										<li class="float-left text-left font-11 font-sans">
-											<i class="color-primary mr-5 font-12 ion-chatbubbles"></i>
-											<c:out value="${requestScope.indexNoticia1.numComentarios}"/>
-										</li>
-									</ul>
-								</div>
-							</button>
-						</form>
-					</div>
-				</div>
+					<div class="h-100 w-100 float-left float-sm-none oflow-hidden">
 				
-				<div class="pr-5 pr-sm-0 pt-5 float-left float-sm-none pos-relative w-50 w-sm-100 h-1-3 h-sm-300x">
-					<div class="pos-relative h-100 dplay-block">
-						<form name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
-							<input type="hidden" name="id" value="<c:out value="${requestScope.indexNoticia2.idContenido}"/>"/>
-							<button type="submit">
-								<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${requestScope.indexNoticia2.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
-								
-								<div class="abs-blr color-white p-20 bg-sm-color-7">
-									<h3 class="w-100 mb-10 float-left font-13 font-sans text-left"><b><c:out value="${requestScope.indexNoticia2.titulo}"/></b></h3>
-									<ul class="float-left list-li-mr-20">
-										<li class="float-left text-left font-11 font-sans mt-5"><c:out value="${requestScope.indexNoticia2.fechaRealizacion}"/></li>
-										<li class="float-left text-left font-11 font-sans">
-											<i class="color-primary mr-5 font-12 ion-ios-bolt"></i>
-											<c:out value="${requestScope.indexNoticia2.numVisitas}"/>
-										</li>
-										<li class="float-left text-left font-11 font-sans">
-											<i class="color-primary mr-5 font-12 ion-chatbubbles"></i>
-											<c:out value="${requestScope.indexNoticia2.numComentarios}"/>
-										</li>
-									</ul>
-								</div>
-							</button>
-						</form>
-					</div>
-				</div>
-				
-				<div class="pr-5 pr-sm-0 pt-5 float-left float-sm-none pos-relative w-50 w-sm-100 h-1-3 h-sm-300x">
-					<div class="pos-relative h-100 dplay-block">
-						<form name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
-							<input type="hidden" name="id" value="<c:out value="${requestScope.indexNoticia3.idContenido}"/>"/>
-							<button type="submit">
-								<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${requestScope.indexNoticia3.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
-								
-								<div class="abs-blr color-white p-20 bg-sm-color-7">
-									<h3 class="w-100 mb-10 float-left font-13 font-sans text-left"><b><c:out value="${requestScope.indexNoticia3.titulo}"/></b></h3>
-									<ul class="float-left list-li-mr-20">
-										<li class="float-left text-left font-11 font-sans mt-5"><c:out value="${requestScope.indexNoticia3.fechaRealizacion}"/></li>
-										<li class="float-left text-left font-11 font-sans">
-											<i class="color-primary mr-5 font-12 ion-ios-bolt"></i>
-											<c:out value="${requestScope.indexNoticia3.numVisitas}"/>
-										</li>
-										<li class="float-left text-left font-11 font-sans">
-											<i class="color-primary mr-5 font-12 ion-chatbubbles"></i>
-											<c:out value="${requestScope.indexNoticia3.numComentarios}"/>
-										</li>
-									</ul>
-								</div>
-							</button>
-						</form>
-					</div>
-				</div>
-
-			</div>
-			
-			<div class="w-1-3 w-sm-100 h-100 h-sm-100 float-left float-sm-none oflow-hidden">
-
-				<div class="pl-5 pl-sm-0 pt-0 pt-sm-20 float-left float-sm-none pos-relative w-100 w-sm-100 h-100 h-sm-100">
-					<div class="p-20 p-sm-10">
-						<h4 class="p-title mb-20"><b>Pregunta del día</b></h4>
-						<h5 class="mb-5"><c:out value="${requestScope.indexPregunta.enunciado}"/></h5>
-						<form name="verPregunta" action="${pageContext.request.contextPath}/preguntas/ver" method="post">
-							<input type="hidden" name="id" value="<c:out value="${requestScope.indexPregunta.idContenido}"/>"/>
-							<button type="submit" class="mt-15 color-primary link-brdr-btm-primary"><b>Responder a la pregunta</b></button>
-						</form>
-						<hr class="mtb-25">
-						<h4 class="p-title mb-20"><b>Reto del día</b></h4>
-						<h5 class="mb-10"><b><c:out value="${requestScope.indexReto.titulo}"/></b></h5>
-						<p><c:out value="${requestScope.indexReto.cuerpo}"/></p>
-						<form name="verReto" action="${pageContext.request.contextPath}/retos/ver" method="post">
-							<input type="hidden" name="id" value="<c:out value="${requestScope.indexReto.idContenido}"/>"/>
-							<button type="submit" class="mt-15 color-primary link-brdr-btm-primary"><b>Ver el reto</b></button>
-						</form>
-					</div>
-				</div>
-
-			</div>
-
-		</div><!-- h-100vh -->
-	</div><!-- container -->
-	
-	<section>
-		<div class="container">
-			<div class="row">
-			
-				<div class="col-md-12 col-lg-8">
-					<h4 class="p-title"><b>¿Quiénes somos?</b></h4>
-					<div class="row">
-					
-						<div class="col-12">
-							<p class="mb-10">RadTree es un proyecto de la Universidad de Zaragoza cuya misión es intentar concienciar más al público sobre los peligros medioambientales y sus mitos relacionados, y como llegar a un mundo sostenible. Puedes participar respondiendo a preguntas o participando en los retos planteados.</p>
-							<p class="mb-10">Respondiendo a las preguntas participas en una clasificación global de todos los usuarios.</p>
-							<p>¿Te crees capaz de llegar a la cima?</p>
+						<!-- NOTICIAS -->
+						<div class="pb-5 pr-5 pr-sm-0 float-left float-sm-none w-100 w-sm-100 h-2-3 h-sm-300x">
+							<div class="pos-relative h-100 dplay-block">
+								<form class="w-100 h-100" name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+									<input type="hidden" name="id" value="<c:out value="${requestScope.indexNoticia1.idContenido}"/>"/>
+									<button class="w-100 h-100"  type="submit">
+										<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${requestScope.indexNoticia1.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
+										
+										<div class="abs-blr color-white p-20 bg-sm-color-7">
+											<h3 class="w-100 mb-10 font-14 font-sm-13 font-sans text-left"><b><c:out value="${requestScope.indexNoticia1.titulo}"/></b></h3>
+											<ul class="float-left list-li-mr-20">
+												<li class="float-left text-left font-11 font-sans mt-5"><c:out value="${requestScope.indexNoticia1.fechaRealizacion}"/></li>
+												<li class="float-left text-left font-11 font-sans">
+													<i class="color-primary mr-5 font-12 ion-ios-bolt"></i>
+													<c:out value="${requestScope.indexNoticia1.numVisitas}"/>
+												</li>
+												<li class="float-left text-left font-11 font-sans">
+													<i class="color-primary mr-5 font-12 ion-chatbubbles"></i>
+													<c:out value="${requestScope.indexNoticia1.numComentarios}"/>
+												</li>
+											</ul>
+										</div>
+									</button>
+								</form>
+							</div>
 						</div>
-
+						
+						<div class="pr-5 pr-sm-0 pt-5 float-left float-sm-none pos-relative w-50 w-sm-100 h-1-3 h-sm-300x">
+							<div class="pos-relative h-100 dplay-block">
+								<form class="w-100 h-100" name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+									<input type="hidden" name="id" value="<c:out value="${requestScope.indexNoticia2.idContenido}"/>"/>
+									<button class="w-100 h-100" type="submit">
+										<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${requestScope.indexNoticia2.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
+										
+										<div class="abs-blr color-white p-20 bg-sm-color-7">
+											<h3 class="w-100 mb-10 float-left font-13 font-sans text-left"><b><c:out value="${requestScope.indexNoticia2.titulo}"/></b></h3>
+											<ul class="float-left list-li-mr-20">
+												<li class="float-left text-left font-11 font-sans mt-5"><c:out value="${requestScope.indexNoticia2.fechaRealizacion}"/></li>
+												<li class="float-left text-left font-11 font-sans">
+													<i class="color-primary mr-5 font-12 ion-ios-bolt"></i>
+													<c:out value="${requestScope.indexNoticia2.numVisitas}"/>
+												</li>
+												<li class="float-left text-left font-11 font-sans">
+													<i class="color-primary mr-5 font-12 ion-chatbubbles"></i>
+													<c:out value="${requestScope.indexNoticia2.numComentarios}"/>
+												</li>
+											</ul>
+										</div>
+									</button>
+								</form>
+							</div>
+						</div>
+						
+						<div class="pr-5 pr-sm-0 pt-5 float-left float-sm-none pos-relative w-50 w-sm-100 h-1-3 h-sm-300x">
+							<div class="pos-relative h-100 dplay-block">
+								<form class="w-100 h-100"  name="noticia" action="${pageContext.request.contextPath}/noticias/ver" method="post">
+									<input type="hidden" name="id" value="<c:out value="${requestScope.indexNoticia3.idContenido}"/>"/>
+									<button class="w-100 h-100"  type="submit">
+										<div class="img-bg bg-grad-layer-6" style="background: url(<c:out value="${requestScope.indexNoticia3.urlImagen}"/>) no-repeat center; background-size: cover;"></div>
+										
+										<div class="abs-blr color-white p-20 bg-sm-color-7">
+											<h3 class="w-100 mb-10 float-left font-13 font-sans text-left"><b><c:out value="${requestScope.indexNoticia3.titulo}"/></b></h3>
+											<ul class="float-left list-li-mr-20">
+												<li class="float-left text-left font-11 font-sans mt-5"><c:out value="${requestScope.indexNoticia3.fechaRealizacion}"/></li>
+												<li class="float-left text-left font-11 font-sans">
+													<i class="color-primary mr-5 font-12 ion-ios-bolt"></i>
+													<c:out value="${requestScope.indexNoticia3.numVisitas}"/>
+												</li>
+												<li class="float-left text-left font-11 font-sans">
+													<i class="color-primary mr-5 font-12 ion-chatbubbles"></i>
+													<c:out value="${requestScope.indexNoticia3.numComentarios}"/>
+												</li>
+											</ul>
+										</div>
+									</button>
+								</form>
+							</div>
+						</div>
+		
 					</div>
-					<a class="dplay-block btn-brdr-primary mt-30 mb-md-50" href="${pageContext.request.contextPath}/quienes-somos"><b>Haz click aquí para saber más sobre nosotros</b></a>
 				</div>
-				
-				<div class="d-none d-md-block d-lg-none col-md-3"></div>
-				<div class="col-md-12 col-lg-4">
-					<div class="mb-md-0">
-						<h4 class="p-title"><b>Newsletter</b></h4>
-						<p class="mb-20">¡Suscríbete a nuestra newsletter para recibir notificaciones sobre actualizaciones, nuevas preguntas y mucho más!</p>
-						<form class="nwsltr-primary-1" method="post">
-							<input type="text" placeholder="Email"/>
-							<button><i class="ion-ios-paperplane"></i></button>
-						</form>
+			</div>
+					
+			<div class="col-12 col-lg-4">
+				<div class="h-100 w-100 float-left float-sm-none oflow-hidden">
+	
+					<div class="pl-5 pl-sm-0 pt-0 pt-sm-20 float-left float-sm-none pos-relative w-100 w-sm-100 h-100 h-sm-100">
+						<div class="pt-10 p-sm-10">
+							<h4 class="p-title mb-20"><b>Pregunta del día</b></h4>
+							<h5 class="mb-5"><c:out value="${requestScope.indexPregunta.enunciado}"/></h5>
+							<form name="verPregunta" action="${pageContext.request.contextPath}/preguntas/ver" method="post">
+								<input type="hidden" name="id" value="<c:out value="${requestScope.indexPregunta.idContenido}"/>"/>
+								<button type="submit" class="mt-15 color-primary link-brdr-btm-primary"><b>Responder a la pregunta</b></button>
+							</form>
+							<hr class="mtb-25">
+							<h4 class="p-title mb-20"><b>Reto del día</b></h4>
+							<h5 class="mb-10"><b><c:out value="${requestScope.indexReto.titulo}"/></b></h5>
+							<p><c:out value="${requestScope.indexReto.cuerpo}"/></p>
+							<form name="verReto" action="${pageContext.request.contextPath}/retos/ver" method="post">
+								<input type="hidden" name="id" value="<c:out value="${requestScope.indexReto.idContenido}"/>"/>
+								<button type="submit" class="mt-15 color-primary link-brdr-btm-primary"><b>Ver el reto</b></button>
+							</form>
+						</div>
 					</div>
+	
 				</div>
-				
 			</div>
 		</div>
-	</section>
+		<div class="row">
+		
+			<div class="col-md-12 col-lg-8 mt-30">
+				<h4 class="p-title"><b>¿Quiénes somos?</b></h4>
+				<div class="row">
+				
+					<div class="col-12">
+						<p class="mb-10 text-justify">RadTree es un proyecto de la Universidad de Zaragoza cuya misión es intentar concienciar más al público sobre los peligros medioambientales y sus mitos relacionados, y como llegar a un mundo sostenible. Puedes participar respondiendo a preguntas o participando en los retos planteados.</p>
+						<p class="mb-10 text-justify">Respondiendo a las preguntas participas en una clasificación global de todos los usuarios.</p>
+						<p>¿Te crees capaz de llegar a la cima?</p>
+					</div>
 	
+				</div>
+				<a class="w-100 btn-brdr-primary mt-30 plr-20" href="${pageContext.request.contextPath}/quienes-somos"><b>¡Haz click aquí si quieres saber más!</b></a>
+			</div>
+			
+			<div class="d-none d-md-block d-lg-none col-md-3"></div>
+			<div class="col-md-12 col-lg-4 mt-30">
+				<div class="mb-md-0">
+					<h4 class="p-title"><b>Newsletter</b></h4>
+					<p class="mb-20">¡Suscríbete a nuestra newsletter para recibir notificaciones sobre actualizaciones, nuevas preguntas y mucho más!</p>
+					<p class="mb-20"><i>(Nota: no está implementado)</i></p>
+					<form class="nwsltr-primary-1" method="post">
+						<input type="text" placeholder="Email"/>
+						<button><i class="ion-ios-paperplane"></i></button>
+					</form>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	</section>
+
 	<%@ include file="/jsp/include/footer.jsp" %>
 	
 	<!-- SCRIPTS -->

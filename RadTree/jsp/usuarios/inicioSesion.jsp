@@ -27,7 +27,7 @@
 	<section class="ptb-0">
 		<div class="mb-30 brdr-ash-1 opacty-5"></div>
 		<div class="container">
-			<a class="mt-10" href="${pageContext.request.contextPath}"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
+			<a class="mt-10" href="${pageContext.request.contextPath}/"><i class="mr-5 ion-ios-home"></i>Inicio<i class="mlr-10 ion-chevron-right"></i></a>
 			<a class="mt-10 color-ash" href="#">Iniciar sesión</a>
 		</div><!-- container -->
 	</section>
@@ -50,25 +50,27 @@
 							<div class="col-12">
 								<label for="identificador">Email o alias</label>
 								<input type="text" name="identificador" placeholder="Email o alias"
-									value="<c:out value="${param.identificador}"/>"/>
+									value="<c:out value="${param.identificador}"/><c:out value="${requestScope.identificadorCookies}"/>"/>
 							</div>
 							
 							<div class="col-12">
 								<label for="clave">Contraseña</label>
 								<input type="password" name="clave" placeholder="Contraseña"/>
 							</div>
-
+							
 						</div>
 						
-						<div class="row mt-20">
+						<div class="row">
 							<div class="col-12">
-								<button class="w-100 btn-fill-primary" type="submit"><b>Iniciar sesión</b></button>
+								<p>
+									<input class="w-auto h-auto m-5 p-5" type="checkbox" name="recordar"/>
+									Recordar nombre de usuario
+								</p>
+								<button class="mt-20 w-100 btn-fill-primary" type="submit"><b>Iniciar sesión</b></button>
 							</div>
 						</div>
 					
 					</form>
-
-					<a class="mt-30 color-primary link-brdr-btm-primary" href="04_olvidoClave.html"><b>¿Olvidaste tu contraseña?</b></a>
 					
 				</div>
 

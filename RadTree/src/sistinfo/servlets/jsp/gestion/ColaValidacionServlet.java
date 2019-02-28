@@ -3,14 +3,14 @@ package sistinfo.servlets.jsp.gestion;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sistinfo.servlets.jsp.FooterServlet;
 import sistinfo.servlets.jsp.util.IncludeInRequest;
 
 @SuppressWarnings("serial")
-public class ColaValidacionServlet extends HttpServlet {
+public class ColaValidacionServlet extends FooterServlet {
 
     /**
      * Redirect a doPost de la misma clase
@@ -26,7 +26,8 @@ public class ColaValidacionServlet extends HttpServlet {
      * Recibe 1 parámetro número (index) del contenido a mostrar en la cola de validación
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
+    	super.doPost(request, response);
+    	
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	

@@ -562,6 +562,18 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 .lista-titulos li:hover span{ color:white; }
 .lista-titulos li:hover i{ color:white; }
 
+/* LINK PARA COMPARTIR */
+
+.hidden-input { margin-left: 9999px; }
+
+.share-link{ width: fit-content; border: 2px solid #0cc300; }
+.share-link:hover { background-color: #0cc300; }
+.share-link > input{ margin-left: 9999px; }
+.share-link > i{ padding-left: 20px; font-size: 1.2em; }
+.share-link:hover { color: #ffffff; }
+.share-link > .link{ padding: 10px 20px 10px 10px; font-size: 0.9em; font-weight: 400; }
+.share-link > .link:hover { color: #ffffff; }
+
 /* INDIVIDUAL STYLING */
 
 section{ padding: 50px 0; }
@@ -1284,6 +1296,7 @@ section{ padding: 50px 0; }
 .mr-30{ margin-right: 30px!important; }
 .mr-40{ margin-right: 40px!important; }
 .mr-50{ margin-right: 50px!important; }
+.mr-70{ margin-right: 70px!important; }
 .mr-100{ margin-right: 100px!important; }
 .mr-110{ margin-right: 110px!important; }
 .mr-115{ margin-right: 115px!important; }
