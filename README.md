@@ -1,54 +1,56 @@
 # RadTree
 
-Prácticas de Sistemas de Información 2018-19
+Prácticas de Sistemas de Información 2018-19, con temática de medio ambiente.
 
+**Autores:**
 - Diego Royo Meneses (<740388@unizar.es>)
 - Alonso Muñoz García (<745016@unizar.es>)
 - Gregorio Largo Mayor (<746621@unizar.es>)
 
-## Mapeo de las páginas
+Aplicación web desarrollada con JEE para su uso en Apache Tomcat, con capa de datos provista por un SBGD MySQL.
 
-- /
-- /registrar
-- /iniciar-sesion
-- /perfil _(recibe por POST el alias de usuario)_
-- /perfil/editar
-- /noticias
-  - /noticias/ver _(recibe por POST el ID de contenido)_
-- /preguntas
-  - /preguntas/ver _(recibe por POST el ID de contenido)_
-- /retos
-  - /retos/ver _(recibe por POST el ID de contenido)_
-- /quienes-somos
-- /clasificacion
-- /gestion-contenido
-  - /gestion-contenido/crear-noticia
-  - /gestion-contenido/editar-noticia _(recibe por POST el ID de contenido)_
-  - /gestion-contenido/crear-pregunta
-  - /gestion-contenido/editar-pregunta _(recibe por POST el ID de contenido)_
-  - /gestion-contenido/crear-reto
-  - /gestion-contenido/editar-reto _(recibe por POST el ID de contenido)_
-- /error-interno
+RadTree es un portal donde los usuarios registrados pueden subir contenido relacionado con el medio ambiente. Este contenido puede consistir de:
+  - **Noticias:** artículos de interés, resumidos.
+  - **Preguntas:** si son respondidas correctamente, el usuario gana puntos y con ellos puede competir con el resto de miembros en la clasificación global.
+  - **Retos:** propuestas de mejora, con el objetivo de ser más respetuoso con el medio ambiente.
 
-## Pasos para crear un proyecto Eclipse Java EE
+Otras características principales de la aplicación son:
+  - Registro e inicio de sesión
+  - Verificación del email asociado a la cuenta
+  - Búsqueda de usuarios
+  - Clasificación global de usuarios según puntos obtenidos y preguntas contestadas
+  - Portal de gestión de contenido, donde los usuarios autorizados pueden crear y subir nuevas noticias, preguntas o retos
+    - Inicialmente, este contenido debe pasar una aprobación por parte de los administradores antes de aparecer como público
+  - Cola de validación, donde los usuarios administradores gestión ver el contenido pendiente de aprobación
+  - Búsqueda y filtrado del contenido
+  - Paginación
+  - Sección de comentarios para cada entrada
 
-Descarga de Eclise Java EE:
-https://www.eclipse.org/downloads/packages/release/2018-09/r/eclipse-ide-java-ee-developers
 
-1. Elegir como workspace la carpeta "webapps" de la instalación de Apache Tomcat
-1. Pestaña servers de abajo, elegir Tomcat v9.0 server y para "Server name" RadTree
-1. Elegir la carpeta donde esta instalado ApacheTomcat y elegir el JRE (yo elegi 1.8)
-1. Finish
-1. En la pestaña project explorer, new > dynamic web project
-1. Nombre RadTree, next
-1. Abajo del todo cambiar default output folder a WEB-INF/classes
-1. Finish
-1. Borrar la carpeta WebContent creada (con todo su contenido de dentro)
-1. Volver a la pestaña servers del paso 1 y click derecho a RadTree > properties
-1. Darle al boton "Switch location" (en "Location" deberia aparecer /Servers/RadTree.server)
-1. Apply and close
-1. En la pestaña project explorer, doble click a RadTree.server de la carpeta Servers
-1. Elegir "Use Tomcat installation" del menu Server Locations
-1. Guardar y cerrar la pestaña
-1. Volver a la pestaña servers y click derecho a RadTree > start
-1. El servidor deberia aparecer en localhost:8080/RadTree
+## Vistas de la aplicación
+
+Algunas de las vistas definitivas del proyecto son:
+
+### Vista de bienvenida
+![Vista de bienvenida](img/index.png "Bienvenida")
+
+### Lista de noticias
+![Lista de noticias](img/lista-noticias.png "Noticias")
+
+### Lista de preguntas
+![Lista de preguntas](img/lista-preguntas.png "Preguntas")
+
+### Portal de gestión de contenido
+![Gestión de contenido](img/gestion-contenido.png "Gestión de contenido")
+
+### Inicio de sesión
+![Inicio de sesión](img/inicio-sesion.png "Inicio de sesión")
+
+### Perfil de usuario
+![Perfil de usuario](img/perfil.png "Perfil de usuario")
+
+### Búsqueda de usuarios
+![Búsqueda de usuarios](img/usuarios.png "Búsqueda de usuarios")
+
+### Clasificación de usuarios
+![Clasificación de usuarios](img/clasificacion.png "Clasificación de usuarios")
